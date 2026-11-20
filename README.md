@@ -14,7 +14,7 @@ Este repositório é o destino independente do **Cânone Contabilidade**: arquit
 
 ## Programa de integração e conclusão
 
-Consulte [Programa Mestre S22–S26](docs/PROGRAMa_MESTRE_S22_S26.md) e [Registro de Evidências e Bloqueios](docs/REGISTRO_EVIDENCIAS_BLOQUEIOS.md) depois da criação desses documentos.
+Consulte [Programa Mestre S22–S26](docs/PROGRAMA_MESTRE_S22_S26.md) e [Registro de Evidências e Bloqueios](docs/REGISTRO_EVIDENCIAS_BLOQUEIOS.md) para acompanhar a execução.
 
 1. **S22 — Inventário e reconciliação:** localizar artefatos S21, confirmar origem/sha/licença, trazer somente conteúdo comprovado para branches de integração; mapear lacunas e duplicidades.
 2. **S23 — Banco e migrations:** corrigir SQL genérico, padronizar schemas próprios, ownership, grants, RLS, identidade e isolamento; executar em PostgreSQL descartável antes de qualquer staging.
