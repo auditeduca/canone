@@ -1,0 +1,206 @@
+-- Generated deterministically; historical source SHA256 verified 30/30.
+-- source 009_admin_governance.sql sha256=08b1e347fef09fba4b2a76ed8f86b5e330b942607e599cdef3952b74422825e8
+-- source 024_gabarito_imutavel_regua_fixa.sql sha256=f22d52a205deaf04b05a0c039ef9de2061143f05d958723455935c8007d23f44
+-- source 022_prova_selada_letra_inteira.sql sha256=574ab76731ecc12e3a52570a47a4f515b9b46a9d9453dd924932ce783a292123
+-- Cânone alpha.7: audited rewrite of 009 + 024; staging candidate, not deployable.
+-- PostgreSQL 17, isolated Cânone only. DO NOT EXECUTE ON SHARED SUPABASE.
+BEGIN;
+SET LOCAL search_path = pg_catalog;
+DO $guard$ BEGIN
+  IF to_regclass('canone_control.migration_catalog') IS NOT NULL THEN
+    RAISE EXCEPTION 'REFUSE_SHARED_CANONE_SOURCE';
+  END IF;
+  IF to_regclass('canone_audit.audit_log') IS NULL
+    OR to_regclass('canone_learning.answer_key_entry') IS NULL
+    OR to_regclass('auth.users') IS NULL THEN
+    RAISE EXCEPTION 'REQUIRE_ISOLATED_CANONE_PILOT';
+  END IF;
+  IF EXISTS (SELECT 1 FROM canone_audit.audit_log) THEN
+    RAISE EXCEPTION 'REQUIRE_EMPTY_AUDIT_CHAIN_FOR_V2_CUTOVER';
+  END IF;
+END $guard$;
+
+-- Payload contains every logical audit field except the link and its hash.
+-- Timestamps use integer microseconds from epoch (not session DateStyle/TimeZone).
+CREATE OR REPLACE FUNCTION canone_audit.audit_payload(p canone_audit.audit_log)
+RETURNS jsonb
+LANGUAGE sql STABLE SECURITY INVOKER SET search_path = pg_catalog AS $fn$
+  SELECT jsonb_build_object(
+    'format', 'canone-audit-v2',
+    'id', p.id::text, 'seq', p.seq,
+    'occurred_at_epoch_us', (extract(epoch FROM p.occurred_at) * 1000000)::numeric(30,0),
+    'actor_id', p.actor_id::text, 'actor_role', p.actor_role,
+    'subject_user_id', p.subject_user_id::text,
+    'action', p.action, 'entity_type', p.entity_type, 'entity_id', p.entity_id,
+    'before', p.before, 'after', p.after,
+    'request_id', p.request_id, 'ip_address', p.ip_address::text,
+    'user_agent', p.user_agent, 'metadata', p.metadata
+  );
+$fn$;
+
+CREATE OR REPLACE FUNCTION canone_audit.compute_row_hash(p_prev char(64), p_payload jsonb)
+RETURNS char(64)
+LANGUAGE sql STABLE SECURITY INVOKER SET search_path = pg_catalog AS $fn$
+  SELECT encode(sha256(convert_to(
+    'canone-audit-v2|' || coalesce(p_prev::text, '') || '|' || p_payload::text,
+    'UTF8')), 'hex')::char(64);
+$fn$;
+
+-- Transaction advisory lock provides a single writer order for READ COMMITTED.
+-- Overwrite even explicitly supplied seq/prev_hash/row_hash (no client hashing).
+-- Concurrent transaction tests must run against *real* PostgreSQL 17 as well.
+CREATE OR REPLACE FUNCTION canone_audit.set_row_hash()
+RETURNS trigger
+LANGUAGE plpgsql VOLATILE SECURITY INVOKER SET search_path = pg_catalog AS $fn$
+DECLARE v_seq bigint; v_prev char(64);
+BEGIN
+  IF current_setting('transaction_isolation') <> 'read committed' THEN
+    RAISE EXCEPTION 'AUDIT_REQUIRES_READ_COMMITTED' USING ERRCODE='23514';
+  END IF;
+  PERFORM pg_advisory_xact_lock(791357108267::bigint);
+  SELECT a.seq, a.row_hash INTO v_seq, v_prev
+    FROM canone_audit.audit_log a ORDER BY a.seq DESC LIMIT 1;
+  NEW.seq := coalesce(v_seq, 0) + 1;
+  NEW.prev_hash := v_prev;
+  NEW.row_hash := canone_audit.compute_row_hash(
+    NEW.prev_hash, canone_audit.audit_payload(NEW));
+  RETURN NEW;
+END;
+$fn$;
+
+-- Do not permit TRUNCATE, which row-level UPDATE/DELETE triggers don't catch.
+CREATE TRIGGER trg_audit_chain_insert
+  BEFORE INSERT ON canone_audit.audit_log FOR EACH ROW
+  EXECUTE FUNCTION canone_audit.set_row_hash();
+CREATE TRIGGER trg_audit_no_truncate
+  BEFORE TRUNCATE ON canone_audit.audit_log FOR EACH STATEMENT
+  EXECUTE FUNCTION canone_audit.forbid_mutation();
+
+-- Verify *all* earlier rows before applying optional tail scope, and recalculate
+-- each row's hash from the actual data rather than only comparing pointers.
+CREATE OR REPLACE FUNCTION canone_audit.verify_chain(p_from bigint DEFAULT NULL)
+RETURNS TABLE(seq bigint, ok boolean, expected char(64), found char(64))
+LANGUAGE sql STABLE SECURITY INVOKER SET search_path = pg_catalog AS $fn$
+  WITH ordered AS (
+    SELECT a.*, lag(a.row_hash) OVER (ORDER BY a.seq) AS prev_in_chain
+    FROM canone_audit.audit_log a
+  ), recomputed AS (
+    SELECT o.seq, o.prev_hash, o.row_hash, o.prev_in_chain,
+           canone_audit.compute_row_hash(
+             o.prev_hash, canone_audit.audit_payload(o)) AS hash_expected
+    FROM ordered o
+  )
+  SELECT r.seq,
+         (r.prev_hash IS NOT DISTINCT FROM r.prev_in_chain)
+         AND (r.row_hash IS NOT DISTINCT FROM r.hash_expected) AS ok,
+         r.hash_expected AS expected, r.row_hash AS found
+  FROM recomputed r
+  WHERE (r.prev_hash IS DISTINCT FROM r.prev_in_chain
+      OR r.row_hash IS DISTINCT FROM r.hash_expected)
+    AND (p_from IS NULL OR r.seq >= p_from)
+  ORDER BY r.seq;
+$fn$;
+
+-- Authenticated browsers must not read or manipulate the audit chain.
+REVOKE ALL ON FUNCTION canone_audit.audit_payload(canone_audit.audit_log) FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION canone_audit.compute_row_hash(char(64), jsonb) FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION canone_audit.set_row_hash() FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION canone_audit.verify_chain(bigint) FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON TABLE canone_audit.audit_log FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON SEQUENCE canone_audit.audit_log_seq_seq FROM PUBLIC, anon, authenticated;
+
+-- Forbid inserting a definitive key directly: entries cannot exist before its FK.
+-- Transition preliminar -> definitivo checks exact contiguous entry/form ranges.
+CREATE OR REPLACE FUNCTION canone_learning.answer_key_status_imutavel()
+RETURNS trigger
+LANGUAGE plpgsql VOLATILE SECURITY INVOKER SET search_path = pg_catalog AS $fn$
+DECLARE
+  v_expected integer;
+  v_form_count bigint;
+  v_entry_count bigint;
+  v_form_min integer; v_form_max integer;
+  v_entry_min integer; v_entry_max integer;
+BEGIN
+  IF TG_OP='DELETE' THEN
+    IF OLD.status='definitivo' THEN
+      RAISE EXCEPTION 'definitive answer key cannot be removed' USING ERRCODE='23514';
+    END IF;
+    RETURN OLD;
+  END IF;
+  IF TG_OP='INSERT' THEN
+    IF NEW.status='definitivo' THEN
+      RAISE EXCEPTION 'create preliminary key before sealing' USING ERRCODE='23514';
+    END IF;
+    RETURN NEW;
+  END IF;
+  IF OLD.status='definitivo' AND NEW IS DISTINCT FROM OLD THEN
+    RAISE EXCEPTION 'sealed answer key cannot change' USING ERRCODE='23514';
+  END IF;
+  IF NEW.status='definitivo' AND OLD.status IS DISTINCT FROM NEW.status THEN
+    IF NEW.exam_form_id IS DISTINCT FROM OLD.exam_form_id THEN
+      RAISE EXCEPTION 'cannot move form while sealing key' USING ERRCODE='23514';
+    END IF;
+    -- Serialize exam-form edits with the sealing transition.
+    SELECT t.question_count INTO v_expected
+      FROM canone_learning.exam_form f
+      JOIN canone_taxonomy.exam_track t ON t.id=f.exam_track_id
+      WHERE f.id=NEW.exam_form_id FOR UPDATE OF f;
+    IF NOT FOUND OR v_expected IS NULL OR v_expected <= 0 THEN
+      RAISE EXCEPTION 'form or expected question count missing' USING ERRCODE='23514';
+    END IF;
+    SELECT count(*),min(ordinal),max(ordinal)
+      INTO v_form_count,v_form_min,v_form_max
+      FROM canone_learning.exam_form_item WHERE exam_form_id=NEW.exam_form_id;
+    SELECT count(*),min(ordinal),max(ordinal)
+      INTO v_entry_count,v_entry_min,v_entry_max
+      FROM canone_learning.answer_key_entry WHERE answer_key_id=NEW.id;
+    IF v_form_count<>v_expected OR v_entry_count<>v_expected OR
+       v_form_min<>1 OR v_entry_min<>1 OR
+       v_form_max<>v_expected OR v_entry_max<>v_expected OR
+       EXISTS (
+        SELECT 1 FROM canone_learning.exam_form_item i
+        LEFT JOIN canone_learning.answer_key_entry e
+          ON e.answer_key_id=NEW.id AND e.ordinal=i.ordinal
+        WHERE i.exam_form_id=NEW.exam_form_id AND e.ordinal IS NULL
+       ) THEN
+      RAISE EXCEPTION 'cannot seal incomplete/misaligned exam and answer key' USING ERRCODE='23514';
+    END IF;
+  END IF;
+  RETURN NEW;
+END;
+$fn$;
+
+-- Reinstall the original named trigger with INSERT coverage.
+DROP TRIGGER IF EXISTS trg_answer_key_status_imutavel ON canone_learning.answer_key;
+CREATE TRIGGER trg_answer_key_status_imutavel
+  BEFORE INSERT OR UPDATE ON canone_learning.answer_key FOR EACH ROW
+  EXECUTE FUNCTION canone_learning.answer_key_status_imutavel();
+REVOKE ALL ON FUNCTION canone_learning.answer_key_status_imutavel() FROM PUBLIC, anon, authenticated;
+
+-- On any form-item mutation take the parent form lock and recheck seal status
+-- after that lock. This is to coordinate with the finalization transition.
+CREATE OR REPLACE FUNCTION canone_learning.prova_selada_nao_muda()
+RETURNS trigger
+LANGUAGE plpgsql VOLATILE SECURITY INVOKER SET search_path = pg_catalog AS $fn$
+DECLARE v_form uuid; v_sealed boolean;
+BEGIN
+  IF TG_OP='UPDATE' AND NEW IS NOT DISTINCT FROM OLD THEN RETURN NEW; END IF;
+  v_form := CASE WHEN TG_OP='INSERT' THEN NEW.exam_form_id ELSE OLD.exam_form_id END;
+  PERFORM 1 FROM canone_learning.exam_form WHERE id=v_form FOR UPDATE;
+  SELECT EXISTS(SELECT 1 FROM canone_learning.answer_key
+    WHERE exam_form_id=v_form AND status='definitivo') INTO v_sealed;
+  IF v_sealed THEN
+    RAISE EXCEPTION 'sealed form cannot be modified' USING ERRCODE='23514';
+  END IF;
+  IF TG_OP='UPDATE' AND NEW.exam_form_id IS DISTINCT FROM OLD.exam_form_id THEN
+    PERFORM 1 FROM canone_learning.exam_form WHERE id=NEW.exam_form_id FOR UPDATE;
+    SELECT EXISTS(SELECT 1 FROM canone_learning.answer_key
+      WHERE exam_form_id=NEW.exam_form_id AND status='definitivo') INTO v_sealed;
+    IF v_sealed THEN RAISE EXCEPTION 'cannot move item into sealed form' USING ERRCODE='23514'; END IF;
+  END IF;
+  IF TG_OP='DELETE' THEN RETURN OLD; END IF;
+  RETURN NEW;
+END;
+$fn$;
+REVOKE ALL ON FUNCTION canone_learning.prova_selada_nao_muda() FROM PUBLIC, anon, authenticated;
+COMMIT;

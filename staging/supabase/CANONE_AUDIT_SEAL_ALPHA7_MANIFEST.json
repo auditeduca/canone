@@ -1,0 +1,75 @@
+{
+  "audit_fields_covered": [
+    "id",
+    "seq",
+    "occurred_at",
+    "actor_id",
+    "actor_role",
+    "subject_user_id",
+    "action",
+    "entity_type",
+    "entity_id",
+    "before",
+    "after",
+    "request_id",
+    "ip_address",
+    "user_agent",
+    "metadata"
+  ],
+  "audit_hash_version": "canone-audit-v2",
+  "functions_new": [
+    "canone_audit.audit_payload",
+    "canone_audit.compute_row_hash",
+    "canone_audit.set_row_hash",
+    "canone_audit.verify_chain"
+  ],
+  "functions_replaced": [
+    "canone_learning.answer_key_status_imutavel",
+    "canone_learning.prova_selada_nao_muda"
+  ],
+  "production_gate": "NO_GO",
+  "remote_db_writes": 0,
+  "seal_checks": [
+    "forbid_insert_definitivo",
+    "form_lock",
+    "exact_contiguous_positions",
+    "exact_contiguous_answers",
+    "matching_ordinals"
+  ],
+  "source_migrations_verified": 30,
+  "sources": [
+    {
+      "bytes": 11569,
+      "path": "009_admin_governance.sql",
+      "sha256": "08b1e347fef09fba4b2a76ed8f86b5e330b942607e599cdef3952b74422825e8"
+    },
+    {
+      "bytes": 7353,
+      "path": "024_gabarito_imutavel_regua_fixa.sql",
+      "sha256": "f22d52a205deaf04b05a0c039ef9de2061143f05d958723455935c8007d23f44"
+    },
+    {
+      "bytes": 7934,
+      "path": "022_prova_selada_letra_inteira.sql",
+      "sha256": "574ab76731ecc12e3a52570a47a4f515b9b46a9d9453dd924932ce783a292123"
+    }
+  ],
+  "sql_sha256": "cf909a891d6d7a25e58da2785edee43a2fc74b949074589d8b18fb3a039f7ea0",
+  "status": "AUDIT_CHAIN_AND_SEAL_CANDIDATE_NO_GO",
+  "template_sha256": "2862d22339a1e390c2bf026203be6f610a7f77f56dd4936176c1ac957e61a86f",
+  "transaction_order": "read_committed_advisory_xact_lock_and_server_assigned_seq",
+  "triggers_new": [
+    "trg_audit_chain_insert",
+    "trg_audit_no_truncate"
+  ],
+  "triggers_replaced": [
+    "trg_answer_key_status_imutavel"
+  ],
+  "untested": [
+    "real_pg17_multi_connection_concurrency",
+    "external_hash_anchor",
+    "managed_supabase_auth_jwt",
+    "migration_of_existing_nonempty_audit_log"
+  ],
+  "version": "0.23.0-alpha.7"
+}
