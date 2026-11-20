@@ -9,6 +9,21 @@ Formato de versão: **MAJOR.MINOR.PATCH[-PRERELEASE]**, em que:
 - `-rc.N`: candidata a aprovação, sujeita a revisão independente;
 - estável: somente quando todos os gates forem `GO`.
 
+## [0.23.0-alpha.5] — 2026-11-20
+
+**Estado:** `INVOCATION_VIEWS_AND_OWNER_RLS_CI_PASS / RELEASE_NO_GO`.
+
+### Comportamento do banco convertido
+- Inventário com **182 instruções históricas**: 18 views, 58 declarações de função, 26 triggers (incluindo `CONSTRAINT TRIGGER`) e 80 instruções `CREATE POLICY`, com proveniência e SHA-256.
+- **16/18 views** recompiladas em `canone_*` com `WITH (security_invoker=true)`. Duas dependem de `due_items` e do legado `identity.account` e não foram copiadas de forma insegura.
+- **18 políticas owner-only** sobre 12 tabelas, usando `user_id=(select auth.uid())`. `SELECT` restrito; somente notas, favoritos e solicitações LGPD permitem escritas explicitamente listadas. Nenhum grant automático para gabaritos, conteúdo ainda não licenciado, staff ou admin.
+- Primeira função de identidade `canone_ops.current_user_id()` substituída por `auth.uid()` com `SECURITY INVOKER`, sem confiar em `app.current_user_id`. **57 instruções de função** e **26 instruções de trigger** continuam no inventário para adaptação segura.
+- Testes de conversão Python **12/12** e teste adversarial JavaScript **23 verificações**, com **89 tabelas, 16 views invoker e 21 políticas incluindo as três anteriores** em PGlite isolado.
+- [CI aprovado no commit f35475d](https://github.com/auditeduca/canone/actions/runs/44674089869); regressão histórica 277/277 e gate de produção 41/NO_GO preservados.
+
+### Fronteira de homologação
+SQL permanece com sufixo `.candidate.sql.txt`, não migration implantável. A existência de views sem grants de leitura não prova API pronta. O PostgreSQL em memória simula Auth, não substitui Supabase Auth gerenciado/PG17, e nenhum SQL foi aplicado ao Supabase compartilhado. A homologação de funções privilegiadas, triggers, gabaritos, conteúdo e referências oficiais permanece antes do GO.
+
 ## [0.23.0-alpha.4] — 2026-11-20
 
 **Estado:** `S22_PHYSICAL_DDL_82_TABLES_67_INDEXES_12_ALTER_CI_PASS / RELEASE_NO_GO`.

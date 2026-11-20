@@ -1,6 +1,6 @@
 # Cânone — preparação para exames de Contabilidade
 
-**Código e planejamento do Cânone na única branch de trabalho `main`.** Versão: **[0.23.0-alpha.4](CHANGELOG.md)** · Estado: **NO-GO produção** · 19/11/2026.
+**Código e planejamento do Cânone na única branch de trabalho `main`.** Versão: **[0.23.0-alpha.5](CHANGELOG.md)** · Estado: **NO-GO produção** · 19/11/2026.
 
 > Este repositório contém uma **recuperação técnica histórica S22** e a **diretriz de produto S23 v0.3**, não um serviço pronto para produção, venda ou homologação.
 
@@ -10,7 +10,7 @@ Plataforma educacional web/app para **Exame de Suficiência do CFC (P0)**, depoi
 
 O Cânone é separado do ecossistema *Calculadoras de Enfermagem / CKO / NCOS*.
 
-## Crosswalk técnico para Supabase — v0.23.0-alpha.4
+## Crosswalk técnico para Supabase — v0.23.0-alpha.5
 
 - **30/30 migrations** mapeadas para o destino de plataforma, com SHA-256 dos arquivos originais preservados.
 - **90/90 tabelas S22** reconciliadas: 87 tabelas de domínio em schemas `canone_*` e 3 funções de autenticação substituídas por Supabase Auth.
@@ -19,7 +19,7 @@ O Cânone é separado do ecossistema *Calculadoras de Enfermagem / CKO / NCOS*.
 - Artefatos: [crosswalk legível](docs/CROSSWALK_PADRAO_SUPABASE_0_23_0_ALPHA2.md), [crosswalk JSON](crosswalk/supabase/CANONE_PLATFORM_CROSSWALK_0_23_0_ALPHA2.json), [gerador](tools/canone_supabase_crosswalk.py) e [testes](tests/test_canone_crosswalk.py).
 - **Sem HOLD genérico de desenvolvimento:** incompatibilidades têm regras e próximas ações. Produção permanece separada sob `NO_GO` até testes de Auth/RLS/PG17/segurança.
 
-## Piloto de identidade/proveniência — v0.23.0-alpha.4
+## Piloto de identidade/proveniência — v0.23.0-alpha.5
 
 - **SQL de staging, sem aplicação remota:** [candidato de identidade e ponte de fontes](staging/supabase/001_identity_and_source_bridge.candidate.sql.txt), com 7 tabelas, 7 RLS+FORCE e 3 políticas de perfil próprio.
 - Usa `auth.users(id)` do Supabase Auth; não duplica `identity.account`, `identity.session` ou `identity.magic_link`.
@@ -28,7 +28,7 @@ O Cânone é separado do ecossistema *Calculadoras de Enfermagem / CKO / NCOS*.
 - CI validou **11/11 testes estáticos**, **7 tabelas executadas em PGlite, 14 verificações**, além de **277/277 testes S22** e gate `NO-GO` intacto.
 - **Escopo:** piloto inicial; não significa 30 migrations portadas, 87 tabelas implantadas ou PG17 gerenciado homologado. Ver [documentação de implantação](docs/IDENTIDADE_SUPABASE_PILOTO_ALPHA3.md).
 
-## Conversão física S22 — v0.23.0-alpha.4
+## Conversão física S22 — v0.23.0-alpha.5
 
 A conversão agora é **gerada automaticamente em Python**, testada em **PostgreSQL em memória com JavaScript**, e versionada somente na `main`:
 
@@ -38,6 +38,14 @@ A conversão agora é **gerada automaticamente em Python**, testada em **Postgre
 - Geradores [tabelas](tools/convert_canone_schema.py) e [índices/constraints](tools/convert_canone_constraints.py), SQL candidatos [002](staging/supabase/002_domain_tables_82.candidate.sql.txt) e [003](staging/supabase/003_indexes_constraints.candidate.sql.txt), [manifestos](staging/supabase/) e [relatório operacional](docs/CONVERSAO_FISICA_S22_ALPHA4.md).
 
 **Atenção:** `CREATE TABLE`, `ALTER TABLE` e índices compilados não substituem a migração de funções, triggers, views, RLS de acesso e fontes licenciadas. Os candidatos não são aplicáveis automaticamente ao Supabase remoto.
+
+## Conversão de views e RLS — v0.23.0-alpha.5
+
+- **Inventário auditável de 182 instruções**: 18 views, 58 funções, 26 triggers e 80 `CREATE POLICY`, com hashes e localização.
+- **16 views convertidas** para `security_invoker=true`, **18 políticas de propriedade** em 12 tabelas e **1 função Auth** substituída por `auth.uid()` em vez de variável de sessão legado.
+- **12/12 testes Python**, **23 verificações adversariais em PGlite** para perfis A/B; total de **89 tabelas e 21 políticas** (três do piloto original) compiladas. [CI 44674089869 aprovado](https://github.com/auditeduca/canone/actions/runs/44674089869).
+- Artefatos: [gerador](tools/convert_canone_behaviour.py), [views](staging/supabase/004_invoker_views.candidate.sql.txt), [políticas](staging/supabase/005_owner_policies.candidate.sql.txt), [função](staging/supabase/006_auth_user_id_compat.candidate.sql.txt), [inventário](staging/supabase/CANONE_BEHAVIOUR_INVENTORY_MANIFEST.json) e [documentação](docs/CONVERSAO_COMPORTAMENTO_S22_ALPHA5.md).
+- **Próximo escopo:** conversão de 57 definições remanescentes de funções, 26 triggers, duas views dependentes, políticas de serviços e E2E em PostgreSQL 17/Supabase independente. Sem mudança remota e sem GO de produção.
 
 ## O que está versionado na main
 

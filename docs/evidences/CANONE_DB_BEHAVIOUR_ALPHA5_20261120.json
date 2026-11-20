@@ -1,0 +1,52 @@
+{
+  "version": "0.23.0-alpha.5",
+  "branch": "main",
+  "date": "2026-11-20",
+  "tested_commit": "f35475da1d8b82afb25ea4ef5602f81b54373182",
+  "ci": {
+    "id": 44674089869,
+    "url": "https://github.com/auditeduca/canone/actions/runs/44674089869",
+    "conclusion": "success",
+    "python_tests": 12,
+    "isolated_negative_checks": 23
+  },
+  "original_migrations_verified": 30,
+  "table_ddl_from_alpha4": 89,
+  "security_invoker_views": 16,
+  "original": {
+    "view_statements": 18,
+    "function_statements": 58,
+    "trigger_statements": 26,
+    "policy_create_statements": 80
+  },
+  "alpha5": {
+    "policy_operations": 18,
+    "owner_tables": 12,
+    "auth_compat_functions": 1,
+    "policies_total_with_pilot": 21,
+    "functions_unported": 57,
+    "triggers_unported": 26,
+    "views_deferred": 2,
+    "unsafe_legacy_policies_not_automatically_ported": 67
+  },
+  "security": {
+    "rls_forced_tables": 89,
+    "owner_test_A_B": "PASS",
+    "forged_owner_insert": "DENIED",
+    "note_ownership_change": "DENIED",
+    "cross_user_select_update_delete": "DENIED",
+    "answer_key_direct_read": "DENIED",
+    "privileged_view_direct_read": "DENIED",
+    "legacy_user_setting_does_not_override_auth_uid": true
+  },
+  "scope": "Synthetic PGlite smoke. SQL candidate not deployed; Supabase project not modified.",
+  "artifacts": [
+    "tools/convert_canone_behaviour.py",
+    "staging/supabase/004_invoker_views.candidate.sql.txt",
+    "staging/supabase/005_owner_policies.candidate.sql.txt",
+    "staging/supabase/006_auth_user_id_compat.candidate.sql.txt",
+    "staging/supabase/CANONE_BEHAVIOUR_INVENTORY_MANIFEST.json",
+    "docs/CONVERSAO_COMPORTAMENTO_S22_ALPHA5.md"
+  ],
+  "production_gate": "NO_GO"
+}
