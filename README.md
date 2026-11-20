@@ -1,6 +1,6 @@
 # Cânone — preparação para exames de Contabilidade
 
-**Código e planejamento do Cânone na única branch de trabalho `main`.** Versão: **[0.23.0-alpha.5](CHANGELOG.md)** · Estado: **NO-GO produção** · 19/11/2026.
+**Código e planejamento do Cânone na única branch de trabalho `main`.** Versão: **[0.23.0-alpha.6](CHANGELOG.md)** · Estado: **NO-GO produção** · 20/11/2026.
 
 > Este repositório contém uma **recuperação técnica histórica S22** e a **diretriz de produto S23 v0.3**, não um serviço pronto para produção, venda ou homologação.
 
@@ -46,6 +46,14 @@ A conversão agora é **gerada automaticamente em Python**, testada em **Postgre
 - **12/12 testes Python**, **23 verificações adversariais em PGlite** para perfis A/B; total de **89 tabelas e 21 políticas** (três do piloto original) compiladas. [CI 44674089869 aprovado](https://github.com/auditeduca/canone/actions/runs/44674089869).
 - Artefatos: [gerador](tools/convert_canone_behaviour.py), [views](staging/supabase/004_invoker_views.candidate.sql.txt), [políticas](staging/supabase/005_owner_policies.candidate.sql.txt), [função](staging/supabase/006_auth_user_id_compat.candidate.sql.txt), [inventário](staging/supabase/CANONE_BEHAVIOUR_INVENTORY_MANIFEST.json) e [documentação](docs/CONVERSAO_COMPORTAMENTO_S22_ALPHA5.md).
 - **Próximo escopo:** conversão de 57 definições remanescentes de funções, 26 triggers, duas views dependentes, políticas de serviços e E2E em PostgreSQL 17/Supabase independente. Sem mudança remota e sem GO de produção.
+
+## Proteção de integridade — marco v0.23.0-alpha.6
+
+- **7 funções revisadas** em `SECURITY INVOKER` e **20 triggers** de preservação de gabaritos definitivos, audit trail/SRS append-only e 12 carimbos `updated_at`.
+- Novo gerador [Python](tools/convert_canone_integrity.py), [SQL 007](staging/supabase/007_integrity_triggers.candidate.sql.txt), [manifesto SHA-256](staging/supabase/CANONE_INTEGRITY_ALPHA6_MANIFEST.json), [testes de execução](tests/canone_integrity_pglite.mjs) e [documentação](docs/CONVERSAO_INTEGRIDADE_S22_ALPHA6.md).
+- [CI aprovado](https://github.com/auditeduca/canone/actions/runs/44675846859): 14 testes Python, 27 verificações PGlite, funções sem `EXECUTE` para navegador, bloqueios de adulteração e UPDATE legítimo de nota pelo proprietário autenticado.
+- Restam **50 instruções históricas de função** fora da whitelist e parte dos triggers originais, além de concorrência/PG17/Supabase Auth e cálculo seguro de hashes.
+- SQL candidato **não implantável**; sem banco compartilhado, nova branch ou deploy. `NO_GO` para publicação.
 
 ## O que está versionado na main
 

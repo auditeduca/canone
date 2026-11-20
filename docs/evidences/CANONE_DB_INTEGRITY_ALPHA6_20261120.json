@@ -1,0 +1,65 @@
+{
+  "version": "0.23.0-alpha.6",
+  "recorded_on": "2026-11-20",
+  "repo": "auditeduca/canone",
+  "branch": "main",
+  "tested_commit": "500d62a43fc945e8132a6c5a93fa95bfe90cf5e9",
+  "ci": {
+    "run_id": 44675846859,
+    "url": "https://github.com/auditeduca/canone/actions/runs/44675846859",
+    "result": "success"
+  },
+  "source_sql_migrations_verified": 30,
+  "added": {
+    "functions": 7,
+    "explicit_integrity_triggers": 8,
+    "timestamp_triggers": 12,
+    "total_triggers": 20,
+    "python_tests_passed": 14,
+    "pglite_checks_passed": 27
+  },
+  "source_object_inventory": {
+    "function_statements": 58,
+    "previously_replaced_identity_functions": 1,
+    "alpha6_reviewed": 7,
+    "remaining_historical_function_statements": 50,
+    "create_trigger_statements": 26,
+    "note": "Historical statement counts include replacements/duplicates; 12 timestamp triggers originate from original dynamic DO, not 12 CREATE TRIGGER source statements."
+  },
+  "inherited_validated": {
+    "tables": 89,
+    "views_invoker": 16,
+    "rls_policies": 21,
+    "indexes": 67,
+    "structural_alter": 12,
+    "legacy_regressions_passed": 277
+  },
+  "successful_negative_tests": [
+    "final answer key entry cannot append, modify or delete",
+    "definitive answer key cannot downgrade, change source or delete",
+    "sealed form cannot append item",
+    "exam track and edition question_count cannot be rebased after seal",
+    "audit log update/delete denied",
+    "SRS review event update/delete denied"
+  ],
+  "positive_tests": [
+    "preliminary answer key can change entry",
+    "authenticated owner can update own note after timestamp triggers"
+  ],
+  "scope": "PGlite in-memory with synthetic authentication and synthetic, unlicensed exam fixture; no live database",
+  "limitations": [
+    "No attested concurrent transactions or answer key completeness at seal",
+    "No finished audit hash chain",
+    "No managed PostgreSQL 17/Supabase Auth JWT E2E",
+    "SQL candidate is not a migration or release"
+  ],
+  "remote_sql_executions": 0,
+  "production_gate": "NO_GO",
+  "artifacts": [
+    "tools/convert_canone_integrity.py",
+    "staging/supabase/007_integrity_triggers.candidate.sql.txt",
+    "staging/supabase/CANONE_INTEGRITY_ALPHA6_MANIFEST.json",
+    "tests/canone_integrity_pglite.mjs",
+    "docs/CONVERSAO_INTEGRIDADE_S22_ALPHA6.md"
+  ]
+}

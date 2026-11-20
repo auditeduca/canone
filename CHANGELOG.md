@@ -9,6 +9,20 @@ Formato de versão: **MAJOR.MINOR.PATCH[-PRERELEASE]**, em que:
 - `-rc.N`: candidata a aprovação, sujeita a revisão independente;
 - estável: somente quando todos os gates forem `GO`.
 
+## [0.23.0-alpha.6] — 2026-11-20
+
+**Estado:** `INTEGRITY_FUNCTIONS_7_TRIGGERS_20_CI_PASS / RELEASE_NO_GO`.
+
+### Integridade de provas, SRS e auditoria
+- **7 funções trigger** `SECURITY INVOKER` com `search_path` controlado e sem `EXECUTE` público.
+- **20 triggers candidatos**: oito para imutabilidade e selo de provas/gabaritos, mais 12 `updated_at` em tabelas permitidas. O mecanismo histórico que tentava atualizar `identity.account` foi substituído pelo uso do Supabase Auth.
+- Proteção adicional contra **INSERIR novas entradas em gabarito definitivo** e exclusão do próprio gabarito; bloqueio da alteração de `question_count` em exame/edição depois do selo. As operações idempotentes preservadas são explicitadas nos testes.
+- Inventário de procedência com arquivo/linha/SHA-256 por função e verificação de 30 migrations antes de gerar SQL. Restam **50 instruções históricas de função** não convertidas, incluindo cadeia de hashes da auditoria, cálculo de notas e serviços privilegiados.
+- CI no commit `500d62a`: [GitHub Actions 44675846859](https://github.com/auditeduca/canone/actions/runs/44675846859) **PASS**, 14/14 testes Python e 27 verificações PGlite, incluindo UPDATE legítimo de nota pelo aluno autenticado; regressões 277/277 e gate de produção 41/NO_GO preservados.
+
+### Limites
+A candidata `007_integrity_triggers.candidate.sql.txt` não é migration aplicável. Testes em memória **não comprovam concorrência ou integridade transacional PG17**, selo completo de gabarito, encadeamento de hashes, JWT/Supabase Auth gerenciado ou liberação de dados. Nenhum SQL remoto executado; produção segue `NO_GO`.
+
 ## [0.23.0-alpha.5] — 2026-11-20
 
 **Estado:** `INVOCATION_VIEWS_AND_OWNER_RLS_CI_PASS / RELEASE_NO_GO`.
