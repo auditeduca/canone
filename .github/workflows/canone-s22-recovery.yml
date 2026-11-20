@@ -61,6 +61,11 @@ jobs:
         run: |
           python3 tools/canone_supabase_crosswalk.py --root . --check
           python3 -m unittest discover -s tests -p 'test_canone_crosswalk.py' -v
+      - name: Verify generated 82-table Supabase SQL and source lineage
+        shell: bash
+        run: |
+          python3 tools/convert_canone_schema.py --root . --check
+          python3 -m unittest discover -s tests -p 'test_canone_domain_conversion.py' -v
       - name: Recreate a synthetic fixture for omitted editorial sample IDs
         shell: bash
         run: |
@@ -91,6 +96,9 @@ jobs:
       - name: Execute candidate in isolated in-memory PGlite (no network)
         shell: bash
         run: node tests/supabase_stage_pilot_pglite.mjs
+      - name: Execute 82 converted domain DDL tables in isolated PGlite
+        shell: bash
+        run: node tests/canone_domain_tables_pglite.mjs
       - name: S22 offline-only 277 regression tests (synthetic excluded-source fixture)
         run: python3 source-s22/backend/db/shared-host/s22-contracts/run_local_gates.py
       - name: Show bounded offline failure diagnostics
