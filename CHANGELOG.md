@@ -13,6 +13,10 @@ Formato de versão: **MAJOR.MINOR.PATCH[-PRERELEASE]**, em que:
 
 O proprietário decidiu **adiar Supabase exclusivo até a etapa final F8**, após desenvolvimento/QA do banco, backend, frontend, conteúdo, assinaturas simuladas, segurança e pacote de implantação (F1–F7). Trata-se de alteração documental da ordem de execução, **sem release funcional novo**. Veja [plano Supabase por último](docs/PLANO_CONCLUSAO_SUPABASE_ULTIMO.md).
 
+### NS-01 — reconciliação do inventário (sem nova release)
+
+Gerado e testado reconciliador Python que classifica 182 declarações históricas por fonte, linha, hash, risco e presença dos objetos nos 10 candidatos SQL. **12 testes locais** incluem negativos de adulteração e drift; integração CI obrigatória. As pendências F1 ficam visíveis e Supabase continua por último (F8). [Matriz](inventories/s22/CANONE_NS01_OBJECT_RECONCILIATION.json) · [Relatório](docs/NS01_INVENTARIO_FUNCOES_TRIGGERS_VIEWS_POLICIES.md).
+
 ## [0.23.0-alpha.9] — 2026-11-20
 
 **Estado:** `AUTHENTICATED_GATEWAY_AND_ENTITLEMENT_PG17_CI_PASS / RELEASE_NO_GO`.

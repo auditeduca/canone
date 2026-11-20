@@ -37,7 +37,7 @@ Só então:
 
 | ID | Microtarefa | Aceite verificável |
 |---|---|---|
-| **NS-01** | Inventariar funções/triggers restantes e dois motivos de view não portada, cruzando a origem S22 com os candidatos 001–010 | Matriz gerada automaticamente por Python, sem objetos silenciosamente omitidos |
+| **NS-01** | Inventariar funções/triggers restantes e dois motivos de view não portada, cruzando a origem S22 com os candidatos 001–010 | Matriz gerada automaticamente por Python, sem objetos silenciosamente omitidos — **PASS inventário 182/182**, F1 segue em execução; [matriz de objetos](../inventories/s22/CANONE_NS01_OBJECT_RECONCILIATION.json), [relatório](NS01_INVENTARIO_FUNCOES_TRIGGERS_VIEWS_POLICIES.md) |
 | **NS-02** | Criar fixture de identidade local que reproduza entradas seguras do gateway, mantendo separação explícita entre mock e Auth gerenciado | E2E local bloqueia token forjado, usuário B e benefício inválido |
 | **NS-03** | Unir gateway, PG17 e jornada de prova em testes de integração REST | Início→resposta→fim→feedback→SRS→progresso com dados inventados |
 | **NS-04** | Criar primeira tela navegável da jornada P0 e casos E2E desktop/mobile | Fluxo sem acesso ao gabarito antes do encerramento |

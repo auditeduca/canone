@@ -79,6 +79,12 @@ O primeiro backend de confiança para as funções privadas de prova já está v
 - **Identidade** validada por Supabase Auth `/auth/v1/user` a cada chamada; o banco recebe somente o sujeito retornado. **Acesso** depende de assinatura ativa e recurso habilitado ou concessão válida.
 - **Sem publicação:** apenas testes sintéticos; não existe projeto Supabase exclusivo acessível, nem credenciais/JWT de produção, nem direito editorial homologado. `NO_GO` continua apenas para promoção operacional.
 
+## NS-01 — inventário SQL rastreável (sem projeto Supabase)
+
+O reconciliador [Python](tools/reconcile_s22_objects.py) e o [registro JSON completo](inventories/s22/CANONE_NS01_OBJECT_RECONCILIATION.json) classificam as **182 declarações** das 30 migrations S22 contra os 10 candidatos de SQL, com hash por objeto e evidências de divergência. [Relatório de pendências](docs/NS01_INVENTARIO_FUNCOES_TRIGGERS_VIEWS_POLICIES.md).
+
+**PASS do inventário, não da paridade funcional:** 40 declarações de função sem porte, 17 triggers, 2 views e 67 políticas legadas dependem de trabalho/revisão. Nenhum Supabase foi modificado: ele permanece como etapa F8, a última integração.
+
 ## O que está versionado na main
 
 - **389 arquivos de código recuperados do S22**, no diretório [source-s22/](source-s22/), sem serem promovidos à raiz executável.
