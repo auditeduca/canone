@@ -1,18 +1,9 @@
-name: Cânone S22 recovery (no deploy)
+name: Cânone main — integridade e regressão (NO-GO, sem deploy)
 
 on:
   push:
-    branches:
-      - recovery/**
-    paths:
-      - 'source-s22/**'
-      - 'inventories/source/**'
-      - '.github/workflows/canone-s22-recovery.yml'
-  pull_request:
-    paths:
-      - 'source-s22/**'
-      - 'inventories/source/**'
-      - '.github/workflows/canone-s22-recovery.yml'
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -36,6 +27,19 @@ jobs:
         with:
           node-version: '22'
           package-manager-cache: false
+      - name: Verify single-branch versioning and NO-GO snapshot
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import pathlib
+          version=pathlib.Path('VERSION').read_text(encoding='utf-8').strip()
+          changelog=pathlib.Path('CHANGELOG.md').read_text(encoding='utf-8')
+          assert version and version in changelog, 'VERSION is absent from CHANGELOG'
+          assert version.startswith('0.'), 'No stable version without formal release gate'
+          assert pathlib.Path('source-s22/QUARENTENA_S22_NO_GO.md').exists(), 'Missing quarantined source marker'
+          assert pathlib.Path('docs/VERSIONAMENTO_MAIN.md').exists(), 'Missing main-only versioning policy'
+          print('PASS main version',version,'; source quarantined; NO-GO')
+          PY
       - name: Verify 389 imported Git source blobs against recorded SHA-256
         shell: bash
         run: |
