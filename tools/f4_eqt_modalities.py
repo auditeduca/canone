@@ -40,6 +40,15 @@ def check(data=None,*,root=ROOT):
       ass["objective_pass_percent"])==(25,5,2,2,25,100,60),"EQT_FORMAT_DRIFT")
  ok(ass["objective_questions"]*ass["objective_points_each"]+
     ass["discursive_questions"]*ass["discursive_points_each"]==100,"EQT_SCORE_INVALID")
+ rights=json.loads((root/"governance/editorial_rights_registry_v1.json").read_text())
+ assets={a["asset_id"]:a for a in rights["assets"]}
+ official="https://conhecimento.fgv.br/exames/cfceqt/2026.2"
+ for suffix in ("qtg","per","cvm","bcb","susep","previc"):
+  a=assets.get("fgv:eqt:2026.2:"+suffix,{})
+  ok(a.get("state")=="HOLD_RIGHTS" and a.get("origin")=="THIRD_PARTY" and
+     a.get("source_ref")==official and a.get("permitted_scope")==[] and
+     a.get("evidence_ref") is None and not a.get("reviewers") and
+     a.get("content_version") is None,"EQT_RIGHTS_REGISTRY_GAP")
  ok(len(rows)==6 and tuple(x["id"] for x in rows)==IDS and
     tuple(x["exam_date"] for x in rows)==DATES,"EQT_MODALITIES_MISMATCH")
  s23={x["Código"] for x in read_csv(root/"planning/s23/S23_EXAMES_CFC.csv")}

@@ -21,7 +21,7 @@ class EditorialRightsTests(unittest.TestCase):
             check(data,today=date(2026,11,20))
     def test_baseline_test_only_and_external_hold(self):
         self.assertEqual(check(self.candidate(),today=date(2026,11,20),require_baseline=True),
-                         {"TEST_ONLY":2,"HOLD_RIGHTS":3,"REJECTED":0})
+                         {"TEST_ONLY":2,"HOLD_RIGHTS":9,"REJECTED":0})
     def test_cannot_go_live_by_editing_registry(self):
         self.assertHold(lambda x:x.update(production_gate="GO"),"EARLY_PRODUCTION")
     def test_public_release_not_in_v1(self):

@@ -18,6 +18,11 @@
       "kind": "guidance",
       "title": "Ministerio da Cultura - direitos autorais",
       "url": "https://www.gov.br/cultura/pt-br/assuntos/direitos-autorais/perguntas-frequentes/perguntas-frequentes"
+    },
+    {
+      "kind": "official_eqt_exam_index",
+      "title": "FGV Conhecimento - EQT 2/2026 (seis modalidades)",
+      "url": "https://conhecimento.fgv.br/exames/cfceqt/2026.2"
     }
   ],
   "assets": [
@@ -81,6 +86,72 @@
       "state": "HOLD_RIGHTS",
       "origin": "UNKNOWN",
       "source_ref": "source-s22/QUARENTENA_S22_NO_GO.md",
+      "permitted_scope": [],
+      "evidence_ref": null,
+      "reviewers": [],
+      "expires_on": null
+    },
+    {
+      "asset_id": "fgv:eqt:2026.2:qtg",
+      "content_version": null,
+      "state": "HOLD_RIGHTS",
+      "origin": "THIRD_PARTY",
+      "source_ref": "https://conhecimento.fgv.br/exames/cfceqt/2026.2",
+      "permitted_scope": [],
+      "evidence_ref": null,
+      "reviewers": [],
+      "expires_on": null
+    },
+    {
+      "asset_id": "fgv:eqt:2026.2:per",
+      "content_version": null,
+      "state": "HOLD_RIGHTS",
+      "origin": "THIRD_PARTY",
+      "source_ref": "https://conhecimento.fgv.br/exames/cfceqt/2026.2",
+      "permitted_scope": [],
+      "evidence_ref": null,
+      "reviewers": [],
+      "expires_on": null
+    },
+    {
+      "asset_id": "fgv:eqt:2026.2:cvm",
+      "content_version": null,
+      "state": "HOLD_RIGHTS",
+      "origin": "THIRD_PARTY",
+      "source_ref": "https://conhecimento.fgv.br/exames/cfceqt/2026.2",
+      "permitted_scope": [],
+      "evidence_ref": null,
+      "reviewers": [],
+      "expires_on": null
+    },
+    {
+      "asset_id": "fgv:eqt:2026.2:bcb",
+      "content_version": null,
+      "state": "HOLD_RIGHTS",
+      "origin": "THIRD_PARTY",
+      "source_ref": "https://conhecimento.fgv.br/exames/cfceqt/2026.2",
+      "permitted_scope": [],
+      "evidence_ref": null,
+      "reviewers": [],
+      "expires_on": null
+    },
+    {
+      "asset_id": "fgv:eqt:2026.2:susep",
+      "content_version": null,
+      "state": "HOLD_RIGHTS",
+      "origin": "THIRD_PARTY",
+      "source_ref": "https://conhecimento.fgv.br/exames/cfceqt/2026.2",
+      "permitted_scope": [],
+      "evidence_ref": null,
+      "reviewers": [],
+      "expires_on": null
+    },
+    {
+      "asset_id": "fgv:eqt:2026.2:previc",
+      "content_version": null,
+      "state": "HOLD_RIGHTS",
+      "origin": "THIRD_PARTY",
+      "source_ref": "https://conhecimento.fgv.br/exames/cfceqt/2026.2",
       "permitted_scope": [],
       "evidence_ref": null,
       "reviewers": [],

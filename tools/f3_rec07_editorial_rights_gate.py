@@ -79,11 +79,17 @@ def check(value, *, today=None, require_baseline=False):
             if not isinstance(src,str) or not any(src.startswith(prefix) for prefix in SRC_OK):
                 fail("SOURCE_PROVENANCE_MISSING")
     if require_baseline:
-        if counts["TEST_ONLY"]!=2 or counts["HOLD_RIGHTS"]<3:fail("BASELINE_NOT_COMPLETE")
+        if counts["TEST_ONLY"]!=2 or counts["HOLD_RIGHTS"]!=9:fail("BASELINE_NOT_COMPLETE")
         expected={"00000000-0000-4000-8000-000000000008",
                   "00000000-0000-4000-8000-000000000009",
                   "fgv:cfc:2026.2:question-book","fgv:cfc:2026.3:question-book",
-                  "historical:quarantined-editorial-bank"}
+                  "historical:quarantined-editorial-bank",
+                  "fgv:eqt:2026.2:qtg",
+                  "fgv:eqt:2026.2:per",
+                  "fgv:eqt:2026.2:cvm",
+                  "fgv:eqt:2026.2:bcb",
+                  "fgv:eqt:2026.2:susep",
+                  "fgv:eqt:2026.2:previc"}
         if not expected.issubset(seen):fail("MISSING_DECLARED_ASSETS")
     return counts
 

@@ -18,3 +18,9 @@
 O registro `governance/f4_eqt_modalities_2026_2_v1.json` reconcilia os seis IDs de trilha do S23 e marca todos como `HOLD_RIGHTS`, `HOLD_VERSIONED_CFC_NBC_OR_REGULATOR` e `NOT_E2E_HOMOLOGATED` para discursivas; **0 questões autorizadas para publicação**. O validador impede empréstimo silencioso do formato e do corte normativo do Exame de Suficiência.
 
 **Gate de release:** somente com autorização de conteúdo, inventário de normas com datas, revisão por especialista, correção discursiva validada, acessibilidade, segurança e aprovação jurídica humana. Plataforma **NO_GO**.
+
+## Completação de direitos — F4-03
+
+O registro canônico `governance/editorial_rights_registry_v1.json` passou de cinco referências históricas para **11 ativos**: **2 TEST_ONLY + 9 HOLD_RIGHTS + 0 publicáveis**. Os seis novos HOLDs são exatamente `fgv:eqt:2026.2:{qtg,per,cvm,bcb,susep,previc}`, vinculados à página oficial FGV. São referências de origem, **não cópias das provas**. A validação `tools/f4_eqt_modalities.py` agora falha se qualquer trilha EQT não constar do registro de direitos ou possuir indevidamente licença/permissão.
+
+A fotografia histórica F3-REC-07 de cinco itens permanece preservada em seu relatório de execução anterior. A cobertura expandida é um **incremento F4**, não revisão retroativa de resultado.
