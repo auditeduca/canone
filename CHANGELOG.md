@@ -9,6 +9,21 @@ Formato de versão: **MAJOR.MINOR.PATCH[-PRERELEASE]**, em que:
 - `-rc.N`: candidata a aprovação, sujeita a revisão independente;
 - estável: somente quando todos os gates forem `GO`.
 
+## [0.23.0-alpha.2] — 2026-11-19
+
+**Estado:** `PLATFORM_CROSSWALK_30_90_COMPLETE / DEV_CONTINUES / RELEASE_NO_GO`.
+
+### Crosswalk canônico implementado
+- Inventário determinístico de **30/30 migrations S22**, preservadas por SHA-256; **14/14 schemas** traduzidos para `canone_*`.
+- Reconciliação física de **90/90 tabelas**: 87 tabelas de domínio a projetar e três recursos de login substituídos pelo Supabase Auth.
+- Mapeamento de **43 referências a `identity.account`** para contrato `auth.users`; 10 regras de identidade/autenticação e nove papéis de acesso.
+- Três referências entre schemas compartilhados mapeadas para contratos de proveniência `canone_bridge`, sem cópia integral de acervos CE/CKO.
+- Gerador `tools/canone_supabase_crosswalk.py` e validação de integridade sem executar SQL.
+- Catálogo [JSON](crosswalk/supabase/CANONE_PLATFORM_CROSSWALK_0_23_0_ALPHA2.json), [documento operacional](docs/CROSSWALK_PADRAO_SUPABASE_0_23_0_ALPHA2.md) e **10 testes automáticos de contrato**.
+
+### Separação de status
+**Mapeado e versionado** não é sinônimo de **migration executável/homologada**. Autenticação e RLS exigem código de adaptação e testes de PG17; conteúdo e licenças continuam em revisão própria. Desenvolvimento segue sem bloqueio genérico, produção permanece `NO_GO`.
+
 ## [0.23.0-alpha.1] — 2026-11-19
 
 **Estado:** `SOURCE_RECOVERED / CI_OFFLINE_ONLY / RELEASE_NO_GO`.
