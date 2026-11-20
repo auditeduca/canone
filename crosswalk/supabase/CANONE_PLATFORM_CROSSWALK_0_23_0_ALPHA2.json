@@ -1,0 +1,1103 @@
+{
+  "auth_identity": [
+    {
+      "detail": "Keep UUID as identity link, not a writable replica of auth.users.",
+      "legacy": "identity.account.id",
+      "strategy": "managed_identity_fk",
+      "target": "auth.users.id"
+    },
+    {
+      "detail": "Read through authorized server API or approved private RPC; no duplicate credential store.",
+      "legacy": "identity.account.email",
+      "strategy": "supabase_auth_managed",
+      "target": "auth.users.email"
+    },
+    {
+      "detail": "Never import passwords, password hashes, OTPs or magic-link tokens as rows.",
+      "legacy": "identity.account.password_hash",
+      "strategy": "retire_legacy_credential",
+      "target": "Supabase Auth"
+    },
+    {
+      "detail": "Account bans are controlled by Auth; student onboarding state belongs to app domain.",
+      "legacy": "identity.account.status",
+      "strategy": "split_auth_and_app_state",
+      "target": "Supabase Auth + canone_identity.user_profile"
+    },
+    {
+      "detail": "Application profile uses UUID FK to auth.users; no direct public grant on auth.users.",
+      "legacy": "identity.user_profile.user_id",
+      "strategy": "foreign_key",
+      "target": "auth.users.id"
+    },
+    {
+      "detail": "Server-enforced grant authority; never trust raw_user_meta_data or client-supplied role.",
+      "legacy": "identity.user_role",
+      "strategy": "protected_role_registry",
+      "target": "canone_identity.user_role"
+    },
+    {
+      "detail": "App-specific study sessions remain distinct from authentication sessions.",
+      "legacy": "identity.session",
+      "strategy": "replace_auth_runtime",
+      "target": "Supabase Auth session"
+    },
+    {
+      "detail": "Supabase Auth owns login token generation, expiry and redemption.",
+      "legacy": "identity.magic_link",
+      "strategy": "replace_auth_runtime",
+      "target": "Supabase Auth OTP/magic link"
+    },
+    {
+      "detail": "No client-writable current_user_id GUC may determine row ownership.",
+      "legacy": "ops.current_user_id()",
+      "strategy": "jwt_identity_in_rls",
+      "target": "auth.uid()"
+    },
+    {
+      "detail": "Use server-managed grants/roles with fresh DB check for sensitive writes.",
+      "legacy": "ops.current_area() / ops.is_staff()",
+      "strategy": "signed_roles_and_db_lookup",
+      "target": "canone_identity.role grants and trusted JWT app_metadata"
+    }
+  ],
+  "changes_to_shared_supabase": false,
+  "ci_contract": "map-all-30, sha-all-30, no-write, test security boundaries",
+  "migrations": [
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "ops",
+        "public"
+      ],
+      "number": 1,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 0,
+        "create_view": 0,
+        "security_definer_mentions": 0
+      },
+      "source": "001_schemas_roles.sql",
+      "source_sha256": "7fc94c1549725619578b8d1599c4556b28195287f85f69dc1339876bcea66380",
+      "target_schemas": [
+        "canone_ops",
+        "canone_public"
+      ],
+      "transformation_rule": "Replace legacy CREATE ROLE/SCHEMA/EXTENSION with isolated canone_* schema provisioning, supported extension setup and platform-owned roles.",
+      "workstream": "platform_bootstrap"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "editorial",
+        "identity"
+      ],
+      "number": 2,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 10,
+        "create_view": 0,
+        "security_definer_mentions": 0
+      },
+      "source": "002_identity_lgpd.sql",
+      "source_sha256": "fd1f0491a7e697d14ba80265825ca360069016e9d3e1437de110c2328c263623",
+      "target_schemas": [
+        "canone_editorial",
+        "canone_identity"
+      ],
+      "transformation_rule": "Move credentials/session/OTP to Supabase Auth; profiles/consent remain in canone_identity with auth.users UUID references.",
+      "workstream": "supabase_auth_bridge"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "editorial",
+        "identity"
+      ],
+      "number": 3,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 14,
+        "create_view": 0,
+        "security_definer_mentions": 0
+      },
+      "source": "003_metamodel.sql",
+      "source_sha256": "9f8c972db65d8f59646fb5b4643c929047cd04e7a73dd5c788b68a6a535dc953",
+      "target_schemas": [
+        "canone_editorial",
+        "canone_identity"
+      ],
+      "transformation_rule": "Project editorial metamodel into canone_editorial; preserve foreign-key integrity and editorial provenance.",
+      "workstream": "domain_ddl"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "editorial",
+        "taxonomy"
+      ],
+      "number": 4,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 8,
+        "create_view": 0,
+        "security_definer_mentions": 0
+      },
+      "source": "004_taxonomy_blueprint.sql",
+      "source_sha256": "ceeb6cc129d5fe7c2ee6d8e7a126c349fa0d0a50f82732d8d5e32ad3d0dd0473",
+      "target_schemas": [
+        "canone_editorial",
+        "canone_taxonomy"
+      ],
+      "transformation_rule": "Project CFC exam blueprint into canone_taxonomy.",
+      "workstream": "domain_ddl"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "editorial",
+        "norms",
+        "taxonomy"
+      ],
+      "number": 5,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 5,
+        "create_view": 0,
+        "security_definer_mentions": 0
+      },
+      "source": "005_norms.sql",
+      "source_sha256": "a1926ea47776e642e9d10cd0cf9c8a8102d88c4d3d49af0f5580e95a4e75f75c",
+      "target_schemas": [
+        "canone_editorial",
+        "canone_norms",
+        "canone_taxonomy"
+      ],
+      "transformation_rule": "Project normative records into canone_norms; verify source and rights for actual content ingestion.",
+      "workstream": "domain_ddl"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "editorial",
+        "learning",
+        "taxonomy"
+      ],
+      "number": 6,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 11,
+        "create_view": 0,
+        "security_definer_mentions": 2
+      },
+      "source": "006_learning_items.sql",
+      "source_sha256": "55417f64192b8b4e5081416c2b874f207bedaf011fd2670e38e1f37bc5c75031",
+      "target_schemas": [
+        "canone_editorial",
+        "canone_learning",
+        "canone_taxonomy"
+      ],
+      "transformation_rule": "Project learning items with ownership and non-disclosure boundaries.",
+      "workstream": "learning_ddl"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "editorial",
+        "identity",
+        "learning",
+        "taxonomy"
+      ],
+      "number": 7,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 9,
+        "create_view": 0,
+        "security_definer_mentions": 0
+      },
+      "source": "007_learning_srs.sql",
+      "source_sha256": "d9bb2e97b45b050b24304d89973b4ac284b62f6dff4952a94dd9f4d108e3c545",
+      "target_schemas": [
+        "canone_editorial",
+        "canone_identity",
+        "canone_learning",
+        "canone_taxonomy"
+      ],
+      "transformation_rule": "Project SRS to canone_learning with JWT-based user ownership.",
+      "workstream": "learning_ddl"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "commerce",
+        "identity"
+      ],
+      "number": 8,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 7,
+        "create_view": 0,
+        "security_definer_mentions": 0
+      },
+      "source": "008_commerce.sql",
+      "source_sha256": "b5abc75dde4e6183b2ff77232cd87686b37538e632a84b8ff885d117e7c80d60",
+      "target_schemas": [
+        "canone_commerce",
+        "canone_identity"
+      ],
+      "transformation_rule": "Project commerce schema but keep payment connectors and live entitlements disabled until signed tests.",
+      "workstream": "commerce_feature_off"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "admin",
+        "audit",
+        "editorial",
+        "identity",
+        "learning"
+      ],
+      "number": 9,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 7,
+        "create_view": 0,
+        "security_definer_mentions": 0
+      },
+      "source": "009_admin_governance.sql",
+      "source_sha256": "08b1e347fef09fba4b2a76ed8f86b5e330b942607e599cdef3952b74422825e8",
+      "target_schemas": [
+        "canone_admin",
+        "canone_audit",
+        "canone_editorial",
+        "canone_identity",
+        "canone_learning"
+      ],
+      "transformation_rule": "Project admin and audit domains with strong separation of duties.",
+      "workstream": "governance_ddl"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "identity",
+        "ops"
+      ],
+      "number": 10,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 12,
+        "create_view": 0,
+        "security_definer_mentions": 0
+      },
+      "source": "010_ops_platform.sql",
+      "source_sha256": "3d8c5eee7c68f9b6379742bd997071ea114c8e249805fa2869ecf2cfdbfbc336",
+      "target_schemas": [
+        "canone_identity",
+        "canone_ops"
+      ],
+      "transformation_rule": "Project operational domain without client-controlled identity/session GUC authorization.",
+      "workstream": "platform_runtime"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "admin",
+        "commerce",
+        "editorial",
+        "identity",
+        "learning",
+        "norms",
+        "ops"
+      ],
+      "number": 11,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 0,
+        "create_view": 0,
+        "security_definer_mentions": 0
+      },
+      "source": "011_triggers_integridade.sql",
+      "source_sha256": "5a054634c6255348d5a17942845cab44a6ed494e105af726e14b3c2f0f1040ec",
+      "target_schemas": [
+        "canone_admin",
+        "canone_commerce",
+        "canone_editorial",
+        "canone_identity",
+        "canone_learning",
+        "canone_norms",
+        "canone_ops"
+      ],
+      "transformation_rule": "Rewrite dynamic SQL schema references in triggers and pin search_path where necessary.",
+      "workstream": "trigger_review"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "learning"
+      ],
+      "number": 12,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 0,
+        "create_view": 0,
+        "security_definer_mentions": 0
+      },
+      "source": "012_srs_engine.sql",
+      "source_sha256": "aa5152379aecb2184b6976aa24231676770afe80bb38e6bb5bdba4769f066a55",
+      "target_schemas": [
+        "canone_learning"
+      ],
+      "transformation_rule": "Validate SRS server-side functions with authenticated user ownership.",
+      "workstream": "learning_runtime"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "admin",
+        "audit",
+        "commerce",
+        "editorial",
+        "identity",
+        "learning",
+        "ops",
+        "public",
+        "subscriber",
+        "taxonomy"
+      ],
+      "number": 13,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 0,
+        "create_view": 15,
+        "security_definer_mentions": 1
+      },
+      "source": "013_views.sql",
+      "source_sha256": "2ff3c3099a1ed84b7b5f323e2e14658e33934387b3bcd56e4f1c01d344815af9",
+      "target_schemas": [
+        "canone_admin",
+        "canone_audit",
+        "canone_commerce",
+        "canone_editorial",
+        "canone_identity",
+        "canone_learning",
+        "canone_ops",
+        "canone_public",
+        "canone_subscriber",
+        "canone_taxonomy"
+      ],
+      "transformation_rule": "Project canone_public/canone_subscriber views with security_invoker=true and approved grants.",
+      "workstream": "view_invoker"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "admin",
+        "audit",
+        "commerce",
+        "editorial",
+        "identity",
+        "learning",
+        "norms",
+        "ops",
+        "taxonomy"
+      ],
+      "number": 14,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 51,
+        "create_table": 0,
+        "create_view": 0,
+        "security_definer_mentions": 1
+      },
+      "source": "014_rls.sql",
+      "source_sha256": "0c573777de58467dca107992f4138e944142c977669854fa35636d035a4c255e",
+      "target_schemas": [
+        "canone_admin",
+        "canone_audit",
+        "canone_commerce",
+        "canone_editorial",
+        "canone_identity",
+        "canone_learning",
+        "canone_norms",
+        "canone_ops",
+        "canone_taxonomy"
+      ],
+      "transformation_rule": "Convert legacy canone_* role policies to anon/authenticated and verified staff RBAC, WITH CHECK on writes.",
+      "workstream": "rls_policy"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "admin",
+        "audit",
+        "commerce",
+        "editorial",
+        "identity",
+        "learning",
+        "ops"
+      ],
+      "number": 15,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 0,
+        "create_view": 0,
+        "security_definer_mentions": 0
+      },
+      "source": "015_indexes.sql",
+      "source_sha256": "ad0f15f76752463541b84897cc35b758588c208676db2ae8f67bbaab91ad8bca",
+      "target_schemas": [
+        "canone_admin",
+        "canone_audit",
+        "canone_commerce",
+        "canone_editorial",
+        "canone_identity",
+        "canone_learning",
+        "canone_ops"
+      ],
+      "transformation_rule": "Project indexes against canone_* objects and ensure extension availability.",
+      "workstream": "indexes"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "admin",
+        "commerce",
+        "editorial",
+        "identity",
+        "norms",
+        "ops",
+        "taxonomy"
+      ],
+      "number": 16,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 0,
+        "create_view": 0,
+        "security_definer_mentions": 0
+      },
+      "source": "016_seed_reference.sql",
+      "source_sha256": "d9424b0f09ab43ead5645c351ec5352123795e4e07a41ec7ca36047b607d5236",
+      "target_schemas": [
+        "canone_admin",
+        "canone_commerce",
+        "canone_editorial",
+        "canone_identity",
+        "canone_norms",
+        "canone_ops",
+        "canone_taxonomy"
+      ],
+      "transformation_rule": "Import only rights-cleared reference seeds; no sensitive or third-party source texts.",
+      "workstream": "reference_seed"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "admin",
+        "audit",
+        "commerce",
+        "editorial",
+        "identity",
+        "learning",
+        "norms",
+        "ops",
+        "public",
+        "subscriber",
+        "taxonomy"
+      ],
+      "number": 17,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 0,
+        "create_view": 0,
+        "security_definer_mentions": 0
+      },
+      "source": "017_privileges.sql",
+      "source_sha256": "fd65e114c8dfdcfb929e5591f628dd8dfba6a3e06ffca6cd5d806cc71a1a7d30",
+      "target_schemas": [
+        "canone_admin",
+        "canone_audit",
+        "canone_commerce",
+        "canone_editorial",
+        "canone_identity",
+        "canone_learning",
+        "canone_norms",
+        "canone_ops",
+        "canone_public",
+        "canone_subscriber",
+        "canone_taxonomy"
+      ],
+      "transformation_rule": "Replace grants to custom runtime roles with explicit scoped Supabase access; never revoke platform public globally.",
+      "workstream": "least_privilege_grants"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "admin",
+        "editorial",
+        "learning",
+        "taxonomy"
+      ],
+      "number": 18,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 25,
+        "create_table": 5,
+        "create_view": 1,
+        "security_definer_mentions": 1
+      },
+      "source": "018_provas_gabarito.sql",
+      "source_sha256": "a1088083d3f0c8aa5d534c1e272ec85fc0c8a151832e4964e5ab939c6799f6a8",
+      "target_schemas": [
+        "canone_admin",
+        "canone_editorial",
+        "canone_learning",
+        "canone_taxonomy"
+      ],
+      "transformation_rule": "Separate public question fields from protected answer keys, subject to approved edition/source.",
+      "workstream": "exam_question_key"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "editorial",
+        "identity",
+        "learning",
+        "ops",
+        "taxonomy"
+      ],
+      "number": 19,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 2,
+        "create_table": 2,
+        "create_view": 0,
+        "security_definer_mentions": 5
+      },
+      "source": "019_tentativa_ingestao.sql",
+      "source_sha256": "c01f383f23b2189e889e4a8bf919cd5d3bcc252c6828349764775de38fb44989",
+      "target_schemas": [
+        "canone_editorial",
+        "canone_identity",
+        "canone_learning",
+        "canone_ops",
+        "canone_taxonomy"
+      ],
+      "transformation_rule": "Move attempt ingestion to server-authoritative user identity and idempotent endpoints; deny key oracle.",
+      "workstream": "attempt_backend"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "editorial",
+        "ops"
+      ],
+      "number": 20,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 0,
+        "create_view": 0,
+        "security_definer_mentions": 0
+      },
+      "source": "020_tipo_conteudo_versao.sql",
+      "source_sha256": "bf7f90337133fefe7e4767e24eaaf5fcbc86dbf68ae1bef1de0d938459268223",
+      "target_schemas": [
+        "canone_editorial",
+        "canone_ops"
+      ],
+      "transformation_rule": "Project content types/versions and publication-state checks.",
+      "workstream": "content_versioning"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "learning"
+      ],
+      "number": 21,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 0,
+        "create_view": 0,
+        "security_definer_mentions": 2
+      },
+      "source": "021_letra_derivada.sql",
+      "source_sha256": "f54fc8737efd8ad5d3a1010a7f87a2110a664e4cb932f026d76cca26323a7457",
+      "target_schemas": [
+        "canone_learning"
+      ],
+      "transformation_rule": "Restrict derived answer logic to privileged server runtime.",
+      "workstream": "answer_derivation"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "learning"
+      ],
+      "number": 22,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 0,
+        "create_view": 0,
+        "security_definer_mentions": 2
+      },
+      "source": "022_prova_selada_letra_inteira.sql",
+      "source_sha256": "574ab76731ecc12e3a52570a47a4f515b9b46a9d9453dd924932ce783a292123",
+      "target_schemas": [
+        "canone_learning"
+      ],
+      "transformation_rule": "Require validated exam seal, immutable key provenance and authorized attempt.",
+      "workstream": "exam_seal"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "editorial",
+        "learning",
+        "ops",
+        "taxonomy"
+      ],
+      "number": 23,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 0,
+        "create_view": 0,
+        "security_definer_mentions": 2
+      },
+      "source": "023_tres_fechos_do_qa.sql",
+      "source_sha256": "6c980bc5f350f3732539c8df562a071d1c25c34e1a353bad22c5300a229ab5c4",
+      "target_schemas": [
+        "canone_editorial",
+        "canone_learning",
+        "canone_ops",
+        "canone_taxonomy"
+      ],
+      "transformation_rule": "Implement QA dual verification and lineage gates in server-only functions.",
+      "workstream": "editorial_review"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "learning",
+        "taxonomy"
+      ],
+      "number": 24,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 0,
+        "create_view": 0,
+        "security_definer_mentions": 3
+      },
+      "source": "024_gabarito_imutavel_regua_fixa.sql",
+      "source_sha256": "f22d52a205deaf04b05a0c039ef9de2061143f05d958723455935c8007d23f44",
+      "target_schemas": [
+        "canone_learning",
+        "canone_taxonomy"
+      ],
+      "transformation_rule": "Make answer key immutable and prevent disclosure via direct select or implicit RPC.",
+      "workstream": "immutable_key"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "admin",
+        "identity",
+        "ops"
+      ],
+      "number": 25,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 0,
+        "create_view": 0,
+        "security_definer_mentions": 0
+      },
+      "source": "025_identity_usage.sql",
+      "source_sha256": "7adf620c6a8f034fef6f3fbbdc0f46ad4b74dbf5791656feebb8a688269e9287",
+      "target_schemas": [
+        "canone_admin",
+        "canone_identity",
+        "canone_ops"
+      ],
+      "transformation_rule": "Replace identity schema grants with Supabase Auth and minimum profile access.",
+      "workstream": "identity_grants"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "admin",
+        "learning",
+        "taxonomy"
+      ],
+      "number": 26,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 2,
+        "create_table": 0,
+        "create_view": 0,
+        "security_definer_mentions": 2
+      },
+      "source": "026_staff_le_gabarito_default_zero.sql",
+      "source_sha256": "bd0dbdc91f73ab5d2c483168a09c5905105cc2e121ce02c3f8f9f5bd3202cc9f",
+      "target_schemas": [
+        "canone_admin",
+        "canone_learning",
+        "canone_taxonomy"
+      ],
+      "transformation_rule": "Review staff access through controlled RPC and prevent direct answer-key reads.",
+      "workstream": "staff_key_access"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "learning",
+        "ops"
+      ],
+      "number": 27,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 0,
+        "create_view": 0,
+        "security_definer_mentions": 7
+      },
+      "source": "027_papel_de_sistema.sql",
+      "source_sha256": "e41567d42c136528918c1c3c45662e666697c93c5518f4793aae2e0bb772d6ff",
+      "target_schemas": [
+        "canone_learning",
+        "canone_ops"
+      ],
+      "transformation_rule": "Replace legacy canone_system setup with least-privilege function owners and fixed search_path.",
+      "workstream": "definer_owner"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "commerce"
+      ],
+      "number": 28,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 0,
+        "create_view": 0,
+        "security_definer_mentions": 0
+      },
+      "source": "028_preco_comercial.sql",
+      "source_sha256": "ad022430bcec9e54a31441dfe790da92766e546a6b1600dcb10d0a2a6888222f",
+      "target_schemas": [
+        "canone_commerce"
+      ],
+      "transformation_rule": "Retain price logic as disabled candidate; no billing activation.",
+      "workstream": "commerce_feature_off"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "identity"
+      ],
+      "number": 29,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 0,
+        "create_view": 0,
+        "security_definer_mentions": 0
+      },
+      "source": "029_papel_de_acesso.sql",
+      "source_sha256": "004fa9caa52b13e85eb53949f9c419e9aeaabc098157eadd24a4e080062355a4",
+      "target_schemas": [
+        "canone_identity"
+      ],
+      "transformation_rule": "Replace canone_auth role and auth_full policy with Supabase Auth-managed OTP/session flow.",
+      "workstream": "supabase_auth_bridge"
+    },
+    {
+      "deployment_state": "NOT_APPLIED",
+      "legacy_schemas_referenced": [
+        "editorial",
+        "learning",
+        "subscriber",
+        "taxonomy"
+      ],
+      "number": 30,
+      "original_retained_unchanged": true,
+      "readiness": "MAPPED_TO_PLATFORM_CONTRACT",
+      "review_stats": {
+        "create_policy": 0,
+        "create_table": 0,
+        "create_view": 2,
+        "security_definer_mentions": 0
+      },
+      "source": "030_porta_da_prova.sql",
+      "source_sha256": "144e11ea0c873bfa7f8f7b460a49f51fada2b5cd4d1f1d4424b51938fcaf2c0b",
+      "target_schemas": [
+        "canone_editorial",
+        "canone_learning",
+        "canone_subscriber",
+        "canone_taxonomy"
+      ],
+      "transformation_rule": "Use server-validated subscriber entitlement and user JWT before exam delivery.",
+      "workstream": "exam_entry_gate"
+    }
+  ],
+  "next_actions": [
+    "Generate protected PostgreSQL staging candidate from S22/S13/S22 overlays",
+    "Replace legacy auth runtime with Supabase Auth identity and session flow",
+    "Rewrite privileged RLS/grants with explicit least privilege",
+    "Run PG17 disposable + two-user adversarial tests and restore exercise",
+    "Only then apply versioned staging migrations on the new isolated project"
+  ],
+  "production_gate": "NO_GO",
+  "roles": [
+    {
+      "legacy": "canone_public",
+      "plane": "data_api",
+      "rule": "Public approved projections only; RLS-enabled tables.",
+      "target": "anon"
+    },
+    {
+      "legacy": "canone_subscriber",
+      "plane": "data_api",
+      "rule": "Enforce auth.uid() = owner_id; role alone is insufficient.",
+      "target": "authenticated"
+    },
+    {
+      "legacy": "canone_staff",
+      "plane": "authorization",
+      "rule": "Validate staff rights in protected role registry; no open staff grants.",
+      "target": "authenticated + canone_identity.user_role"
+    },
+    {
+      "legacy": "canone_admin",
+      "plane": "authorization",
+      "rule": "Server-admin claims and DB verification; guard privileged functions.",
+      "target": "authenticated + canone_identity.user_role"
+    },
+    {
+      "legacy": "canone_app",
+      "plane": "runtime",
+      "rule": "For user requests use user JWT, not service_role; avoid SET ROLE per request.",
+      "target": "backend server with user JWT"
+    },
+    {
+      "legacy": "canone_system",
+      "plane": "server",
+      "rule": "SECURITY DEFINER only for approved functions, fixed search_path, revoke PUBLIC execute.",
+      "target": "least-privilege function owner"
+    },
+    {
+      "legacy": "canone_auth",
+      "plane": "authentication",
+      "rule": "Replace legacy magic-link/session flow rather than granting broad identity access.",
+      "target": "Supabase Auth"
+    },
+    {
+      "legacy": "canone_migrator",
+      "plane": "migration",
+      "rule": "Only release automation has DDL authority; not anon/authenticated.",
+      "target": "migration owner via isolated CLI/staging"
+    },
+    {
+      "legacy": "service_role",
+      "plane": "platform",
+      "rule": "Never expose to browser or use as blanket runtime bypass.",
+      "target": "server-only service_role"
+    }
+  ],
+  "schemas": [
+    {
+      "new": "canone_identity",
+      "old": "identity"
+    },
+    {
+      "new": "canone_editorial",
+      "old": "editorial"
+    },
+    {
+      "new": "canone_taxonomy",
+      "old": "taxonomy"
+    },
+    {
+      "new": "canone_norms",
+      "old": "norms"
+    },
+    {
+      "new": "canone_learning",
+      "old": "learning"
+    },
+    {
+      "new": "canone_commerce",
+      "old": "commerce"
+    },
+    {
+      "new": "canone_admin",
+      "old": "admin"
+    },
+    {
+      "new": "canone_ops",
+      "old": "ops"
+    },
+    {
+      "new": "canone_audit",
+      "old": "audit"
+    },
+    {
+      "new": "canone_public",
+      "old": "public"
+    },
+    {
+      "new": "canone_subscriber",
+      "old": "subscriber"
+    },
+    {
+      "new": "canone_evidence",
+      "old": "evidence"
+    },
+    {
+      "new": "canone_bridge",
+      "old": "bridge"
+    },
+    {
+      "new": "canone_control",
+      "old": "control"
+    }
+  ],
+  "scope": "crosswalk and actionable porting plan; no SQL execution, no connection, no app release",
+  "shared_db_policy": "reference_or_license_review_only_no_blind_data_copy",
+  "shared_foreign_key_bindings": [
+    {
+      "action": "Create owned source-reference contract; do not copy public.regulatory_instruments wholesale.",
+      "destination": "canone_bridge.source_binding (planned)",
+      "legacy_target": "public.regulatory_instruments.instrument_id",
+      "method": "reference_only",
+      "source": "contabilidade_cfc.audit_normative_scope_v1.instrument_id"
+    },
+    {
+      "action": "Retain provenance and external UID with version/hash; import only licensed derived content.",
+      "destination": "canone_bridge.source_binding (planned)",
+      "legacy_target": "account_palm.normalized_units_v1.normalized_unit_id",
+      "method": "reference_only",
+      "source": "contabilidade_cfc.audit_normative_segment_drafts_v1.parent_unit_id"
+    },
+    {
+      "action": "Resolve normalized unit contract, not complete account_palm corpus.",
+      "destination": "canone_bridge.source_binding (planned)",
+      "legacy_target": "account_palm.normalized_units_v1.normalized_unit_id",
+      "method": "reference_only",
+      "source": "contabilidade_cfc.audit_normative_segment_parent_qa_v1.parent_unit_id"
+    }
+  ],
+  "source_baseline": {
+    "count": 30,
+    "git_source": "source-s22",
+    "historical_commit": "164fa4df8e99de29e35c41d35a25f6ee0b2c6462"
+  },
+  "target_platform": "Supabase managed Auth + PostgreSQL 17, separate Cânone project",
+  "target_schemas_count": 14,
+  "transform_rules": [
+    {
+      "action": "namespace",
+      "controls": "Never mutate global public/auth/storage schemas.",
+      "source": "CREATE SCHEMA identity/editorial/.../public",
+      "target": "CREATE SCHEMA canone_*"
+    },
+    {
+      "action": "role",
+      "controls": "No SET ROLE by user request, no privilege inheritance from client input.",
+      "source": "CREATE ROLE / SET ROLE canone_*",
+      "target": "Supabase platform roles and restricted DB ownership"
+    },
+    {
+      "action": "auth",
+      "controls": "No duplicate password/OTP/session tables in live auth flow.",
+      "source": "identity.account / identity.session / identity.magic_link",
+      "target": "auth.users / Supabase Auth"
+    },
+    {
+      "action": "identity",
+      "controls": "Reject client-controlled GUC as ownership authority.",
+      "source": "SET LOCAL app.current_user_id",
+      "target": "auth.uid() in RLS"
+    },
+    {
+      "action": "rls",
+      "controls": "USING and WITH CHECK for mutation; never TO authenticated alone.",
+      "source": "CREATE POLICY FOR ALL TO canone_subscriber",
+      "target": "TO authenticated WITH owner predicate"
+    },
+    {
+      "action": "definer",
+      "controls": "Do not create public RPC wrappers with implicit access to keys/PII.",
+      "source": "SECURITY DEFINER",
+      "target": "least privilege owner + pinned search_path + REVOKE EXECUTE"
+    },
+    {
+      "action": "view",
+      "controls": "Verify access to referenced tables; schema not exposed unless intended.",
+      "source": "CREATE VIEW",
+      "target": "CREATE VIEW WITH (security_invoker=true)"
+    },
+    {
+      "action": "extension",
+      "controls": "Install only required supported extensions via controlled migration; no global search_path assumptions.",
+      "source": "citext/pg_trgm/btree_gist",
+      "target": "supported extensions schema"
+    },
+    {
+      "action": "external_reference",
+      "controls": "Never copy CE/CKO shared data or normative copyrighted text by name similarity.",
+      "source": "CFC/Contabilidade shared foreign keys",
+      "target": "canone_bridge reference contract"
+    }
+  ],
+  "version": "0.23.0-alpha.2"
+}
