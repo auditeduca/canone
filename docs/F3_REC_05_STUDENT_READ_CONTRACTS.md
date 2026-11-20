@@ -16,3 +16,16 @@ Fontes: `source-s22/backend/src/areas/public/catalogo.ts`, `source-s22/backend/s
 ## Testes de ponta a ponta
 
 O job PG17 após alpha9 aplicará a candidata 011 apenas no contêiner efêmero, vetará EXECUTE de `authenticated` e realizará a jornada React real com recarregamento, listagem de tentativas do próprio aluno, recuperação do ID em sessão autenticada, respostas restantes e finalização. Negativas para B/usuário não autorizado e proteção do gabarito permanecem. Resultados só serão declarados após CI.
+
+## CI F3-REC-05 — execução controlada aprovada
+
+[GitHub Actions #44702274617](https://github.com/auditeduca/canone/actions/runs/44702274617): **4/4 jobs PASS**, `main` `5adad641da5ecc431f604edc94fd67bed1011c3f`.
+
+- NS-01: as dez candidatas de migration 001–010 foram mantidas intactas. SQL novo **apenas de teste**, em `tests/sql/f3_rec05_private_reads_ephemeral.sql`; não se trata da migration 011 para Supabase.
+- Alpha.9: recuperada ao SHA anterior, manifesto histórico novamente passando. Leitura nova implementada em `gateway/alpha10-core.mjs`, mantendo os cinco métodos originais da alpha.9.
+- React S22: `tsc`, Vite e testes históricos PASS. Frontend local reutiliza componentes e design system S22.
+- Chromium → React → gateway → PG17 **real descartável**: metadados do catálogo sem gabarito, histórico do próprio usuário, recarregamento do navegador, retorno de tentativa com 1/2 respostas, resposta final, conclusão, revelação posterior e persistência de SRS.
+- Negativos: função SQL indisponível para role `authenticated`, tentativa de outro usuário não recuperável (404), acesso sem benefício recusado (403), proibição de gabarito antecipado e ocultação de contagem de acertos enquanto ativa.
+- **Pendências:** catálogo editorial com procedência/licenças autorizadas e questão sem chave, recuperação após reinício de processo, múltiplos dispositivos, identidade real gerenciada, auditoria WCAG final, adequação de fontes e segurança de implantação.
+
+**Estado:** `F3-REC-05 PASS` no escopo efêmero; F3 global e produção continuam `NO_GO`.

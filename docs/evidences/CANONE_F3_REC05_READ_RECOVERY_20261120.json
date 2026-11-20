@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "milestone": "F3-REC-05",
+  "date": "2026-11-20",
+  "repo": "auditeduca/canone",
+  "commit": "5adad641da5ecc431f604edc94fd67bed1011c3f",
+  "run_id": 44702274617,
+  "run_url": "https://github.com/auditeduca/canone/actions/runs/44702274617",
+  "jobs": {
+    "offline": "success",
+    "react": "success",
+    "chromium": "success",
+    "postgresql17": "success"
+  },
+  "scope": "synthetic Auth, local React, Node gateway alpha10, PostgreSQL 17 disposable",
+  "pass": [
+    "catalog no keys",
+    "owner history",
+    "reload resumes 1/2 answers",
+    "post-finish reveal",
+    "persisted SRS",
+    "other-user resume 404",
+    "no entitlement read 403",
+    "no direct authenticated SQL EXECUTE"
+  ],
+  "preserved": [
+    "alpha9 manifest",
+    "S22 React",
+    "candidate SQL 001..010",
+    "NO_GO production"
+  ],
+  "open": [
+    "approved licensed questions",
+    "real Supabase Auth F8",
+    "new process recovery",
+    "real multi-device sessions",
+    "WCAG 2.2 AA full"
+  ],
+  "remote_db_writes": 0,
+  "production_gate": "NO_GO"
+}

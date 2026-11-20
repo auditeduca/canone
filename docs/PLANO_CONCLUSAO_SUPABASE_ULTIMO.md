@@ -60,3 +60,9 @@ Só então:
 ## F3-REC-04 — alcance real (20/11/2026)
 
 [CI #44699825988](https://github.com/auditeduca/canone/actions/runs/44699825988) executou a nova página React reaproveitando `ExamQuestion` do histórico via HTTP gateway e PostgreSQL 17 real descartável, incluindo negativas de IDOR, ausência de autorização e gabarito prematuro. **O critério técnico de integração local passou; não é F3 liberada nem Auth Supabase.** Próxima F3-REC-05: catálogo sem chave, recuperação de sessão/histórico multi-dispositivo, controles editoriais e WCAG.
+
+## F3-REC-05 — controle de leitura e retomada (20/11/2026)
+
+[CI #44702274617](https://github.com/auditeduca/canone/actions/runs/44702274617): **4/4 PASS**, browser real, React S22, gateway alpha.10 e PostgreSQL 17 efêmero com Auth sintético. Catalogação restrita a ID/rótulo/quantidade; histórico próprio e retomada com escolhas após recarregar página; sem chave antecipada. `SECURITY DEFINER` owner-scoped, somente `service_role` pode executar. Mantidas dez candidatas 001–010 (o SQL de testes não é migration), alpha.9 intacta.
+
+F3 **ainda aberta**: questão/enunciado e alternativa licenciados via endpoint seguro; auth real, recuperação após restart, multi-dispositivo, WCAG, auditoria editorial e qualidade final. Supabase por último na F8.
