@@ -9,6 +9,21 @@ Formato de versão: **MAJOR.MINOR.PATCH[-PRERELEASE]**, em que:
 - `-rc.N`: candidata a aprovação, sujeita a revisão independente;
 - estável: somente quando todos os gates forem `GO`.
 
+## [0.23.0-alpha.8] — 2026-11-20
+
+**Estado:** `PRIVATE_EXAM_ATTEMPT_AND_SRS_PG17_CI_PASS / RELEASE_NO_GO`.
+
+### Fluxo protegido da prova e aprendizagem
+- Conversão controlada dos contratos S22 `006/007/012/018/019`, após revalidar **30/30 hashes das migrations históricas**, sem alteração dos SQL originais.
+- **Cinco métodos internos**: `exam_start`, `exam_answer`, `exam_finish`, `exam_reveal`, `exam_to_srs`. `SECURITY DEFINER` com `search_path=pg_catalog`, propriedade verificada por `auth.uid()`; `EXECUTE` negado a `PUBLIC`, `anon`, `authenticated` e concedido somente a `service_role`. **É indispensável backend que valide JWT real e não exponha `canone_ops` na Data API.**
+- `exam_answer` usa `FOR UPDATE` no registro da tentativa, corrige pelo **gabarito definitivo daquela variante/posição** e retorna `void`, não o veredito. Substituições repetidas recalculam contagens, sem duplicar. `exam_reveal` só atende tentativa concluída do proprietário.
+- `exam_finish` é idempotente e retorna apenas contagens factuais; **não inventa nota de corte, status de aprovação ou questões com direitos pendentes**.
+- Nova `canone_learning.exam_review_receipt`, com **RLS + FORCE** e unicidade por `(attempt_id,ordinal)`, registra SRS somente para resposta concluída e **não anulada**; retry devolve o mesmo evento, sem repetir o estado `canone-srs-exam-v1`.
+- [GitHub Actions #44680388780](https://github.com/auditeduca/canone/actions/runs/44680388780) **sucesso em dois jobs**: **12/12 testes estáticos Python**, **32 verificações de PGlite** e **PostgreSQL 17** com disputa entre resposta/encerramento (resposta atrasada recusada), duas requisições simultâneas SRS (1 recibo, 1 repetição) e tentativa de chamada privilegiada pelo navegador negada. **277/277 testes históricos** preservados.
+
+### Não homologado para uso real
+`009_attempt_grade_srs.candidate.sql.txt` é candidato, **não migration publicada**. Backend JWT/Supabase Auth gerenciado, autorização de consumo/assinatura, variantes simuladas, múltiplos interleavings, audit trail do serviço, conteúdo/licença e nota oficial permanecem fora do aceite. Sem escrita no Supabase compartilhado, sem deploy e sem novas branches. `NO_GO` produção.
+
 ## [0.23.0-alpha.7] — 2026-11-20
 
 **Estado:** `AUDIT_HASH_CHAIN_V2_AND_COMPLETE_SEAL_PG17_CI_PASS / RELEASE_NO_GO`.

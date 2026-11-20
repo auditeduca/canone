@@ -1,0 +1,63 @@
+{
+  "version": "0.23.0-alpha.8",
+  "date": "2026-11-20",
+  "repository": "auditeduca/canone",
+  "branch": "main",
+  "tested_sha": "f5ad3e4c9c619d0922a96db54c023c36401ec943",
+  "workflow": {
+    "id": 44680388780,
+    "url": "https://github.com/auditeduca/canone/actions/runs/44680388780",
+    "conclusion": "success",
+    "offline_job": "success",
+    "pg17_job": "success"
+  },
+  "source_migrations_verified": 30,
+  "historical_sources": [
+    "006",
+    "007",
+    "012",
+    "018",
+    "019"
+  ],
+  "new_methods": 5,
+  "new_tables": 1,
+  "tests": {
+    "python": 12,
+    "pglite_checks": 32,
+    "pg17_finish_vs_answer": "PASS_LATE_ANSWER_DENIED",
+    "pg17_duplicate_srs": "PASS_TWO_REQUESTS_ONE_RECEIPT_ONE_STATE_INCREMENT",
+    "pg17_browser_execute": "PASS_DENIED",
+    "legacy_s22_regressions": 277
+  },
+  "invariants": [
+    "service_role_only",
+    "auth_uid_checked",
+    "no_grade_before_finish",
+    "variant_scoped_answer_key",
+    "no_official_cut_score",
+    "row_lock_serializes_finish",
+    "answer_retry_recomputes_counts",
+    "srs_once_per_attempt_position",
+    "annulled_not_reviewed"
+  ],
+  "scripts": [
+    "tools/convert_canone_attempt_srs.py",
+    "staging/supabase/009_attempt_grade_srs.candidate.sql.txt",
+    "staging/supabase/CANONE_ATTEMPT_SRS_ALPHA8_MANIFEST.json",
+    "tests/test_canone_attempt_srs.py",
+    "tests/canone_attempt_srs_pglite.mjs",
+    "tests/pg17_alpha8_attempt_srs.sh"
+  ],
+  "limitations": [
+    "Not deployed or migration-ready",
+    "JWT authenticated context is synthetic in tests",
+    "No live Supabase Auth/backend gateway",
+    "No official editorial licensed corpus",
+    "Not all possible transaction interleavings covered",
+    "No approved passing threshold",
+    "Mock exams excluded"
+  ],
+  "remote_writes": 0,
+  "new_branches": 0,
+  "release_gate": "NO_GO"
+}

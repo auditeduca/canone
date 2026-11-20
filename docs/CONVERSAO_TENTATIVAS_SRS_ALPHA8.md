@@ -26,3 +26,13 @@ O SQL cria cinco funções privadas em `canone_ops`: `exam_start(form_id)`, `exa
 ## Limites conhecidos / próximas etapas
 
 Este é um **serviço interno de prova de conceito**, não uma API autorizada a operar com usuários reais. Nenhuma migration SQL foi promovida. É necessário executar no PostgreSQL 17 descartável com múltiplas conexões concorrentes (resposta versus encerramento e duplicatas SRS), usar Auth/JWT gerenciado real, validar o backend de autorização/assinatura, a cadeia de auditoria dos serviços e a autorização normativa/licença das questões, além de estabelecer a regra de avaliação/nota de corte da edição oficial. **`NO_GO` produção** não impede desenvolvimento técnico.
+
+## Evidência de execução — 20/11/2026
+
+[GitHub Actions #44680388780](https://github.com/auditeduca/canone/actions/runs/44680388780), commit testado `f5ad3e4c9c619d0922a96db54c023c36401ec943`: **sucesso** nas duas tarefas CI.
+
+- **Python:** 12/12 testes, integridade de 30 SQL históricos, manifesto reproduzível.
+- **PGlite isolado:** 32 verificações, incluindo proprietário A e B, reenvio de alternativa, gabarito indisponível antes da conclusão, questão anulada sem erro, SRS repetido sem dupla contabilização e acesso direto negado.
+- **PostgreSQL 17:** aplicação dos candidatos 001–009; inserção concorrente de resposta após o encerramento da tentativa recusada; duas conexões pediram o mesmo evento SRS e receberam **o mesmo UUID**, com **1 recibo, 1 evento e 1 repetição**; role `authenticated` não executou o serviço interno.
+
+O teste **não prova que a chave `service_role` esteja guardada corretamente no backend**, nem valida JWT gerenciado ou quaisquer direitos editoriais. São pré-requisitos de homologação, não impedimentos para desenvolvimento.

@@ -1,6 +1,6 @@
 # Cânone — preparação para exames de Contabilidade
 
-**Código e planejamento do Cânone na única branch de trabalho `main`.** Versão: **[0.23.0-alpha.7](CHANGELOG.md)** · Estado: **NO-GO produção** · 20/11/2026.
+**Código e planejamento do Cânone na única branch de trabalho `main`.** Versão: **[0.23.0-alpha.8](CHANGELOG.md)** · Estado: **NO-GO produção** · 20/11/2026.
 
 > Este repositório contém uma **recuperação técnica histórica S22** e a **diretriz de produto S23 v0.3**, não um serviço pronto para produção, venda ou homologação.
 
@@ -62,6 +62,13 @@ A conversão agora é **gerada automaticamente em Python**, testada em **Postgre
 - **Selo:** gabarito deve nascer preliminar; transição para definitivo exige itens/entradas `1..N` completos, com locks coordenados.
 - [GitHub Actions PostgreSQL 17.12 e PGlite](https://github.com/auditeduca/canone/actions/runs/44677935551): 12 testes Python, 21 cenários PGlite, 12 sessões concorrentes de auditoria sem hashes inválidos, e teste simultâneo de selo versus inclusão recusada. SQL **não foi implantado em Supabase**.
 - **Pendências para liberação:** âncora externa imutável de auditoria, testes adicionais de interleavings, Auth gerenciado, funções legadas restantes e E2E; `NO_GO` apenas para produção.
+
+## Fluxo privado de tentativas e SRS — marco v0.23.0-alpha.8
+
+- **5 funções internas de serviço e uma tabela de idempotência SRS:** [gerador Python](tools/convert_canone_attempt_srs.py), [SQL 009 candidato](staging/supabase/009_attempt_grade_srs.candidate.sql.txt), [manifesto de fontes](staging/supabase/CANONE_ATTEMPT_SRS_ALPHA8_MANIFEST.json), [testes PGlite](tests/canone_attempt_srs_pglite.mjs), [teste PostgreSQL 17](tests/pg17_alpha8_attempt_srs.sh) e [documentação](docs/CONVERSAO_TENTATIVAS_SRS_ALPHA8.md).
+- [CI alpha.8](https://github.com/auditeduca/canone/actions/runs/44680388780) **PASS**: 12 testes Python, 32 verificações PGlite e três verificações de segurança/concorrência no PostgreSQL 17 (resposta após fechamento, dois pedidos SRS simultâneos e permissão negada ao navegador). Regressões S22: 277/277.
+- Serviço interno apenas: `service_role` sem exposição ao cliente; `auth.uid()` deve vir de um backend que realmente verifica o JWT. **Não houve deploy em Supabase.**
+- A correção usa gabarito definitivo e posição da variante; a nota de corte/resultado de aprovação fica sem cálculo até haver regra oficial aplicável e direitos editoriais. `NO_GO` produção.
 
 ## O que está versionado na main
 
