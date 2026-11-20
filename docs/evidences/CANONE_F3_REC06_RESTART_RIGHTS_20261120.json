@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-20",
+  "project": "Canone",
+  "milestone": "F3-REC-06",
+  "validated_commit": "5786cb83007bd901d5ff1e22f0034ebd9ce62525",
+  "ci_run_id": 44707383292,
+  "ci_url": "https://github.com/auditeduca/canone/actions/runs/44707383292",
+  "jobs": {
+    "offline": "success",
+    "react_s22": "success",
+    "chromium_local": "success",
+    "pg17_real": "success"
+  },
+  "test_path": [
+    "React S22",
+    "alpha11 private gateway",
+    "CI-only editorial source,verification,content_item,item_option",
+    "ephemeral PostgreSQL 17"
+  ],
+  "positives": [
+    "server-origin question stem+public options without answer key",
+    "complete exam and SRS persistence",
+    "gateway killed and restarted with new synthetic HMAC tokens",
+    "mobile 390x844 pointer navigation and history resume",
+    "existing attempt retrieved from same PostgreSQL after restart"
+  ],
+  "negatives": [
+    "missing/expired synthetic rights -> whole form refused",
+    "no direct authenticated role EXECUTE",
+    "no early correct options",
+    "IDOR/entitlement regression"
+  ],
+  "preserved": [
+    "alpha9 sealed hash",
+    "alpha10 original semantics",
+    "10 candidate migrations",
+    "26 S22 module routes",
+    "production NO_GO"
+  ],
+  "limitations": [
+    "rights marker is synthetic test only",
+    "no production license review",
+    "no official CFC/EQT question rights",
+    "no real Supabase Auth",
+    "WCAG full audit not complete",
+    "no production deployment"
+  ],
+  "remote_db_writes": 0,
+  "gate": "NO_GO"
+}

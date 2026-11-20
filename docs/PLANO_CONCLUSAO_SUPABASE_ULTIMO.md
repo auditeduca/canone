@@ -66,3 +66,9 @@ Só então:
 [CI #44702274617](https://github.com/auditeduca/canone/actions/runs/44702274617): **4/4 PASS**, browser real, React S22, gateway alpha.10 e PostgreSQL 17 efêmero com Auth sintético. Catalogação restrita a ID/rótulo/quantidade; histórico próprio e retomada com escolhas após recarregar página; sem chave antecipada. `SECURITY DEFINER` owner-scoped, somente `service_role` pode executar. Mantidas dez candidatas 001–010 (o SQL de testes não é migration), alpha.9 intacta.
 
 F3 **ainda aberta**: questão/enunciado e alternativa licenciados via endpoint seguro; auth real, recuperação após restart, multi-dispositivo, WCAG, auditoria editorial e qualidade final. Supabase por último na F8.
+
+## F3-REC-06 — conteúdo de avaliação seguro no teste (20/11/2026)
+
+[CI #44707383292](https://github.com/auditeduca/canone/actions/runs/44707383292): **4/4 PASS**. Enunciado e alternativas de questões sintéticas foram entregues via gateway alpha.11, com controle server-side de proveniência e licença **apenas de CI**; retomada após reinício do processo Node/rotação de token sintético; negativa de conteúdo após expiração do direito; viewport touch 390×844 comprovado. Os cinco métodos originais da alpha.9 e as 10 migrations candidatas históricas permanecem intactos; SQL novo é exclusivamente de teste, não migration de produção.
+
+**Ainda sem conclusão F3:** leitura/aprovação de licenças reais F4, itens validados, Auth gerenciado F8, sessões reais e segurança F6, acessibilidade WCAG 2.2 AA completa, administração e pacote de implantação. Não criar Supabase antes dos gates F1–F7.
