@@ -1,0 +1,90 @@
+{
+  "schema_version": "CANONE_EDITORIAL_RIGHTS_V1",
+  "project": "auditeduca/canone",
+  "production_gate": "NO_GO",
+  "legal_release_stage": "F4_HUMAN_SIGNOFF_NOT_YET_PERFORMED",
+  "source_references": [
+    {
+      "kind": "federal_law",
+      "title": "Lei 9.610/1998 - Direitos Autorais",
+      "url": "https://www2.camara.leg.br/legin/fed/lei/1998/lei-9610-19-fevereiro-1998-365399-normaatualizada-pl.html"
+    },
+    {
+      "kind": "official_exam_index",
+      "title": "FGV Conhecimento - Exame de Suficiencia",
+      "url": "https://conhecimento.fgv.br/exames/cfc-exame-de-suficiencia"
+    },
+    {
+      "kind": "guidance",
+      "title": "Ministerio da Cultura - direitos autorais",
+      "url": "https://www.gov.br/cultura/pt-br/assuntos/direitos-autorais/perguntas-frequentes/perguntas-frequentes"
+    }
+  ],
+  "assets": [
+    {
+      "asset_id": "00000000-0000-4000-8000-000000000008",
+      "content_version": "00000000-0000-4000-8000-000000000020",
+      "state": "TEST_ONLY",
+      "origin": "SYNTHETIC_ORIGINAL",
+      "source_ref": "alpha7-test",
+      "permitted_scope": [
+        "EPHEMERAL_CI"
+      ],
+      "evidence_ref": "tests/sql/f3_rec06_question_delivery_ephemeral.sql",
+      "reviewers": [
+        "ci-editorial-reviewer",
+        "ci-rights-reviewer"
+      ],
+      "expires_on": "2027-01-01"
+    },
+    {
+      "asset_id": "00000000-0000-4000-8000-000000000009",
+      "content_version": "00000000-0000-4000-8000-000000000021",
+      "state": "TEST_ONLY",
+      "origin": "SYNTHETIC_ORIGINAL",
+      "source_ref": "alpha7-test",
+      "permitted_scope": [
+        "EPHEMERAL_CI"
+      ],
+      "evidence_ref": "tests/sql/f3_rec06_question_delivery_ephemeral.sql",
+      "reviewers": [
+        "ci-editorial-reviewer",
+        "ci-rights-reviewer"
+      ],
+      "expires_on": "2027-01-01"
+    },
+    {
+      "asset_id": "fgv:cfc:2026.2:question-book",
+      "content_version": null,
+      "state": "HOLD_RIGHTS",
+      "origin": "THIRD_PARTY",
+      "source_ref": "https://conhecimento.fgv.br/exames/cfc/2026.2",
+      "permitted_scope": [],
+      "evidence_ref": null,
+      "reviewers": [],
+      "expires_on": null
+    },
+    {
+      "asset_id": "fgv:cfc:2026.3:question-book",
+      "content_version": null,
+      "state": "HOLD_RIGHTS",
+      "origin": "THIRD_PARTY",
+      "source_ref": "https://conhecimento.fgv.br/exames/cfc/2026.3",
+      "permitted_scope": [],
+      "evidence_ref": null,
+      "reviewers": [],
+      "expires_on": null
+    },
+    {
+      "asset_id": "historical:quarantined-editorial-bank",
+      "content_version": null,
+      "state": "HOLD_RIGHTS",
+      "origin": "UNKNOWN",
+      "source_ref": "source-s22/QUARENTENA_S22_NO_GO.md",
+      "permitted_scope": [],
+      "evidence_ref": null,
+      "reviewers": [],
+      "expires_on": null
+    }
+  ]
+}
