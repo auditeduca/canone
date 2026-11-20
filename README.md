@@ -1,6 +1,6 @@
 # Cânone — preparação para exames de Contabilidade
 
-**Código e planejamento do Cânone na única branch de trabalho `main`.** Versão: **[0.23.0-alpha.1](CHANGELOG.md)** · Estado: **NO-GO produção** · 19/11/2026.
+**Código e planejamento do Cânone na única branch de trabalho `main`.** Versão: **[0.23.0-alpha.2](CHANGELOG.md)** · Estado: **NO-GO produção** · 19/11/2026.
 
 > Este repositório contém uma **recuperação técnica histórica S22** e a **diretriz de produto S23 v0.3**, não um serviço pronto para produção, venda ou homologação.
 
@@ -9,6 +9,15 @@
 Plataforma educacional web/app para **Exame de Suficiência do CFC (P0)**, depois modalidades do **EQT**. Os 26 módulos são experiências sobre motores compartilhados (questões, tentativas, revisão, progresso, evidência e identidade), não 26 sistemas independentes. ERP, escritório real e automações profissionais ficam fora da V1.
 
 O Cânone é separado do ecossistema *Calculadoras de Enfermagem / CKO / NCOS*.
+
+## Crosswalk técnico para Supabase — v0.23.0-alpha.2
+
+- **30/30 migrations** mapeadas para o destino de plataforma, com SHA-256 dos arquivos originais preservados.
+- **90/90 tabelas S22** reconciliadas: 87 tabelas de domínio em schemas `canone_*` e 3 funções de autenticação substituídas por Supabase Auth.
+- **43 FKs com `identity.account`** identificadas para adaptação ao `auth.users`; nove papéis e dez correspondências Auth/RLS especificados.
+- **14/14 schemas** mapeados, sem tocar `public` global, `auth` ou `storage` do Supabase.
+- Artefatos: [crosswalk legível](docs/CROSSWALK_PADRAO_SUPABASE_0_23_0_ALPHA2.md), [crosswalk JSON](crosswalk/supabase/CANONE_PLATFORM_CROSSWALK_0_23_0_ALPHA2.json), [gerador](tools/canone_supabase_crosswalk.py) e [testes](tests/test_canone_crosswalk.py).
+- **Sem HOLD genérico de desenvolvimento:** incompatibilidades têm regras e próximas ações. Produção permanece separada sob `NO_GO` até testes de Auth/RLS/PG17/segurança.
 
 ## O que está versionado na main
 
