@@ -65,9 +65,15 @@ jobs:
            */
           export const idsQuarentena = ['CFC-STRUCT-001', 'CG-003'] as const;
           SYNTHETIC_FIXTURE
-      - name: Install locked backend test dependencies without lifecycle scripts
+      - name: Install backend dependencies and isolated S20 TypeScript 5.8.3 compatibility fixture
         working-directory: source-s22/backend
-        run: npm ci --ignore-scripts --no-audit --no-fund
+        shell: bash
+        run: |
+          # Declared backend TS 7.0.2 removed JS compiler APIs used in legacy S20 tests.
+          # Test-only compatibility override; production dependency remains HOLD_TYPESCRIPT_API.
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm install --no-save --no-package-lock --ignore-scripts --no-audit --no-fund typescript@5.8.3
+          node -e "const ts=require('typescript'); if(ts.version!=='5.8.3') process.exit(1); console.log('Test-only TypeScript',ts.version)"
       - name: S22 offline-only 277 regression tests (synthetic excluded-source fixture)
         run: python3 source-s22/backend/db/shared-host/s22-contracts/run_local_gates.py
       - name: Show bounded offline failure diagnostics
