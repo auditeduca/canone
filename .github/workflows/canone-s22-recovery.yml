@@ -106,6 +106,10 @@ jobs:
       - name: NS-04 student controller — synthetic UI state and same-origin gateway contract
         shell: bash
         run: node --test tests/ns04_student_frontend.test.mjs
+      - name: F4-01 primary source, exam edition and curriculum gate
+        run: |
+          python3 tools/f4_official_source_curriculum.py --check
+          python3 -m unittest discover -s tests -p 'test_f4_official_source_curriculum.py' -v
       - name: F3-REC07 offline rights registry and adversarial state transitions
         run: |
           python3 tools/f3_rec07_editorial_rights_gate.py --check

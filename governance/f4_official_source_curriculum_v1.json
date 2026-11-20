@@ -1,0 +1,325 @@
+{
+  "schema_version": "CANONE_F4_01_EDITORIAL_SOURCE_MATRIX_V1",
+  "project": "auditeduca/canone",
+  "as_of": "2026-11-20",
+  "publication_gate": "NO_GO",
+  "item_rights_registry": "governance/editorial_rights_registry_v1.json",
+  "method": "OFFICIAL_EDITION_AND_SYLLABUS_METADATA_ONLY_NO_QUESTION_REPRODUCTION",
+  "disclaimer": "Links and exam scope do not authorize copying questions, NBC text, answer keys or official seals.",
+  "normative_rule": "As of 90 days before exam, per respective editais item 6.11; effective/version status must be checked per actual norm and item.",
+  "sources": [
+    {
+      "id": "LAW_9610",
+      "kind": "LAW",
+      "url": "https://www2.camara.leg.br/legin/fed/lei/1998/lei-9610-19-fevereiro-1998-365399-normaatualizada-pl.html",
+      "scope": "rights framework 28-29, 46, 49-50",
+      "metadata_verified": true,
+      "reproduction_permission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "FGV_CFC_INDEX",
+      "kind": "EXAM_INDEX",
+      "url": "https://conhecimento.fgv.br/exames/cfc-exame-de-suficiencia",
+      "scope": "official CFC examination index",
+      "metadata_verified": true,
+      "reproduction_permission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "FGV_CFC_2026_2",
+      "kind": "OFFICIAL_EXAM_NOTICE",
+      "url": "https://conhecimento.fgv.br/sites/default/files/concursos/cfc-edital-2026.2-08.07.2026.pdf",
+      "scope": "edital 2/2026, item 6.8/6.11 and Annex II",
+      "metadata_verified": true,
+      "reproduction_permission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "FGV_CFC_2026_3",
+      "kind": "OFFICIAL_EXAM_NOTICE",
+      "url": "https://conhecimento.fgv.br/sites/default/files/concursos/cfc-edital-2026.3-05.10.2026.pdf",
+      "scope": "edital 3/2026, item 6.8/6.11 and Annex II",
+      "metadata_verified": true,
+      "reproduction_permission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "CFC_NBC_INDEX",
+      "kind": "NORM_INDEX",
+      "url": "https://cfc.org.br/tecnica/normas-brasileiras-de-contabilidade/",
+      "scope": "norm families and revision index; not per-item effective norm proof",
+      "metadata_verified": true,
+      "reproduction_permission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "CFC_NBC_FAQ",
+      "kind": "NORM_GUIDANCE",
+      "url": "https://cfc.org.br/tecnica/perguntas-frequentes/normas-brasileiras-de-contabilidade/",
+      "scope": "CPC reception into NBC and interpretation notes",
+      "metadata_verified": true,
+      "reproduction_permission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "CFC_EQT_INDEX",
+      "kind": "EQT_INDEX",
+      "url": "https://cfc.org.br/desenvolvimento-profissional-e-institucional/exames/exame-de-qualificacao-tecnica/",
+      "scope": "EQT track discovery only; editions and annex syllabus not verified",
+      "metadata_verified": false,
+      "reproduction_permission": "NOT_ESTABLISHED"
+    }
+  ],
+  "exam_editions": [
+    {
+      "id": "CFC-SUF-2026.2",
+      "exam_track": "CFC-SUF",
+      "source_id": "FGV_CFC_2026_2",
+      "exam_date": "2026-09-27",
+      "norm_cutoff": "2026-06-29",
+      "question_count": 50,
+      "options_per_question": 4,
+      "subject_count": 13,
+      "stage": "COMPLETED_OFFICIAL_FINAL_KEY_LISTED",
+      "syllabus_source": "edital item 6.8 and Annex II",
+      "rights": "HOLD_RIGHTS",
+      "licensed_questions": 0
+    },
+    {
+      "id": "CFC-SUF-2026.3",
+      "exam_track": "CFC-SUF",
+      "source_id": "FGV_CFC_2026_3",
+      "exam_date": "2026-12-13",
+      "norm_cutoff": "2026-09-14",
+      "question_count": 50,
+      "options_per_question": 4,
+      "subject_count": 13,
+      "stage": "SCHEDULED_NO_OFFICIAL_POST_EXAM_KEY",
+      "syllabus_source": "edital item 6.8 and Annex II",
+      "rights": "HOLD_RIGHTS",
+      "licensed_questions": 0
+    }
+  ],
+  "curriculum_areas": [
+    {
+      "id": "CFC-A01",
+      "name": "Língua Portuguesa Aplicada",
+      "source_section": "FGV_CFC_2026_3:6.8_ANNEX_II",
+      "candidate_module_ids": [
+        "simulados",
+        "reposicao",
+        "flashcards",
+        "glossario"
+      ],
+      "content_validation": "HOLD_EDITORIAL",
+      "normative_validation": "HOLD_PER_ITEM",
+      "rights_validation": "HOLD_RIGHTS",
+      "approved_lessons": 0,
+      "approved_questions": 0
+    },
+    {
+      "id": "CFC-A02",
+      "name": "Matemática Financeira e Estatística",
+      "source_section": "FGV_CFC_2026_3:6.8_ANNEX_II",
+      "candidate_module_ids": [
+        "matematica",
+        "calculadoras",
+        "simulados",
+        "reposicao"
+      ],
+      "content_validation": "HOLD_EDITORIAL",
+      "normative_validation": "HOLD_PER_ITEM",
+      "rights_validation": "HOLD_RIGHTS",
+      "approved_lessons": 0,
+      "approved_questions": 0
+    },
+    {
+      "id": "CFC-A03",
+      "name": "Noções de Direito e Legislação Aplicada",
+      "source_section": "FGV_CFC_2026_3:6.8_ANNEX_II",
+      "candidate_module_ids": [
+        "simulados",
+        "reposicao",
+        "guia-de-bolso"
+      ],
+      "content_validation": "HOLD_EDITORIAL",
+      "normative_validation": "HOLD_PER_ITEM",
+      "rights_validation": "HOLD_RIGHTS",
+      "approved_lessons": 0,
+      "approved_questions": 0
+    },
+    {
+      "id": "CFC-A04",
+      "name": "Legislação e Ética Profissional",
+      "source_section": "FGV_CFC_2026_3:6.8_ANNEX_II",
+      "candidate_module_ids": [
+        "simulados",
+        "reposicao",
+        "guia-de-bolso"
+      ],
+      "content_validation": "HOLD_EDITORIAL",
+      "normative_validation": "HOLD_PER_ITEM",
+      "rights_validation": "HOLD_RIGHTS",
+      "approved_lessons": 0,
+      "approved_questions": 0
+    },
+    {
+      "id": "CFC-A05",
+      "name": "Teoria da Contabilidade",
+      "source_section": "FGV_CFC_2026_3:6.8_ANNEX_II",
+      "candidate_module_ids": [
+        "contabilidade-ilustrada",
+        "flashcards",
+        "mapas-mentais"
+      ],
+      "content_validation": "HOLD_EDITORIAL",
+      "normative_validation": "HOLD_PER_ITEM",
+      "rights_validation": "HOLD_RIGHTS",
+      "approved_lessons": 0,
+      "approved_questions": 0
+    },
+    {
+      "id": "CFC-A06",
+      "name": "Princípios de Contabilidade e Normas Brasileiras de Contabilidade",
+      "source_section": "FGV_CFC_2026_3:6.8_ANNEX_II",
+      "candidate_module_ids": [
+        "cpc-visual",
+        "guia-de-bolso",
+        "glossario"
+      ],
+      "content_validation": "HOLD_EDITORIAL",
+      "normative_validation": "HOLD_PER_ITEM",
+      "rights_validation": "HOLD_RIGHTS",
+      "approved_lessons": 0,
+      "approved_questions": 0
+    },
+    {
+      "id": "CFC-A07",
+      "name": "Contabilidade Geral",
+      "source_section": "FGV_CFC_2026_3:6.8_ANNEX_II",
+      "candidate_module_ids": [
+        "diario-e-razao",
+        "dre-interativa",
+        "balanco-3d",
+        "laboratorio"
+      ],
+      "content_validation": "HOLD_EDITORIAL",
+      "normative_validation": "HOLD_PER_ITEM",
+      "rights_validation": "HOLD_RIGHTS",
+      "approved_lessons": 0,
+      "approved_questions": 0
+    },
+    {
+      "id": "CFC-A08",
+      "name": "Contabilidade de Custos",
+      "source_section": "FGV_CFC_2026_3:6.8_ANNEX_II",
+      "candidate_module_ids": [
+        "calculadoras",
+        "laboratorio",
+        "dre-interativa"
+      ],
+      "content_validation": "HOLD_EDITORIAL",
+      "normative_validation": "HOLD_PER_ITEM",
+      "rights_validation": "HOLD_RIGHTS",
+      "approved_lessons": 0,
+      "approved_questions": 0
+    },
+    {
+      "id": "CFC-A09",
+      "name": "Contabilidade Gerencial",
+      "source_section": "FGV_CFC_2026_3:6.8_ANNEX_II",
+      "candidate_module_ids": [
+        "dashboard",
+        "contabilidade-ilustrada",
+        "laboratorio"
+      ],
+      "content_validation": "HOLD_EDITORIAL",
+      "normative_validation": "HOLD_PER_ITEM",
+      "rights_validation": "HOLD_RIGHTS",
+      "approved_lessons": 0,
+      "approved_questions": 0
+    },
+    {
+      "id": "CFC-A10",
+      "name": "Contabilidade Aplicada ao Setor Público",
+      "source_section": "FGV_CFC_2026_3:6.8_ANNEX_II",
+      "candidate_module_ids": [
+        "contabilidade-publica",
+        "casos",
+        "simulados"
+      ],
+      "content_validation": "HOLD_EDITORIAL",
+      "normative_validation": "HOLD_PER_ITEM",
+      "rights_validation": "HOLD_RIGHTS",
+      "approved_lessons": 0,
+      "approved_questions": 0
+    },
+    {
+      "id": "CFC-A11",
+      "name": "Controladoria",
+      "source_section": "FGV_CFC_2026_3:6.8_ANNEX_II",
+      "candidate_module_ids": [
+        "dashboard",
+        "casos",
+        "laboratorio"
+      ],
+      "content_validation": "HOLD_EDITORIAL",
+      "normative_validation": "HOLD_PER_ITEM",
+      "rights_validation": "HOLD_RIGHTS",
+      "approved_lessons": 0,
+      "approved_questions": 0
+    },
+    {
+      "id": "CFC-A12",
+      "name": "Auditoria Contábil",
+      "source_section": "FGV_CFC_2026_3:6.8_ANNEX_II",
+      "candidate_module_ids": [
+        "auditoria-pratica",
+        "casos",
+        "reposicao"
+      ],
+      "content_validation": "HOLD_EDITORIAL",
+      "normative_validation": "HOLD_PER_ITEM",
+      "rights_validation": "HOLD_RIGHTS",
+      "approved_lessons": 0,
+      "approved_questions": 0
+    },
+    {
+      "id": "CFC-A13",
+      "name": "Perícia Contábil",
+      "source_section": "FGV_CFC_2026_3:6.8_ANNEX_II",
+      "candidate_module_ids": [
+        "pericia",
+        "casos",
+        "simulados"
+      ],
+      "content_validation": "HOLD_EDITORIAL",
+      "normative_validation": "HOLD_PER_ITEM",
+      "rights_validation": "HOLD_RIGHTS",
+      "approved_lessons": 0,
+      "approved_questions": 0
+    }
+  ],
+  "track_policy": {
+    "expected_tracks": 7,
+    "source": "planning/s23/S23_EXAMES_CFC.csv",
+    "sufficiency": {
+      "status": "SOURCE_MAPPED_CONTENT_HOLD",
+      "active_edition": "CFC-SUF-2026.3"
+    },
+    "eqt": {
+      "status": "HOLD_EDITION_SPECIFIC_SYLLABUS",
+      "disclaimer": "EQT modalities have different editais and must not inherit sufficiency syllabus or rights."
+    }
+  },
+  "release_policy": {
+    "public_questions": 0,
+    "public_lessons": 0,
+    "approved_exam_tracks": 0,
+    "reason": "No real license/title/effective norm, independent technical and legal signoff demonstrated.",
+    "required_checks": [
+      "PRIMARY_NOTICE_VERSION_AND_AMENDMENTS",
+      "NORM_ID_VERSION_AND_EFFECTIVE_DATE",
+      "PUBLISHING_AND_COMMERCIAL_RIGHTS_DOCUMENT_HASH",
+      "EDITORIAL_SUBJECT_EXPERT_SIGNOFF",
+      "INDEPENDENT_LEGAL_SIGNOFF",
+      "CLEAN_ITEM_VERSION_AND_WITHDRAWAL_PATH",
+      "ACCESSIBILITY_AND_SECURITY_RELEASE_GATES"
+    ]
+  }
+}
