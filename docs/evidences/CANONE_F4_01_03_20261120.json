@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "project": "Cânone",
+  "milestones": [
+    "F4-01",
+    "F4-02",
+    "F4-03"
+  ],
+  "date": "2026-11-20",
+  "validated_sha": "a4b5d2cfc4ee6b17b634b25ebd8c6b2d19463c47",
+  "run_id": 44719200458,
+  "run_url": "https://github.com/auditeduca/canone/actions/runs/44719200458",
+  "ci_jobs": {
+    "offline": "success",
+    "react_s22": "success",
+    "chromium": "success",
+    "pg17_ephemeral": "success"
+  },
+  "inventory": {
+    "sufficiency_editions": 2,
+    "eqt_modalities": 6,
+    "official_sufficiency_subjects": 13,
+    "tracks_s23": 7,
+    "modules_s23": 26,
+    "subject_candidate_modules": 19,
+    "cross_cutting_modules": 7
+  },
+  "editorial_approval": {
+    "approved_curriculum_subjects": 0,
+    "approved_external_questions": 0,
+    "approved_external_licenses": 0,
+    "real_expert_reviews": 0,
+    "legal_signoffs": 0
+  },
+  "rights": {
+    "total_assets": 11,
+    "synthetic_test_only": 2,
+    "hold_rights": 9,
+    "approved_for_publication": 0
+  },
+  "separate_exam_contracts": {
+    "sufficiency": {
+      "objective_questions": 50,
+      "options": 4,
+      "discursive_questions": 0,
+      "normative_rule": "EXAM_MINUS_90_DAYS"
+    },
+    "eqt": {
+      "objective_questions": 25,
+      "options": 5,
+      "discursive_questions": 2,
+      "normative_rule": "NOTICE_PUBLICATION_DATE",
+      "per_modality": true
+    }
+  },
+  "preserved": [
+    "S22 source quarantine",
+    "alpha9-11",
+    "migration candidates 001..010",
+    "PG17 only",
+    "main only"
+  ],
+  "next": [
+    "F4-04 atomization Annex II per exam",
+    "F4-05 original lessons and items with human review",
+    "F4-06 commercial rights evidence and review",
+    "F5-F7 CI release readiness",
+    "F8 dedicated Supabase"
+  ],
+  "deployment": "NO_GO",
+  "remote_supabase_writes": 0
+}
