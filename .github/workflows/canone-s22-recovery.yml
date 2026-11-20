@@ -185,6 +185,8 @@ jobs:
         env:
           POSTGRES_PASSWORD: synthetic_ci_only_not_real
           POSTGRES_DB: canone_alpha7_ci
+        ports:
+          - 5432/tcp
         options: >-
           --health-cmd "pg_isready -U postgres -d canone_alpha7_ci"
           --health-interval 5s
@@ -195,6 +197,11 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
+      - name: Node 22 for real HTTP to PostgreSQL 17 integration
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
       - name: Real PG17 multi-session audit/seal tests, no remote DB
         shell: bash
         env:
@@ -213,3 +220,11 @@ jobs:
           CANONE_CI_PG17_ONLY: "yes"
           CANONE_CI_PG17_CONTAINER: ${{ job.services.pg17.id }}
         run: bash tests/pg17_alpha9_entitlement.sh
+      - name: NS-03 HTTP gateway to real PostgreSQL 17 (synthetic Auth only)
+        shell: bash
+        env:
+          CANONE_CI_PG17_ONLY: "yes"
+          CANONE_SYNTHETIC_TEST_ONLY: "1"
+          CANONE_CI_PG17_CONTAINER: ${{ job.services.pg17.id }}
+          CANONE_CI_PG17_PORT: ${{ job.services.pg17.ports[5432] }}
+        run: bash tests/pg17_ns03_http_real_pg.sh
