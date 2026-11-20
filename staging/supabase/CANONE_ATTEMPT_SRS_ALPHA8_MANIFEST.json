@@ -1,0 +1,58 @@
+{
+  "authorization": "service_role server-only; auth.uid from verified request context",
+  "functions": [
+    "canone_ops.exam_start",
+    "canone_ops.exam_answer",
+    "canone_ops.exam_finish",
+    "canone_ops.exam_reveal",
+    "canone_ops.exam_to_srs"
+  ],
+  "gate": "NO_GO",
+  "grade_exposure": "none until finished; server-only reveal",
+  "idempotence": "unique (attempt_id,ordinal) receipt + attempt FOR UPDATE",
+  "new_tables": [
+    "canone_learning.exam_review_receipt"
+  ],
+  "not_supported": [
+    "mock exam",
+    "official passing scores",
+    "unsealed form",
+    "public RPC",
+    "managed Auth/JWT E2E",
+    "arbitrary replay of historic SRS"
+  ],
+  "remote_db_mutations": 0,
+  "source_migrations_verified": 30,
+  "sources": [
+    {
+      "bytes": 10569,
+      "name": "006_learning_items.sql",
+      "sha256": "55417f64192b8b4e5081416c2b874f207bedaf011fd2670e38e1f37bc5c75031"
+    },
+    {
+      "bytes": 12063,
+      "name": "007_learning_srs.sql",
+      "sha256": "d9bb2e97b45b050b24304d89973b4ac284b62f6dff4952a94dd9f4d108e3c545"
+    },
+    {
+      "bytes": 13305,
+      "name": "012_srs_engine.sql",
+      "sha256": "aa5152379aecb2184b6976aa24231676770afe80bb38e6bb5bdba4769f066a55"
+    },
+    {
+      "bytes": 34522,
+      "name": "018_provas_gabarito.sql",
+      "sha256": "a1088083d3f0c8aa5d534c1e272ec85fc0c8a151832e4964e5ab939c6799f6a8"
+    },
+    {
+      "bytes": 25457,
+      "name": "019_tentativa_ingestao.sql",
+      "sha256": "c01f383f23b2189e889e4a8bf919cd5d3bcc252c6828349764775de38fb44989"
+    }
+  ],
+  "sql_sha256": "4eb0fff7ae0610ca526ecca3e09d2f770189c83e9927032428bf70493c3048a1",
+  "srs_algorithm": "canone-srs-exam-v1",
+  "status": "PRIVATE_EXAM_AND_SRS_CANDIDATE_NO_GO",
+  "template_sha256": "879ea87b5d8977c8f2b4c3757a79691f8a9fb662660aba475c9bf40efd6d5963",
+  "version": "0.23.0-alpha.8"
+}
