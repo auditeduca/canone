@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createGateway,makePgExecutor,SQL,FEATURE_KEY} from '../gateway/alpha9-core.mjs';
+import {createGateway,makePgExecutor,SQL,FEATURE_KEY} from '../gateway/alpha10-core.mjs';
 const A='33333333-3333-4333-8333-333333333333',FORM='00000000-0000-4000-8000-000000000004';
 const AUTH={authorization:'Bearer a.b.c','content-type':'application/json'};
 const respond=(gw,path,body,extra={})=>gw({method:'POST',headers:AUTH,path,rawBody:JSON.stringify(body),...extra});

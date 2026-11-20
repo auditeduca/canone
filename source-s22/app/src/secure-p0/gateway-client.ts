@@ -128,7 +128,7 @@ export function parseHistory(value:unknown):HistoryRow[]{
     if(answered>count||(r.status!=='concluida'&&r.correct_count!==null))
       throw invalid('INVALID_READ_CONTRACT');
     const correct=r.correct_count===null?null:integer(r.correct_count);
-    return {attempt_id:r.attempt_id,form_id:r.form_id,status:r.status,
+    return {attempt_id:r.attempt_id,form_id:r.form_id,status:String(r.status),
       started_at:r.started_at,finished_at:r.finished_at,
       answered_count:answered,correct_count:correct,question_count:count};
   });
