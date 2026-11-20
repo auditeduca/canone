@@ -1,0 +1,3460 @@
+{
+  "schema_version": "CANONE_F4_04D_REMAINING_OBJECTIVES_V1",
+  "project": "auditeduca/canone",
+  "date": "2026-11-20",
+  "edition": "CFC-SUF-2026.3",
+  "release_gate": "NO_GO",
+  "rights_review": "REFERENCE_ONLY",
+  "source_outline": "governance/f4_annex02_outline_v1.json",
+  "source_git_blob_sha": "cdab56d953c5639a42bdc4ac2d71838362a856dd",
+  "preserved_pilot": "governance/f4_learning_objectives_pilot_v1.json",
+  "pilot_git_blob_sha": "bd3b1ccda7703095a7963676b27bf3e00e062878",
+  "granularity": "ORIGINAL_CANDIDATE_OBJECTIVES_FROM_ANNEX_OUTLINE_NOT_VERBATIM_PARAGRAPHS",
+  "source_url": "https://conhecimento.fgv.br/sites/default/files/concursos/cfc-edital-2026.3-05.10.2026.pdf",
+  "metrics": {
+    "existing_pilot_groups": 18,
+    "remaining_groups": 64,
+    "all_areas_represented": 13,
+    "total_parent_groups": 82,
+    "new_candidate_objectives": 192,
+    "existing_candidate_objectives": 63,
+    "total_candidate_objectives": 255,
+    "independently_reviewed": 0,
+    "validated_norm_versions": 0,
+    "approved_lessons": 0,
+    "approved_questions": 0,
+    "licensed_external_items": 0
+  },
+  "groups": [
+    {
+      "parent_group_id": "F4-SUF26-3-03-01",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/A#1",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "A",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-01-OBJ01",
+          "original_learning_objective": "Identificar componentes do patrimônio no setor público e suas finalidades informacionais",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-01-OBJ02",
+          "original_learning_objective": "Classificar fatos patrimoniais de uma entidade pública em um caso sintético",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-01-OBJ03",
+          "original_learning_objective": "Avaliar divergências entre registro patrimonial e decisões de transparência pública",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-03-02",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/B#1",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "B",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-02-OBJ01",
+          "original_learning_objective": "Reconhecer as espécies de disponibilidades e seus controles contábeis públicos",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-02-OBJ02",
+          "original_learning_objective": "Reconciliar movimentações fictícias de disponibilidades com o razão patrimonial",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-02-OBJ03",
+          "original_learning_objective": "Investigar impactos de restrições de uso do caixa na apresentação de informações",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-03-03",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/C#1",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "C",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-03-OBJ01",
+          "original_learning_objective": "Distinguir estoques de outros ativos em operações governamentais",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-03-OBJ02",
+          "original_learning_objective": "Aplicar um roteiro didático de mensuração de estoques públicos",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-03-OBJ03",
+          "original_learning_objective": "Comparar efeitos de perdas e reclassificações em uma situação hipotética",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-03-04",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/D#1",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "D",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-04-OBJ01",
+          "original_learning_objective": "Reconhecer situações que envolvem recursos biológicos controlados por entes públicos",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/D#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-04-OBJ02",
+          "original_learning_objective": "Organizar informações de mensuração em um exemplo fictício de atividade biológica",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/D#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-04-OBJ03",
+          "original_learning_objective": "Avaliar diferenças de tratamento contábil quando mudam as condições de exploração",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/D#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-03-05",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/E#1",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "E",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-05-OBJ01",
+          "original_learning_objective": "Distinguir imóveis de investimento de outros bens imóveis mantidos por entidades públicas",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/E#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-05-OBJ02",
+          "original_learning_objective": "Classificar imóveis públicos em um conjunto hipotético de finalidades de uso",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/E#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-05-OBJ03",
+          "original_learning_objective": "Discutir repercussões de mudança de uso para mensuração e apresentação patrimonial",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/E#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-03-06",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/F#1",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "F",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-06-OBJ01",
+          "original_learning_objective": "Identificar investimentos societários e relações de participação de entidades públicas",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/F#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-06-OBJ02",
+          "original_learning_objective": "Montar uma reconciliação simplificada de saldos de participações públicas",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/F#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-06-OBJ03",
+          "original_learning_objective": "Analisar riscos de dupla contagem em demonstrações de entidades relacionadas",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/F#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-03-07",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/G#1",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "G",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-07-OBJ01",
+          "original_learning_objective": "Diferenciar ativos tangíveis e intangíveis no patrimônio do setor público",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/G#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-07-OBJ02",
+          "original_learning_objective": "Organizar um quadro de aquisição, utilização e baixa de bens fictícios",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/G#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-07-OBJ03",
+          "original_learning_objective": "Avaliar sinais de perda de capacidade de serviço e limites dos registros de ativos",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/G#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-03-08",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/H#1",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "H",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-08-OBJ01",
+          "original_learning_objective": "Distinguir receitas públicas sem contraprestação de transações com contraprestação",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/H#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-08-OBJ02",
+          "original_learning_objective": "Classificar fatos hipotéticos envolvendo tributos e transferências públicas",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/H#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-08-OBJ03",
+          "original_learning_objective": "Analisar como obrigações vinculadas podem alterar a interpretação de uma receita",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/H#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-03-09",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/I#1",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "I",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-09-OBJ01",
+          "original_learning_objective": "Reconhecer as características de receitas públicas decorrentes de serviços ou trocas",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/I#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-09-OBJ02",
+          "original_learning_objective": "Construir uma linha do tempo de serviços prestados e registros correspondentes",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/I#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-09-OBJ03",
+          "original_learning_objective": "Examinar divergências entre prestação, recebimento e informação patrimonial",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/I#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-03-10",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/J#1",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "J",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-10-OBJ01",
+          "original_learning_objective": "Identificar sinais de redução do potencial de serviços ou benefícios de ativos públicos",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/J#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-10-OBJ02",
+          "original_learning_objective": "Desenvolver uma análise didática de recuperabilidade com premissas explícitas",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/J#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-10-OBJ03",
+          "original_learning_objective": "Avaliar a sensibilidade de conclusões a mudanças nas premissas de mensuração",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/J#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-03-11",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/K#1",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "K",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-11-OBJ01",
+          "original_learning_objective": "Distinguir obrigações prováveis, contingências e eventos sem obrigação presente",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/K#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-11-OBJ02",
+          "original_learning_objective": "Organizar casos fictícios por incerteza, evidência e divulgação necessária",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/K#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-11-OBJ03",
+          "original_learning_objective": "Criticar uma decisão de reconhecimento diante de evidências contraditórias",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/K#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-03-12",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/L#1",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "L",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-12-OBJ01",
+          "original_learning_objective": "Reconhecer concessões de serviços como relações contratuais de interesse público",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/L#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-12-OBJ02",
+          "original_learning_objective": "Mapear partes, ativos e fluxos de um contrato hipotético de concessão",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/L#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-12-OBJ03",
+          "original_learning_objective": "Analisar diferenças entre responsabilidade operacional e controle patrimonial",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/L#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-03-13",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/M#1",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "M",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-13-OBJ01",
+          "original_learning_objective": "Identificar bases de mensuração apresentadas em decisões patrimoniais públicas",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/M#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-13-OBJ02",
+          "original_learning_objective": "Comparar resultados de mensuração fictícia sob premissas distintas",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/M#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-13-OBJ03",
+          "original_learning_objective": "Avaliar impacto e transparência dos julgamentos usados na mensuração",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/M#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-03-14",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/N#1",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "N",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-14-OBJ01",
+          "original_learning_objective": "Distinguir a utilização de ativos próprios de contratos de arrendamento",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/N#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-14-OBJ02",
+          "original_learning_objective": "Montar cronograma ilustrativo de pagamentos e uso contratual de um bem",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/N#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-14-OBJ03",
+          "original_learning_objective": "Examinar como duração e opções contratuais influenciam avaliações contábeis",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/N#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-03-15",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/M#2",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "M",
+      "source_occurrence": 2,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-15-OBJ01",
+          "original_learning_objective": "Reconhecer a finalidade da padronização de contas do setor público",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/M#2",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-15-OBJ02",
+          "original_learning_objective": "Classificar lançamentos hipotéticos em níveis de um plano de contas didático",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/M#2",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-15-OBJ03",
+          "original_learning_objective": "Localizar incoerências entre natureza da conta, fato patrimonial e informação gerada",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/M#2",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-03-16",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/N#2",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "N",
+      "source_occurrence": 2,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-16-OBJ01",
+          "original_learning_objective": "Explicar relações entre planejamento, orçamento e execução pública",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/N#2",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-16-OBJ02",
+          "original_learning_objective": "Conciliar dotações e fatos orçamentários em uma sequência fictícia",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/N#2",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-16-OBJ03",
+          "original_learning_objective": "Analisar diferenças entre indicadores orçamentários e patrimoniais da mesma gestão",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/N#2",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-03-17",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/O#1",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "O",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-17-OBJ01",
+          "original_learning_objective": "Distinguir patrimônio público, direitos de uso e responsabilidades por ativos",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/O#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-17-OBJ02",
+          "original_learning_objective": "Elaborar mapa de bens e obrigações de um ente público simulado",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/O#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-17-OBJ03",
+          "original_learning_objective": "Avaliar fragilidades de inventário e controle patrimonial na prestação de contas",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/O#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-03-18",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/P#1",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "P",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-18-OBJ01",
+          "original_learning_objective": "Identificar operações públicas que exigem tratamento contábil específico",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/P#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-18-OBJ02",
+          "original_learning_objective": "Comparar registros hipotéticos de operações típicas e operações excepcionais",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/P#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-18-OBJ03",
+          "original_learning_objective": "Justificar a necessidade de pesquisar norma primária antes de registrar casos incomuns",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/P#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-03-19",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/Q#1",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "Q",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-19-OBJ01",
+          "original_learning_objective": "Distinguir as principais demonstrações requeridas para comunicação pública",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/Q#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-19-OBJ02",
+          "original_learning_objective": "Organizar dados ilustrativos em quadros de resultados e posição patrimonial",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/Q#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-19-OBJ03",
+          "original_learning_objective": "Reconciliar informações apresentadas em demonstrativos públicos complementares",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/Q#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-03-20",
+      "area_id": "CFC-A10",
+      "source_locator": "ANEXO_II/3/R#1",
+      "source_pdf_pages": [
+        23,
+        25
+      ],
+      "section": 3,
+      "source_label": "R",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-03-20-OBJ01",
+          "original_learning_objective": "Identificar os papéis da legislação orçamentária e do manual contábil público",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/3/R#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-20-OBJ02",
+          "original_learning_objective": "Construir matriz de referência entre fato contábil e fonte normativa a consultar",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/3/R#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-20-OBJ03",
+          "original_learning_objective": "Investigar conflitos aparentes entre procedimentos e versões de manuais sem assumir vigência",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/3/R#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-04-01",
+      "area_id": "CFC-A09",
+      "source_locator": "ANEXO_II/4/A#1",
+      "source_pdf_pages": [
+        25,
+        25
+      ],
+      "section": 4,
+      "source_label": "A",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-04-01-OBJ01",
+          "original_learning_objective": "Reconhecer custos relevantes para decisões de curto e longo prazo",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/4/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-04-01-OBJ02",
+          "original_learning_objective": "Calcular margens incrementais em alternativas fictícias de produção",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/4/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-04-01-OBJ03",
+          "original_learning_objective": "Avaliar decisões sob restrição de capacidade e custos não evitáveis",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/4/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-04-02",
+      "area_id": "CFC-A09",
+      "source_locator": "ANEXO_II/4/B#1",
+      "source_pdf_pages": [
+        25,
+        25
+      ],
+      "section": 4,
+      "source_label": "B",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-04-02-OBJ01",
+          "original_learning_objective": "Distinguir padrões de custos e mecanismos de acompanhamento gerencial",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/4/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-04-02-OBJ02",
+          "original_learning_objective": "Comparar custos reais e padrões em um relatório sintético de controle",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/4/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-04-02-OBJ03",
+          "original_learning_objective": "Investigar a influência de metas e alocação de custos sobre desvios observados",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/4/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-04-03",
+      "area_id": "CFC-A09",
+      "source_locator": "ANEXO_II/4/C#1",
+      "source_pdf_pages": [
+        25,
+        25
+      ],
+      "section": 4,
+      "source_label": "C",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-04-03-OBJ01",
+          "original_learning_objective": "Identificar indicadores econômicos de margem, retorno e ponto de equilíbrio",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/4/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-04-03-OBJ02",
+          "original_learning_objective": "Calcular indicadores com premissas e dados de cenário fictício",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/4/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-04-03-OBJ03",
+          "original_learning_objective": "Analisar limitações dos indicadores quando mix e volume de vendas se alteram",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/4/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-05-01",
+      "area_id": "CFC-A11",
+      "source_locator": "ANEXO_II/5/A#1",
+      "source_pdf_pages": [
+        25,
+        25
+      ],
+      "section": 5,
+      "source_label": "A",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-05-01-OBJ01",
+          "original_learning_objective": "Descrever as responsabilidades informacionais da controladoria em uma organização",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/5/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-05-01-OBJ02",
+          "original_learning_objective": "Organizar atividades de controladoria por planejamento, execução e controle",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/5/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-05-01-OBJ03",
+          "original_learning_objective": "Avaliar potenciais conflitos entre independência analítica e apoio à gestão",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/5/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-05-02",
+      "area_id": "CFC-A11",
+      "source_locator": "ANEXO_II/5/B#1",
+      "source_pdf_pages": [
+        25,
+        25
+      ],
+      "section": 5,
+      "source_label": "B",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-05-02-OBJ01",
+          "original_learning_objective": "Reconhecer objetivos de planos, metas e orçamentos empresariais",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/5/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-05-02-OBJ02",
+          "original_learning_objective": "Desenvolver projeção simplificada de resultado e fluxo de caixa",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/5/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-05-02-OBJ03",
+          "original_learning_objective": "Examinar riscos decorrentes de premissas incompatíveis entre áreas do orçamento",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/5/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-05-03",
+      "area_id": "CFC-A11",
+      "source_locator": "ANEXO_II/5/C#1",
+      "source_pdf_pages": [
+        25,
+        25
+      ],
+      "section": 5,
+      "source_label": "C",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-05-03-OBJ01",
+          "original_learning_objective": "Distinguir governança, conformidade e suporte informacional à decisão",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/5/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-05-03-OBJ02",
+          "original_learning_objective": "Construir matriz de responsáveis e instâncias de aprovação em caso didático",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/5/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-05-03-OBJ03",
+          "original_learning_objective": "Avaliar como decisões sem trilha de evidência afetam accountability gerencial",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/5/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-05-04",
+      "area_id": "CFC-A11",
+      "source_locator": "ANEXO_II/5/D#1",
+      "source_pdf_pages": [
+        25,
+        25
+      ],
+      "section": 5,
+      "source_label": "D",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-05-04-OBJ01",
+          "original_learning_objective": "Identificar indicadores associados a metas e resultados organizacionais",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/5/D#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-05-04-OBJ02",
+          "original_learning_objective": "Comparar desempenho real e planejado em cenário simulado",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/5/D#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-05-04-OBJ03",
+          "original_learning_objective": "Analisar incentivos e distorções causados por indicadores isolados",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/5/D#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-05-05",
+      "area_id": "CFC-A11",
+      "source_locator": "ANEXO_II/5/E#1",
+      "source_pdf_pages": [
+        25,
+        25
+      ],
+      "section": 5,
+      "source_label": "E",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-05-05-OBJ01",
+          "original_learning_objective": "Reconhecer a função dos sistemas de informação contábil na controladoria",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/5/E#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-05-05-OBJ02",
+          "original_learning_objective": "Desenhar fluxo de dados entre lançamentos, controles e relatórios gerenciais",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/5/E#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-05-05-OBJ03",
+          "original_learning_objective": "Investigar controles de qualidade e reconciliação de dados entre sistemas",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/5/E#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-06-01",
+      "area_id": "CFC-A03",
+      "source_locator": "ANEXO_II/6/A#1",
+      "source_pdf_pages": [
+        25,
+        27
+      ],
+      "section": 6,
+      "source_label": "A",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "Lei 6.404/1976",
+        "Lei 5.172/1966",
+        "LC 214/2025"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-06-01-OBJ01",
+          "original_learning_objective": "Diferenciar relações jurídicas de natureza pública e privada em exemplos",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/6/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-06-01-OBJ02",
+          "original_learning_objective": "Classificar situações hipotéticas conforme suas fontes jurídicas",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/6/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-06-01-OBJ03",
+          "original_learning_objective": "Avaliar incertezas jurídicas que exigem consulta a texto legislativo vigente",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/6/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-06-02",
+      "area_id": "CFC-A03",
+      "source_locator": "ANEXO_II/6/B#1",
+      "source_pdf_pages": [
+        25,
+        27
+      ],
+      "section": 6,
+      "source_label": "B",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "Lei 6.404/1976",
+        "Lei 5.172/1966",
+        "LC 214/2025"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-06-02-OBJ01",
+          "original_learning_objective": "Reconhecer conceitos básicos de vínculo laboral e obrigações do empregador",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/6/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-06-02-OBJ02",
+          "original_learning_objective": "Organizar uma folha fictícia e separar seus componentes informacionais",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/6/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-06-02-OBJ03",
+          "original_learning_objective": "Investigar riscos de interpretação quando regras trabalhistas se alteram",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/6/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-06-03",
+      "area_id": "CFC-A03",
+      "source_locator": "ANEXO_II/6/C#1",
+      "source_pdf_pages": [
+        25,
+        27
+      ],
+      "section": 6,
+      "source_label": "C",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "Lei 6.404/1976",
+        "Lei 5.172/1966",
+        "LC 214/2025"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-06-03-OBJ01",
+          "original_learning_objective": "Distinguir responsabilidades e estruturas de tipos societários usuais",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/6/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-06-03-OBJ02",
+          "original_learning_objective": "Construir um quadro ilustrativo de atos e decisões de uma sociedade",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/6/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-06-03-OBJ03",
+          "original_learning_objective": "Analisar consequências de decisões societárias para divulgação contábil",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/6/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-06-04",
+      "area_id": "CFC-A03",
+      "source_locator": "ANEXO_II/6/D#1",
+      "source_pdf_pages": [
+        25,
+        27
+      ],
+      "section": 6,
+      "source_label": "D",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "Lei 6.404/1976",
+        "Lei 5.172/1966",
+        "LC 214/2025"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-06-04-OBJ01",
+          "original_learning_objective": "Identificar espécies tributárias e mudanças estruturais da tributação brasileira",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/6/D#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-06-04-OBJ02",
+          "original_learning_objective": "Comparar efeitos didáticos de incidência tributária em duas operações fictícias",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/6/D#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-06-04-OBJ03",
+          "original_learning_objective": "Analisar cenários de transição tributária sem afirmar regra não verificada",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/6/D#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-07-01",
+      "area_id": "CFC-A02",
+      "source_locator": "ANEXO_II/7/A#1",
+      "source_pdf_pages": [
+        27,
+        27
+      ],
+      "section": 7,
+      "source_label": "A",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-07-01-OBJ01",
+          "original_learning_objective": "Distinguir juros simples, compostos e principais sistemas de amortização",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/7/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-07-01-OBJ02",
+          "original_learning_objective": "Calcular prestações e saldos de financiamento com dados inventados",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/7/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-07-01-OBJ03",
+          "original_learning_objective": "Comparar o custo efetivo de alternativas com diferentes prazos e taxas",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/7/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-07-02",
+      "area_id": "CFC-A02",
+      "source_locator": "ANEXO_II/7/B#1",
+      "source_pdf_pages": [
+        27,
+        27
+      ],
+      "section": 7,
+      "source_label": "B",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-07-02-OBJ01",
+          "original_learning_objective": "Reconhecer índices de preços e princípios de atualização monetária",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/7/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-07-02-OBJ02",
+          "original_learning_objective": "Atualizar valores hipotéticos usando séries ilustrativas",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/7/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-07-02-OBJ03",
+          "original_learning_objective": "Analisar efeitos de defasagem temporal e escolha de índice",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/7/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-07-03",
+      "area_id": "CFC-A02",
+      "source_locator": "ANEXO_II/7/C#1",
+      "source_pdf_pages": [
+        27,
+        27
+      ],
+      "section": 7,
+      "source_label": "C",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-07-03-OBJ01",
+          "original_learning_objective": "Identificar conceitos de valor presente e fluxos de investimentos",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/7/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-07-03-OBJ02",
+          "original_learning_objective": "Calcular valor presente líquido e taxa de retorno de casos fictícios",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/7/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-07-03-OBJ03",
+          "original_learning_objective": "Criticar decisões de investimento quando premissas de fluxo são incertas",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/7/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-07-04",
+      "area_id": "CFC-A02",
+      "source_locator": "ANEXO_II/7/D#1",
+      "source_pdf_pages": [
+        27,
+        27
+      ],
+      "section": 7,
+      "source_label": "D",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-07-04-OBJ01",
+          "original_learning_objective": "Distinguir medidas de tendência central, dispersão e probabilidade",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/7/D#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-07-04-OBJ02",
+          "original_learning_objective": "Aplicar cálculos estatísticos a pequena base numérica inventada",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/7/D#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-07-04-OBJ03",
+          "original_learning_objective": "Examinar vieses e erros de interpretação em amostras não representativas",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/7/D#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-07-05",
+      "area_id": "CFC-A02",
+      "source_locator": "ANEXO_II/7/E#1",
+      "source_pdf_pages": [
+        27,
+        27
+      ],
+      "section": 7,
+      "source_label": "E",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-07-05-OBJ01",
+          "original_learning_objective": "Reconhecer relações entre amostragem, estimativas e inferência",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/7/E#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-07-05-OBJ02",
+          "original_learning_objective": "Construir interpretação de intervalo e teste estatístico em cenário hipotético",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/7/E#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-07-05-OBJ03",
+          "original_learning_objective": "Avaliar limitações de generalização a partir de amostras pequenas",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/7/E#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-08-01",
+      "area_id": "CFC-A05",
+      "source_locator": "ANEXO_II/8/A#1",
+      "source_pdf_pages": [
+        27,
+        27
+      ],
+      "section": 8,
+      "source_label": "A",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG EC"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-08-01-OBJ01",
+          "original_learning_objective": "Identificar objetivos e usuários da estrutura conceitual da informação financeira",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/8/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-08-01-OBJ02",
+          "original_learning_objective": "Classificar características de qualidade da informação em exemplos",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/8/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-08-01-OBJ03",
+          "original_learning_objective": "Discutir conflitos entre relevância e representação fidedigna em decisões simuladas",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/8/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-08-02",
+      "area_id": "CFC-A05",
+      "source_locator": "ANEXO_II/8/B#1",
+      "source_pdf_pages": [
+        27,
+        27
+      ],
+      "section": 8,
+      "source_label": "B",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG EC"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-08-02-OBJ01",
+          "original_learning_objective": "Distinguir os elementos reconhecidos nas demonstrações financeiras",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/8/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-08-02-OBJ02",
+          "original_learning_objective": "Aplicar definições conceituais a transações hipotéticas",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/8/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-08-02-OBJ03",
+          "original_learning_objective": "Avaliar julgamentos de reconhecimento e baixa com documentação de premissas",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/8/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-09-01",
+      "area_id": "CFC-A04",
+      "source_locator": "ANEXO_II/9/A#1",
+      "source_pdf_pages": [
+        27,
+        28
+      ],
+      "section": 9,
+      "source_label": "A",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC PG 01",
+        "NBC PA 400",
+        "NBC PO 900",
+        "DL 9.295/1946"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-09-01-OBJ01",
+          "original_learning_objective": "Reconhecer princípios éticos relevantes ao exercício profissional contábil",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/9/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-09-01-OBJ02",
+          "original_learning_objective": "Classificar situações hipotéticas de ameaças e salvaguardas profissionais",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/9/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-09-01-OBJ03",
+          "original_learning_objective": "Analisar conflitos de interesse e justificar encaminhamentos de consulta normativa",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/9/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-09-02",
+      "area_id": "CFC-A04",
+      "source_locator": "ANEXO_II/9/B#1",
+      "source_pdf_pages": [
+        27,
+        28
+      ],
+      "section": 9,
+      "source_label": "B",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC PG 01",
+        "NBC PA 400",
+        "NBC PO 900",
+        "DL 9.295/1946"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-09-02-OBJ01",
+          "original_learning_objective": "Identificar finalidades dos códigos profissionais de conduta e independência",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/9/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-09-02-OBJ02",
+          "original_learning_objective": "Comparar respostas a dilemas éticos em estudos de caso originais",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/9/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-09-02-OBJ03",
+          "original_learning_objective": "Avaliar implicações de violações sem presumir texto normativo não conferido",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/9/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-09-03",
+      "area_id": "CFC-A04",
+      "source_locator": "ANEXO_II/9/C#1",
+      "source_pdf_pages": [
+        27,
+        28
+      ],
+      "section": 9,
+      "source_label": "C",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC PG 01",
+        "NBC PA 400",
+        "NBC PO 900",
+        "DL 9.295/1946"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-09-03-OBJ01",
+          "original_learning_objective": "Reconhecer papéis das instituições e registros profissionais da contabilidade",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/9/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-09-03-OBJ02",
+          "original_learning_objective": "Mapear relações entre profissionais, conselhos e processos de fiscalização",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/9/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-09-03-OBJ03",
+          "original_learning_objective": "Examinar competências institucionais sob hipóteses que exigem checagem normativa",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/9/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-10-01",
+      "area_id": "CFC-A06",
+      "source_locator": "ANEXO_II/10/A#1",
+      "source_pdf_pages": [
+        28,
+        28
+      ],
+      "section": 10,
+      "source_label": "A",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TDS 01",
+        "NBC TDS 02",
+        "Resolução CFC 1.328/2011"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-10-01-OBJ01",
+          "original_learning_objective": "Identificar categorias e estrutura de organização das normas brasileiras de contabilidade",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/10/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-10-01-OBJ02",
+          "original_learning_objective": "Relacionar áreas técnicas a famílias normativas sem presumir suas versões",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/10/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-10-01-OBJ03",
+          "original_learning_objective": "Avaliar riscos de usar uma norma substituída em resposta de exame",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/10/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-10-02",
+      "area_id": "CFC-A06",
+      "source_locator": "ANEXO_II/10/B#1",
+      "source_pdf_pages": [
+        28,
+        28
+      ],
+      "section": 10,
+      "source_label": "B",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TDS 01",
+        "NBC TDS 02",
+        "Resolução CFC 1.328/2011"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-10-02-OBJ01",
+          "original_learning_objective": "Distinguir normas técnicas, profissionais, interpretações e comunicados",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/10/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-10-02-OBJ02",
+          "original_learning_objective": "Construir índice de busca de documentos normativos por edição e tema",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/10/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-10-02-OBJ03",
+          "original_learning_objective": "Examinar trilhas de alteração e revogação antes de aplicar uma regra a um caso",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/10/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-10-03",
+      "area_id": "CFC-A06",
+      "source_locator": "ANEXO_II/10/C#1",
+      "source_pdf_pages": [
+        28,
+        28
+      ],
+      "section": 10,
+      "source_label": "C",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TDS 01",
+        "NBC TDS 02",
+        "Resolução CFC 1.328/2011"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-10-03-OBJ01",
+          "original_learning_objective": "Reconhecer a finalidade das informações de sustentabilidade e clima",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/10/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-10-03-OBJ02",
+          "original_learning_objective": "Comparar indicadores ilustrativos de riscos e oportunidades corporativas",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/10/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-10-03-OBJ03",
+          "original_learning_objective": "Avaliar limitações de dados e governança em relatórios de sustentabilidade",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/10/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-11-01",
+      "area_id": "CFC-A12",
+      "source_locator": "ANEXO_II/11/A#1",
+      "source_pdf_pages": [
+        28,
+        30
+      ],
+      "section": 11,
+      "source_label": "A",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TA 200",
+        "NBC TA 240",
+        "NBC TA 260",
+        "NBC TA 300",
+        "NBC TA 315",
+        "NBC TA 520",
+        "NBC TA 700",
+        "NBC TA 705",
+        "NBC TA 706",
+        "NBC TAS 5000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-11-01-OBJ01",
+          "original_learning_objective": "Definir objetivo e limites da auditoria independente das demonstrações",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/11/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-01-OBJ02",
+          "original_learning_objective": "Identificar evidências e procedimentos em situação empresarial fictícia",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/11/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-01-OBJ03",
+          "original_learning_objective": "Analisar diferença entre responsabilidade de gestão e do auditor",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/11/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-11-02",
+      "area_id": "CFC-A12",
+      "source_locator": "ANEXO_II/11/B#1",
+      "source_pdf_pages": [
+        28,
+        30
+      ],
+      "section": 11,
+      "source_label": "B",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TA 200",
+        "NBC TA 240",
+        "NBC TA 260",
+        "NBC TA 300",
+        "NBC TA 315",
+        "NBC TA 520",
+        "NBC TA 700",
+        "NBC TA 705",
+        "NBC TA 706",
+        "NBC TAS 5000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-11-02-OBJ01",
+          "original_learning_objective": "Distinguir auditoria, revisão e outros trabalhos de asseguração",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/11/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-02-OBJ02",
+          "original_learning_objective": "Classificar trabalhos ilustrativos por objeto e natureza de conclusão",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/11/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-02-OBJ03",
+          "original_learning_objective": "Avaliar riscos de comunicar nível de asseguração inadequado",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/11/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-11-03",
+      "area_id": "CFC-A12",
+      "source_locator": "ANEXO_II/11/C#1",
+      "source_pdf_pages": [
+        28,
+        30
+      ],
+      "section": 11,
+      "source_label": "C",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TA 200",
+        "NBC TA 240",
+        "NBC TA 260",
+        "NBC TA 300",
+        "NBC TA 315",
+        "NBC TA 520",
+        "NBC TA 700",
+        "NBC TA 705",
+        "NBC TA 706",
+        "NBC TAS 5000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-11-03-OBJ01",
+          "original_learning_objective": "Reconhecer a importância do ceticismo e julgamento profissional",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/11/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-03-OBJ02",
+          "original_learning_objective": "Documentar avaliação de evidências conflitantes em caso didático",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/11/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-03-OBJ03",
+          "original_learning_objective": "Examinar possíveis vieses do auditor diante de afirmações da administração",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/11/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-11-04",
+      "area_id": "CFC-A12",
+      "source_locator": "ANEXO_II/11/D#1",
+      "source_pdf_pages": [
+        28,
+        30
+      ],
+      "section": 11,
+      "source_label": "D",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TA 200",
+        "NBC TA 240",
+        "NBC TA 260",
+        "NBC TA 300",
+        "NBC TA 315",
+        "NBC TA 520",
+        "NBC TA 700",
+        "NBC TA 705",
+        "NBC TA 706",
+        "NBC TAS 5000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-11-04-OBJ01",
+          "original_learning_objective": "Distinguir riscos de fraude de erros não intencionais",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/11/D#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-04-OBJ02",
+          "original_learning_objective": "Planejar perguntas e procedimentos em cenário fictício de fraude",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/11/D#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-04-OBJ03",
+          "original_learning_objective": "Avaliar a resposta do auditor diante de suspeitas e restrições de acesso",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/11/D#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-11-05",
+      "area_id": "CFC-A12",
+      "source_locator": "ANEXO_II/11/E#1",
+      "source_pdf_pages": [
+        28,
+        30
+      ],
+      "section": 11,
+      "source_label": "E",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TA 200",
+        "NBC TA 240",
+        "NBC TA 260",
+        "NBC TA 300",
+        "NBC TA 315",
+        "NBC TA 520",
+        "NBC TA 700",
+        "NBC TA 705",
+        "NBC TA 706",
+        "NBC TAS 5000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-11-05-OBJ01",
+          "original_learning_objective": "Identificar finalidade de estratégia global e plano de auditoria",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/11/E#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-05-OBJ02",
+          "original_learning_objective": "Organizar procedimentos por fase, equipe e risco em estudo de caso",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/11/E#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-05-OBJ03",
+          "original_learning_objective": "Avaliar impactos de mudanças de risco sobre planejamento e supervisão",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/11/E#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-11-06",
+      "area_id": "CFC-A12",
+      "source_locator": "ANEXO_II/11/F#1",
+      "source_pdf_pages": [
+        28,
+        30
+      ],
+      "section": 11,
+      "source_label": "F",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TA 200",
+        "NBC TA 240",
+        "NBC TA 260",
+        "NBC TA 300",
+        "NBC TA 315",
+        "NBC TA 520",
+        "NBC TA 700",
+        "NBC TA 705",
+        "NBC TA 706",
+        "NBC TAS 5000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-11-06-OBJ01",
+          "original_learning_objective": "Distinguir risco inerente, risco de controle e risco de detecção",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/11/F#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-06-OBJ02",
+          "original_learning_objective": "Relacionar controles fictícios a afirmações das demonstrações",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/11/F#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-06-OBJ03",
+          "original_learning_objective": "Criticar a suficiência de resposta do auditor a riscos relevantes",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/11/F#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-11-07",
+      "area_id": "CFC-A12",
+      "source_locator": "ANEXO_II/11/G#1",
+      "source_pdf_pages": [
+        28,
+        30
+      ],
+      "section": 11,
+      "source_label": "G",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TA 200",
+        "NBC TA 240",
+        "NBC TA 260",
+        "NBC TA 300",
+        "NBC TA 315",
+        "NBC TA 520",
+        "NBC TA 700",
+        "NBC TA 705",
+        "NBC TA 706",
+        "NBC TAS 5000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-11-07-OBJ01",
+          "original_learning_objective": "Reconhecer finalidades de comparação de tendências e relações contábeis",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/11/G#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-07-OBJ02",
+          "original_learning_objective": "Calcular variações e indicadores com demonstrações inventadas",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/11/G#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-07-OBJ03",
+          "original_learning_objective": "Investigar explicações alternativas para anomalias de revisão analítica",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/11/G#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-11-08",
+      "area_id": "CFC-A12",
+      "source_locator": "ANEXO_II/11/H#1",
+      "source_pdf_pages": [
+        28,
+        30
+      ],
+      "section": 11,
+      "source_label": "H",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TA 200",
+        "NBC TA 240",
+        "NBC TA 260",
+        "NBC TA 300",
+        "NBC TA 315",
+        "NBC TA 520",
+        "NBC TA 700",
+        "NBC TA 705",
+        "NBC TA 706",
+        "NBC TAS 5000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-11-08-OBJ01",
+          "original_learning_objective": "Identificar estrutura geral do relatório de auditoria independente",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/11/H#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-08-OBJ02",
+          "original_learning_objective": "Relacionar conclusões sobre evidências à formação de opinião",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/11/H#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-08-OBJ03",
+          "original_learning_objective": "Avaliar coerência entre ressalvas documentadas e tipo de opinião proposta",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/11/H#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-11-09",
+      "area_id": "CFC-A12",
+      "source_locator": "ANEXO_II/11/I#1",
+      "source_pdf_pages": [
+        28,
+        30
+      ],
+      "section": 11,
+      "source_label": "I",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TA 200",
+        "NBC TA 240",
+        "NBC TA 260",
+        "NBC TA 300",
+        "NBC TA 315",
+        "NBC TA 520",
+        "NBC TA 700",
+        "NBC TA 705",
+        "NBC TA 706",
+        "NBC TAS 5000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-11-09-OBJ01",
+          "original_learning_objective": "Distinguir limitações de escopo e distorções identificadas",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/11/I#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-09-OBJ02",
+          "original_learning_objective": "Classificar cenários hipotéticos de opinião modificada",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/11/I#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-09-OBJ03",
+          "original_learning_objective": "Justificar a necessidade de checar versões vigentes antes de emitir parecer",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/11/I#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-11-10",
+      "area_id": "CFC-A12",
+      "source_locator": "ANEXO_II/11/J#1",
+      "source_pdf_pages": [
+        28,
+        30
+      ],
+      "section": 11,
+      "source_label": "J",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TA 200",
+        "NBC TA 240",
+        "NBC TA 260",
+        "NBC TA 300",
+        "NBC TA 315",
+        "NBC TA 520",
+        "NBC TA 700",
+        "NBC TA 705",
+        "NBC TA 706",
+        "NBC TAS 5000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-11-10-OBJ01",
+          "original_learning_objective": "Reconhecer a finalidade de parágrafos de ênfase e outros assuntos",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/11/J#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-10-OBJ02",
+          "original_learning_objective": "Comparar exemplos didáticos de comunicação no relatório do auditor",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/11/J#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-10-OBJ03",
+          "original_learning_objective": "Avaliar o risco de usar parágrafo explicativo como substituto de opinião modificada",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/11/J#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-11-11",
+      "area_id": "CFC-A12",
+      "source_locator": "ANEXO_II/11/K#1",
+      "source_pdf_pages": [
+        28,
+        30
+      ],
+      "section": 11,
+      "source_label": "K",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TA 200",
+        "NBC TA 240",
+        "NBC TA 260",
+        "NBC TA 300",
+        "NBC TA 315",
+        "NBC TA 520",
+        "NBC TA 700",
+        "NBC TA 705",
+        "NBC TA 706",
+        "NBC TAS 5000"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-11-11-OBJ01",
+          "original_learning_objective": "Identificar temas complementares no universo das normas de auditoria",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/11/K#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-11-OBJ02",
+          "original_learning_objective": "Montar matriz de referência de normas para riscos e procedimentos",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/11/K#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-11-OBJ03",
+          "original_learning_objective": "Analisar impactos de revisões normativas recentes nos trabalhos simulados",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/11/K#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-12-01",
+      "area_id": "CFC-A13",
+      "source_locator": "ANEXO_II/12/A#1",
+      "source_pdf_pages": [
+        30,
+        30
+      ],
+      "section": 12,
+      "source_label": "A",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC PP 01",
+        "NBC TP 01",
+        "ITP 01"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-12-01-OBJ01",
+          "original_learning_objective": "Definir objeto e finalidade da perícia contábil em situações de litígio",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/12/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-12-01-OBJ02",
+          "original_learning_objective": "Distinguir perícia, auditoria e consultoria em casos inventados",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/12/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-12-01-OBJ03",
+          "original_learning_objective": "Avaliar limites de escopo de um trabalho pericial sem ampliar o mandato",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/12/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-12-02",
+      "area_id": "CFC-A13",
+      "source_locator": "ANEXO_II/12/B#1",
+      "source_pdf_pages": [
+        30,
+        30
+      ],
+      "section": 12,
+      "source_label": "B",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC PP 01",
+        "NBC TP 01",
+        "ITP 01"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-12-02-OBJ01",
+          "original_learning_objective": "Reconhecer etapas de diligência, coleta e documentação de provas",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/12/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-12-02-OBJ02",
+          "original_learning_objective": "Construir roteiro de diligências para um processo hipotético",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/12/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-12-02-OBJ03",
+          "original_learning_objective": "Avaliar suficiência e integridade de documentos usados no laudo",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/12/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-12-03",
+      "area_id": "CFC-A13",
+      "source_locator": "ANEXO_II/12/C#1",
+      "source_pdf_pages": [
+        30,
+        30
+      ],
+      "section": 12,
+      "source_label": "C",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC PP 01",
+        "NBC TP 01",
+        "ITP 01"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-12-03-OBJ01",
+          "original_learning_objective": "Distinguir atribuições de perito nomeado e de assistente técnico",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/12/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-12-03-OBJ02",
+          "original_learning_objective": "Preparar plano de atuação e comunicação para caso simulado",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/12/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-12-03-OBJ03",
+          "original_learning_objective": "Analisar riscos de parcialidade e conflitos de interesse na perícia",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/12/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-12-04",
+      "area_id": "CFC-A13",
+      "source_locator": "ANEXO_II/12/D#1",
+      "source_pdf_pages": [
+        30,
+        30
+      ],
+      "section": 12,
+      "source_label": "D",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC PP 01",
+        "NBC TP 01",
+        "ITP 01"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-12-04-OBJ01",
+          "original_learning_objective": "Identificar fundamentos de apuração de haveres e cálculos litigiosos",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/12/D#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-12-04-OBJ02",
+          "original_learning_objective": "Organizar premissas e documentos para um cálculo pericial fictício",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/12/D#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-12-04-OBJ03",
+          "original_learning_objective": "Avaliar sensibilidade de resultados a hipóteses contábeis divergentes",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/12/D#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-12-05",
+      "area_id": "CFC-A13",
+      "source_locator": "ANEXO_II/12/E#1",
+      "source_pdf_pages": [
+        30,
+        30
+      ],
+      "section": 12,
+      "source_label": "E",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC PP 01",
+        "NBC TP 01",
+        "ITP 01"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-12-05-OBJ01",
+          "original_learning_objective": "Reconhecer a existência de normas profissionais e técnicas de perícia",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/12/E#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-12-05-OBJ02",
+          "original_learning_objective": "Montar roteiro de pesquisa da norma e sua versão aplicável",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/12/E#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-12-05-OBJ03",
+          "original_learning_objective": "Examinar consequências de referenciar norma revogada em conclusão pericial",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/12/E#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-13-01",
+      "area_id": "CFC-A01",
+      "source_locator": "ANEXO_II/13/A#1",
+      "source_pdf_pages": [
+        30,
+        30
+      ],
+      "section": 13,
+      "source_label": "A",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "DL 6.583/2008"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-13-01-OBJ01",
+          "original_learning_objective": "Reconhecer classes gramaticais e relações sintáticas relevantes à leitura",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/13/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-13-01-OBJ02",
+          "original_learning_objective": "Identificar relações de concordância em frases autorais curtas",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/13/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-13-01-OBJ03",
+          "original_learning_objective": "Analisar ambiguidades e efeitos de construção em um texto contábil",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/13/A#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-13-02",
+      "area_id": "CFC-A01",
+      "source_locator": "ANEXO_II/13/B#1",
+      "source_pdf_pages": [
+        30,
+        30
+      ],
+      "section": 13,
+      "source_label": "B",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "DL 6.583/2008"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-13-02-OBJ01",
+          "original_learning_objective": "Identificar ideia central e relações argumentativas em parágrafos autorais",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/13/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-13-02-OBJ02",
+          "original_learning_objective": "Produzir síntese clara de um texto informativo simulado",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/13/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-13-02-OBJ03",
+          "original_learning_objective": "Avaliar coerência, pressupostos e inferências em textos de prova fictícios",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/13/B#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-13-03",
+      "area_id": "CFC-A01",
+      "source_locator": "ANEXO_II/13/C#1",
+      "source_pdf_pages": [
+        30,
+        30
+      ],
+      "section": 13,
+      "source_label": "C",
+      "source_occurrence": 1,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "DL 6.583/2008"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-13-03-OBJ01",
+          "original_learning_objective": "Reconhecer princípios de grafia, acentuação e pontuação do português",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/13/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-13-03-OBJ02",
+          "original_learning_objective": "Revisar um comunicado profissional com erros deliberados",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/13/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-13-03-OBJ03",
+          "original_learning_objective": "Justificar escolhas de pontuação conforme sentido e estrutura da frase",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/13/C#1",
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    }
+  ]
+}
