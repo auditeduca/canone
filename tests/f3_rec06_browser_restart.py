@@ -42,6 +42,20 @@ try:
    expect(page.get_by_role("button",name="Iniciar tentativa no gateway")).to_be_visible()
    history=page.get_by_role("button",name="Consultar histórico")
    history.evaluate("(el)=>el.scrollIntoView({behavior:'instant',block:'center'})")
+   diag=page.evaluate("""()=>{
+     const e=[...document.querySelectorAll('button')].find(x=>x.textContent?.trim()==='Consultar histórico');
+     const r=e.getBoundingClientRect();
+     const hit=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);
+     const position=(selector)=>{const x=document.querySelector(selector); const q=x?.getBoundingClientRect();
+       return q?{top:q.top,bottom:q.bottom,height:q.height}:null};
+     return {scrollY,innerWidth,innerHeight,documentHeight:document.body.scrollHeight,
+       rect:{left:r.left,top:r.top,right:r.right,bottom:r.bottom},
+       atPoint:hit?.outerHTML.slice(0,200),nav:position('.nav'),
+       main:position('main#conteudo'),hero:position('main#conteudo header'),
+       history:position('section[aria-label="Histórico persistido"]'),
+       scrollBehavior:getComputedStyle(document.documentElement).scrollBehavior};
+   }""")
+   print("F3_MOBILE_HIT_TEST_DIAGNOSTIC",json.dumps(diag),flush=True)
    history.click(timeout=9000)
    expect(page.get_by_role("button",name="Consultar tentativa")).to_be_visible()
    attempt=page.get_by_role("button",name="Consultar tentativa")
