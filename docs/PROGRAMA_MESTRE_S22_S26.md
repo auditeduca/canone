@@ -1,3 +1,5 @@
+> **ADENDO 19/11/2026:** recuperação S22 concluída em material local de Biblioteca, S23 v0.3 redefine a prioridade de produto para Exame de Suficiência e EQT/CFC. O texto abaixo preserva o planejamento inicial; para status atual e inventário, prevalece [Consolidação multifonte S22/S23](CONSOLIDACAO_MULTIFONTE_S22_S23_SUPABASE_20261119.md). S22-02 (origem) agora **PASS_RECOVERED**, S22-03 (30 SQL no ZIP) **PASS_INVENTORY**, S22-04 (26 demos) **PARTIAL**, S22-05 (277 testes em relatório) **HISTORICAL_NOT_RERUN**, S22-06/07 **PARTIAL**, S22-08 (PR de código) **TODO**. Gate produção **NO-GO**.
+
 # Programa Mestre — Cânone (S22–S26)
 **Versão:** 0.1.0 · **Corte:** 2026-11-19 · **Estado geral:** INTEGRATION_PENDING / NO-GO
 
