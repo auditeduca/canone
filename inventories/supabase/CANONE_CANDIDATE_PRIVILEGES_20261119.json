@@ -1,0 +1,1030 @@
+{
+  "source": "Supabase catalog metadata; privileges only, no row values",
+  "note": "Privilege flags alone do not assert API exposure; check Data API schemas and RLS with runtime roles. pg_views security_invoker false is a review risk, not necessarily leak.",
+  "relations": [
+    {
+      "schema_name": "account_palm",
+      "object_name": "acquisition_evidence",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "active_normative_references",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "atomization_blind_manifest_v1",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "atomization_effective_gold_queue_v1",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "atomization_eval_sample_v1",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "atomization_fragment_quality_v1",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "atomization_gold_annotation_queue_v1",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "atomization_gold_draft_proposals_v1",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "atomization_gold_replacements_v1",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "atomization_gold_review_batch_v1",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "atomization_gold_review_queue_v1",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "change_requests",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "checkpoints",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "claim_semantic_class_registry_v1",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "decisions",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "documents",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "dou_binding_reconciliation_v1",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "dou_content_validation_v1",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "dou_discovery_candidates_v1",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "dou_discovery_requests_v1",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "dou_validation_runs_v1",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "entities",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "internal_library_catalog",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "lifecycle_nonactive",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "master_register",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "normalization_runs_v1",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "normalized_units_v1",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "normative_assertion_candidates_v1",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "normative_chunks",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "normative_claim_candidates_v1",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "normative_extractions",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "normative_temporal_evidence_v1",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "normative_temporal_type_registry_v1",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "normative_works",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "project_status",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "referenced_works",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "regulatory_instruments",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "relation_candidates",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "relationships",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "source_bindings",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "source_object_registry",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "storage_objects",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "strong_relation_candidates",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "account_palm",
+      "object_name": "work_items",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [
+        "security_invoker=true"
+      ],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "canone_control",
+      "object_name": "external_source_binding",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": true,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "canone_control",
+      "object_name": "migration_catalog",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": true,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "canone_control",
+      "object_name": "release_gate",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": true,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "canone_control",
+      "object_name": "schema_map",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": true,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "cko_governance",
+      "object_name": "artifact_normative_bindings",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "cko_governance",
+      "object_name": "cfc_relation_resolution_candidates_v1",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "cko_governance",
+      "object_name": "cfc_strong_relation_candidates_v1",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "cko_governance",
+      "object_name": "field_normative_bindings",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "cko_governance",
+      "object_name": "normative_document_extractions",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "cko_governance",
+      "object_name": "normative_reference_catalog",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "contabilidade_cfc",
+      "object_name": "audit_normative_change_events_v1",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "contabilidade_cfc",
+      "object_name": "audit_normative_pmo_v1",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "contabilidade_cfc",
+      "object_name": "audit_normative_scope_v1",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "contabilidade_cfc",
+      "object_name": "audit_normative_segment_drafts_v1",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "contabilidade_cfc",
+      "object_name": "audit_normative_segment_parent_qa_v1",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "contabilidade_cfc",
+      "object_name": "pmo_findings",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "contabilidade_cfc",
+      "object_name": "pmo_source_register",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "contabilidade_cfc",
+      "object_name": "pmo_sync_runs",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "contabilidade_cfc",
+      "object_name": "pmo_workstreams",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "contabilidade_cfc",
+      "object_name": "questions",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "contabilidade_cfc",
+      "object_name": "sources",
+      "kind": "r",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": false,
+      "anon_select": false,
+      "authenticated_schema_usage": false,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "public",
+      "object_name": "cfc_internal_library_catalog_v",
+      "kind": "v",
+      "rls_enabled": false,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": true,
+      "anon_select": false,
+      "authenticated_schema_usage": true,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "public",
+      "object_name": "cfc_internal_normative_chunks",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": true,
+      "anon_select": false,
+      "authenticated_schema_usage": true,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "public",
+      "object_name": "cfc_internal_normative_extractions",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": true,
+      "anon_select": false,
+      "authenticated_schema_usage": true,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "public",
+      "object_name": "exam_answer_keys",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": true,
+      "anon_select": false,
+      "authenticated_schema_usage": true,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "public",
+      "object_name": "exam_documents",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": true,
+      "anon_select": false,
+      "authenticated_schema_usage": true,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "public",
+      "object_name": "exam_ingest_binary_chunks",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": true,
+      "anon_select": false,
+      "authenticated_schema_usage": true,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "public",
+      "object_name": "exam_ingest_runs",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": true,
+      "anon_select": false,
+      "authenticated_schema_usage": true,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "public",
+      "object_name": "exam_processing_checkpoints",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": true,
+      "anon_select": false,
+      "authenticated_schema_usage": true,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "public",
+      "object_name": "exam_question_options",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": true,
+      "anon_select": false,
+      "authenticated_schema_usage": true,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "public",
+      "object_name": "exam_questions",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": true,
+      "anon_select": false,
+      "authenticated_schema_usage": true,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "public",
+      "object_name": "exam_remediation_tasks",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": true,
+      "anon_select": false,
+      "authenticated_schema_usage": true,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "public",
+      "object_name": "exam_source_classifications",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": true,
+      "anon_select": false,
+      "authenticated_schema_usage": true,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "public",
+      "object_name": "exam_source_content",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": true,
+      "anon_select": false,
+      "authenticated_schema_usage": true,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "public",
+      "object_name": "exam_source_items",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": true,
+      "anon_select": false,
+      "authenticated_schema_usage": true,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "public",
+      "object_name": "exam_validation_findings",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": true,
+      "anon_select": false,
+      "authenticated_schema_usage": true,
+      "authenticated_select": false
+    },
+    {
+      "schema_name": "public",
+      "object_name": "exams",
+      "kind": "r",
+      "rls_enabled": true,
+      "force_rls": false,
+      "view_options": [],
+      "anon_schema_usage": true,
+      "anon_select": false,
+      "authenticated_schema_usage": true,
+      "authenticated_select": false
+    }
+  ]
+}
