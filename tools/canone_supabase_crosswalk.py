@@ -93,6 +93,15 @@ SPECIAL = {
   30: ('exam_entry_gate', 'Use server-validated subscriber entitlement and user JWT before exam delivery.'),
 }
 
+# These three source tables are *superseded* by managed Auth, not recreated.
+# A direct name replacement of identity.session -> auth.sessions is also unsafe:
+# Supabase owns schema, columns and lifecycle; use its SDK/API contract.
+MANAGED_AUTH_TABLES = {
+    'identity.account': ('auth.users', 'managed_supabase_auth'),
+    'identity.session': ('Supabase Auth sessions API', 'managed_supabase_auth'),
+    'identity.magic_link': ('Supabase Auth OTP API', 'managed_supabase_auth'),
+}
+
 DEPENDENCIES = [
  dict(source='contabilidade_cfc.audit_normative_scope_v1.instrument_id',
       legacy_target='public.regulatory_instruments.instrument_id',
@@ -151,6 +160,8 @@ def build(root: Path) -> dict:
     records = []
     source_names = []
     sql_refs = {}
+    objects = []
+    seen_objects = set()
     for number, item in enumerate(m['original_migrations'], 1):
         fn = item['file']
         assert re.match(r'^\d{3}_[a-z0-9_]+\.sql$', fn) and int(fn[:3]) == number
@@ -160,23 +171,49 @@ def build(root: Path) -> dict:
         legacy_refs = sorted({a for a in names if re.search(r'\b'+re.escape(a)+r'\s*\.',s)})
         sql_refs[fn] = legacy_refs
         category, action = SPECIAL[number]
+        # Exhaustive table-level lineage of the 90 S22 physical table DDLs.
+        # Explicitly identify Auth-owned replacements, not phantom app tables.
+        for legacy_schema, table in re.findall(
+                r'(?im)^\s*CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?([a-z_]\w*)\.([a-z_]\w*)',s):
+            source_table=f'{legacy_schema}.{table}'
+            assert legacy_schema in names, 'unknown S22 source schema '+source_table
+            assert source_table not in seen_objects, 'duplicate source DDL '+source_table
+            seen_objects.add(source_table)
+            replacement=MANAGED_AUTH_TABLES.get(source_table)
+            objects.append({
+                'source_table':source_table,
+                'source_migration':fn,
+                'target':replacement[0] if replacement else 'canone_'+legacy_schema+'.'+table,
+                'strategy':replacement[1] if replacement else 'app_owned_schema_projection',
+                'create_in_canonical_db':replacement is None,
+            })
+        account_refs = len(re.findall(r'(?i)\bREFERENCES\s+identity\.account\s*\(',s))
         records.append({
            'number':number, 'source': fn, 'source_sha256':item['sha256'],
            'original_retained_unchanged': True, 'legacy_schemas_referenced':legacy_refs,
            'target_schemas':sorted({'canone_'+a for a in legacy_refs}),
            'workstream':category, 'transformation_rule':action,
+           'auth_users_fk_replacements_required':account_refs,
            'review_stats':{k:len(re.findall(v,s)) for k,v in COUNTS.items()},
            'readiness':'MAPPED_TO_PLATFORM_CONTRACT',
            'deployment_state':'NOT_APPLIED',
         })
         source_names.append(fn)
     assert len(records)==30 and len(source_names)==len(set(source_names))
+    assert len(objects)==90 and len(seen_objects)==90, 'physical S22 table catalog changed from 90'
+    assert sum(not x['create_in_canonical_db'] for x in objects)==3
+    assert sum(x['auth_users_fk_replacements_required'] for x in records)==43, 'identity.account FK count drift'
     return {
       'version': VERSION,
       'scope': 'crosswalk and actionable porting plan; no SQL execution, no connection, no app release',
       'source_baseline': {'git_source':'source-s22', 'historical_commit':'164fa4df8e99de29e35c41d35a25f6ee0b2c6462', 'count':30},
       'target_platform': 'Supabase managed Auth + PostgreSQL 17, separate Cânone project',
       'target_schemas_count': 14,
+      'source_tables_count':len(objects),
+      'supabase_auth_managed_replacements':3,
+      'canonical_app_tables_to_project':len(objects)-3,
+      'auth_user_fk_replacements':sum(x['auth_users_fk_replacements_required'] for x in records),
+      'table_crosswalk':objects,
       'schemas':maps,
       'roles':ROLE_CROSSWALK,
       'auth_identity':IDENTITY_CROSSWALK,
@@ -209,6 +246,10 @@ def render_md(c: dict) -> str:
     a += ['','**Atenção:** o schema `canone_identity` guarda perfil, papel e consentimento; **credenciais, OTP e sessões de login** pertencem ao Supabase Auth. A substituição exige alteração do backend; não existe migração segura que simplesmente renomeie `identity.account` para `auth.users`.',
            '', '## Crosswalk de todas as migrations', '', '| # | SQL origem preservado | Estratégia | Principal transformação |','|---:|---|---|---|']
     a += [f"| {x['number']:03d} | `{x['source']}` | `{x['workstream']}` | {x['transformation_rule']} |" for x in c['migrations']]
+    a += ['','## Crosswalk físico de tabelas — 90/90', '',
+          'Das 90 tabelas físicas definidas pelo S22, **87** são candidatas a tabelas próprias em schemas `canone_*` e **3** tabelas de autenticação são substituídas pelo serviço Supabase Auth, nunca recriadas. Existem **43 referências a `identity.account`** que precisam apontar para a identidade gerenciada `auth.users` via FK validada.',
+          '', '| Tabela S22 | Destino padrão | Tratamento |', '|---|---|---|']
+    a += [f"| `{x['source_table']}` | `{x['target']}` | `{x['strategy']}` |" for x in c['table_crosswalk']]
     a += ['','## Dependências com estruturas compartilhadas (não copiar integralmente)', '', '| Origem | FK anterior | Estratégia canônica |','|---|---|---|']
     a += [f"| `{x['source']}` | `{x['legacy_target']}` | {x['destination']} — {x['method']} |" for x in c['shared_foreign_key_bindings']]
     a += ['','## Pipeline de conclusão sem bloqueios artificiais','',
@@ -244,6 +285,8 @@ def main(argv=None) -> int:
             assert md.read_text(encoding='utf-8')==content, 'MD crosswalk drift'
         print(json.dumps({'status':'PASS_CROSSWALK','mode':'WRITE' if args.write else 'CHECK',
                           'migrations':len(c['migrations']), 'schemas':len(c['schemas']),
+                          'source_tables':len(c['table_crosswalk']), 'target_app_tables':c['canonical_app_tables_to_project'],
+                          'auth_fk_rewrites':c['auth_user_fk_replacements'],
                           'roles':len(c['roles']), 'auth_mappings':len(c['auth_identity']),
                           'shared_cross_schema_fk':len(c['shared_foreign_key_bindings']),
                           'production_gate':c['production_gate']},ensure_ascii=False))
