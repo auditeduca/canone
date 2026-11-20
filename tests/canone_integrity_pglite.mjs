@@ -102,6 +102,10 @@ try {
   await exec(`UPDATE canone_learning.note SET body='New synthetic note',updated_at='2000-01-01' WHERE id='${note.rows[0].id}'`);
   const stamp=await query(`SELECT updated_at > '2020-01-01'::timestamptz updated FROM canone_learning.note WHERE id='${note.rows[0].id}'`);
   ok(stamp.rows[0].updated,'updated_at trigger recomputes server timestamp');
+  await exec(`SET ROLE authenticated; SELECT set_config('request.jwt.claim.sub','${A}',false);`);
+  const clientChange=await query(`UPDATE canone_learning.note SET body='Authenticated owner update' WHERE id='${note.rows[0].id}' RETURNING id`);
+  ok(clientChange.rows.length===1,'authenticated note owner can UPDATE through invoker timestamp trigger');
+  await exec('RESET ROLE;');
   const count=await query(`SELECT count(*)::integer n FROM canone_learning.answer_key_entry WHERE answer_key_id='${keyId}'`);
   ok(count.rows[0].n===2,'definitive key remains 2 entries');
   ok(manifest.functions.length===7&&manifest.triggers.length===20,'manifest matches actual functions/triggers');
