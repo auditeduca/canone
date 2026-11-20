@@ -1,0 +1,489 @@
+{
+  "captured_on": "2026-11-19",
+  "source_project": "Calculadoras-Smart",
+  "source_project_ref": "pgsybzggewhinaniybiy",
+  "scope": "only canone_control table rows; no shared domain table rows, no secrets or account data",
+  "counts": {
+    "schema_map": 14,
+    "release_gate": 6,
+    "migration_catalog": 30,
+    "external_source_binding": 3
+  },
+  "tables": {
+    "schema_map": [
+      {
+        "state": "RESERVED_NO_APP_RELEASE",
+        "purpose": "Comander e governança administrativa — DESATIVADO",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "schema_name": "canone_admin",
+        "original_domain": "admin"
+      },
+      {
+        "state": "RESERVED_NO_APP_RELEASE",
+        "purpose": "Trilha de auditoria somente acréscimo — reservado",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "schema_name": "canone_audit",
+        "original_domain": "audit"
+      },
+      {
+        "state": "RESERVED_NO_APP_RELEASE",
+        "purpose": "Candidatos de fontes externas; integração somente leitura — reservado",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "schema_name": "canone_bridge",
+        "original_domain": "bridge"
+      },
+      {
+        "state": "RESERVED_NO_APP_RELEASE",
+        "purpose": "Assinaturas, cobrança e entitlement — DESATIVADO",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "schema_name": "canone_commerce",
+        "original_domain": "commerce"
+      },
+      {
+        "state": "RESERVED_NO_APP_RELEASE",
+        "purpose": "Registro interno de namespaces, migrations e gates de produção",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "schema_name": "canone_control",
+        "original_domain": "control"
+      },
+      {
+        "state": "RESERVED_NO_APP_RELEASE",
+        "purpose": "Conteúdo, metamodelo e revisão — reservado",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "schema_name": "canone_editorial",
+        "original_domain": "editorial"
+      },
+      {
+        "state": "RESERVED_NO_APP_RELEASE",
+        "purpose": "Átomos, afirmações, fonte literal e homologação — reservado",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "schema_name": "canone_evidence",
+        "original_domain": "evidence"
+      },
+      {
+        "state": "RESERVED_NO_APP_RELEASE",
+        "purpose": "Identidade e LGPD — reservado, sem tabelas operacionais ainda",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "schema_name": "canone_identity",
+        "original_domain": "identity"
+      },
+      {
+        "state": "RESERVED_NO_APP_RELEASE",
+        "purpose": "Questões, simulados, SRS e progresso — reservado",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "schema_name": "canone_learning",
+        "original_domain": "learning"
+      },
+      {
+        "state": "RESERVED_NO_APP_RELEASE",
+        "purpose": "Fontes normativas e vigência — reservado",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "schema_name": "canone_norms",
+        "original_domain": "norms"
+      },
+      {
+        "state": "RESERVED_NO_APP_RELEASE",
+        "purpose": "Orquestração, integrações e jobs — reservado",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "schema_name": "canone_ops",
+        "original_domain": "ops"
+      },
+      {
+        "state": "RESERVED_NO_APP_RELEASE",
+        "purpose": "Views públicas do Cânone; NÃO é o schema global public",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "schema_name": "canone_public",
+        "original_domain": "public"
+      },
+      {
+        "state": "RESERVED_NO_APP_RELEASE",
+        "purpose": "Views restritas de assinante — reservado",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "schema_name": "canone_subscriber",
+        "original_domain": "subscriber"
+      },
+      {
+        "state": "RESERVED_NO_APP_RELEASE",
+        "purpose": "Blueprint, provas e conhecimentos — reservado",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "schema_name": "canone_taxonomy",
+        "original_domain": "taxonomy"
+      }
+    ],
+    "release_gate": [
+      {
+        "reason": "Sem backend autenticado e autorização por roles comprovada.",
+        "status": "HOLD_HUMAN",
+        "evidence": "MARCO_S4_VITE6_AUDITORIA_LOCKFILE_2026-11-14.md",
+        "gate_key": "backend_identity",
+        "recorded_at": "2026-11-14T17:17:01.07958+00:00"
+      },
+      {
+        "reason": "Checkout, planos e faturamento não homologados e inativos.",
+        "status": "NO_GO",
+        "evidence": "Frontend preview-only S4",
+        "gate_key": "commercial",
+        "recorded_at": "2026-11-14T17:17:01.07958+00:00"
+      },
+      {
+        "reason": "As migrations 001-030 ainda se referem a schemas genéricos; não migrar no banco compartilhado antes de adaptar/testar.",
+        "status": "HOLD_DEPENDENCY",
+        "evidence": "backend/db/migrations/001-030",
+        "gate_key": "domain_migrations",
+        "recorded_at": "2026-11-14T17:17:01.07958+00:00"
+      },
+      {
+        "reason": "Frontend protegido e build TypeScript/Vite aprovados; sem backend.",
+        "status": "PASS_PREVIEW_ONLY",
+        "evidence": "Vercel deployment dpl_FrnQqB8NNZpPYmNwYu8v3DhCyGDg",
+        "gate_key": "frontend_preview",
+        "recorded_at": "2026-11-14T17:17:01.07958+00:00"
+      },
+      {
+        "reason": "Nenhum gate de produção completo; sem acesso HTTP direto aos schemas.",
+        "status": "NO_GO",
+        "evidence": "PMO S4 e S5",
+        "gate_key": "prod_release",
+        "recorded_at": "2026-11-14T17:17:01.07958+00:00"
+      },
+      {
+        "reason": "CFC e Senado não tiveram bytes/documentos integralmente atestados e validados.",
+        "status": "HOLD_SOURCE",
+        "evidence": "249 trios CFC, 28 referências Senado candidatas",
+        "gate_key": "regulatory_evidence",
+        "recorded_at": "2026-11-14T17:17:01.07958+00:00"
+      }
+    ],
+    "migration_catalog": [
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "001_schemas_roles.sql",
+        "source_sha256": "7fc94c1549725619578b8d1599c4556b28195287f85f69dc1339876bcea66380",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 1,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "002_identity_lgpd.sql",
+        "source_sha256": "fd1f0491a7e697d14ba80265825ca360069016e9d3e1437de110c2328c263623",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 2,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "003_metamodel.sql",
+        "source_sha256": "9f8c972db65d8f59646fb5b4643c929047cd04e7a73dd5c788b68a6a535dc953",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 3,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "004_taxonomy_blueprint.sql",
+        "source_sha256": "ceeb6cc129d5fe7c2ee6d8e7a126c349fa0d0a50f82732d8d5e32ad3d0dd0473",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 4,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "005_norms.sql",
+        "source_sha256": "a1926ea47776e642e9d10cd0cf9c8a8102d88c4d3d49af0f5580e95a4e75f75c",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 5,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "006_learning_items.sql",
+        "source_sha256": "55417f64192b8b4e5081416c2b874f207bedaf011fd2670e38e1f37bc5c75031",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 6,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "007_learning_srs.sql",
+        "source_sha256": "d9bb2e97b45b050b24304d89973b4ac284b62f6dff4952a94dd9f4d108e3c545",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 7,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "008_commerce.sql",
+        "source_sha256": "b5abc75dde4e6183b2ff77232cd87686b37538e632a84b8ff885d117e7c80d60",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 8,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "009_admin_governance.sql",
+        "source_sha256": "08b1e347fef09fba4b2a76ed8f86b5e330b942607e599cdef3952b74422825e8",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 9,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "010_ops_platform.sql",
+        "source_sha256": "3d8c5eee7c68f9b6379742bd997071ea114c8e249805fa2869ecf2cfdbfbc336",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 10,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "011_triggers_integridade.sql",
+        "source_sha256": "5a054634c6255348d5a17942845cab44a6ed494e105af726e14b3c2f0f1040ec",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 11,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "012_srs_engine.sql",
+        "source_sha256": "aa5152379aecb2184b6976aa24231676770afe80bb38e6bb5bdba4769f066a55",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 12,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "013_views.sql",
+        "source_sha256": "2ff3c3099a1ed84b7b5f323e2e14658e33934387b3bcd56e4f1c01d344815af9",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 13,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "014_rls.sql",
+        "source_sha256": "0c573777de58467dca107992f4138e944142c977669854fa35636d035a4c255e",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 14,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "015_indexes.sql",
+        "source_sha256": "ad0f15f76752463541b84897cc35b758588c208676db2ae8f67bbaab91ad8bca",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 15,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "016_seed_reference.sql",
+        "source_sha256": "d9424b0f09ab43ead5645c351ec5352123795e4e07a41ec7ca36047b607d5236",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 16,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "017_privileges.sql",
+        "source_sha256": "fd65e114c8dfdcfb929e5591f628dd8dfba6a3e06ffca6cd5d806cc71a1a7d30",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 17,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "018_provas_gabarito.sql",
+        "source_sha256": "a1088083d3f0c8aa5d534c1e272ec85fc0c8a151832e4964e5ab939c6799f6a8",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 18,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "019_tentativa_ingestao.sql",
+        "source_sha256": "c01f383f23b2189e889e4a8bf919cd5d3bcc252c6828349764775de38fb44989",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 19,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "020_tipo_conteudo_versao.sql",
+        "source_sha256": "bf7f90337133fefe7e4767e24eaaf5fcbc86dbf68ae1bef1de0d938459268223",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 20,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "021_letra_derivada.sql",
+        "source_sha256": "f54fc8737efd8ad5d3a1010a7f87a2110a664e4cb932f026d76cca26323a7457",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 21,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "022_prova_selada_letra_inteira.sql",
+        "source_sha256": "574ab76731ecc12e3a52570a47a4f515b9b46a9d9453dd924932ce783a292123",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 22,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "023_tres_fechos_do_qa.sql",
+        "source_sha256": "6c980bc5f350f3732539c8df562a071d1c25c34e1a353bad22c5300a229ab5c4",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 23,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "024_gabarito_imutavel_regua_fixa.sql",
+        "source_sha256": "f22d52a205deaf04b05a0c039ef9de2061143f05d958723455935c8007d23f44",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 24,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "025_identity_usage.sql",
+        "source_sha256": "7adf620c6a8f034fef6f3fbbdc0f46ad4b74dbf5791656feebb8a688269e9287",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 25,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "026_staff_le_gabarito_default_zero.sql",
+        "source_sha256": "bd0dbdc91f73ab5d2c483168a09c5905105cc2e121ce02c3f8f9f5bd3202cc9f",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 26,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "027_papel_de_sistema.sql",
+        "source_sha256": "e41567d42c136528918c1c3c45662e666697c93c5518f4793aae2e0bb772d6ff",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 27,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "028_preco_comercial.sql",
+        "source_sha256": "ad022430bcec9e54a31441dfe790da92766e546a6b1600dcb10d0a2a6888222f",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 28,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "029_papel_de_acesso.sql",
+        "source_sha256": "004fa9caa52b13e85eb53949f9c419e9aeaabc098157eadd24a4e080062355a4",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 29,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      },
+      {
+        "status": "NOT_APPLIED",
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "reviewed_at": null,
+        "source_file": "030_porta_da_prova.sql",
+        "source_sha256": "144e11ea0c873bfa7f8f7b460a49f51fada2b5cd4d1f1d4424b51938fcaf2c0b",
+        "original_scope": "ISOLATED_DATABASE_ORIGINAL",
+        "migration_number": 30,
+        "verification_note": "Não aplicada no projeto compartilhado; exige portabilidade dos schemas, owner, roles e RLS."
+      }
+    ],
+    "external_source_binding": [
+      {
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "source_key": "audit_educa_cfc_questions",
+        "access_mode": "READ_ONLY_NOT_CONNECTED",
+        "grant_status": "NONE",
+        "justification": "Questões CFC em origem separada; não migrar sem validação e direitos.",
+        "origin_schema": "contabilidade_cfc",
+        "origin_relation": "questions"
+      },
+      {
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "source_key": "audit_educa_cfc_sources",
+        "access_mode": "READ_ONLY_NOT_CONNECTED",
+        "grant_status": "NONE",
+        "justification": "Registro Audit Educa; somente leitura, sem replicação automática.",
+        "origin_schema": "contabilidade_cfc",
+        "origin_relation": "sources"
+      },
+      {
+        "created_at": "2026-11-14T17:17:01.07958+00:00",
+        "source_key": "audit_educa_regulatory",
+        "access_mode": "READ_ONLY_NOT_CONNECTED",
+        "grant_status": "NONE",
+        "justification": "Instrumentos regulatórios existentes; candidato a crosswalk por chave externa.",
+        "origin_schema": "public",
+        "origin_relation": "regulatory_instruments"
+      }
+    ]
+  }
+}
