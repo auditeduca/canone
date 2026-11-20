@@ -1,0 +1,170 @@
+-- CÂNONE 004, v0.23.0-alpha.5: invoker views; candidate only, requires 001-003.
+-- NO public/client grants. No legacy canone_system owner bypass. Not a deployment migration.
+BEGIN;
+SET LOCAL search_path = pg_catalog;
+DO $canone_behavior_guard$ BEGIN IF to_regclass('canone_control.migration_catalog') IS NOT NULL THEN RAISE EXCEPTION 'REFUSE_SHARED_CANONE_SOURCE'; END IF; IF to_regclass('canone_learning.note') IS NULL OR to_regclass('auth.users') IS NULL THEN RAISE EXCEPTION 'REQUIRE_CANONE_PHYSICAL_PILOT'; END IF; END $canone_behavior_guard$;
+-- Source 013_views.sql:1 public.v_public_plan (SHA256 1b26ffdddf09687b32e2213fd59778886708e7862ddf16f4a1afeb1251d1b8e4)
+CREATE OR REPLACE VIEW canone_public.v_public_plan WITH (security_invoker = true) AS
+SELECT p.id, p.key, p.name, p.description, p.billing_period, p.trial_days,
+       p.price_cents, p.currency, p.sort_order
+  FROM canone_commerce.plan p
+ WHERE p.is_public AND p.is_active;
+-- Source 013_views.sql:24 public.v_public_subject (SHA256 dc9469e83ac9428540f07872c05ca294aba3ad8bebe31a91cb0d40f58a1a03a6)
+CREATE OR REPLACE VIEW canone_public.v_public_subject WITH (security_invoker = true) AS
+SELECT s.id, s.key, s.label, s.description, s.ordinal,
+       a.label AS area_label, a.key AS area_key
+  FROM canone_taxonomy.subject s
+  JOIN canone_taxonomy.knowledge_area a ON a.key = s.area_key
+ WHERE s.active AND a.active;
+-- Source 013_views.sql:31 public.v_public_module (SHA256 6b7b7713847aa73af5a1a185d56b42021ac432ec2c4f475575b43d3cd3792162)
+CREATE OR REPLACE VIEW canone_public.v_public_module WITH (security_invoker = true) AS
+SELECT m.id, m.key, m.name, m.short_name, m.description, m.phase, m.ordinal, m.icon_key
+  FROM canone_taxonomy.module m
+ WHERE m.active;
+-- Source 013_views.sql:36 public.v_public_content (SHA256 41b2465f14939dd678902decdf94c83ab32f787bf48e27719c54f6cf09f77ec2)
+CREATE OR REPLACE VIEW canone_public.v_public_content WITH (security_invoker = true) AS
+SELECT ci.id, ci.key, ci.title, ci.summary, ci.state, ci.published_at,
+       ci.content_type_id, ct.key AS content_type_key, ct.family,
+       s.key AS subject_key, s.label AS subject_label,
+       st.key AS subtopic_key, st.label AS subtopic_label,
+       ci.difficulty_band, ci.estimated_seconds, ci.ordinal
+  FROM canone_editorial.content_item ci
+  JOIN canone_editorial.content_type ct ON ct.id = ci.content_type_id
+  JOIN canone_editorial.state_definition sd
+    ON sd.family = ct.family AND sd.key = ci.state
+  LEFT JOIN canone_taxonomy.subject s ON s.id = ci.subject_id
+  LEFT JOIN canone_taxonomy.subtopic st ON st.id = ci.subtopic_id
+ WHERE ci.retired_at IS NULL
+   AND sd.is_public;
+-- Source 013_views.sql:54 public.v_public_item (SHA256 c499fb5c1012bf7dbcfd1ead7b923cb22f0233416b785dc8f59509e0a6559456)
+CREATE OR REPLACE VIEW canone_public.v_public_item WITH (security_invoker = true) AS
+SELECT li.id, li.content_item_id, li.kind, li.difficulty, li.estimated_seconds,
+       ci.title, ci.subject_id, ci.subtopic_id, ci.ordinal
+  FROM canone_learning.item li
+  JOIN canone_editorial.content_item ci ON ci.id = li.content_item_id
+  JOIN canone_editorial.state_definition sd
+    ON sd.family = 'avaliacao' AND sd.key = ci.state
+ WHERE sd.is_public AND ci.retired_at IS NULL;
+-- Source 013_views.sql:64 subscriber.v_item_options (SHA256 3cb7b84765719dd242eb70accf5ade4d432b13a784de833e11a2e5debf9e4f48)
+CREATE OR REPLACE VIEW canone_subscriber.v_item_options WITH (security_invoker = true) AS
+SELECT o.item_id, o.ordinal, o.body, o.distractor_kind, o.ordinal_pos
+  FROM canone_learning.item_option o;
+-- Source 013_views.sql:84 subscriber.v_my_progress (SHA256 60e3694b53f40a7e6e5bccc13663fe92fbc2effbfae6be80258f265cf3a90118)
+CREATE OR REPLACE VIEW canone_subscriber.v_my_progress WITH (security_invoker = true) AS
+SELECT s.user_id, s.subject_id, sub.label AS subject_label, sub.key AS subject_key,
+       s.items_seen, s.items_mastered, s.items_fragile, s.items_unseen,
+       s.correct_answers, s.total_answers, s.accuracy, s.confidence, s.updated_at
+  FROM canone_learning.mastery s
+  JOIN canone_taxonomy.subject sub ON sub.id = s.subject_id;
+-- Source 013_views.sql:97 subscriber.v_my_history (SHA256 97c0bd8051cd58635ec82cd0282ed110696bf00badf926ea497f37792fee5c43)
+CREATE OR REPLACE VIEW canone_subscriber.v_my_history WITH (security_invoker = true) AS
+SELECT e.id, e.item_id, ci.title, ci.key AS item_key, e.grade, e.basis, e.correct,
+       e.duration_ms, e.repetition, e.reviewed_at, e.session_id,
+       e.mock_exam_id
+  FROM canone_learning.review_event e
+  JOIN canone_learning.item i ON i.id = e.item_id
+  JOIN canone_editorial.content_item ci ON ci.id = i.content_item_id
+ WHERE e.user_id = (select auth.uid());
+-- Source 013_views.sql:106 subscriber.v_my_state (SHA256 d2d856f368a6e525399e1e9203db641fdcbaeee47a1ac5134bc1444ff1a3e207)
+CREATE OR REPLACE VIEW canone_subscriber.v_my_state WITH (security_invoker = true) AS
+SELECT * FROM canone_learning.user_item_state WHERE user_id = (select auth.uid());
+-- Source 013_views.sql:109 admin.v_content_health (SHA256 0456694c249efb2a7251102c0ee44ba0113c9d8891ba7bcc5f00cf1ba525547b)
+CREATE OR REPLACE VIEW canone_admin.v_content_health WITH (security_invoker = true) AS
+SELECT ci.id, ci.key, ci.title, ct.key AS content_type_key, ct.family,
+       ci.state, ci.subject_id, ci.updated_at,
+       v.state AS verification_state, v.valid_until, v.verified_at,
+       (v.state = 'verificada' AND (v.valid_until IS NULL OR v.valid_until > now())) AS is_valid,
+       li.correct_rate, li.answer_count, li.flagged_for_review,
+       (SELECT count(*) FROM canone_editorial.content_relation r
+         WHERE r.from_item_id = ci.id AND r.relation_type = 'cita_norma') AS norm_citations
+  FROM canone_editorial.content_item ci
+  JOIN canone_editorial.content_type ct ON ct.id = ci.content_type_id
+  LEFT JOIN canone_editorial.verification v
+    ON v.content_item_id = ci.id AND v.state IN
+       ('nao_verificada','em_revisao','verificada','expirada','necessita_atualizacao')
+  LEFT JOIN canone_learning.item li ON li.content_item_id = ci.id
+ WHERE ci.retired_at IS NULL;
+-- Source 013_views.sql:142 admin.v_user_mastery (SHA256 681048478c9ad1de07c919558c7482ed3476b0db7fd602299019b4315d76b6d4)
+CREATE OR REPLACE VIEW canone_admin.v_user_mastery WITH (security_invoker = true) AS
+SELECT m.user_id, m.subject_id, sub.label AS subject_label, sub.key AS subject_key,
+       m.items_seen, m.items_mastered, m.items_fragile, m.items_unseen,
+       m.accuracy, m.confidence, m.updated_at
+  FROM canone_learning.mastery m
+  JOIN canone_taxonomy.subject sub ON sub.id = m.subject_id;
+-- Source 013_views.sql:149 admin.v_audit_recent (SHA256 d0186cc2401c8d163634aa191c4607fe338dedf451d87099e170d3dbb9062495)
+CREATE OR REPLACE VIEW canone_admin.v_audit_recent WITH (security_invoker = true) AS
+SELECT seq, occurred_at, actor_id, actor_role, subject_user_id,
+       action, entity_type, entity_id, request_id, row_hash
+  FROM canone_audit.audit_log
+ ORDER BY seq DESC
+ LIMIT 500;
+-- Source 013_views.sql:156 admin.v_refused_claims (SHA256 11fa1c7fcf99f22fd5624db4481c7bd2ada7aa597c0b6dffd3c558096f7d3b06)
+CREATE OR REPLACE VIEW canone_admin.v_refused_claims WITH (security_invoker = true) AS
+SELECT ci.id, ci.key, ci.title, ci.updated_at,
+       v.state AS verification_state, v.refusal_reason, v.verified_at,
+       v.source_id, s.title AS source_title, s.url AS source_url
+  FROM canone_editorial.content_item ci
+  JOIN canone_editorial.verification v ON v.content_item_id = ci.id
+  LEFT JOIN canone_editorial.source s ON s.id = v.source_id
+ WHERE v.state = 'rejeitada'
+    OR (v.state = 'necessita_atualizacao')
+ ORDER BY v.updated_at DESC;
+-- Source 018_provas_gabarito.sql:692 admin.v_exam_form_status (SHA256 9e41f8466ae4d51478ff2897aae69b1ef3ea091a3b6ff709eb3e8311106a8e6b)
+CREATE OR REPLACE VIEW canone_admin.v_exam_form_status WITH (security_invoker = true) AS
+SELECT ef.id                AS exam_form_id,
+       ef.form_code,
+       ef.form_label,
+       e.code               AS edition_code,
+       e.status             AS edition_status,
+       t.track_code,
+       t.specialty_code,
+       t.question_count,
+       (SELECT count(*) FROM canone_learning.exam_form_item efi WHERE efi.exam_form_id = ef.id) AS items_linked,
+       (SELECT ak.status FROM canone_learning.answer_key ak WHERE ak.exam_form_id = ef.id ORDER BY (ak.status='definitivo') DESC LIMIT 1) AS key_status,
+       (SELECT count(*) FROM canone_learning.answer_key_entry e2
+          JOIN canone_learning.answer_key ak2 ON ak2.id = e2.answer_key_id
+         WHERE ak2.exam_form_id = ef.id AND ak2.status = 'definitivo' AND e2.is_annulled) AS annulled,
+       (SELECT count(*) FROM canone_learning.answer_key_entry e3
+          JOIN canone_learning.answer_key ak3 ON ak3.id = e3.answer_key_id
+         WHERE ak3.exam_form_id = ef.id AND ak3.status = 'definitivo') AS keyed
+  FROM canone_learning.exam_form ef
+  JOIN canone_taxonomy.exam_track t ON t.id = ef.exam_track_id
+  JOIN canone_taxonomy.exam_edition e ON e.id = t.exam_edition_id;
+-- Source 030_porta_da_prova.sql:1 subscriber.v_exam_forms (SHA256 e61314e60aa1b3b88022dbee861fea354328ad4aee10fc909aafa7655c1febe6)
+CREATE OR REPLACE VIEW canone_subscriber.v_exam_forms WITH (security_invoker = true) AS
+SELECT ef.id AS exam_form_id,
+       ef.form_code,
+       ef.form_label,
+       e.code AS edition_code,
+       e.status AS edition_status,
+       t.track_code,
+       t.specialty_code,
+       t.question_count,
+       (SELECT ak.status
+          FROM canone_learning.answer_key ak
+         WHERE ak.exam_form_id = ef.id
+         ORDER BY (ak.status = 'definitivo') DESC, ak.created_at DESC
+         LIMIT 1) AS key_status
+  FROM canone_learning.exam_form ef
+  JOIN canone_taxonomy.exam_track t ON t.id = ef.exam_track_id
+  JOIN canone_taxonomy.exam_edition e ON e.id = t.exam_edition_id
+ WHERE e.status = 'realizada';
+-- Source 030_porta_da_prova.sql:57 subscriber.v_exam_questions (SHA256 8a2e294cda0e273a2ee26a0906933d8989a4e713852159f25bda0253ec5ac218)
+CREATE OR REPLACE VIEW canone_subscriber.v_exam_questions WITH (security_invoker = true) AS
+SELECT efi.exam_form_id,
+       efi.ordinal            AS posicao,
+       i.id                   AS item_id,
+       v.payload->>'stem'     AS enunciado,
+       o.ordinal              AS opcao,
+       o.ordinal_pos          AS opcao_pos,
+       o.body                 AS alternativa
+  FROM canone_learning.exam_form_item efi
+  JOIN canone_learning.exam_form ef ON ef.id = efi.exam_form_id
+  JOIN canone_taxonomy.exam_track t ON t.id = ef.exam_track_id
+  JOIN canone_taxonomy.exam_edition e ON e.id = t.exam_edition_id
+  JOIN canone_learning.item i ON i.id = efi.item_id
+  JOIN canone_editorial.content_item ci ON ci.id = i.content_item_id
+  JOIN canone_editorial.content_item_version v ON v.id = ci.current_version_id
+  JOIN canone_learning.item_option o ON o.item_id = i.id
+ WHERE e.status = 'realizada';
+COMMIT;

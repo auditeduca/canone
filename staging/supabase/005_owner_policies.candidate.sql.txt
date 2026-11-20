@@ -1,0 +1,67 @@
+-- CÂNONE 005, v0.23.0-alpha.5: strict own-row policies, not a migration.
+-- Only authenticated; no staff/admin bypass; no answer key permissions.
+-- Requires separate dedicated Supabase with Auth and 001-003.
+BEGIN;
+SET LOCAL search_path = pg_catalog;
+DO $canone_behavior_guard$ BEGIN IF to_regclass('canone_control.migration_catalog') IS NOT NULL THEN RAISE EXCEPTION 'REFUSE_SHARED_CANONE_SOURCE'; END IF; IF to_regclass('canone_learning.note') IS NULL OR to_regclass('auth.users') IS NULL THEN RAISE EXCEPTION 'REQUIRE_CANONE_PHYSICAL_PILOT'; END IF; END $canone_behavior_guard$;
+-- Source 014_rls.sql:123 sub_own_entitlement
+CREATE POLICY canone_owner_entitlement_select ON canone_commerce.entitlement FOR SELECT TO authenticated USING (user_id = (select auth.uid()));
+GRANT USAGE ON SCHEMA canone_commerce TO authenticated;
+GRANT SELECT ON TABLE canone_commerce.entitlement TO authenticated;
+-- Source 014_rls.sql:121 sub_own_payment
+CREATE POLICY canone_owner_payment_select ON canone_commerce.payment FOR SELECT TO authenticated USING (user_id = (select auth.uid()));
+GRANT USAGE ON SCHEMA canone_commerce TO authenticated;
+GRANT SELECT ON TABLE canone_commerce.payment TO authenticated;
+-- Source 014_rls.sql:118 sub_own_subscription
+CREATE POLICY canone_owner_subscription_select ON canone_commerce.subscription FOR SELECT TO authenticated USING (user_id = (select auth.uid()));
+GRANT USAGE ON SCHEMA canone_commerce TO authenticated;
+GRANT SELECT ON TABLE canone_commerce.subscription TO authenticated;
+-- Source 014_rls.sql:89 sub_own_request
+CREATE POLICY canone_owner_data_request_select ON canone_identity.data_request FOR SELECT TO authenticated USING (user_id = (select auth.uid()));
+GRANT USAGE ON SCHEMA canone_identity TO authenticated;
+GRANT SELECT ON TABLE canone_identity.data_request TO authenticated;
+CREATE POLICY canone_owner_data_request_insert ON canone_identity.data_request FOR INSERT TO authenticated WITH CHECK (user_id = (select auth.uid()));
+GRANT INSERT ON TABLE canone_identity.data_request TO authenticated;
+-- Source 014_rls.sql:106 sub_own_favorite
+CREATE POLICY canone_owner_favorite_select ON canone_learning.favorite FOR SELECT TO authenticated USING (user_id = (select auth.uid()));
+GRANT USAGE ON SCHEMA canone_learning TO authenticated;
+GRANT SELECT ON TABLE canone_learning.favorite TO authenticated;
+CREATE POLICY canone_owner_favorite_insert ON canone_learning.favorite FOR INSERT TO authenticated WITH CHECK (user_id = (select auth.uid()));
+GRANT INSERT ON TABLE canone_learning.favorite TO authenticated;
+CREATE POLICY canone_owner_favorite_delete ON canone_learning.favorite FOR DELETE TO authenticated USING (user_id = (select auth.uid()));
+GRANT DELETE ON TABLE canone_learning.favorite TO authenticated;
+-- Source 014_rls.sql:103 sub_own_mastery
+CREATE POLICY canone_owner_mastery_select ON canone_learning.mastery FOR SELECT TO authenticated USING (user_id = (select auth.uid()));
+GRANT USAGE ON SCHEMA canone_learning TO authenticated;
+GRANT SELECT ON TABLE canone_learning.mastery TO authenticated;
+-- Source 014_rls.sql:109 sub_own_note
+CREATE POLICY canone_owner_note_select ON canone_learning.note FOR SELECT TO authenticated USING (user_id = (select auth.uid()));
+GRANT USAGE ON SCHEMA canone_learning TO authenticated;
+GRANT SELECT ON TABLE canone_learning.note TO authenticated;
+CREATE POLICY canone_owner_note_insert ON canone_learning.note FOR INSERT TO authenticated WITH CHECK (user_id = (select auth.uid()));
+GRANT INSERT ON TABLE canone_learning.note TO authenticated;
+CREATE POLICY canone_owner_note_update ON canone_learning.note FOR UPDATE TO authenticated USING (user_id = (select auth.uid())) WITH CHECK (user_id = (select auth.uid()));
+GRANT UPDATE ON TABLE canone_learning.note TO authenticated;
+CREATE POLICY canone_owner_note_delete ON canone_learning.note FOR DELETE TO authenticated USING (user_id = (select auth.uid()));
+GRANT DELETE ON TABLE canone_learning.note TO authenticated;
+-- Source 014_rls.sql:112 sub_own_offline
+CREATE POLICY canone_owner_offline_pack_select ON canone_learning.offline_pack FOR SELECT TO authenticated USING (user_id = (select auth.uid()));
+GRANT USAGE ON SCHEMA canone_learning TO authenticated;
+GRANT SELECT ON TABLE canone_learning.offline_pack TO authenticated;
+-- Source 014_rls.sql:97 sub_own_event
+CREATE POLICY canone_owner_review_event_select ON canone_learning.review_event FOR SELECT TO authenticated USING (user_id = (select auth.uid()));
+GRANT USAGE ON SCHEMA canone_learning TO authenticated;
+GRANT SELECT ON TABLE canone_learning.review_event TO authenticated;
+-- Source 014_rls.sql:94 sub_own_session
+CREATE POLICY canone_owner_session_select ON canone_learning.session FOR SELECT TO authenticated USING (user_id = (select auth.uid()));
+GRANT USAGE ON SCHEMA canone_learning TO authenticated;
+GRANT SELECT ON TABLE canone_learning.session TO authenticated;
+-- Source 014_rls.sql:115 sub_own_plan
+CREATE POLICY canone_owner_study_plan_select ON canone_learning.study_plan FOR SELECT TO authenticated USING (user_id = (select auth.uid()));
+GRANT USAGE ON SCHEMA canone_learning TO authenticated;
+GRANT SELECT ON TABLE canone_learning.study_plan TO authenticated;
+-- Source 014_rls.sql:100 sub_own_state
+CREATE POLICY canone_owner_user_item_state_select ON canone_learning.user_item_state FOR SELECT TO authenticated USING (user_id = (select auth.uid()));
+GRANT USAGE ON SCHEMA canone_learning TO authenticated;
+GRANT SELECT ON TABLE canone_learning.user_item_state TO authenticated;
+COMMIT;

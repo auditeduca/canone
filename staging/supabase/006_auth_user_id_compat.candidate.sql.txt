@@ -1,0 +1,13 @@
+-- CÂNONE 006, v0.23.0-alpha.5: one nonprivileged replacement for old ops.current_user_id.
+-- Source 001_schemas_roles.sql:66 SHA256 540414f4d23f2d183987a3fcc80a7e61bd47e89460ef750ab1f5b33222534536
+-- SQL candidate only; no legacy app.current_user_id GUC or current_area trust.
+BEGIN;
+SET LOCAL search_path = pg_catalog;
+DO $canone_behavior_guard$ BEGIN IF to_regclass('canone_control.migration_catalog') IS NOT NULL THEN RAISE EXCEPTION 'REFUSE_SHARED_CANONE_SOURCE'; END IF; IF to_regclass('canone_learning.note') IS NULL OR to_regclass('auth.users') IS NULL THEN RAISE EXCEPTION 'REQUIRE_CANONE_PHYSICAL_PILOT'; END IF; END $canone_behavior_guard$;
+CREATE OR REPLACE FUNCTION canone_ops.current_user_id() RETURNS uuid
+LANGUAGE sql STABLE SECURITY INVOKER SET search_path = pg_catalog
+AS $$ SELECT auth.uid() $$;
+REVOKE ALL ON FUNCTION canone_ops.current_user_id() FROM PUBLIC, anon;
+GRANT USAGE ON SCHEMA canone_ops TO authenticated;
+GRANT EXECUTE ON FUNCTION canone_ops.current_user_id() TO authenticated;
+COMMIT;

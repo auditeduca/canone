@@ -1,0 +1,1880 @@
+{
+  "constraints": [
+    "No migration runners may execute candidate .sql.txt",
+    "Views security_invoker=true and no viewer grants: not proof of callable APIs",
+    "Owner grants are explicit; broad staff/admin legacy policies quarantined",
+    "Functions and triggers require individually audited port and PG17 E2E"
+  ],
+  "converted_historical_owner_sources": 13,
+  "objects": {
+    "functions": [
+      {
+        "line": 66,
+        "name": "ops.current_user_id",
+        "security_definer": false,
+        "sha256": "540414f4d23f2d183987a3fcc80a7e61bd47e89460ef750ab1f5b33222534536",
+        "source": "001_schemas_roles.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": true
+      },
+      {
+        "line": 78,
+        "name": "ops.current_area",
+        "security_definer": false,
+        "sha256": "f7d26399bec0a35f94ecb0054d9aac3227fea80dbb86553bf4cca501d4909850",
+        "source": "001_schemas_roles.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": true
+      },
+      {
+        "line": 83,
+        "name": "ops.current_request_id",
+        "security_definer": false,
+        "sha256": "e29f2f00425eb19092a2c36ec38ca0a485507efb51b5e1b27f93b6801dd8f60a",
+        "source": "001_schemas_roles.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 88,
+        "name": "ops.is_staff",
+        "security_definer": false,
+        "sha256": "3fd54460655f0f5f42cc566858bb923c36ddbbb906a0223e4840f4f0ee975061",
+        "source": "001_schemas_roles.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 68,
+        "name": "learning.grade_answer",
+        "security_definer": true,
+        "sha256": "8ec345c4f955462ee521c6db5dac0475614de5bb90fda918e5d432b596987daf",
+        "source": "006_learning_items.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 88,
+        "name": "learning.review_event_is_immutable",
+        "security_definer": false,
+        "sha256": "5aeeac8299f6c115f40f786ae37c350f74d29993d5dbf929f1cae4792fb58405",
+        "source": "007_learning_srs.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 62,
+        "name": "audit.compute_row_hash",
+        "security_definer": false,
+        "sha256": "5259383c134e88a015761b102d40ef8b0b6e6f8b9e1c6f70a82d1821bb2bc933",
+        "source": "009_admin_governance.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 80,
+        "name": "audit.set_row_hash",
+        "security_definer": false,
+        "sha256": "a5387ed6bbfe46361d6c499493dd93bc9322fd6f6f55a01fed70e1157d2163ea",
+        "source": "009_admin_governance.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 96,
+        "name": "audit.forbid_mutation",
+        "security_definer": false,
+        "sha256": "d711a2c084f96cd843ad6f560bec461c8b79409841d983f74fc3a76867097c3e",
+        "source": "009_admin_governance.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 106,
+        "name": "audit.verify_chain",
+        "security_definer": false,
+        "sha256": "a9b077e72fe959787d74a8a039a7e91977ef00b1656775025ea626ec114c1c25",
+        "source": "009_admin_governance.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 1,
+        "name": "editorial.enforce_verification_on_publish",
+        "security_definer": false,
+        "sha256": "1a9aba6f429bb32a4826c3eb60f54531c8cf46f40071a64dca6e6c60a120c788",
+        "source": "011_triggers_integridade.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 77,
+        "name": "norms.expire_verifications_on_new_version",
+        "security_definer": false,
+        "sha256": "332b8e7e12002398bd8fb8ec325254838d0c125a138eaa6f11a3746b85b2de90",
+        "source": "011_triggers_integridade.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 137,
+        "name": "learning.enforce_single_correct_option",
+        "security_definer": false,
+        "sha256": "b0fb84e0ce1eee25d7f794a6342f6a2c21f00fe6bed37f6f6edb628952597731",
+        "source": "011_triggers_integridade.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 160,
+        "name": "learning.require_correct_option_to_publish",
+        "security_definer": false,
+        "sha256": "0553497f9ed9fbc03ed75b0d536bc673626c6ad21cb73b5f46cc90603d9ec047",
+        "source": "011_triggers_integridade.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 218,
+        "name": "editorial.sync_learning_projection",
+        "security_definer": false,
+        "sha256": "34b7a7a516d144496e6ac9740f28ebea6d9c33edfe93e6acfe8bd038908dfbbb",
+        "source": "011_triggers_integridade.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 308,
+        "name": "editorial.enforce_state_transition",
+        "security_definer": false,
+        "sha256": "2a4f09f7a9e7f3318f8bc8aa0af298ed0d05b6d8d571f0c7ec5dd9f0b1d9e826",
+        "source": "011_triggers_integridade.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": true
+      },
+      {
+        "line": 381,
+        "name": "ops.touch_updated_at",
+        "security_definer": false,
+        "sha256": "6c032dbc5dca7f8ebc375011f83c45c3c7706196c235ea1a47af553b8f65d9c9",
+        "source": "011_triggers_integridade.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 411,
+        "name": "admin.expire_support_grants",
+        "security_definer": false,
+        "sha256": "a7b7d3339e3b5fd6fb42781c47781c05885cea767f3cb463443818097620251a",
+        "source": "011_triggers_integridade.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 444,
+        "name": "admin.purge_expired_grants",
+        "security_definer": false,
+        "sha256": "bc818b2cc6fb1b01211131d8627b7fa6f0dd37d9da4f1139f538ca47f97d0624",
+        "source": "011_triggers_integridade.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 1,
+        "name": "learning.derive_grade",
+        "security_definer": false,
+        "sha256": "f94a64fcbdf8170504b241b3333ffb2b2e1cabfb6de87f3daeba22d96537917d",
+        "source": "012_srs_engine.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 50,
+        "name": "learning.replay_event",
+        "security_definer": false,
+        "sha256": "955d15b4d65040a12e508db5cea9b8a580f4374342450f7c49aa867fccf30e56",
+        "source": "012_srs_engine.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 164,
+        "name": "learning.apply_review_event",
+        "security_definer": false,
+        "sha256": "cff14ef2a526c9725044d65cbac39b94fc235dc2d19ebc6705d8bf8b86b524ef",
+        "source": "012_srs_engine.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 196,
+        "name": "learning.refresh_mastery",
+        "security_definer": false,
+        "sha256": "48afb72ea913d371450e34b4be8e8b60ecc548b2808b4a88e6dab2d2d87f4524",
+        "source": "012_srs_engine.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 257,
+        "name": "learning.due_items",
+        "security_definer": false,
+        "sha256": "251fd36f2712bf9eb3c4a0229e6f144398e0b3199389d89d7b8bf75d9c0335be",
+        "source": "012_srs_engine.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 282,
+        "name": "learning.rebuild_user_state",
+        "security_definer": false,
+        "sha256": "b0fc86df43f3298decf68cba57ca92198f29813f2253c26fa6ce933c6f75d56e",
+        "source": "012_srs_engine.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 180,
+        "name": "admin.read_user_progress_as",
+        "security_definer": true,
+        "sha256": "9b67de5fd04530aa11eaa5b0586feffe881ce5a789ff18d123fb46a2ff4e90c6",
+        "source": "014_rls.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 194,
+        "name": "learning.vigente_answer_key",
+        "security_definer": false,
+        "sha256": "6a2a0bc42524ac3de0b31b2f0b943483e781a6736ca9c59e641227b0249e3d22",
+        "source": "018_provas_gabarito.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 220,
+        "name": "learning.set_item_correct",
+        "security_definer": false,
+        "sha256": "b51ac17255970919bec484ee48433c8d09783b9a068f534f2a281e7461a50598",
+        "source": "018_provas_gabarito.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 241,
+        "name": "learning.apply_answer_key",
+        "security_definer": false,
+        "sha256": "1e07e61cb3120108597866604984be073f81885e7c4069cf873819e8dd3aa4f7",
+        "source": "018_provas_gabarito.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 259,
+        "name": "learning.clear_item_correct",
+        "security_definer": false,
+        "sha256": "40f7904cf7211b5b2ae9e285beb6699b1d3e754756fc3f14b45031c0f0d18c6b",
+        "source": "018_provas_gabarito.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 288,
+        "name": "learning.check_answer_key_entry",
+        "security_definer": false,
+        "sha256": "afe3bfcf96110d778b4bd704191efec553680c640a42e346a382e1fcf76f62cb",
+        "source": "018_provas_gabarito.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 347,
+        "name": "learning.project_answer_key_entry",
+        "security_definer": false,
+        "sha256": "ab3237aa77e2a5dfb7bdc433b9ad28f842078696b23a0a3e9b34791e159a1847",
+        "source": "018_provas_gabarito.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 377,
+        "name": "learning.assert_answer_key_complete",
+        "security_definer": false,
+        "sha256": "3ad888582752b5147707dc8091f24bcd629dbd2e30d92dd06835aace98125588",
+        "source": "018_provas_gabarito.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 434,
+        "name": "learning.trg_assert_answer_key_complete",
+        "security_definer": false,
+        "sha256": "b9f35afa14b12d0639b12aa983653ef21218e8081c3a845118e2df13997d5ccf",
+        "source": "018_provas_gabarito.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 445,
+        "name": "learning.trg_assert_answer_key_entry_complete",
+        "security_definer": false,
+        "sha256": "5547b3149054b5b82bf5124fc069565cf60d078dc99e9452465437dd303179a8",
+        "source": "018_provas_gabarito.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 463,
+        "name": "learning.check_answer_key_lineage",
+        "security_definer": false,
+        "sha256": "486f3683f7fd0372b3dba010d1897cc0e863902154f4536300018b049486bf46",
+        "source": "018_provas_gabarito.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 493,
+        "name": "learning.check_exam_track_numbers",
+        "security_definer": false,
+        "sha256": "1123b5cec2939c52ecd7b67b5aa66956b659f23bd94ac23532dccbb0e4ec38ab",
+        "source": "018_provas_gabarito.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 536,
+        "name": "learning.grade_answer",
+        "security_definer": true,
+        "sha256": "01019b2757a87e37642cbb1038a5d9a7cb0ef02d0f9dfb0bae298b7edff9a145",
+        "source": "018_provas_gabarito.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 563,
+        "name": "editorial.sync_learning_projection",
+        "security_definer": false,
+        "sha256": "2ce97e10ff3cfb81a686a2fefdac1a44598d3177df9d2ed4f8ca830f5fa64a8f",
+        "source": "018_provas_gabarito.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 82,
+        "name": "learning.start_exam_attempt",
+        "security_definer": true,
+        "sha256": "aa29ab290664792a3b84fdabf2c14ca82ee5bbdb0ab1cc6dcde939f50118078c",
+        "source": "019_tentativa_ingestao.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": true
+      },
+      {
+        "line": 108,
+        "name": "learning.answer_exam_attempt",
+        "security_definer": true,
+        "sha256": "9799cc2002671b37dc8dc652b8b695381f6d231b497a39f06790826e3e9f3bd8",
+        "source": "019_tentativa_ingestao.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": true
+      },
+      {
+        "line": 169,
+        "name": "learning.finish_exam_attempt",
+        "security_definer": true,
+        "sha256": "a7cfca49bb72c4731a6f2b01d35856bc6d1aad0fc450f910f25de3af9a7b3b83",
+        "source": "019_tentativa_ingestao.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": true
+      },
+      {
+        "line": 193,
+        "name": "learning.reveal_exam_key",
+        "security_definer": true,
+        "sha256": "7ce5ba9a5256cb69d0782dcd6cb8d59f8e0fdf6edb9b2b98a7cea50eab0de5c7",
+        "source": "019_tentativa_ingestao.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": true
+      },
+      {
+        "line": 251,
+        "name": "ops.import_corpus_form",
+        "security_definer": true,
+        "sha256": "ca3dc9f58c4d89427b4d1777adf6e1d06df1fb0cad8b4264640d2c36124b9934",
+        "source": "019_tentativa_ingestao.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 1,
+        "name": "learning.reconcile_item_correct",
+        "security_definer": true,
+        "sha256": "0c403f1000880b6b9bce1d8e301a57503fe2cf026e1560d21170df2b10058006",
+        "source": "021_letra_derivada.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 46,
+        "name": "learning.reconcile_item_correct",
+        "security_definer": true,
+        "sha256": "8aebbead5d954b8ff38d36a0f40b8dc230963c0de0b88908c1d8d6505ad71488",
+        "source": "022_prova_selada_letra_inteira.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 128,
+        "name": "learning.prova_selada_nao_muda",
+        "security_definer": true,
+        "sha256": "a2e502a5c3a7dec22924775fb651b3199549e8392216e701eb97b9d3970728a1",
+        "source": "022_prova_selada_letra_inteira.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 1,
+        "name": "ops.current_role",
+        "security_definer": false,
+        "sha256": "b9bc584fb1046675d81dba78427e89f559b7e740000b571771f32fa4a1e79264",
+        "source": "023_tres_fechos_do_qa.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 75,
+        "name": "ops.is_staff",
+        "security_definer": false,
+        "sha256": "b512f5fe9ee706a67a50dc31e212102bd69b29a10a72189b6ceceaabbda27ec2",
+        "source": "023_tres_fechos_do_qa.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 83,
+        "name": "learning.enforce_single_correct_option",
+        "security_definer": false,
+        "sha256": "3232a383f38d42fdb56bfba87cf0c98c9306408f295714bff3d3f95aee8062fd",
+        "source": "023_tres_fechos_do_qa.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 123,
+        "name": "ops.import_corpus_form",
+        "security_definer": true,
+        "sha256": "84eff4035751dae8f58d15bd3a52b17d096924812baba99f1ddd385c9c8a2de1",
+        "source": "023_tres_fechos_do_qa.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 1,
+        "name": "learning.answer_key_definitivo_imutavel",
+        "security_definer": true,
+        "sha256": "4f7da9dc30dd298926b46da90fdba6c6abc8f7ce5ae5076a0af5d215c0a78639",
+        "source": "024_gabarito_imutavel_regua_fixa.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 82,
+        "name": "learning.answer_key_status_imutavel",
+        "security_definer": true,
+        "sha256": "10f0c2fd883e9652094c48d922ea6194508664678b236d268a8e18a188f69413",
+        "source": "024_gabarito_imutavel_regua_fixa.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 116,
+        "name": "learning.exam_count_imutavel_apos_selo",
+        "security_definer": true,
+        "sha256": "786b363db77adcd555e6f174d1ad5ff17c8f903cd8f20358288666ddff35e08b",
+        "source": "024_gabarito_imutavel_regua_fixa.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 41,
+        "name": "ops.schema_sem_usage",
+        "security_definer": false,
+        "sha256": "f65b0486d44fe1e2707955d13e27b361e3515d59c14c55646263caa316aa51e4",
+        "source": "025_identity_usage.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 58,
+        "name": "learning.check_answer_key_entry",
+        "security_definer": true,
+        "sha256": "5e19e12f83495923c3393e77085e23c6d8948ba90b402c1fc1ef157eaa47c69f",
+        "source": "026_staff_le_gabarito_default_zero.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 110,
+        "name": "learning.project_answer_key_entry",
+        "security_definer": true,
+        "sha256": "289049363c4df2faa5a66714e6106f6e614b97c9a34acd268ac1a7512a83f8fd",
+        "source": "026_staff_le_gabarito_default_zero.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      },
+      {
+        "line": 123,
+        "name": "ops.system_reach",
+        "security_definer": false,
+        "sha256": "fd2638e072677143ff4305032b58b949a84cb117492fd26719535c5365898e92",
+        "source": "027_papel_de_sistema.sql",
+        "uses_dynamic_sql": false,
+        "uses_legacy_auth_context": false
+      }
+    ],
+    "policies": [
+      {
+        "line": 36,
+        "name": "pub_read_plan",
+        "operation": "SELECT",
+        "sha256": "69028629120309b9cb824d802119c5bc8669ce7544904fc8a189c1d707d782be",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "commerce.plan"
+      },
+      {
+        "line": 44,
+        "name": "pub_read_subject",
+        "operation": "SELECT",
+        "sha256": "951582bdeb412db41011465a59c79313defdb9b4a848f5d687d6d822c510b7ef",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "taxonomy.subject"
+      },
+      {
+        "line": 47,
+        "name": "pub_read_subtopic",
+        "operation": "SELECT",
+        "sha256": "38fc0cb073af74387042b10d634ed9793f83c1cf25a732854572bdee20655a75",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "taxonomy.subtopic"
+      },
+      {
+        "line": 50,
+        "name": "pub_read_module",
+        "operation": "SELECT",
+        "sha256": "9c0ae01c104363d4f5623028aaad44b897c294d00f7423b497189c2c5e981232",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "taxonomy.module"
+      },
+      {
+        "line": 53,
+        "name": "pub_read_content",
+        "operation": "SELECT",
+        "sha256": "a6458415a279866e9efe25a26e3d6813f375e030e26982770ba15545d5cd2d64",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "editorial.content_item"
+      },
+      {
+        "line": 59,
+        "name": "pub_read_content_version",
+        "operation": "SELECT",
+        "sha256": "a087ff5895f694908d250a53fa2dd81b56c09563ac766d38fca775cdf84380b7",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "editorial.content_item_version"
+      },
+      {
+        "line": 62,
+        "name": "pub_read_relation",
+        "operation": "SELECT",
+        "sha256": "76b6460333e90e45449c2ed9f3c4344d7f12471f69c35241376b5e2d85037465",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "editorial.content_relation"
+      },
+      {
+        "line": 65,
+        "name": "pub_read_norm",
+        "operation": "SELECT",
+        "sha256": "b20abf99f8f273c7e1457d45fb42aa2eabcff9081b4bbbc44fe046faa00e89a6",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "norms.norm"
+      },
+      {
+        "line": 67,
+        "name": "pub_read_norm_version",
+        "operation": "SELECT",
+        "sha256": "42f7170cc57f97ad5f8580a7bd3aba932a4abd46481d7a65bee62317de888273",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "norms.norm_version"
+      },
+      {
+        "line": 68,
+        "name": "pub_read_norm_item",
+        "operation": "SELECT",
+        "sha256": "24792f4077c2026e0d92f822569de5e380d007f1e018200db89bbb97f97d93d4",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "norms.norm_item"
+      },
+      {
+        "line": 69,
+        "name": "pub_read_source",
+        "operation": "SELECT",
+        "sha256": "20821bc73dd28dbdbac2320a5cf987e9b9416df613728fe3a0f01a36f3b94b52",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "editorial.source"
+      },
+      {
+        "line": 70,
+        "name": "pub_read_learning_item",
+        "operation": "SELECT",
+        "sha256": "4672d4b8f7e1a5b4fb81adc4340c98e33eb73a101679d9cc0f02bd92432e1dd0",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.item"
+      },
+      {
+        "line": 76,
+        "name": "sub_own_profile",
+        "operation": "SELECT",
+        "sha256": "2ba395934e0baaaaa809ed2ca1d14af4733e99ea37fb89687ee9b7b8ba17f5ab",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "identity.user_profile"
+      },
+      {
+        "line": 82,
+        "name": "sub_own_profile_write",
+        "operation": "UPDATE",
+        "sha256": "242a3a33f96eaccf0d97adcd0cc2ffafb17eac5e3848bd14a780698eeff98981",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "identity.user_profile"
+      },
+      {
+        "line": 84,
+        "name": "sub_own_consent",
+        "operation": "SELECT",
+        "sha256": "e508ff305711f2819254d4a43f6438c9f1615d94231110735b183a08183018de",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "identity.consent"
+      },
+      {
+        "line": 87,
+        "name": "sub_insert_consent",
+        "operation": "INSERT",
+        "sha256": "8af22ac0b26db5ab303fcfa8a17f5ee0101a40e321177fe874fa181e8b2ee604",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "identity.consent"
+      },
+      {
+        "line": 89,
+        "name": "sub_own_request",
+        "operation": "SELECT",
+        "sha256": "0c6ca68ca59f6a6bd092abaa1201fb9bc3cf57ffbc9b3725f615bea59b633204",
+        "source": "014_rls.sql",
+        "status": "CANDIDATE_OWNER",
+        "table": "identity.data_request"
+      },
+      {
+        "line": 92,
+        "name": "sub_insert_request",
+        "operation": "INSERT",
+        "sha256": "5ba453f0e94de161598360b5498b9825a96426308c9813cdefc52ee10577472a",
+        "source": "014_rls.sql",
+        "status": "CANDIDATE_OWNER",
+        "table": "identity.data_request"
+      },
+      {
+        "line": 94,
+        "name": "sub_own_session",
+        "operation": "ALL",
+        "sha256": "e9608a67799b8769f62e55f1363b09be15f6a53588a89a1b0a3d99ecfa11cc78",
+        "source": "014_rls.sql",
+        "status": "CANDIDATE_OWNER",
+        "table": "learning.session"
+      },
+      {
+        "line": 97,
+        "name": "sub_own_event",
+        "operation": "ALL",
+        "sha256": "ae519edd9c42ca8e8345add75bbb6a025a17e2698c013403f65eab6dcf651b34",
+        "source": "014_rls.sql",
+        "status": "CANDIDATE_OWNER",
+        "table": "learning.review_event"
+      },
+      {
+        "line": 100,
+        "name": "sub_own_state",
+        "operation": "ALL",
+        "sha256": "7b5d8f4740838215f2f3cef7457a1c2975c18a09c2aa03e667e935b7c757b2d2",
+        "source": "014_rls.sql",
+        "status": "CANDIDATE_OWNER",
+        "table": "learning.user_item_state"
+      },
+      {
+        "line": 103,
+        "name": "sub_own_mastery",
+        "operation": "ALL",
+        "sha256": "fb753241380cede66a118322e9b2d6e4e9ed0178c89e75c3395d2a6d46595ac9",
+        "source": "014_rls.sql",
+        "status": "CANDIDATE_OWNER",
+        "table": "learning.mastery"
+      },
+      {
+        "line": 106,
+        "name": "sub_own_favorite",
+        "operation": "ALL",
+        "sha256": "7f329e954d9c4e2da7366c165590a40158d85e775804fc2464f32cfb205c3786",
+        "source": "014_rls.sql",
+        "status": "CANDIDATE_OWNER",
+        "table": "learning.favorite"
+      },
+      {
+        "line": 109,
+        "name": "sub_own_note",
+        "operation": "ALL",
+        "sha256": "729a3a21816910e60d5e6e12893ad7b4fd77377b8bdf12e919a9c7b68cedf1b8",
+        "source": "014_rls.sql",
+        "status": "CANDIDATE_OWNER",
+        "table": "learning.note"
+      },
+      {
+        "line": 112,
+        "name": "sub_own_offline",
+        "operation": "ALL",
+        "sha256": "6497d9dc7d525d6413589d32d029f090f74580d0799799257d42630eeddecb38",
+        "source": "014_rls.sql",
+        "status": "CANDIDATE_OWNER",
+        "table": "learning.offline_pack"
+      },
+      {
+        "line": 115,
+        "name": "sub_own_plan",
+        "operation": "ALL",
+        "sha256": "6638facc27ad657e645e94fc668a6840a123f71257f3ab0fc679e4463837ea81",
+        "source": "014_rls.sql",
+        "status": "CANDIDATE_OWNER",
+        "table": "learning.study_plan"
+      },
+      {
+        "line": 118,
+        "name": "sub_own_subscription",
+        "operation": "SELECT",
+        "sha256": "b227e03188e9aface007743fc29792be3de2538dfe6303c42d77720f0544dca4",
+        "source": "014_rls.sql",
+        "status": "CANDIDATE_OWNER",
+        "table": "commerce.subscription"
+      },
+      {
+        "line": 121,
+        "name": "sub_own_payment",
+        "operation": "SELECT",
+        "sha256": "c582918d8e97186e964b215fdfa07ba7d94594c5429faa76e06056757fe1906f",
+        "source": "014_rls.sql",
+        "status": "CANDIDATE_OWNER",
+        "table": "commerce.payment"
+      },
+      {
+        "line": 123,
+        "name": "sub_own_entitlement",
+        "operation": "SELECT",
+        "sha256": "d40837469a5ece9e8435b0b6fb9e940e3b827e5adc13ed2b79d4fc3a6ce90572",
+        "source": "014_rls.sql",
+        "status": "CANDIDATE_OWNER",
+        "table": "commerce.entitlement"
+      },
+      {
+        "line": 125,
+        "name": "staff_read_account",
+        "operation": "SELECT",
+        "sha256": "5a342c802915b7580783e9cb8a8d8cee6eea45a1b5fa6dcfd458edc37dc9ddf9",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "identity.account"
+      },
+      {
+        "line": 131,
+        "name": "staff_read_profile",
+        "operation": "SELECT",
+        "sha256": "9090d5c2654dd2c9e337a66f2195699488fe48c3fbc91aab84486be8beeec5de",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "identity.user_profile"
+      },
+      {
+        "line": 133,
+        "name": "staff_read_content",
+        "operation": "SELECT",
+        "sha256": "21611c523f441d7b0fd7194e67d655bc05db8e612633bdfccc0a701ab6c95f2d",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "editorial.content_item"
+      },
+      {
+        "line": 135,
+        "name": "staff_write_content",
+        "operation": "ALL",
+        "sha256": "a391529c797ffa16cfffb8f0fd1bc828dc0f30c9b20ee5f1c8661fe1e3a32300",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "editorial.content_item"
+      },
+      {
+        "line": 137,
+        "name": "staff_read_version",
+        "operation": "SELECT",
+        "sha256": "5402be6738896b968cabe3143dee2ca22381dd39aaabf29dfbf4e7a4cad1db08",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "editorial.content_item_version"
+      },
+      {
+        "line": 139,
+        "name": "staff_write_version",
+        "operation": "ALL",
+        "sha256": "d0c2d46155fbadcaf262ba8cd9f465e5488ce267ff6594c61d5f81c2b0733de4",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "editorial.content_item_version"
+      },
+      {
+        "line": 141,
+        "name": "staff_read_verification",
+        "operation": "SELECT",
+        "sha256": "a33ca5cebabf6de31b029781dbb3c23d669f33f33750892a7969bb25ca9d486d",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "editorial.verification"
+      },
+      {
+        "line": 143,
+        "name": "staff_write_verification",
+        "operation": "ALL",
+        "sha256": "38bc26c8ff0e16f4ee86c265d4c9c298e7cff778858a09262472662cc6391cd7",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "editorial.verification"
+      },
+      {
+        "line": 145,
+        "name": "staff_read_moderation",
+        "operation": "ALL",
+        "sha256": "cc087abeaafb54d08fa55c42a08cb15bb0757258c339a1b8f260aaf6d15a0abf",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "admin.moderation_queue"
+      },
+      {
+        "line": 147,
+        "name": "staff_read_grant",
+        "operation": "ALL",
+        "sha256": "ec786b7631f83f75133aa62308e8b2b73c5c5f9c550ece6eca54e42c3c1f4cee",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "admin.support_access_grant"
+      },
+      {
+        "line": 149,
+        "name": "staff_insert_grant",
+        "operation": "INSERT",
+        "sha256": "a1c4cca582da379cf4ee7b8b988951c350ed0864c74afd1123739873b5ed3c09",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "admin.support_access_grant"
+      },
+      {
+        "line": 151,
+        "name": "staff_read_audit",
+        "operation": "SELECT",
+        "sha256": "d84dfd287ff2119287a237e5257e6414c220970c022686574b7ef5d9cc9b194f",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "audit.audit_log"
+      },
+      {
+        "line": 153,
+        "name": "staff_insert_audit",
+        "operation": "INSERT",
+        "sha256": "c94e15ea1f708b811e7876ebfaa597591a4997515edfefd4e93b280cfeaa10c9",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "audit.audit_log"
+      },
+      {
+        "line": 155,
+        "name": "staff_read_ops",
+        "operation": "SELECT",
+        "sha256": "93cd63fe3d726786f8fa6d210bfa47ac01267928bfa4d73652d211089da8bb0b",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "ops.setting"
+      },
+      {
+        "line": 157,
+        "name": "admin_read_all_account",
+        "operation": "SELECT",
+        "sha256": "18226dca829ff9159a845a7c3f5242b920f7a0e3c78606c126cd621e800e488b",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "identity.account"
+      },
+      {
+        "line": 160,
+        "name": "admin_read_all_profile",
+        "operation": "ALL",
+        "sha256": "e281f83fed72d48d50b6209af19c585a4bb23c436273735a0bdd6ddef2a56006",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "identity.user_profile"
+      },
+      {
+        "line": 161,
+        "name": "admin_all_learning",
+        "operation": "ALL",
+        "sha256": "44e426d8a74f5afe95c57a6e68f5d49ebd468d9b820b674c3f8463f54d02905d",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.review_event"
+      },
+      {
+        "line": 163,
+        "name": "admin_all_mastery",
+        "operation": "ALL",
+        "sha256": "80a27725f02702db37e931bc544d3150d9dbeffced41eb74951228e94efe6de3",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.mastery"
+      },
+      {
+        "line": 165,
+        "name": "admin_all_subscription",
+        "operation": "ALL",
+        "sha256": "eeb972b973a66613a463b63102785fde3d2dbb3c1daf05c9ce7c0a0d4d48f87c",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "commerce.subscription"
+      },
+      {
+        "line": 167,
+        "name": "admin_all_ops",
+        "operation": "ALL",
+        "sha256": "e6b89e500d00d2d1e577fa81c825fa7dfae04fd199c97c5f4671b05727b535d9",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "ops.setting"
+      },
+      {
+        "line": 169,
+        "name": "admin_all_integration",
+        "operation": "ALL",
+        "sha256": "36830acd7e8fe639710a29a0e1c6f3fc7534a270b59c67f2d9711a726bc5864e",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "ops.integration"
+      },
+      {
+        "line": 171,
+        "name": "admin_all_grant",
+        "operation": "ALL",
+        "sha256": "33c071094376d214ff05e2521917cd3555f98c0a1b9d8f8df65d83761eb6c175",
+        "source": "014_rls.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "admin.support_access_grant"
+      },
+      {
+        "line": 655,
+        "name": "pub_read_exam_track",
+        "operation": "SELECT",
+        "sha256": "d72d81efe2a4dbcf9510ce5e119f62383561ca4bbf17991990f30a6387397f56",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "taxonomy.exam_track"
+      },
+      {
+        "line": 660,
+        "name": "pub_read_exam_form",
+        "operation": "SELECT",
+        "sha256": "59f88cf52a094553ee6da68a3cb8a21cb296658725705a56d0362850881cdc7b",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.exam_form"
+      },
+      {
+        "line": 662,
+        "name": "sub_read_exam_track",
+        "operation": "SELECT",
+        "sha256": "a2f021619f19aec0dcaeff8b340f5853b262e1b17d76302d910d850c4b0880f9",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "taxonomy.exam_track"
+      },
+      {
+        "line": 665,
+        "name": "sub_read_exam_form",
+        "operation": "SELECT",
+        "sha256": "14e5340b628750198c0c05b543139db375bb155fd63ece62c0cfbefd849a0e6e",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.exam_form"
+      },
+      {
+        "line": 667,
+        "name": "sub_read_exam_form_item",
+        "operation": "SELECT",
+        "sha256": "b100051e0a209ff415f6fae9c90eabdfa939ac166fc3066843b7ac0ec604149b",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.exam_form_item"
+      },
+      {
+        "line": 669,
+        "name": "staff_read_exam_track",
+        "operation": "SELECT",
+        "sha256": "94696e63fda734af295cf248b76b72ae6786a25fdb9cf88c58684054dedde617",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "taxonomy.exam_track"
+      },
+      {
+        "line": 671,
+        "name": "staff_write_exam_track",
+        "operation": "ALL",
+        "sha256": "cf8df28c40ff982617c3579f87e5b806b368a84be452d63333c009c6d2f378b4",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "taxonomy.exam_track"
+      },
+      {
+        "line": 672,
+        "name": "staff_read_exam_form",
+        "operation": "SELECT",
+        "sha256": "84acab8fc4691d1212af2e956fc98f34cc4c31507d157abcc46e57ade85da8b2",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.exam_form"
+      },
+      {
+        "line": 673,
+        "name": "staff_write_exam_form",
+        "operation": "ALL",
+        "sha256": "e86f1ba162263c9d505f1ab7a111aad6fc3257ffffb4e26aab4ff3bf2fc6a896",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.exam_form"
+      },
+      {
+        "line": 674,
+        "name": "staff_read_exam_form_item",
+        "operation": "SELECT",
+        "sha256": "a76d21b6d57515291fcc7a6e90da2d0c4055d64fe58eee4d6218b34736a93d9f",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.exam_form_item"
+      },
+      {
+        "line": 675,
+        "name": "staff_write_exam_form_item",
+        "operation": "ALL",
+        "sha256": "b2852282a632a821a8b3cec9109cd823ba71d42c2d1c5d671b97aab5429d01ac",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.exam_form_item"
+      },
+      {
+        "line": 676,
+        "name": "staff_read_answer_key",
+        "operation": "SELECT",
+        "sha256": "1de8d893376adc75b5c46aff71a18d59007e2d93cc0c9bde5cbd4551f68e197c",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.answer_key"
+      },
+      {
+        "line": 678,
+        "name": "staff_write_answer_key",
+        "operation": "ALL",
+        "sha256": "7ac131cc39e4945332eb289cf4b9d08bef06fcd310b699e0fb4633d8a3b4e232",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.answer_key"
+      },
+      {
+        "line": 679,
+        "name": "staff_read_answer_key_entry",
+        "operation": "SELECT",
+        "sha256": "6fe476a56c41bd27fd1bfc5b5daca6de1ebfe75da236fdb55c74694934ef9b2d",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.answer_key_entry"
+      },
+      {
+        "line": 680,
+        "name": "staff_write_answer_key_entry",
+        "operation": "ALL",
+        "sha256": "e570660d05f2b54d7305702f43bfff41fc7d82942ef61458df714f8f8aeb9967",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.answer_key_entry"
+      },
+      {
+        "line": 681,
+        "name": "admin_read_exam_track",
+        "operation": "SELECT",
+        "sha256": "60b27e4d11be8a83a6f25b23013a0f2dcef0c6e1785d7b6d0d1b148678f2b375",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "taxonomy.exam_track"
+      },
+      {
+        "line": 683,
+        "name": "admin_write_exam_track",
+        "operation": "ALL",
+        "sha256": "9eed3e9d106e95a6ad7afa72a7de9d7410ba6059a3b8f5d963eb2ab3962c3ffe",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "taxonomy.exam_track"
+      },
+      {
+        "line": 684,
+        "name": "admin_read_exam_form",
+        "operation": "SELECT",
+        "sha256": "0d270593f033741cfa4cd2a7f12e0238a10bf9df3517bcbfeefeb9040afdfcda",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.exam_form"
+      },
+      {
+        "line": 685,
+        "name": "admin_write_exam_form",
+        "operation": "ALL",
+        "sha256": "25d82009362abbc2604e3302dc2e13e73419a0e2507f735eb08cc305aa96d97e",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.exam_form"
+      },
+      {
+        "line": 686,
+        "name": "admin_read_exam_form_item",
+        "operation": "SELECT",
+        "sha256": "13bc55de410f45cdf6488963c8e8ddab6dde1eb9b353ee0662b696e6e1db7351",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.exam_form_item"
+      },
+      {
+        "line": 687,
+        "name": "admin_write_exam_form_item",
+        "operation": "ALL",
+        "sha256": "2c7e496f5b8ea1a6938a03467937376f0affaef9754a3d152575bfd263ea278c",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.exam_form_item"
+      },
+      {
+        "line": 688,
+        "name": "admin_read_answer_key",
+        "operation": "SELECT",
+        "sha256": "3183b059738be03971f8420fbfa38435698af4c7d30b6cadf1d0a7074c098378",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.answer_key"
+      },
+      {
+        "line": 689,
+        "name": "admin_write_answer_key",
+        "operation": "ALL",
+        "sha256": "84fbc0327569105c851f6139848babaa957ac97aeaf91a9de1e8237172fe6a09",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.answer_key"
+      },
+      {
+        "line": 690,
+        "name": "admin_read_answer_key_entry",
+        "operation": "SELECT",
+        "sha256": "2b2dfd121cb7a4450292ecbe13b576ea55857bb39e08ebd90aac8e78da8634e8",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.answer_key_entry"
+      },
+      {
+        "line": 691,
+        "name": "admin_write_answer_key_entry",
+        "operation": "ALL",
+        "sha256": "842bee5486fc89e91a897f6d037831529472a55ef7bce4c8272f077dab6ef0eb",
+        "source": "018_provas_gabarito.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.answer_key_entry"
+      },
+      {
+        "line": 558,
+        "name": "sub_own_attempt",
+        "operation": "ALL",
+        "sha256": "6c1ceaae8d79aa1d3445b50146cbf7c9dd9fbc7cb156f651f42f1aa7d92e611d",
+        "source": "019_tentativa_ingestao.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.exam_attempt"
+      },
+      {
+        "line": 563,
+        "name": "sub_own_attempt_answer",
+        "operation": "ALL",
+        "sha256": "10c2d38f0d3953c56c1a1ed14cc01c4e5ea888edccf1d044f6e6668ccbba26ce",
+        "source": "019_tentativa_ingestao.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.exam_attempt_answer"
+      },
+      {
+        "line": 44,
+        "name": "staff_read_item_option",
+        "operation": "SELECT",
+        "sha256": "87e751ba1a19faf846518a5763615d9d4149944c70dfa94746c3b6fc420b0d32",
+        "source": "026_staff_le_gabarito_default_zero.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.item_option"
+      },
+      {
+        "line": 49,
+        "name": "admin_read_item_option",
+        "operation": "SELECT",
+        "sha256": "ff17de49931c9b8a7eae3d5adf6d65a06c1eb4af9764fa2084650b9f7c86a54f",
+        "source": "026_staff_le_gabarito_default_zero.sql",
+        "status": "REVIEW_PRIVILEGES",
+        "table": "learning.item_option"
+      }
+    ],
+    "triggers": [
+      {
+        "line": 96,
+        "name": "trg_review_event_immutable",
+        "requires_function_review": true,
+        "sha256": "cb2b6ce0fc3cd030a2e5644f9902ab203dc03bd0a0f00724723b9d390d081878",
+        "source": "007_learning_srs.sql"
+      },
+      {
+        "line": 93,
+        "name": "trg_audit_hash",
+        "requires_function_review": true,
+        "sha256": "9ff18af6ede3afc6ce5dabb25992fa02c33cbdcca2fdcb9f3863bc7d0d3fdde1",
+        "source": "009_admin_governance.sql"
+      },
+      {
+        "line": 103,
+        "name": "trg_audit_no_update",
+        "requires_function_review": true,
+        "sha256": "dd6e747723a8828ccf88b74cb14fdd4f3192a983891ed0cb7b33e88d47a9c6ad",
+        "source": "009_admin_governance.sql"
+      },
+      {
+        "line": 73,
+        "name": "trg_publish_requires_verification",
+        "requires_function_review": true,
+        "sha256": "6b05ad215e516b9aa37c8ca238fcd7a95828ad00c0431dbd53dab11138531c1d",
+        "source": "011_triggers_integridade.sql"
+      },
+      {
+        "line": 133,
+        "name": "trg_new_norm_version_expires",
+        "requires_function_review": true,
+        "sha256": "c818176f41a4dd1b0bdf07b745ea1b357f7e8ae163022411f74580871f7fb8ba",
+        "source": "011_triggers_integridade.sql"
+      },
+      {
+        "line": 156,
+        "name": "trg_single_correct_option",
+        "requires_function_review": true,
+        "sha256": "e166f8749bcd8fb9ab6ab2cc31ce596c9d9c0f2877adbcf202f836248f7f2acb",
+        "source": "011_triggers_integridade.sql"
+      },
+      {
+        "line": 214,
+        "name": "trg_require_correct_option",
+        "requires_function_review": true,
+        "sha256": "2516611687b21d666c4889927ee4c74af0fd2abd1c6feb6180c5509986dfea29",
+        "source": "011_triggers_integridade.sql"
+      },
+      {
+        "line": 304,
+        "name": "trg_sync_learning_projection",
+        "requires_function_review": true,
+        "sha256": "13dcdbe24d9362d666091931773a7bc643be6b890079e2454aee4ef719ddc185",
+        "source": "011_triggers_integridade.sql"
+      },
+      {
+        "line": 377,
+        "name": "trg_state_transition",
+        "requires_function_review": true,
+        "sha256": "8a71fe696d8beb17e95bd332ee30ac2e9ce4e7dceaaa17166abeb013dbb8a495",
+        "source": "011_triggers_integridade.sql"
+      },
+      {
+        "line": 437,
+        "name": "trg_expire_support_grants",
+        "requires_function_review": true,
+        "sha256": "718b4436b9366114cb120d4a7fc8cfc4d105f4f446b8aa287c069a468a7ece25",
+        "source": "011_triggers_integridade.sql"
+      },
+      {
+        "line": 343,
+        "name": "trg_check_answer_key_entry",
+        "requires_function_review": true,
+        "sha256": "cb2b01169a7c9795ac8fd5242a13929458a8e3b76906632e537258880b30e4cc",
+        "source": "018_provas_gabarito.sql"
+      },
+      {
+        "line": 373,
+        "name": "trg_project_answer_key_entry",
+        "requires_function_review": true,
+        "sha256": "01fc5962cdd20c5c3a953f783e04e0f1281d3732196018a8007cb9f80100061c",
+        "source": "018_provas_gabarito.sql"
+      },
+      {
+        "line": 453,
+        "name": "trg_answer_key_completo",
+        "requires_function_review": true,
+        "sha256": "debfb5175bb7cc9e686e99711b52427195dd979540cf793ce38da85138a918fa",
+        "source": "018_provas_gabarito.sql"
+      },
+      {
+        "line": 458,
+        "name": "trg_answer_key_entry_completo",
+        "requires_function_review": true,
+        "sha256": "75bf2ccc9223f6105ea87d44c6de5713fed062d8c9dc26fa6314815a2b8b23c6",
+        "source": "018_provas_gabarito.sql"
+      },
+      {
+        "line": 489,
+        "name": "trg_answer_key_lineage",
+        "requires_function_review": true,
+        "sha256": "2ef3ff3055789fa3e27a9f46c99401295344778bb8fc181e99858dd5168ffd3c",
+        "source": "018_provas_gabarito.sql"
+      },
+      {
+        "line": 524,
+        "name": "trg_exam_track_numbers",
+        "requires_function_review": true,
+        "sha256": "7e3cd229ebcb9e583508262066f8d780c5563ff497fb1ba134a8c756bc434dc7",
+        "source": "018_provas_gabarito.sql"
+      },
+      {
+        "line": 86,
+        "name": "trg_reconcile_item_correct",
+        "requires_function_review": true,
+        "sha256": "6a0c3085ed9f23a2cfefd92068ab7eb2fe89b0b6395dc7a65860ea1632538565",
+        "source": "021_letra_derivada.sql"
+      },
+      {
+        "line": 120,
+        "name": "trg_reconcile_item_correct",
+        "requires_function_review": true,
+        "sha256": "975737dec567d7e92e5961bd0a8be81dfa62f14f51c36a6eaf8553922f45afc0",
+        "source": "022_prova_selada_letra_inteira.sql"
+      },
+      {
+        "line": 186,
+        "name": "trg_prova_selada_nao_muda",
+        "requires_function_review": true,
+        "sha256": "75889769ac74a72a30e4de30d83216da9a85d85b8f545a09458180cc961f4e63",
+        "source": "022_prova_selada_letra_inteira.sql"
+      },
+      {
+        "line": 108,
+        "name": "trg_single_correct_option",
+        "requires_function_review": true,
+        "sha256": "e166f8749bcd8fb9ab6ab2cc31ce596c9d9c0f2877adbcf202f836248f7f2acb",
+        "source": "023_tres_fechos_do_qa.sql"
+      },
+      {
+        "line": 118,
+        "name": "trg_reconcile_item_correct",
+        "requires_function_review": true,
+        "sha256": "b7f7ab0d7d4f7ef5a55385ced9dc2014fb612f3bacd20a173d77394ab58f2bbb",
+        "source": "023_tres_fechos_do_qa.sql"
+      },
+      {
+        "line": 78,
+        "name": "trg_answer_key_entry_definitivo_imutavel",
+        "requires_function_review": true,
+        "sha256": "a1d1bc55700207660ce93b6a44abc00f75b030f9ca83a69441f11d5b80013e57",
+        "source": "024_gabarito_imutavel_regua_fixa.sql"
+      },
+      {
+        "line": 103,
+        "name": "trg_answer_key_status_imutavel",
+        "requires_function_review": true,
+        "sha256": "179b613cb6ece3ce855406c088c4e35955421ff6145af5b520c8122a3cee05ca",
+        "source": "024_gabarito_imutavel_regua_fixa.sql"
+      },
+      {
+        "line": 107,
+        "name": "trg_answer_key_definitivo_imutavel",
+        "requires_function_review": true,
+        "sha256": "f80d6ca301fa5711307a6096f4f51afd66c7a937f9ca4203c5fcddd1f97c18be",
+        "source": "024_gabarito_imutavel_regua_fixa.sql"
+      },
+      {
+        "line": 158,
+        "name": "trg_exam_track_count_imutavel",
+        "requires_function_review": true,
+        "sha256": "67007e5711338d1d06a6044a10b30305064bd7cf7e3cf1666c88d7ed45efeadd",
+        "source": "024_gabarito_imutavel_regua_fixa.sql"
+      },
+      {
+        "line": 162,
+        "name": "trg_exam_edition_count_imutavel",
+        "requires_function_review": true,
+        "sha256": "c99df6bbaf04512fe6d76a64bc78af605acec4a3cde5faf3ac00a2aae6c63488",
+        "source": "024_gabarito_imutavel_regua_fixa.sql"
+      }
+    ],
+    "views": [
+      {
+        "line": 1,
+        "name": "public.v_public_plan",
+        "reason": null,
+        "sha256": "1b26ffdddf09687b32e2213fd59778886708e7862ddf16f4a1afeb1251d1b8e4",
+        "source": "013_views.sql",
+        "status": "CANDIDATE_INVOKER"
+      },
+      {
+        "line": 24,
+        "name": "public.v_public_subject",
+        "reason": null,
+        "sha256": "dc9469e83ac9428540f07872c05ca294aba3ad8bebe31a91cb0d40f58a1a03a6",
+        "source": "013_views.sql",
+        "status": "CANDIDATE_INVOKER"
+      },
+      {
+        "line": 31,
+        "name": "public.v_public_module",
+        "reason": null,
+        "sha256": "6b7b7713847aa73af5a1a185d56b42021ac432ec2c4f475575b43d3cd3792162",
+        "source": "013_views.sql",
+        "status": "CANDIDATE_INVOKER"
+      },
+      {
+        "line": 36,
+        "name": "public.v_public_content",
+        "reason": null,
+        "sha256": "41b2465f14939dd678902decdf94c83ab32f787bf48e27719c54f6cf09f77ec2",
+        "source": "013_views.sql",
+        "status": "CANDIDATE_INVOKER"
+      },
+      {
+        "line": 54,
+        "name": "public.v_public_item",
+        "reason": null,
+        "sha256": "c499fb5c1012bf7dbcfd1ead7b923cb22f0233416b785dc8f59509e0a6559456",
+        "source": "013_views.sql",
+        "status": "CANDIDATE_INVOKER"
+      },
+      {
+        "line": 64,
+        "name": "subscriber.v_item_options",
+        "reason": null,
+        "sha256": "3cb7b84765719dd242eb70accf5ade4d432b13a784de833e11a2e5debf9e4f48",
+        "source": "013_views.sql",
+        "status": "CANDIDATE_INVOKER"
+      },
+      {
+        "line": 84,
+        "name": "subscriber.v_my_progress",
+        "reason": null,
+        "sha256": "60e3694b53f40a7e6e5bccc13663fe92fbc2effbfae6be80258f265cf3a90118",
+        "source": "013_views.sql",
+        "status": "CANDIDATE_INVOKER"
+      },
+      {
+        "line": 94,
+        "name": "subscriber.v_my_due",
+        "reason": "FUNCTION_DEPENDENCY_UNPORTED_due_items",
+        "sha256": "80147de379550123e5a3eb16b75135163ce8c05788dd20f28bd2f12d020bfe17",
+        "source": "013_views.sql",
+        "status": "EXCLUDE_DEPENDENCY"
+      },
+      {
+        "line": 97,
+        "name": "subscriber.v_my_history",
+        "reason": null,
+        "sha256": "97c0bd8051cd58635ec82cd0282ed110696bf00badf926ea497f37792fee5c43",
+        "source": "013_views.sql",
+        "status": "CANDIDATE_INVOKER"
+      },
+      {
+        "line": 106,
+        "name": "subscriber.v_my_state",
+        "reason": null,
+        "sha256": "d2d856f368a6e525399e1e9203db641fdcbaeee47a1ac5134bc1444ff1a3e207",
+        "source": "013_views.sql",
+        "status": "CANDIDATE_INVOKER"
+      },
+      {
+        "line": 109,
+        "name": "admin.v_content_health",
+        "reason": null,
+        "sha256": "0456694c249efb2a7251102c0ee44ba0113c9d8891ba7bcc5f00cf1ba525547b",
+        "source": "013_views.sql",
+        "status": "CANDIDATE_INVOKER"
+      },
+      {
+        "line": 131,
+        "name": "admin.v_user_overview",
+        "reason": "MANAGED_AUTH_IDENTITY_ACCOUNT_REMOVED",
+        "sha256": "2afcb871fa7daa65e464b3c7142ef9690a31d0b408ce17a6a0695367b9477fb5",
+        "source": "013_views.sql",
+        "status": "EXCLUDE_DEPENDENCY"
+      },
+      {
+        "line": 142,
+        "name": "admin.v_user_mastery",
+        "reason": null,
+        "sha256": "681048478c9ad1de07c919558c7482ed3476b0db7fd602299019b4315d76b6d4",
+        "source": "013_views.sql",
+        "status": "CANDIDATE_INVOKER"
+      },
+      {
+        "line": 149,
+        "name": "admin.v_audit_recent",
+        "reason": null,
+        "sha256": "d0186cc2401c8d163634aa191c4607fe338dedf451d87099e170d3dbb9062495",
+        "source": "013_views.sql",
+        "status": "CANDIDATE_INVOKER"
+      },
+      {
+        "line": 156,
+        "name": "admin.v_refused_claims",
+        "reason": null,
+        "sha256": "11fa1c7fcf99f22fd5624db4481c7bd2ada7aa597c0b6dffd3c558096f7d3b06",
+        "source": "013_views.sql",
+        "status": "CANDIDATE_INVOKER"
+      },
+      {
+        "line": 692,
+        "name": "admin.v_exam_form_status",
+        "reason": null,
+        "sha256": "9e41f8466ae4d51478ff2897aae69b1ef3ea091a3b6ff709eb3e8311106a8e6b",
+        "source": "018_provas_gabarito.sql",
+        "status": "CANDIDATE_INVOKER"
+      },
+      {
+        "line": 1,
+        "name": "subscriber.v_exam_forms",
+        "reason": null,
+        "sha256": "e61314e60aa1b3b88022dbee861fea354328ad4aee10fc909aafa7655c1febe6",
+        "source": "030_porta_da_prova.sql",
+        "status": "CANDIDATE_INVOKER"
+      },
+      {
+        "line": 57,
+        "name": "subscriber.v_exam_questions",
+        "reason": null,
+        "sha256": "8a2e294cda0e273a2ee26a0906933d8989a4e713852159f25bda0253ec5ac218",
+        "source": "030_porta_da_prova.sql",
+        "status": "CANDIDATE_INVOKER"
+      }
+    ]
+  },
+  "objects_by_category": {
+    "functions": 58,
+    "policies": 80,
+    "triggers": 26,
+    "views": 18
+  },
+  "out_auth_sha256": "1552e5fb4be35ad65cf4f445bf278c9a6f534091cb7e11bf17b5899cbc8aa975",
+  "out_policies_sha256": "2b2c6c8a720eeb1cfa3b9aaf8d484b7148368424d1eca50fcea352a472df55af",
+  "out_views_sha256": "edf0abfacd6a4a156d37b1a23f602899b80a79b1cecbcf85116d010b010169e9",
+  "owner_policies_generated": [
+    {
+      "operation": "SELECT",
+      "source": "sub_own_entitlement",
+      "source_sha256": "d40837469a5ece9e8435b0b6fb9e940e3b827e5adc13ed2b79d4fc3a6ce90572",
+      "table": "canone_commerce.entitlement"
+    },
+    {
+      "operation": "SELECT",
+      "source": "sub_own_payment",
+      "source_sha256": "c582918d8e97186e964b215fdfa07ba7d94594c5429faa76e06056757fe1906f",
+      "table": "canone_commerce.payment"
+    },
+    {
+      "operation": "SELECT",
+      "source": "sub_own_subscription",
+      "source_sha256": "b227e03188e9aface007743fc29792be3de2538dfe6303c42d77720f0544dca4",
+      "table": "canone_commerce.subscription"
+    },
+    {
+      "operation": "SELECT",
+      "source": "sub_own_request",
+      "source_sha256": "0c6ca68ca59f6a6bd092abaa1201fb9bc3cf57ffbc9b3725f615bea59b633204",
+      "table": "canone_identity.data_request"
+    },
+    {
+      "operation": "INSERT",
+      "security_narrowing": "explicit_write_operations_replacing_legacy_FOR_ALL",
+      "source": "sub_own_request",
+      "source_sha256": "0c6ca68ca59f6a6bd092abaa1201fb9bc3cf57ffbc9b3725f615bea59b633204",
+      "table": "canone_identity.data_request"
+    },
+    {
+      "operation": "SELECT",
+      "source": "sub_own_favorite",
+      "source_sha256": "7f329e954d9c4e2da7366c165590a40158d85e775804fc2464f32cfb205c3786",
+      "table": "canone_learning.favorite"
+    },
+    {
+      "operation": "INSERT",
+      "security_narrowing": "explicit_write_operations_replacing_legacy_FOR_ALL",
+      "source": "sub_own_favorite",
+      "source_sha256": "7f329e954d9c4e2da7366c165590a40158d85e775804fc2464f32cfb205c3786",
+      "table": "canone_learning.favorite"
+    },
+    {
+      "operation": "DELETE",
+      "security_narrowing": "explicit_write_operations_replacing_legacy_FOR_ALL",
+      "source": "sub_own_favorite",
+      "source_sha256": "7f329e954d9c4e2da7366c165590a40158d85e775804fc2464f32cfb205c3786",
+      "table": "canone_learning.favorite"
+    },
+    {
+      "operation": "SELECT",
+      "source": "sub_own_mastery",
+      "source_sha256": "fb753241380cede66a118322e9b2d6e4e9ed0178c89e75c3395d2a6d46595ac9",
+      "table": "canone_learning.mastery"
+    },
+    {
+      "operation": "SELECT",
+      "source": "sub_own_note",
+      "source_sha256": "729a3a21816910e60d5e6e12893ad7b4fd77377b8bdf12e919a9c7b68cedf1b8",
+      "table": "canone_learning.note"
+    },
+    {
+      "operation": "INSERT",
+      "security_narrowing": "explicit_write_operations_replacing_legacy_FOR_ALL",
+      "source": "sub_own_note",
+      "source_sha256": "729a3a21816910e60d5e6e12893ad7b4fd77377b8bdf12e919a9c7b68cedf1b8",
+      "table": "canone_learning.note"
+    },
+    {
+      "operation": "UPDATE",
+      "security_narrowing": "explicit_write_operations_replacing_legacy_FOR_ALL",
+      "source": "sub_own_note",
+      "source_sha256": "729a3a21816910e60d5e6e12893ad7b4fd77377b8bdf12e919a9c7b68cedf1b8",
+      "table": "canone_learning.note"
+    },
+    {
+      "operation": "DELETE",
+      "security_narrowing": "explicit_write_operations_replacing_legacy_FOR_ALL",
+      "source": "sub_own_note",
+      "source_sha256": "729a3a21816910e60d5e6e12893ad7b4fd77377b8bdf12e919a9c7b68cedf1b8",
+      "table": "canone_learning.note"
+    },
+    {
+      "operation": "SELECT",
+      "source": "sub_own_offline",
+      "source_sha256": "6497d9dc7d525d6413589d32d029f090f74580d0799799257d42630eeddecb38",
+      "table": "canone_learning.offline_pack"
+    },
+    {
+      "operation": "SELECT",
+      "source": "sub_own_event",
+      "source_sha256": "ae519edd9c42ca8e8345add75bbb6a025a17e2698c013403f65eab6dcf651b34",
+      "table": "canone_learning.review_event"
+    },
+    {
+      "operation": "SELECT",
+      "source": "sub_own_session",
+      "source_sha256": "e9608a67799b8769f62e55f1363b09be15f6a53588a89a1b0a3d99ecfa11cc78",
+      "table": "canone_learning.session"
+    },
+    {
+      "operation": "SELECT",
+      "source": "sub_own_plan",
+      "source_sha256": "6638facc27ad657e645e94fc668a6840a123f71257f3ab0fc679e4463837ea81",
+      "table": "canone_learning.study_plan"
+    },
+    {
+      "operation": "SELECT",
+      "source": "sub_own_state",
+      "source_sha256": "7b5d8f4740838215f2f3cef7457a1c2975c18a09c2aa03e667e935b7c757b2d2",
+      "table": "canone_learning.user_item_state"
+    }
+  ],
+  "owner_policy_operations": 18,
+  "ported_functions": [
+    {
+      "source": "ops.current_user_id",
+      "source_sha256": "540414f4d23f2d183987a3fcc80a7e61bd47e89460ef750ab1f5b33222534536",
+      "strategy": "auth.uid security invoker",
+      "target": "canone_ops.current_user_id"
+    }
+  ],
+  "read_policy_tables": 12,
+  "release_gate": "NO_GO",
+  "remote_db_writes": false,
+  "source_historical_policies": 80,
+  "source_migrations": 30,
+  "status": "REVIEW_ONLY_NO_REMOTE_DEPLOY",
+  "unported_functions": 57,
+  "unported_triggers": 26,
+  "version": "0.23.0-alpha.5",
+  "views_excluded": {
+    "admin.v_user_overview": "MANAGED_AUTH_IDENTITY_ACCOUNT_REMOVED",
+    "subscriber.v_my_due": "FUNCTION_DEPENDENCY_UNPORTED_due_items"
+  },
+  "views_generated": [
+    {
+      "client_grant": "NONE",
+      "compatibility": "SQL_COMPILED_ONLY_CLIENT_ACCESS_REQUIRES_FURTHER_RLS_REVIEW",
+      "line": 1,
+      "name": "public.v_public_plan",
+      "sha256": "1b26ffdddf09687b32e2213fd59778886708e7862ddf16f4a1afeb1251d1b8e4",
+      "source": "013_views.sql",
+      "target": "canone_public.v_public_plan"
+    },
+    {
+      "client_grant": "NONE",
+      "compatibility": "SQL_COMPILED_ONLY_CLIENT_ACCESS_REQUIRES_FURTHER_RLS_REVIEW",
+      "line": 24,
+      "name": "public.v_public_subject",
+      "sha256": "dc9469e83ac9428540f07872c05ca294aba3ad8bebe31a91cb0d40f58a1a03a6",
+      "source": "013_views.sql",
+      "target": "canone_public.v_public_subject"
+    },
+    {
+      "client_grant": "NONE",
+      "compatibility": "SQL_COMPILED_ONLY_CLIENT_ACCESS_REQUIRES_FURTHER_RLS_REVIEW",
+      "line": 31,
+      "name": "public.v_public_module",
+      "sha256": "6b7b7713847aa73af5a1a185d56b42021ac432ec2c4f475575b43d3cd3792162",
+      "source": "013_views.sql",
+      "target": "canone_public.v_public_module"
+    },
+    {
+      "client_grant": "NONE",
+      "compatibility": "SQL_COMPILED_ONLY_CLIENT_ACCESS_REQUIRES_FURTHER_RLS_REVIEW",
+      "line": 36,
+      "name": "public.v_public_content",
+      "sha256": "41b2465f14939dd678902decdf94c83ab32f787bf48e27719c54f6cf09f77ec2",
+      "source": "013_views.sql",
+      "target": "canone_public.v_public_content"
+    },
+    {
+      "client_grant": "NONE",
+      "compatibility": "SQL_COMPILED_ONLY_CLIENT_ACCESS_REQUIRES_FURTHER_RLS_REVIEW",
+      "line": 54,
+      "name": "public.v_public_item",
+      "sha256": "c499fb5c1012bf7dbcfd1ead7b923cb22f0233416b785dc8f59509e0a6559456",
+      "source": "013_views.sql",
+      "target": "canone_public.v_public_item"
+    },
+    {
+      "client_grant": "NONE",
+      "compatibility": "SQL_COMPILED_ONLY_CLIENT_ACCESS_REQUIRES_FURTHER_RLS_REVIEW",
+      "line": 64,
+      "name": "subscriber.v_item_options",
+      "sha256": "3cb7b84765719dd242eb70accf5ade4d432b13a784de833e11a2e5debf9e4f48",
+      "source": "013_views.sql",
+      "target": "canone_subscriber.v_item_options"
+    },
+    {
+      "client_grant": "NONE",
+      "compatibility": "SQL_COMPILED_ONLY_CLIENT_ACCESS_REQUIRES_FURTHER_RLS_REVIEW",
+      "line": 84,
+      "name": "subscriber.v_my_progress",
+      "sha256": "60e3694b53f40a7e6e5bccc13663fe92fbc2effbfae6be80258f265cf3a90118",
+      "source": "013_views.sql",
+      "target": "canone_subscriber.v_my_progress"
+    },
+    {
+      "client_grant": "NONE",
+      "compatibility": "SQL_COMPILED_ONLY_CLIENT_ACCESS_REQUIRES_FURTHER_RLS_REVIEW",
+      "line": 97,
+      "name": "subscriber.v_my_history",
+      "sha256": "97c0bd8051cd58635ec82cd0282ed110696bf00badf926ea497f37792fee5c43",
+      "source": "013_views.sql",
+      "target": "canone_subscriber.v_my_history"
+    },
+    {
+      "client_grant": "NONE",
+      "compatibility": "SQL_COMPILED_ONLY_CLIENT_ACCESS_REQUIRES_FURTHER_RLS_REVIEW",
+      "line": 106,
+      "name": "subscriber.v_my_state",
+      "sha256": "d2d856f368a6e525399e1e9203db641fdcbaeee47a1ac5134bc1444ff1a3e207",
+      "source": "013_views.sql",
+      "target": "canone_subscriber.v_my_state"
+    },
+    {
+      "client_grant": "NONE",
+      "compatibility": "SQL_COMPILED_ONLY_CLIENT_ACCESS_REQUIRES_FURTHER_RLS_REVIEW",
+      "line": 109,
+      "name": "admin.v_content_health",
+      "sha256": "0456694c249efb2a7251102c0ee44ba0113c9d8891ba7bcc5f00cf1ba525547b",
+      "source": "013_views.sql",
+      "target": "canone_admin.v_content_health"
+    },
+    {
+      "client_grant": "NONE",
+      "compatibility": "SQL_COMPILED_ONLY_CLIENT_ACCESS_REQUIRES_FURTHER_RLS_REVIEW",
+      "line": 142,
+      "name": "admin.v_user_mastery",
+      "sha256": "681048478c9ad1de07c919558c7482ed3476b0db7fd602299019b4315d76b6d4",
+      "source": "013_views.sql",
+      "target": "canone_admin.v_user_mastery"
+    },
+    {
+      "client_grant": "NONE",
+      "compatibility": "SQL_COMPILED_ONLY_CLIENT_ACCESS_REQUIRES_FURTHER_RLS_REVIEW",
+      "line": 149,
+      "name": "admin.v_audit_recent",
+      "sha256": "d0186cc2401c8d163634aa191c4607fe338dedf451d87099e170d3dbb9062495",
+      "source": "013_views.sql",
+      "target": "canone_admin.v_audit_recent"
+    },
+    {
+      "client_grant": "NONE",
+      "compatibility": "SQL_COMPILED_ONLY_CLIENT_ACCESS_REQUIRES_FURTHER_RLS_REVIEW",
+      "line": 156,
+      "name": "admin.v_refused_claims",
+      "sha256": "11fa1c7fcf99f22fd5624db4481c7bd2ada7aa597c0b6dffd3c558096f7d3b06",
+      "source": "013_views.sql",
+      "target": "canone_admin.v_refused_claims"
+    },
+    {
+      "client_grant": "NONE",
+      "compatibility": "SQL_COMPILED_ONLY_CLIENT_ACCESS_REQUIRES_FURTHER_RLS_REVIEW",
+      "line": 692,
+      "name": "admin.v_exam_form_status",
+      "sha256": "9e41f8466ae4d51478ff2897aae69b1ef3ea091a3b6ff709eb3e8311106a8e6b",
+      "source": "018_provas_gabarito.sql",
+      "target": "canone_admin.v_exam_form_status"
+    },
+    {
+      "client_grant": "NONE",
+      "compatibility": "SQL_COMPILED_ONLY_CLIENT_ACCESS_REQUIRES_FURTHER_RLS_REVIEW",
+      "line": 1,
+      "name": "subscriber.v_exam_forms",
+      "sha256": "e61314e60aa1b3b88022dbee861fea354328ad4aee10fc909aafa7655c1febe6",
+      "source": "030_porta_da_prova.sql",
+      "target": "canone_subscriber.v_exam_forms"
+    },
+    {
+      "client_grant": "NONE",
+      "compatibility": "SQL_COMPILED_ONLY_CLIENT_ACCESS_REQUIRES_FURTHER_RLS_REVIEW",
+      "line": 57,
+      "name": "subscriber.v_exam_questions",
+      "sha256": "8a2e294cda0e273a2ee26a0906933d8989a4e713852159f25bda0253ec5ac218",
+      "source": "030_porta_da_prova.sql",
+      "target": "canone_subscriber.v_exam_questions"
+    }
+  ]
+}
