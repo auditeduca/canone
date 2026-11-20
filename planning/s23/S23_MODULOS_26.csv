@@ -1,0 +1,28 @@
+<PARSED TEXT FOR SHEET: 1 / 1 TABS
+TAB NAME: S23_MODULOS_26.csv>index,Nº,Módulo,ID canônico,Consumo planejado,Dependência,P,Estado,Separação
+0,1,Simulados,simulados,"Simulado oficial com tempo, questões e relatório","Banco homologado, edital e tentativas",P0,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+1,2,Flashcards,flashcards,Revisão de conceitos já preparados e aprovados,Conteúdo validado + SRS,P0,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+2,3,Mapas Mentais,mapas-mentais,Mapa pronto por disciplina; anotações opcionais,Grafo e curadoria,P1,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+3,4,Contabilidade Ilustrada,contabilidade-ilustrada,Exemplos interativos de lançamentos prontos,Casos didáticos publicados,P1,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+4,5,Guia de Bolso,guia-de-bolso,Consulta rápida de tópicos e referências oficiais,Conteúdo autorizado,P1,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+5,6,Plano de Estudos,plano-de-estudos,Plano recomendado + agenda + alteração simples,Calendário e progresso,P0,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+6,7,Laboratório Contábil,laboratorio,Simulador de tarefa contábil com dados sintéticos,Cenários revisados,P1,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+7,8,Calculadoras Contábeis,calculadoras,Cálculos e exemplos; fórmulas e limitações,Math engine validado,P1,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+8,9,CPC Visual,cpc-visual,Navegação por CPC e exemplos com versão da fonte,Norma oficial licenciada,P1,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+9,10,DRE Interativa,dre-interativa,Exploração interativa de DRE sintética,Motor de lançamentos,P1,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+10,11,Balanço Patrimonial 3D,balanco-3d,Balanço interativo legível em 2D; 3D opcional,Motor e acessibilidade,P2,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+11,12,Diário e Razão,diario-e-razao,Diário/Razão guiado com feedback por lançamento,Dados sintéticos + motor,P1,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+12,13,Auditoria na Prática,auditoria-pratica,Caso prático guiado com papéis e evidências,Conteúdo e ética,P1,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+13,14,Perícia Contábil,pericia,Cenário didático de perícia; sem laudo oficial,Conteúdo revisado,P2,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+14,15,Contabilidade Pública,contabilidade-publica,Caso guiado de contas públicas e classificação,Normas públicas revisadas,P1,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+15,16,Matemática Financeira,matematica,Cálculo financeiro e prática com questões,Math engine e conteúdo,P1,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+16,17,Duelo de Questões,duelo,Desafio entre alunos com regras publicadas,Itens aprovados; antifraude,P2,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+17,18,Simulado Adaptativo,simulado-adaptativo,Prática adaptativa auditável por lacunas reais,Algoritmo explicado e validado,P2,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+18,19,Banco de Dados de Questões,reposicao,"Catálogo de questões aprovadas, filtros e favoritos",Item bank + direitos,P0,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+19,20,Glossário Contábil,glossario,"Dicionário com fonte, exemplos e conceitos relacionados",Termos homologados,P1,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+20,21,Podcast de Revisão,podcast,Áudio preparado e transcrição por aula,Roteiros e direitos,P2,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+21,22,Vídeoaulas Interativas,videodulas,"Vídeo publicado, legendas, progresso por minuto",Catálogo e acessibilidade,P2,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+22,23,Casos Práticos,casos,Casos profissionais e resolução guiada,Revisão de conteúdo,P1,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+23,24,Caderno de Erros,caderno-erros,"Erros próprios de questões homologadas, com revisão",Tentativas e gabarito,P0,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+24,25,Dashboard de Aprovação,dashboard,KPIs verdadeiros de progresso e aprendizagem,Analytics e consentimento,P0,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
+25,26,Cânone Offline,offline,Biblioteca offline selecionada e sincronização controlada,PWA real e direitos,P1,Prévia S19: demonstrativo / S23: proposta de consumo,Admin cria/aprova; aluno consome
