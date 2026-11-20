@@ -10,7 +10,7 @@ Plataforma educacional web/app para **Exame de Suficiência do CFC (P0)**, depoi
 
 O Cânone é separado do ecossistema *Calculadoras de Enfermagem / CKO / NCOS*.
 
-## Crosswalk técnico para Supabase — v0.23.0-alpha.5
+## Crosswalk técnico para Supabase — marco v0.23.0-alpha.2
 
 - **30/30 migrations** mapeadas para o destino de plataforma, com SHA-256 dos arquivos originais preservados.
 - **90/90 tabelas S22** reconciliadas: 87 tabelas de domínio em schemas `canone_*` e 3 funções de autenticação substituídas por Supabase Auth.
@@ -19,7 +19,7 @@ O Cânone é separado do ecossistema *Calculadoras de Enfermagem / CKO / NCOS*.
 - Artefatos: [crosswalk legível](docs/CROSSWALK_PADRAO_SUPABASE_0_23_0_ALPHA2.md), [crosswalk JSON](crosswalk/supabase/CANONE_PLATFORM_CROSSWALK_0_23_0_ALPHA2.json), [gerador](tools/canone_supabase_crosswalk.py) e [testes](tests/test_canone_crosswalk.py).
 - **Sem HOLD genérico de desenvolvimento:** incompatibilidades têm regras e próximas ações. Produção permanece separada sob `NO_GO` até testes de Auth/RLS/PG17/segurança.
 
-## Piloto de identidade/proveniência — v0.23.0-alpha.5
+## Piloto de identidade/proveniência — marco v0.23.0-alpha.3
 
 - **SQL de staging, sem aplicação remota:** [candidato de identidade e ponte de fontes](staging/supabase/001_identity_and_source_bridge.candidate.sql.txt), com 7 tabelas, 7 RLS+FORCE e 3 políticas de perfil próprio.
 - Usa `auth.users(id)` do Supabase Auth; não duplica `identity.account`, `identity.session` ou `identity.magic_link`.
@@ -28,7 +28,7 @@ O Cânone é separado do ecossistema *Calculadoras de Enfermagem / CKO / NCOS*.
 - CI validou **11/11 testes estáticos**, **7 tabelas executadas em PGlite, 14 verificações**, além de **277/277 testes S22** e gate `NO-GO` intacto.
 - **Escopo:** piloto inicial; não significa 30 migrations portadas, 87 tabelas implantadas ou PG17 gerenciado homologado. Ver [documentação de implantação](docs/IDENTIDADE_SUPABASE_PILOTO_ALPHA3.md).
 
-## Conversão física S22 — v0.23.0-alpha.5
+## Conversão física S22 — marco v0.23.0-alpha.4
 
 A conversão agora é **gerada automaticamente em Python**, testada em **PostgreSQL em memória com JavaScript**, e versionada somente na `main`:
 
@@ -39,7 +39,7 @@ A conversão agora é **gerada automaticamente em Python**, testada em **Postgre
 
 **Atenção:** `CREATE TABLE`, `ALTER TABLE` e índices compilados não substituem a migração de funções, triggers, views, RLS de acesso e fontes licenciadas. Os candidatos não são aplicáveis automaticamente ao Supabase remoto.
 
-## Conversão de views e RLS — v0.23.0-alpha.5
+## Conversão de views e RLS — marco v0.23.0-alpha.5
 
 - **Inventário auditável de 182 instruções**: 18 views, 58 funções, 26 triggers e 80 `CREATE POLICY`, com hashes e localização.
 - **16 views convertidas** para `security_invoker=true`, **18 políticas de propriedade** em 12 tabelas e **1 função Auth** substituída por `auth.uid()` em vez de variável de sessão legado.
