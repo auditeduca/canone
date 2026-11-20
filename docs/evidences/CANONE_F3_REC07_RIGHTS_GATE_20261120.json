@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "project": "Canone",
+  "date": "2026-11-20",
+  "milestone": "F3-REC-07",
+  "validated_sha": "0207abad0e866125b796c2e87b22af53435ee189",
+  "ci_run_id": 44715445719,
+  "ci_url": "https://github.com/auditeduca/canone/actions/runs/44715445719",
+  "status": "PASS_CI_ONLY_NO_GO",
+  "jobs": {
+    "offline": "success",
+    "react": "success",
+    "chromium": "success",
+    "postgresql17": "success"
+  },
+  "rights_registry": {
+    "assets": 5,
+    "test_only": 2,
+    "hold_rights": 3,
+    "approved_for_publication": 0,
+    "legal_review": "HUMAN_NOT_PERFORMED"
+  },
+  "tests": [
+    "fail closed for one item HOLD_RIGHTS",
+    "tampered content digest causes full-form refusal",
+    "expired CI rights decision causes full-form refusal",
+    "rights restored allows original exam completion",
+    "expired verification denies all questions",
+    "auth browser role cannot execute old or new SQL functions",
+    "React student flows and PostgreSQL SRS retained"
+  ],
+  "safety": [
+    "migrations 001-010 intact",
+    "alpha9-11 untouched",
+    "SQL only ephemeral PG17",
+    "no external question content reproduced",
+    "no managed Supabase write",
+    "production NO_GO"
+  ],
+  "further": [
+    "real licensing/provenance signoffs F4",
+    "accessibility and security F6",
+    "dedicated Supabase Auth F8"
+  ],
+  "remote_database_writes": 0
+}

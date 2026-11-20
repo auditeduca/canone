@@ -30,3 +30,24 @@ F3-REC-07 no SQL de CI: cruzar **status de direitos**, versão do item, fonte/UR
 O SQL `tests/sql/f3_rec07_rights_guard_ephemeral.sql` cria a tabela **temporária por ambiente** `rights_release_ci` contendo `content_item_id`, versão vigente, fonte, `TEST_ONLY/HOLD_RIGHTS/REJECTED`, escopo, impressão digital do conteúdo (enunciado + todas alternativas), evidência sintética, revisores distintos e validade. A nova função segura de teste `exam_questions` verifica a tabela **antes** de entregar questões pelo gateway. Sua predecessora F3-REC-06 é renomeada e perde `EXECUTE` de `service_role`.
 
 O CI testa o veto de toda a prova quando **um único item** entra em `HOLD_RIGHTS`, sofre alteração de digest ou expira. Após restaurar a fixture, a aplicação continua realizando a prova normalmente. `TEST_ONLY` permanece um marcador **exclusivamente sintético**; nenhum desses registros representa aprovação de direitos de terceiros. `NO_GO`.
+
+## Homologação controlada F3-REC-07 — PASS
+
+**Execução:** [CI #44715445719](https://github.com/auditeduca/canone/actions/runs/44715445719); **4/4 jobs SUCCESS**. Commit efetivamente testado: `0207abad0e866125b796c2e87b22af53435ee189` em `main`.
+
+**Registro:** `governance/editorial_rights_registry_v1.json`, 5 ativos: duas questões originais fictícias `TEST_ONLY` (2/2) e três referências sem autorização comprovada `HOLD_RIGHTS` (3/3), nenhuma aprovada para publicação (0/5). `APPROVED_FOR_PUBLICATION` não pode ser atribuído pela política v1: depende de revisão jurídica/editorial documentada em etapa F4.
+
+**CI offline:** validador Python `tools/f3_rec07_editorial_rights_gate.py --check`, com 11 cenários unitários que recusam publicação precoce, escopo comercial de fixture, duplicidade, ausência de fonte, revisão não independente, expiração e propriedades ocultas. Além disso, permaneceram verdes todas as regressões históricas, build React, Chromium local e auditorias do PostgreSQL 17.
+
+**CI PostgreSQL 17:** a camada `tests/sql/f3_rec07_rights_guard_ephemeral.sql` criou exclusivamente no contêiner de teste uma tabela de decisão para edição/versão, fonte, status, escopo de uso, digest, evidência, dois revisores *sintéticos* diferentes e prazo. A antiga função F3-REC-06 foi encapsulada no teste e seu `EXECUTE` removido do `service_role`; a nova função bloqueia o formulário antes de entregar uma única questão.
+  
+Resultados de teste:
+- Conteúdo íntegro + direitos fictícios vigentes: **PASS**.
+- Uma questão `HOLD_RIGHTS` em um formulário com duas: **recusa integral PASS**.
+- Troca do fingerprint do conteúdo: **recusa integral PASS**.
+- Vencimento da decisão de direitos: **recusa integral PASS**.
+- Restauração de direitos de CI: **PASS**, sem interferir com conclusão/gabarito posterior/SRS.
+- Direitos editoriais F3-REC-06 vencidos: **recusa integral PASS**.
+- Chamadas SQL diretas por role `authenticated`, inclusive função antiga sem wrapper: **negadas**.
+
+**Não comprovado:** titularidade e licenças externas, efetividade jurídica de cláusulas, verificação humana real de direitos, conteúdo CFC/EQT, identidade Supabase gerenciada, auditoria WCAG 2.2 AA completa, produção, integração F4–F8. **NO_GO**.
