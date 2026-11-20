@@ -120,8 +120,8 @@ try{
   await denied(`UPDATE canone_learning.answer_key SET status='preliminar' WHERE id='${key}'`,
     'cannot reopen definitive key');
   await exec('SET ROLE authenticated');
-  const q=await query(`SELECT has_table_privilege('authenticated','canone_audit.audit_log','SELECT') AS allowed`);
-  ok(!q.rows[0].allowed,'audit log remains unavailable to client');
+  await denied('SELECT count(*) FROM canone_audit.audit_log',
+    'authenticated client cannot read audit chain', '42501');
   await exec('RESET ROLE');
   console.log('PASS_CANONE_ALPHA7_AUDIT_SEAL_PGLITE',JSON.stringify({checks,audit_events:logs.rows.length,
     audit_hash_version:'canone-audit-v2',sealed_key_test:'PASS',
