@@ -1,0 +1,67 @@
+name: Cânone S22 recovery (no deploy)
+
+on:
+  push:
+    branches:
+      - recovery/**
+    paths:
+      - 'source-s22/**'
+      - 'inventories/source/**'
+      - '.github/workflows/canone-s22-recovery.yml'
+  pull_request:
+    paths:
+      - 'source-s22/**'
+      - 'inventories/source/**'
+      - '.github/workflows/canone-s22-recovery.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: canone-recovery-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks-readonly:
+    name: Source hashes + offline regression (no DB / no deploy)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - name: Checkout repository without persisted credentials
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Node 22 from pinned setup-node
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Verify 389 imported Git source blobs against recorded SHA-256
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json, hashlib, pathlib
+          root=pathlib.Path('.')
+          m=json.loads((root/'inventories/source/CANONE_S22_SOURCE_IMPORT_MANIFEST.json').read_text())
+          assert m['release_gate']=='NO_GO'
+          assert m['included_total']==389 and m['excluded_total']==87
+          assert len(m['included_files'])==389
+          for path,rec in m['included_files'].items():
+              b=(root/'source-s22'/path).read_bytes()
+              assert len(b)==rec['bytes'], f'size drift: {path}'
+              assert hashlib.sha256(b).hexdigest()==rec['sha256'], f'hash drift: {path}'
+          print('389/389 source SHA-256 verified; excluded files remain on HOLD.')
+          PY
+      - name: S22 offline-only 277 regression tests
+        run: python3 source-s22/backend/db/shared-host/s22-contracts/run_local_gates.py
+      - name: Assert production release gate still returns NO-GO exit 41
+        shell: bash
+        run: |
+          set +e
+          python3 source-s22/backend/db/shared-host/s22-contracts/s22_release_gate.py --strict
+          code=$?
+          if [ "$code" -ne 41 ]; then
+            echo "FAIL: expected NO-GO exit 41; got $code" >&2
+            exit 1
+          fi
+          echo "PASS: production remains NO-GO (41)"
