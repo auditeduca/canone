@@ -48,3 +48,13 @@ O teste Node exige as dependências npm **já instaladas** no diretório `source
 - âncora externa e rotação de chaves/procedimento de verificação de hash para auditoria jurídica;
 - funções remanescentes de correção e tentativas, integração JWT Supabase Auth, políticas de serviço e E2E;
 - implantação futura em **Supabase exclusivo** somente após PG17 e aprovação formal. Gate operacional: **NO_GO**.
+
+## Resultado independente em PostgreSQL 17.12 — 20/11/2026
+
+A execução [GitHub Actions #44677935551](https://github.com/auditeduca/canone/actions/runs/44677935551), commit `9bce955d489ddb479e4a3a619fe7d0818848bf87`, passou nos dois jobs:
+
+- PGlite: **12 testes Python**, **21 verificações de auditoria/selo**, regressões históricas mantidas.
+- PostgreSQL 17.12: execução dos candidatos SQL **001–008** em banco descartável; **12 sessões independentes** de escrita na auditoria, sequência de **1 a 12** e **zero divergências de hash**.
+- Concorrência de prova: uma transação manteve o lock do formulário ao finalizar o gabarito, enquanto outra tentou incluir uma terceira posição. A inserção foi **recusada**, o gabarito permaneceu definitivo e a prova manteve duas posições.
+
+O teste é reproduzível por `tests/pg17_alpha7_concurrency.sh` e aceita exclusivamente o ID de contêiner efêmero do GitHub Actions. O teste não comprova todos os interleavings de concorrência, não avalia JWT gerenciado e não substitui a **ancoragem externa** contra reescritas por administradores privilegiados.

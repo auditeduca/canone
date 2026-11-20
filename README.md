@@ -1,6 +1,6 @@
 # Cânone — preparação para exames de Contabilidade
 
-**Código e planejamento do Cânone na única branch de trabalho `main`.** Versão: **[0.23.0-alpha.6](CHANGELOG.md)** · Estado: **NO-GO produção** · 20/11/2026.
+**Código e planejamento do Cânone na única branch de trabalho `main`.** Versão: **[0.23.0-alpha.7](CHANGELOG.md)** · Estado: **NO-GO produção** · 20/11/2026.
 
 > Este repositório contém uma **recuperação técnica histórica S22** e a **diretriz de produto S23 v0.3**, não um serviço pronto para produção, venda ou homologação.
 
@@ -54,6 +54,14 @@ A conversão agora é **gerada automaticamente em Python**, testada em **Postgre
 - [CI aprovado](https://github.com/auditeduca/canone/actions/runs/44675846859): 14 testes Python, 27 verificações PGlite, funções sem `EXECUTE` para navegador, bloqueios de adulteração e UPDATE legítimo de nota pelo proprietário autenticado.
 - Restam **50 instruções históricas de função** fora da whitelist e parte dos triggers originais, além de concorrência/PG17/Supabase Auth e cálculo seguro de hashes.
 - SQL candidato **não implantável**; sem banco compartilhado, nova branch ou deploy. `NO_GO` para publicação.
+
+## Cadeia de auditoria e selo — marco v0.23.0-alpha.7
+
+- [Gerador auditável](tools/convert_canone_audit_seal.py), [template SQL](tools/sql_templates/canone_alpha7_audit_seal.sql.txt), [candidato 008](staging/supabase/008_audit_chain_and_seal.candidate.sql.txt), [manifesto](staging/supabase/CANONE_AUDIT_SEAL_ALPHA7_MANIFEST.json) e [documentação](docs/CONVERSAO_AUDITORIA_SELO_ALPHA7.md).
+- **Cadeia de hashes v2:** conteúdo de 15 campos, ordenação de escrita por `pg_advisory_xact_lock`, sequência no servidor, verificação integral e bloqueio de TRUNCATE; acesso do navegador negado.
+- **Selo:** gabarito deve nascer preliminar; transição para definitivo exige itens/entradas `1..N` completos, com locks coordenados.
+- [GitHub Actions PostgreSQL 17.12 e PGlite](https://github.com/auditeduca/canone/actions/runs/44677935551): 12 testes Python, 21 cenários PGlite, 12 sessões concorrentes de auditoria sem hashes inválidos, e teste simultâneo de selo versus inclusão recusada. SQL **não foi implantado em Supabase**.
+- **Pendências para liberação:** âncora externa imutável de auditoria, testes adicionais de interleavings, Auth gerenciado, funções legadas restantes e E2E; `NO_GO` apenas para produção.
 
 ## O que está versionado na main
 

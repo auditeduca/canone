@@ -1,0 +1,55 @@
+{
+  "version": "0.23.0-alpha.7",
+  "branch": "main",
+  "date_utc": "2026-11-20",
+  "tested_commit": "9bce955d489ddb479e4a3a619fe7d0818848bf87",
+  "workflow_run_id": 44677935551,
+  "workflow_url": "https://github.com/auditeduca/canone/actions/runs/44677935551",
+  "workflow_conclusion": "success",
+  "jobs": {
+    "offline_regression": "success",
+    "pg17_concurrency": "success"
+  },
+  "source_migrations_verified": 30,
+  "alpha7": {
+    "hash_version": "canone-audit-v2",
+    "payload_fields": 15,
+    "new_functions": 4,
+    "rewritten_functions": 2,
+    "new_triggers": 2,
+    "rewritten_triggers": 1,
+    "python_tests_passed": 12,
+    "pglite_checks_passed": 21
+  },
+  "pg17": {
+    "engine_version_observed": "PostgreSQL 17.12",
+    "sql_candidates_executed": 8,
+    "audit_concurrent_writers": 12,
+    "audit_sequence": "1..12",
+    "bad_hashes": 0,
+    "concurrent_exam_form_insert_denied": true,
+    "definitive_key_preserved": true,
+    "form_position_count": 2
+  },
+  "previous_regressions": {
+    "legacy_s22_passed": 277,
+    "physical_tables": 89,
+    "invoker_views": 16,
+    "rls_policies": 21
+  },
+  "tests_artifacts": [
+    "tests/test_canone_audit_seal.py",
+    "tests/canone_audit_seal_pglite.mjs",
+    "tests/pg17_alpha7_concurrency.sh"
+  ],
+  "production_gate": "NO_GO",
+  "sql_remote_executions": 0,
+  "branches_created": 0,
+  "limitations": [
+    "No independent immutable external hash anchor",
+    "Only selected concurrent interleavings tested",
+    "No managed Supabase Auth JWT end-to-end",
+    "Nonempty legacy audit log migration deliberately rejected",
+    "Editorial and regulatory publication review pending"
+  ]
+}

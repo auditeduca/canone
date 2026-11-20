@@ -9,6 +9,20 @@ Formato de versão: **MAJOR.MINOR.PATCH[-PRERELEASE]**, em que:
 - `-rc.N`: candidata a aprovação, sujeita a revisão independente;
 - estável: somente quando todos os gates forem `GO`.
 
+## [0.23.0-alpha.7] — 2026-11-20
+
+**Estado:** `AUDIT_HASH_CHAIN_V2_AND_COMPLETE_SEAL_PG17_CI_PASS / RELEASE_NO_GO`.
+
+### Banco: auditoria e integridade de provas
+- Gerador Python verificou **30/30 migrations S22** por SHA-256 e produziu o candidato `008_audit_chain_and_seal.candidate.sql.txt`.
+- **Cadeia de hashes v2** com 15 campos de auditoria, payload canônico, `seq` atribuído pelo servidor, serialização com `pg_advisory_xact_lock` sob `READ COMMITTED` e recálculo independente em `verify_chain`. `UPDATE`, `DELETE`, `TRUNCATE` e acesso direto do navegador seguem negados.
+- **Selo definitivo** recusa gabarito inserido diretamente como definitivo e exige correspondência completa de **1..N** entre posições de formulário e entradas de gabarito; lock do formulário para a transição e para mutações de posições.
+- **4 funções novas, 2 adaptadas, 2 triggers novos e 1 redefinido**; os SQL 001–007 anteriores permanecem preservados.
+- [CI PostgreSQL 17.12 + PGlite (https://github.com/auditeduca/canone/actions/runs/44677935551)](https://github.com/auditeduca/canone/actions/runs/44677935551) PASS: **12 testes Python**, **21 verificações em PGlite**, **12 transações de auditoria concorrentes (seq 1..12, zero hashes divergentes)** e corrida de selo x inclusão de questão recusada. Regressões S22 277/277 preservadas.
+
+### Limitações
+Os arquivos permanecem candidatos não implantáveis; **não houve escrita Supabase remota**. Apenas os cenários de concorrência especificados foram executados. A auditoria ainda exige âncora externa independente para proteção contra reescrita privilegiada, mais testes JWT gerenciado, direitos editoriais e validações de ponta a ponta. Produção segue `NO_GO`.
+
 ## [0.23.0-alpha.6] — 2026-11-20
 
 **Estado:** `INTEGRITY_FUNCTIONS_7_TRIGGERS_20_CI_PASS / RELEASE_NO_GO`.
