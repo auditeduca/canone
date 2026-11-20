@@ -9,6 +9,23 @@ Formato de versão: **MAJOR.MINOR.PATCH[-PRERELEASE]**, em que:
 - `-rc.N`: candidata a aprovação, sujeita a revisão independente;
 - estável: somente quando todos os gates forem `GO`.
 
+## [0.23.0-alpha.3] — 2026-11-20
+
+**Estado:** `IDENTITY_PILOT_STAGING_CANDIDATE / NO_REMOTE_WRITES / RELEASE_NO_GO`.
+
+### Implementação do crosswalk
+- Primeiro candidato DDL para **7 tabelas** em `canone_identity` e `canone_bridge`, com referências ao Supabase Auth, sem uma segunda tabela de credenciais.
+- RLS com `FORCE` em 7 tabelas e **3 políticas de perfil próprio**; papéis e dados sensíveis não têm permissões de escrita direta do cliente.
+- Guard de ambiente recusa a fonte compartilhada quando existe `canone_control.migration_catalog`; pré-requisito de `auth.users`; DDL transacional.
+- Validador Python com manifesto SHA-256, **11 testes unitários/adversariais**, mais teste de execução do SQL em **PGlite descartável**, adicionado ao CI.
+- A versão preserva todos os SQL S22 originais e os arquivos do crosswalk `0.23.0-alpha.2` intactos.
+
+### Limitações explicitadas
+- **Piloto somente para identidade/proveniência**, ainda não migração das 87 tabelas de domínio ou todas as 43 FKs do S22.
+- SQL versionado como `.candidate.sql.txt`, não como migration automaticamente aplicável. Nenhuma tabela criada no Supabase remoto.
+- O teste PGlite usa `auth.users` e `auth.uid()` simulados e não representa homologação PostgreSQL 17/Supabase.
+- O aceite de segurança, fluxo completo do aluno CFC, fontes e direitos continua necessário **somente para promoção operacional**.
+
 ## [0.23.0-alpha.2] — 2026-11-19
 
 **Estado:** `PLATFORM_CROSSWALK_30_90_COMPLETE / DEV_CONTINUES / RELEASE_NO_GO`.
