@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "project": "Canone",
+  "date": "2026-11-20",
+  "milestones": [
+    "F4-04-D",
+    "F1-NS01-CLOSURE-WORKLIST"
+  ],
+  "validated_sha": "b7581da496ab296208ce16353a1eeed981486503",
+  "ci_run_id": 44804761678,
+  "ci_url": "https://github.com/auditeduca/canone/actions/runs/44804761678",
+  "jobs": {
+    "offline": "success",
+    "react_s22": "success",
+    "chromium": "success",
+    "ephemeral_pg17": "success"
+  },
+  "f4": {
+    "sufficiency_areas": 13,
+    "existing_groups": 18,
+    "new_groups": 64,
+    "total_groups": 82,
+    "existing_original_objectives": 63,
+    "new_original_objectives": 192,
+    "total_original_objectives": 255,
+    "editorial_approved": 0,
+    "approved_lessons": 0,
+    "approved_questions": 0,
+    "candidate_norm_codes": 42,
+    "verified_norm_versions": 0,
+    "eqt_modalities_structurally_mapped": 6,
+    "eqt_deep_objectives_not_homologated": true
+  },
+  "f1": {
+    "historic_sql_declarations": 182,
+    "queue_coverage": 182,
+    "priorities": {
+      "P0": 118,
+      "P1": 34,
+      "P2": 30
+    },
+    "formally_closed": 0,
+    "remaining_unported_functions": 40,
+    "remaining_unported_triggers": 17,
+    "views_deferred": 2,
+    "legacy_policies_requiring_security_review": 67
+  },
+  "guardrails": {
+    "no_new_branches": true,
+    "remote_supabase_writes": 0,
+    "historic_sql_preserved": true,
+    "production": "NO_GO"
+  },
+  "limitations": [
+    "F4 objective presence is not full annex paragraph atomization",
+    "No independent legal/editorial signoff",
+    "No verified per-edition norm version",
+    "F1 queue is a worklist not SQL port or semantic parity",
+    "Managed authentication and production gates remain outstanding"
+  ]
+}
