@@ -74,20 +74,6 @@ jobs:
           npm ci --ignore-scripts --no-audit --no-fund
           npm install --no-save --no-package-lock --ignore-scripts --no-audit --no-fund typescript@5.8.3
           node -e "const ts=require('typescript'); if(ts.version!=='5.8.3') process.exit(1); console.log('Test-only TypeScript',ts.version)"
-      - name: Install pinned TypeScript 6 compatibility API for historical S20 harness
-        working-directory: source-s22/backend
-        shell: bash
-        run: |
-          # typescript@7 is a native compiler but does not expose the legacy JS
-          # transpileModule API required by test 18-s20. Do not edit historical source.
-          npm install --no-save --package-lock=false --ignore-scripts --no-audit --no-fund typescript@6.0.3
-          node - <<'NODE'
-          const ts = require('typescript');
-          if (!ts.version.startsWith('6.0.3') || typeof ts.transpileModule !== 'function' || !ts.ModuleKind) {
-            throw Error('TypeScript 6.0.3 compiler API unavailable; refuse to run S20 tests');
-          }
-          console.log('Historical S20 harness pinned to TypeScript', ts.version);
-          NODE
       - name: S22 offline-only 277 regression tests (synthetic excluded-source fixture)
         run: python3 source-s22/backend/db/shared-host/s22-contracts/run_local_gates.py
       - name: Show bounded offline failure diagnostics
