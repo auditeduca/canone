@@ -106,7 +106,7 @@ jobs:
       - name: NS-04 student controller — synthetic UI state and same-origin gateway contract
         shell: bash
         run: node --test tests/ns04_student_frontend.test.mjs
-      - name: F3-REC06 gateway: private synthetic question delivery and rights controls
+      - name: "F3-REC06 gateway: private synthetic question delivery and rights controls"
         run: node --test tests/f3_question_delivery_gateway.test.mjs
       - name: F3-REC05 owner-only reading and no-key gateway contracts
         run: node --test tests/f3_student_read_gateway.test.mjs
