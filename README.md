@@ -1,5 +1,10 @@
 # Cânone — Plataforma de Contabilidade e Conhecimento Normativo
 
+## Atualização de recuperação S22/S23 (19/11/2026)
+
+**Fonte S22 recuperada e verificada por hash:** app ZIP com 477 entradas e bundle Git no commit `164fa4df8e99de29e35c41d35a25f6ee0b2c6462`. A diretriz de produto mais recente é **S23 v0.3 — Exame de Suficiência/EQT do CFC**. Encontradas **81 relações candidatas no Supabase (54 tabelas, 27 views)**, sendo 4 tabelas nativas de controle e 50 compartilhadas. Consulte o [relatório multifonte S22/S23](docs/CONSOLIDACAO_MULTIFONTE_S22_S23_SUPABASE_20261119.md). **Código ainda não importado neste GitHub público; produção NO-GO.**
+
+
 > **Estado:** implantação em preparação · **gate de produção: NO-GO** · corte de consolidação: 2026-11-19.
 
 Este repositório é o destino independente do **Cânone Contabilidade**: arquitetura, motor de avaliações, módulos educacionais e de consulta, conteúdo normativo rastreável, testes, governança e infraestrutura. Não confundir com a plataforma *Calculadoras de Enfermagem / CKO / NCOS*, que é um ecossistema distinto.
