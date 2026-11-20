@@ -1,0 +1,48 @@
+-- Cânone alpha.9 — INTERNAL ONLY / candidate, NOT a deployable migration.
+-- Apply only after dedicated staging candidates 001–009, never shared Supabase.
+BEGIN;
+SET LOCAL search_path=pg_catalog;
+DO $guard$ BEGIN
+  IF to_regclass('canone_control.migration_catalog') IS NOT NULL THEN
+    RAISE EXCEPTION 'REFUSE_SHARED_CANONE_SOURCE' USING ERRCODE='23514';
+  END IF;
+  IF to_regclass('auth.users') IS NULL OR to_regclass('canone_commerce.subscription') IS NULL OR
+     to_regclass('canone_commerce.entitlement') IS NULL OR
+     to_regclass('canone_commerce.plan_feature') IS NULL OR
+     to_regprocedure('canone_ops.exam_start(uuid)') IS NULL THEN
+    RAISE EXCEPTION 'ALPHA8_STAGING_DEPENDENCY_MISSING' USING ERRCODE='23514';
+  END IF;
+END $guard$;
+
+CREATE OR REPLACE FUNCTION canone_ops.can_use_feature(p_user_id uuid, p_feature text)
+RETURNS boolean LANGUAGE plpgsql STABLE SECURITY DEFINER SET search_path=pg_catalog AS $fn$
+DECLARE v_uid uuid := auth.uid();
+BEGIN
+  -- DB identity must match verified Auth subject propagated by trusted service.
+  IF v_uid IS NULL OR p_user_id IS NULL OR p_user_id IS DISTINCT FROM v_uid OR
+     p_feature IS DISTINCT FROM 'cfc.exam' THEN
+    RETURN false;
+  END IF;
+  -- Standalone promotional/partner/admin grants, not stale subscription snapshots.
+  IF EXISTS (SELECT 1 FROM canone_commerce.entitlement e
+    WHERE e.user_id=v_uid AND e.feature_key=p_feature
+      AND e.source IN ('promocao','parceria','compensacao','admin')
+      AND e.revoked_at IS NULL
+      AND (e.expires_at IS NULL OR e.expires_at>pg_catalog.now())) THEN
+    RETURN true;
+  END IF;
+  -- Paid, active service window; no access merely from a pending/expired/trial row.
+  RETURN EXISTS (
+    SELECT 1 FROM canone_commerce.subscription s
+    JOIN canone_commerce.plan p ON p.id=s.plan_id AND p.is_active
+    JOIN canone_commerce.plan_feature pf ON pf.plan_id=s.plan_id AND pf.enabled
+    WHERE s.user_id=v_uid AND s.status='ativa' AND pf.feature_key=p_feature
+      AND s.current_period_start IS NOT NULL AND s.current_period_end IS NOT NULL
+      AND s.current_period_start<=pg_catalog.now() AND s.current_period_end>pg_catalog.now()
+      AND (s.trial_ends_at IS NULL OR s.trial_ends_at<=pg_catalog.now())
+  );
+END;
+$fn$;
+REVOKE ALL ON FUNCTION canone_ops.can_use_feature(uuid,text) FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION canone_ops.can_use_feature(uuid,text) TO service_role;
+COMMIT;

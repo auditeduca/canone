@@ -1,0 +1,46 @@
+{
+  "version": "0.23.0-alpha.9",
+  "status": "AUTHENTICATED_GATEWAY_PG17_CANDIDATE_NO_GO",
+  "source_dependency_009": {
+    "staging/supabase/009_attempt_grade_srs.candidate.sql.txt": {
+      "sha256": "4eb0fff7ae0610ca526ecca3e09d2f770189c83e9927032428bf70493c3048a1",
+      "bytes": 14278
+    }
+  },
+  "artifacts": {
+    "gateway/alpha9-core.mjs": {
+      "sha256": "402d24e48f4d8fcac5f6c8359130086b8100e68d3c44b8b351fbdc35e287eefe",
+      "bytes": 7760
+    },
+    "gateway/alpha9-server.mjs": {
+      "sha256": "514ab3cade8330fd094907f9b04a1d318b71046fc4b405f6b4dde3d0588a3124",
+      "bytes": 2918
+    },
+    "staging/supabase/010_private_feature_gate.candidate.sql.txt": {
+      "sha256": "f55523737d88703e7a855a06d48cd0140e28f10c60d426061dedb0d91d6b695e",
+      "bytes": 2425
+    },
+    "tests/alpha9-gateway.test.mjs": {
+      "sha256": "10b61c80d5122ed722a35d98c1607bd3743c756a9783170170ba8ff135f6e845",
+      "bytes": 9223
+    },
+    "tests/pg17_alpha9_entitlement.sh": {
+      "sha256": "332aa6d37062f09240f878a2a2476aa3f68fa0a64b53b812af940fbb11c8c33a",
+      "bytes": 4266
+    },
+    "docs/ALPHA9_GATEWAY_AUTH_ENTITLEMENT.md": {
+      "sha256": "2e282115b9a5cf43e3aa4657caba015ee6854b4e49dec119d11e8e0cfdbdc53f",
+      "bytes": 5765
+    }
+  },
+  "service_methods": [
+    "exam_start",
+    "exam_answer",
+    "exam_finish",
+    "exam_reveal",
+    "exam_to_srs"
+  ],
+  "feature_key": "cfc.exam",
+  "remote_writes": 0,
+  "production_gate": "NO_GO"
+}
