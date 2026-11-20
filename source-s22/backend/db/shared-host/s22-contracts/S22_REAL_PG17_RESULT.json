@@ -1,0 +1,74 @@
+{
+  "release": "NO_GO",
+  "source": "Connected Vercel Sandbox commands and local tests, 2026-11-15",
+  "environment": {
+    "platform": "Vercel ephemeral Sandbox",
+    "sandbox_session": "sbx_NUKe9xc0duBf9dQNNd1AO6Nfj0OU",
+    "database": "canone_s13_disposable",
+    "postgres_version": "17.12",
+    "network_access": "Restricted to Ubuntu official repositories, PGDG and npm package registry",
+    "shared_supabase_used": false,
+    "secrets_collected": false
+  },
+  "schema": {
+    "staged_scripts": 30,
+    "scripts_passed": 30,
+    "source_originals_preserved": 30,
+    "canonical_schemas": 14,
+    "tables": 90,
+    "tables_rls_enable_and_force": 90,
+    "security_definer_functions": 14,
+    "owner_superuser_or_bypassrls_after": 0,
+    "definer_search_path_unpinned_or_legacy_before": 13,
+    "definer_search_path_unpinned_or_legacy_after_candidate": 0
+  },
+  "authentication": {
+    "canone_auth_role_found_after_029": true,
+    "app_can_set_auth_role": true,
+    "identity_schema_usage_for_auth": true,
+    "identity_schema_usage_for_subscriber": true,
+    "auth_full_rls_policies_before_candidate": 10,
+    "auth_full_rls_policies_after_candidate": 5,
+    "direct_auth_select_user_role_denied": true,
+    "auth_insert_user_role_still_allowed": true,
+    "direct_auth_select_user_profile_denied": true,
+    "auth_insert_user_profile_still_allowed": true,
+    "two_synthetic_subscribers_isolated": true
+  },
+  "http_api_e2e": {
+    "typescript_build": "PASS",
+    "npm_ci": "PASS",
+    "tests_as_postgres_os_user": {"passed": 5, "total": 5},
+    "tests_as_non_superuser_ubuntu_role": {"passed": 5, "total": 5},
+    "routes": ["GET /api/public/catalogo", "POST /api/auth/link", "POST /api/auth/sessao", "GET /api/subscriber/provas denial without entitlement", "POST /api/auth/sair and revoked bearer denied"],
+    "note": "These tests do not validate paid access success, an entire official exam attempt, staff governance, or browser UAT."
+  },
+  "backup_restore": {
+    "source": "pg_dump -Fc from disposable database",
+    "target": "canone_s22_restored on the same sandbox cluster",
+    "success": true,
+    "schemas": 14,
+    "tables": 90,
+    "security_definers": 14,
+    "synthetic_profiles": 3,
+    "dump_size_bytes": 532247
+  },
+  "backend_reconciliation": {"source_distinct_refs": 43, "sql_occurrences_rewritten": 56, "typescript_files_changed": 8, "original_migrations_sha256_preserved": 30},
+  "restrictions": {
+    "overlay_scripts_human_review_only": true,
+    "hardening_candidate_not_promoted": true,
+    "api_prod_deployment": false,
+    "vercel_frontend_deployment_changed": false,
+    "github_push": false,
+    "shared_supabase_modified": false
+  },
+  "remaining_no_go": [
+    "Approval and permanent versioned migration of reviewed candidate 018-030 overlay and search_path hardening",
+    "Positive entitlement, full attempt, reveal, refund and audit workflows in isolated PG17",
+    "RLS adversarial tests for all 90 tables and multi-tenant function boundary",
+    "Concurrency/replay, SQLi and grading-oracle tests under a nonprivileged runtime",
+    "Browser E2E/UX accessibility, mobile/offline, and user data persistence",
+    "Normative/editorial/legal and human release approvals",
+    "GitHub canonical remote integration and production change authorization"
+  ]
+}

@@ -1,0 +1,193 @@
+-- =============================================================================
+-- 022 · A PROVA SELADA NÃO SE MOVE, E A LETRA É DERIVADA INTEIRA
+-- -----------------------------------------------------------------------------
+-- OS DOIS ACHADOS DO QA ADVERSARIAL
+--
+-- (1) DESMARCAR A LETRA OFICIAL ERA PERMITIDO
+--
+-- A 021 recusava marcar a alternativa errada como correta — mas deixava
+-- passar o caminho inverso: `UPDATE ... SET is_correct = false` na letra
+-- que o gabarito oficial aponta. A projeção passava a dizer "nenhuma
+-- alternativa correta" enquanto learning.grade_answer seguia devolvendo
+-- 'correta' (o veredito vem do gabarito). Duas verdades no mesmo banco.
+--
+-- A CORREÇÃO: is_correct NÃO É UM CAMPO — É UMA FUNÇÃO do par (questão na
+-- prova, gabarito vigente). A alternativa do gabarito TEM que estar
+-- marcada, e as outras NÃO podem. Não existe "desmarcar" a letra oficial.
+--
+-- POR QUE É UM CONSTRAINT TRIGGER DEFERRABLE, E NÃO UM TRIGGER DE LINHA
+--
+-- A aplicação do gabarito (set_item_correct) é uma escrita em duas
+-- passos: limpa todas as alternativas e marca a oficial. No meio do
+-- caminho, o item está inconsistentente — e um trigger de linha (AFTER)
+-- veria o estado TRANSITÓRIO e recusaria a aplicação legítima.
+--
+-- A regra tem que ver o estado FINAL. Por isso ela é um constraint trigger
+-- DEFERRABLE INITIALLY DEFERRED: roda no COMMIT, com o gabarito já
+-- aplicado. É a mesma lição do gabarito definitivo (regra 1 e 2): regra
+-- que só existe na entrada é regra morta; regra que olha o meio do caminho
+-- é rule que briga com a aplicação.
+--
+-- (2) A PROVA SELADA PODIA SER DESMONTADA
+--
+-- learning.exam_form_item não tinha trigger. Bastava apagar (ou trocar) uma
+-- posição de uma prova que já tinha gabarito DEFINITIVO: o gabarito
+-- continuava apontando para uma posição que não existia mais — e a regra
+-- de completude (constraint trigger sobre o GABARITO) nem disparava: ela
+-- só acorda quando o gabarito é tocado, não quando a PROVA é mexida.
+-- Divergência silenciosa entre prova e gabarito.
+--
+-- A CORREÇÃO: uma prova com gabarito definitivo é SELADA. Nenhuma posição
+-- entra, sai ou troca. É a mesma linguagem da anulação: "reverta a
+-- publicação antes" — quem praticou precisa ver a retração.
+-- =============================================================================
+
+-- A 021 usava um trigger de linha: ele briga com a aplicação do gabarito.
+DROP TRIGGER IF EXISTS trg_reconcile_item_correct ON learning.item_option;
+
+-- -----------------------------------------------------------------------------
+-- 1 · A LETRA É DERIVADA — INTEIRA, NOS DOIS SENTIDOS, NO COMMIT
+-- -----------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION learning.reconcile_item_correct() RETURNS trigger
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = pg_catalog, public, learning, editorial, taxonomy, identity, norms, ops
+AS $$
+DECLARE
+  v_letter    text;
+  v_annulled  boolean;
+  v_tem_gabarito boolean;
+  v_corretas  int;
+  v_na_oficial int;
+BEGIN
+  -- A questão está numa prova? Se não está, a letra vem do payload.
+  IF NOT EXISTS (SELECT 1 FROM learning.exam_form_item WHERE item_id = NEW.item_id) THEN
+    RETURN NULL;
+  END IF;
+
+  SELECT e.correct_option, e.is_annulled INTO v_letter, v_annulled
+    FROM learning.vigente_answer_key(NEW.item_id) e;
+
+  IF NOT FOUND THEN
+    -- Existe ALGUM gabarito para a prova desta questão?
+    SELECT EXISTS (
+      SELECT 1
+        FROM learning.exam_form_item fi
+        JOIN learning.exam_form f ON f.id = fi.exam_form_id
+        JOIN learning.answer_key k ON k.exam_form_id = f.id
+       WHERE fi.item_id = NEW.item_id
+    ) INTO v_tem_gabarito;
+
+    IF v_tem_gabarito THEN
+      -- Fail-closed: existe gabarito para a prova, mas quem valida não o
+      -- enxerga (produção: o dono da função está sujeito ao FORCE RLS). A
+      -- regra não se disfarça de "não há gabarito" — ela recusa.
+      RAISE EXCEPTION
+        'A questão % pertence a uma prova com gabarito oficial, que não pôde ser lido; recuso validar a letra da alternativa %',
+        NEW.item_id, NEW.ordinal USING ERRCODE = '23514';
+    END IF;
+
+    -- A prova ainda não tem gabarito: a letra é a do conteúdo. Sem regra.
+    RETURN NULL;
+  END IF;
+
+  SELECT count(*)::int INTO v_corretas
+    FROM learning.item_option WHERE item_id = NEW.item_id AND is_correct;
+
+  IF v_annulled THEN
+    -- Questão anulada não tem resposta: TODAS as alternativas são falsas.
+    IF v_corretas > 0 THEN
+      RAISE EXCEPTION
+        'A questão % está ANULADA no gabarito oficial: não existe alternativa correta',
+        NEW.item_id USING ERRCODE = '23514';
+    END IF;
+    RETURN NULL;
+  END IF;
+
+  SELECT count(*)::int INTO v_na_oficial
+    FROM learning.item_option
+     WHERE item_id = NEW.item_id AND is_correct AND ordinal = v_letter;
+
+  IF v_corretas <> 1 OR v_na_oficial <> 1 THEN
+    RAISE EXCEPTION
+      'A questão % tem % alternativa(s) correta(s) e a do gabarito oficial (%) é %s; a letra do item é DERIVADA',
+      NEW.item_id, v_corretas, v_letter,
+      CASE WHEN v_na_oficial = 1 THEN 'a marcada' ELSE 'NÃO a marcada' END
+      USING ERRCODE = '23514';
+  END IF;
+
+  RETURN NULL;
+END $$;
+
+CREATE CONSTRAINT TRIGGER trg_reconcile_item_correct
+  AFTER UPDATE OF is_correct ON learning.item_option
+  DEFERRABLE INITIALLY DEFERRED
+  FOR EACH ROW EXECUTE FUNCTION learning.reconcile_item_correct();
+
+COMMENT ON FUNCTION learning.reconcile_item_correct() IS
+  'A letra do item que pertence a uma prova é DERIVADA do gabarito oficial, nos dois sentidos: a alternativa do gabarito TEM que estar marcada e as outras NÃO podem. Verificada no COMMIT.';
+
+-- -----------------------------------------------------------------------------
+-- 2 · A PROVA COM GABARITO DEFINITIVO É SELADA
+-- -----------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION learning.prova_selada_nao_muda() RETURNS trigger
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = pg_catalog, public, learning, editorial, taxonomy, identity, norms, ops
+AS $$
+DECLARE
+  v_form   uuid;
+  v_status text;
+BEGIN
+  IF TG_OP = 'DELETE' THEN
+    v_form := OLD.exam_form_id;
+  ELSE
+    v_form := NEW.exam_form_id;
+
+    -- Reimportar a MESMA prova não pode ser considerado mudança: a
+    -- ingestão é idempotente por contrato. Se a posição já existe com a
+    -- mesma questão, não há o que selar.
+    IF TG_OP = 'INSERT' THEN
+      IF EXISTS (SELECT 1 FROM learning.exam_form_item
+                  WHERE exam_form_id = NEW.exam_form_id
+                    AND ordinal = NEW.ordinal
+                    AND item_id = NEW.item_id) THEN
+        RETURN NEW;
+      END IF;
+    ELSIF TG_OP = 'UPDATE' THEN
+      IF OLD.item_id IS NOT DISTINCT FROM NEW.item_id
+         AND OLD.ordinal IS NOT DISTINCT FROM NEW.ordinal THEN
+        RETURN NEW;
+      END IF;
+    END IF;
+  END IF;
+
+  SELECT k.status INTO v_status
+    FROM learning.answer_key k
+   WHERE k.exam_form_id = v_form AND k.status = 'definitivo'
+   LIMIT 1;
+
+  IF FOUND THEN
+    RAISE EXCEPTION
+      'A prova % já tem gabarito DEFINITIVO: a posição não pode %s. Reverta a publicação antes',
+      v_form,
+      CASE TG_OP
+        WHEN 'DELETE' THEN 'ser apagada'
+        WHEN 'UPDATE' THEN 'ser trocada'
+        ELSE 'ser acrescentada'
+      END
+      USING ERRCODE = '23514';
+  END IF;
+
+  IF TG_OP = 'DELETE' THEN
+    RETURN OLD;
+  END IF;
+  RETURN NEW;
+END $$;
+
+CREATE TRIGGER trg_prova_selada_nao_muda
+  BEFORE INSERT OR UPDATE OR DELETE ON learning.exam_form_item
+  FOR EACH ROW EXECUTE FUNCTION learning.prova_selada_nao_muda();
+
+COMMENT ON FUNCTION learning.prova_selada_nao_muda() IS
+  'Prova com gabarito definitivo é selada: nenhuma posição entra, sai ou troca. Sem isso, o gabarito passa a apontar para uma posição que não existe.';

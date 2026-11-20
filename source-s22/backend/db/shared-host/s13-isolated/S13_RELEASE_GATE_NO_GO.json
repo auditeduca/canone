@@ -1,0 +1,69 @@
+{
+  "project": "CANONE_CONTABILIDADE_AUDIT_EDUCA",
+  "milestone": "S13",
+  "date": "2026-11-14",
+  "baseline_commit": "9e0a0b96a9da5de2c97bea1377980b5d54f3521e",
+  "release_gate": "HOLD_RUNTIME_NO_GO",
+  "shared_supabase_modified": false,
+  "vercel_modified": false,
+  "postgresql_real_executed": false,
+  "postgresql_reason": "docker and postgres executable unavailable in this runtime",
+  "source_migrations_checked": 30,
+  "s12_review_candidates_checked": 10,
+  "original_sql_files_modified": 0,
+  "local_tests": {
+    "s11": {
+      "pass": 14,
+      "fail": 0
+    },
+    "s12": {
+      "pass": 14,
+      "fail": 0
+    },
+    "s13": {
+      "pass": 20,
+      "fail": 0
+    }
+  },
+  "real_db_tests": {
+    "run": 0,
+    "status": "NOT_RUN"
+  },
+  "test_script_files": [
+    {
+      "path": "backend/db/shared-host/s13-isolated/README.md",
+      "sha256": "ece19cc55eea1f21acf27153cf8b55dce25960af1099452cce87486947f0e7f5"
+    },
+    {
+      "path": "backend/db/shared-host/s13-isolated/assertions.sql",
+      "sha256": "a953b15d8d5b4652756696fde457a8cf75de3c3eb96b444425a160a5ec57d4cc"
+    },
+    {
+      "path": "backend/db/shared-host/s13-isolated/assertions_two_users.sql",
+      "sha256": "b92dc0b77e5a42f237ac6450c5ff47d37fbee0d0345d0c4c3fce8c0c2a3a45e6"
+    },
+    {
+      "path": "backend/db/shared-host/s13-isolated/prepare.py",
+      "sha256": "347daf580c54be58929bf0b57ede05c776ebe984e5f52d1b941e21f1a4adbea5"
+    },
+    {
+      "path": "backend/db/shared-host/s13-isolated/run_disposable.sh",
+      "sha256": "499f06ac9462be860a829b8070cdeb39dff1cc7a3eaf85934c025f45f82d1374"
+    },
+    {
+      "path": "backend/db/shared-host/s13-isolated/test_s13_preflight.py",
+      "sha256": "05a8c0b560edacfc58d1d836ac2dc23e383030e84c12e7db62470e5686f1aeca"
+    }
+  ],
+  "pending": [
+    "postgresql_disposable_real_run",
+    "role_ownership_and_bypassrls",
+    "rls_two_tenants",
+    "backend_identity_binding",
+    "grade_answer_oracle",
+    "015_030_dependencies",
+    "concurrent_audit_and_srs",
+    "pg_dump_restore",
+    "human_legal_editorial_governance_release"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "stage": "S20",
+  "release_gate": "NO_GO",
+  "environment": "source_plus_isolated_synthetic_pg18",
+  "validated": [
+    "frontend_source_195_node_tests",
+    "backend_context_transpiled_runtime_tests",
+    "S11_14_portability_tests",
+    "S12_14_static_tests",
+    "S13_20_preflight_tests",
+    "30_of_30_original_migration_hashes",
+    "synthetic_pg18_rls_ab_separation",
+    "synthetic_pg18_force_rls_owner",
+    "synthetic_pg18_mutable_custom_guc_exposure"
+  ],
+  "not_validated": [
+    "postgres17_canonical_migration_execution_002_017",
+    "production_like_role_grants",
+    "end_to_end_authenticated_backend_sql_injection_adversarial_testing",
+    "SECURITY_DEFINER_exploit_regression",
+    "postgres_concurrency_and_backup_restore",
+    "browser_end_to_end_S19",
+    "production_release",
+    "S20_full_backend_typescript_compile"
+  ],
+  "remote_changes": {
+    "vercel": false,
+    "supabase": false,
+    "github": false
+  },
+  "notes": "PG18 findings are specific to a synthetic fixture constructed from the same session-GUC pattern. They do not establish an actual HTTP vulnerability or certify Cânone migrations."
+}

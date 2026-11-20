@@ -1,0 +1,24 @@
+{
+  "schema_version": "canone.feature-acceptance.v1",
+  "purpose": "Definição de pronto reutilizável para os 26 módulos; não muda estados no banco, não publica funcionalidades e não duplica regras de negócio.",
+  "provenance": "backend/contracts/product/catalog.v1.json",
+  "gate_status_default": "PENDING",
+  "gates": [
+    {"key": "UI_REAL", "definition": "Tela utilizável com estados de carregamento, vazio, erro, bloqueio e acesso por teclado; reutiliza componentes do Design System vigente."},
+    {"key": "API_CONTRACT", "definition": "Contrato gerado de uma única implementação de serviço; sem validação de negócio duplicada na rota ou no frontend."},
+    {"key": "DATA_PERSISTENCE", "definition": "Leitura/gravação em canone_* com autorização por perfil, transação e testes reais; nenhuma tabela global ou de Enfermagem alterada."},
+    {"key": "SOURCE_EVIDENCE", "definition": "Afirmativas normativas têm fonte oficial/versão/trecho SHA-256 e revisão; editorial tem autoria e direitos; sem conteúdo inventado."},
+    {"key": "SECURITY_RLS", "definition": "Matriz de permissões anon/assinante/staff/admin, RLS e teste adversarial; gabaritos e dados pessoais não vazam."},
+    {"key": "E2E_A11Y", "definition": "Fluxo completo real E2E, responsividade, teclado, foco, WCAG e testes de regressão executados."},
+    {"key": "GOVERNANCE_APPROVAL", "definition": "WO/FIND, versionamento, testes, evidências, revisão humana de risco e promoção explícita; ausência de evidência = HOLD."}
+  ],
+  "cross_cutting": [
+    "AUTHZ_PORTAL",
+    "DESIGN_SYSTEM_SINGLE_OWNER",
+    "CANONICAL_ATOM_PROVENANCE",
+    "AUDIT_TRAIL",
+    "MODULE_ID_STABILITY",
+    "NO_COMPETING_ENGINES"
+  ],
+  "release_status": "HOLD_HUMAN_NO_GO"
+}

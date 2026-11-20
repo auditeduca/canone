@@ -1,0 +1,78 @@
+{
+  "schema_version": "canone.evidence-graph.v1",
+  "scope": "DOMAIN_KNOWLEDGE_ONLY",
+  "source_of_truth": "PRESERVED_EVIDENCE",
+  "canonical_flow": [
+    "source_document",
+    "evidence_span",
+    "atomic_assertion",
+    "canonical_claim",
+    "canonical_concept",
+    "content_projection",
+    "schema_contract",
+    "render"
+  ],
+  "source_kinds": [
+    "NORMATIVE",
+    "EDITORIAL"
+  ],
+  "atom_kinds": [
+    "OBLIGATION",
+    "DEFINITION",
+    "EXCEPTION",
+    "CONDITION",
+    "FACT",
+    "INTERPRETATION",
+    "EXAMPLE"
+  ],
+  "claim_kinds": [
+    "NORMATIVE",
+    "EDITORIAL",
+    "MIXED"
+  ],
+  "relation_kinds": [
+    "SUPPORTS",
+    "EXPLAINS",
+    "CONTRADICTS",
+    "SUPERSEDES",
+    "EQUIVALENT_TO",
+    "QUALIFIES",
+    "IMPLEMENTS"
+  ],
+  "review_states": [
+    "PENDING",
+    "REVIEWED",
+    "REJECTED"
+  ],
+  "publication_states": [
+    "HOLD_HUMAN",
+    "PUBLISHED",
+    "RETIRED"
+  ],
+  "source_selection": {
+    "NORMATIVE": "Must have an official preserved source version and byte-proven pinpoint for claims about requirements, legal interpretation, or technical norms",
+    "EDITORIAL": "Authored/commentary evidence must preserve author, publisher, rights and version; never substitutes a normative source for normative claims",
+    "MIXED": "Normative and editorial evidence both required; commentary explains or contextualizes normative root"
+  },
+  "existing_canone_targets": [
+    "editorial.source",
+    "editorial.verification",
+    "norms.norm",
+    "norms.norm_version",
+    "norms.norm_item",
+    "editorial.content_item",
+    "editorial.content_item_version",
+    "editorial.content_norm_citation",
+    "learning.item",
+    "taxonomy.subject",
+    "editorial.field_definition"
+  ],
+  "explicit_non_normative_domains": [
+    "identity",
+    "commerce",
+    "ops",
+    "audit"
+  ],
+  "non_normative_note": "Application identity, billing, logs and infrastructure use technical/operational contracts; they must not masquerade as source-grounded domain knowledge.",
+  "policy": "FAIL_CLOSED"
+}

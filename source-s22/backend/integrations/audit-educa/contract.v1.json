@@ -1,0 +1,311 @@
+{
+  "contract_id": "canone.audit-educa.intake.v2",
+  "mode": "READ_ONLY_SOURCE__HOLD_BY_DEFAULT",
+  "source_project_ref": "pgsybzggewhinaniybiy",
+  "source_project": "Calculadoras-Smart",
+  "target": "Canone isolated PostgreSQL (NOT SELECTED)",
+  "source_scope": "ACCOUNTING_AUDIT",
+  "blocked_source_schemas": [
+    "public.exams",
+    "public.exam_questions",
+    "public.exam_question_options",
+    "public.exam_answer_keys",
+    "wutrib.*",
+    "ce_platform.*"
+  ],
+  "schemas": {
+    "canone": [
+      "identity",
+      "editorial",
+      "taxonomy",
+      "norms",
+      "learning",
+      "commerce",
+      "admin",
+      "ops",
+      "audit"
+    ]
+  },
+  "tables": [
+    {
+      "source": "contabilidade_cfc.sources",
+      "key": "source_id",
+      "target": "editorial.source",
+      "type": "SOURCE",
+      "fields": {
+        "source_id": "key",
+        "title": "title",
+        "source_url": "url",
+        "exam_board": "publisher (CFC board; requires editorial review)",
+        "edition": "version_label"
+      },
+      "gate": "SOURCE_VERIFICATION_REQUIRED"
+    },
+    {
+      "source": "contabilidade_cfc.questions",
+      "key": "question_id",
+      "target": "editorial.content_item_version (+ learning.item after projection)",
+      "type": "QUESTION",
+      "fields": {
+        "question_id": "key",
+        "statement": "payload.statement",
+        "options": "payload.options",
+        "question_number": "exam_form_item.ordinal (after approval)",
+        "answer_status": "intake.answer_status",
+        "answer_key": "restricted, not exported to public API",
+        "classification": "candidate taxonomy subject",
+        "provenance": "lineage"
+      },
+      "gate": "OFFICIAL_KEY_AND_EDITORIAL_QA_REQUIRED"
+    },
+    {
+      "source": "account_palm.master_register",
+      "key": "register_id",
+      "target": "governed master registry -> norms.norm / editorial.source after approval",
+      "type": "MASTER_REGISTER",
+      "fields": {
+        "register_id": "source_ref",
+        "object_id": "source_entity_id",
+        "version": "version",
+        "canonical_status": "source_status",
+        "canonical_promotion": "gate only; cannot be self-approved",
+        "evidence_refs": "lineage"
+      },
+      "gate": "CANONICAL_PROMOTION_FALSE_HOLD"
+    },
+    {
+      "source": "account_palm.entities",
+      "key": "canonical_id",
+      "target": "crosswalk master entity registry",
+      "type": "MASTER_ENTITY",
+      "fields": {
+        "canonical_id": "source_ref",
+        "entity_type_id": "entity_type",
+        "source_of_truth": "source flag; independent approval required"
+      },
+      "gate": "MASTER_ENTITY_REVIEW"
+    },
+    {
+      "source": "account_palm.normative_works",
+      "key": "canonical_id",
+      "target": "norms.norm candidate",
+      "type": "NORMATIVE_WORK",
+      "fields": {
+        "canonical_id": "source_ref",
+        "display_name": "title",
+        "status": "source_status",
+        "source_of_truth": "source flag; independent approval required"
+      },
+      "gate": "SOURCE_RIGHTS_EFFECTIVE_DATE_REQUIRED"
+    },
+    {
+      "source": "account_palm.regulatory_instruments",
+      "key": "instrument_id",
+      "target": "norms.norm candidate (do not assume current version)",
+      "type": "REGULATORY_INSTRUMENT",
+      "fields": {
+        "instrument_id": "source_ref",
+        "title": "title",
+        "issuer": "issuer",
+        "canonical_status": "source_status"
+      },
+      "gate": "VERSION_AND_VIGENCY_REQUIRED"
+    },
+    {
+      "source": "public.regulatory_instruments",
+      "key": "instrument_id",
+      "target": "reconciliation only with account_palm.regulatory_instruments",
+      "type": "REGULATORY_PUBLIC_CROSSCHECK",
+      "fields": {
+        "instrument_id": "crosswalk key",
+        "canonical_status": "source_status"
+      },
+      "gate": "RECONCILE_4_PUBLIC_ONLY"
+    },
+    {
+      "source": "account_palm.normalized_units_v1",
+      "key": "normalized_unit_id",
+      "target": "norms.norm_item candidate (text not public)",
+      "type": "NORMATIVE_UNIT",
+      "fields": {
+        "normalized_unit_id": "source_ref",
+        "instrument_id": "norm candidate ref",
+        "locator": "locator",
+        "source_text_sha256": "lineage source digest",
+        "canonical_promotion": "gate"
+      },
+      "gate": "SEMANTIC_REVIEW_RIGHTS_AND_VERSION_REQUIRED",
+      "export_fields": [
+        "normalized_unit_id",
+        "instrument_id",
+        "normative_work_id",
+        "locator",
+        "unit_type",
+        "source_text_sha256",
+        "normalized_text_sha256",
+        "raw_sha256",
+        "mask_sha256",
+        "structural_status",
+        "semantic_claim_status",
+        "publication_mode",
+        "canonical_promotion",
+        "evidence_refs"
+      ]
+    },
+    {
+      "source": "contabilidade_cfc.audit_normative_scope_v1",
+      "key": "instrument_id",
+      "target": "source normative QA registry",
+      "type": "NORMATIVE_QA",
+      "fields": {
+        "instrument_id": "source_ref",
+        "source_verified": "gate",
+        "publication_eligible": "gate"
+      },
+      "gate": "SOURCE_VERIFIED_AND_PUBLICATION_ELIGIBLE",
+      "export_fields": [
+        "instrument_id",
+        "family",
+        "source_verified",
+        "publication_eligible",
+        "source_structure_status",
+        "semantic_review_status",
+        "unit_count",
+        "candidate_count",
+        "evidence"
+      ]
+    },
+    {
+      "source": "contabilidade_cfc.audit_normative_segment_drafts_v1",
+      "key": "segment_id",
+      "target": "normative segment candidate registry (text withheld)",
+      "type": "NORMATIVE_SEGMENT",
+      "fields": {
+        "segment_id": "source_ref",
+        "segment_sha256": "digest",
+        "editorial_validation_status": "gate"
+      },
+      "gate": "EDITORIAL_REVIEW_REQUIRED",
+      "export_fields": [
+        "segment_id",
+        "instrument_id",
+        "parent_unit_id",
+        "start_char",
+        "end_char",
+        "segment_sha256",
+        "parent_source_sha256",
+        "technical_validation_status",
+        "editorial_validation_status",
+        "publication_eligible",
+        "evidence"
+      ]
+    },
+    {
+      "source": "account_palm.normative_extractions",
+      "key": "instrument_id",
+      "target": "canone_evidence.source_document candidate",
+      "type": "NORMATIVE_EXTRACTION",
+      "gate": "SOURCE_BYTES_AND_RIGHTS_PENDING",
+      "export_fields": [
+        "instrument_id",
+        "raw_evidence_id",
+        "raw_sha256",
+        "raw_byte_count",
+        "source_url",
+        "page_count",
+        "text_sha256",
+        "text_char_count",
+        "mask_sha256",
+        "numbered_unit_count",
+        "application_unit_count",
+        "heading_count",
+        "relation_count",
+        "identity_hint_match",
+        "extraction_status",
+        "publication_mode",
+        "canonical_promotion",
+        "extractor_version",
+        "policy_id"
+      ]
+    },
+    {
+      "source": "account_palm.normative_assertion_candidates_v1",
+      "key": "assertion_candidate_id",
+      "target": "canone_evidence.canonical_claim candidate (not promoted)",
+      "type": "ASSERTION_FEATURE_CANDIDATE",
+      "gate": "ATOM_AND_SEMANTIC_REVIEW_PENDING",
+      "export_fields": [
+        "assertion_candidate_id",
+        "normalized_unit_id",
+        "instrument_id",
+        "normative_work_id",
+        "assertion_text_sha256",
+        "assertion_scope",
+        "assertion_status",
+        "semantic_status",
+        "lexical_signal_count",
+        "material_candidate",
+        "signals"
+      ]
+    },
+    {
+      "source": "account_palm.normative_claim_candidates_v1",
+      "key": "claim_candidate_id",
+      "target": "canone_evidence.canonical_claim candidate (not promoted)",
+      "type": "SEMANTIC_CLAIM_CANDIDATE",
+      "gate": "CLAIM_REVIEW_AND_SOURCE_PROOF_PENDING",
+      "export_fields": [
+        "claim_candidate_id",
+        "assertion_candidate_id",
+        "normalized_unit_id",
+        "atom_ordinal",
+        "claim_text_sha256",
+        "claim_type_candidate",
+        "modality_candidate",
+        "semantic_status",
+        "checker_status",
+        "render_permission",
+        "source_text_sha256",
+        "normalized_text_sha256",
+        "boundary_method",
+        "semantic_method",
+        "canonical_status"
+      ]
+    }
+  ],
+  "no_auto_promotion": true,
+  "no_remote_mutation": true,
+  "no_auto_import_into_app": true,
+  "publication_gate": [
+    "verified_official_document",
+    "source_provenance_sha256",
+    "rights_cleared",
+    "semantic_review_pass",
+    "official_answer_key_for_questions",
+    "validity_and_version_checked",
+    "human_approval",
+    "canone_runtime_gates"
+  ],
+  "canonical_evidence_policy": {
+    "applicability": "ALL_DOMAIN_KNOWLEDGE",
+    "mandatory_chain": [
+      "preserved_source",
+      "byte_exact_atom",
+      "canonical_claim",
+      "canonical_concept",
+      "approved_projection"
+    ],
+    "source_priority": [
+      "NORMATIVE",
+      "EDITORIAL"
+    ],
+    "normative_claim": "NORMATIVE source required; editorial supports explanation and cannot replace it",
+    "editorial_claim": "EDITORIAL source required; editorial-only claims cannot be promoted as normative",
+    "candidate_record_is_not_canonical": true,
+    "metadata_schema_only_is_not_semantic_evidence": true,
+    "release_gate": "HOLD_HUMAN_UNTIL_VALIDATED",
+    "semantic_registry": "../canonical-knowledge/contract.v1.json",
+    "required_gate_before_promotion": "verified_pdf_or_original_bytes -> versioned_extracted_text -> byte_exact_atom -> validated_claim -> approved_concept -> projection",
+    "extraction_artifact_is_not_official_source": "all extracted text must link original digest; raw offsets in PDF cannot be substituted by text offsets"
+  }
+}

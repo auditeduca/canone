@@ -1,0 +1,1421 @@
+{
+  "foreign_keys": 19,
+  "logical_relations": 3,
+  "snapshot": {
+    "constraints_count": {
+      "account_palm": {
+        "checks": 15,
+        "foreign_keys": 15,
+        "primary_keys": 18,
+        "unique": 8
+      },
+      "contabilidade_cfc": {
+        "checks": 15,
+        "foreign_keys": 4,
+        "primary_keys": 11,
+        "unique": 3
+      }
+    },
+    "note": "Partially observed column lists: not an exhaustive per-column source schema. Generator --live uses pg-structure for complete introspection and refuses drift by default. Relações master_register/entities/normative_works/regulatory_instruments são VIEWS (security_invoker=true), não tabelas com PK física. Nova inspeção: 249 extrações com três SHA-256; 24.385 unidades e 24.385 afirmações de características, 0 claims materializados. Correspondência com PDF CFC 2022.1 confirmada apenas por página oficial, sem download de bytes.",
+    "observations": {
+      "assertion_feature_candidates": 24385,
+      "assertion_unit_instrument_mismatch": 0,
+      "assertions_without_sha256": 0,
+      "assertions_without_unit": 0,
+      "exam_key_2022_01_post_appeals_verified": 0,
+      "exam_key_2022_01_preliminary_located": 1,
+      "exam_source_2022_01_type01_official_CFC_page_confirmed": 1,
+      "missing_statement": 0,
+      "normalized_units": 24385,
+      "normalized_units_structural_pass": 24385,
+      "normative_claims_ready_for_promotion": 0,
+      "normative_extractions": 249,
+      "normative_extractions_with_raw_text_mask_hashes": 249,
+      "normative_scope_publication_eligible": 0,
+      "normative_segments_editorial_pending": 393,
+      "normative_units_internal_only": 24385,
+      "questions": 50,
+      "questions_missing_official_answer": 50,
+      "questions_missing_source": 0,
+      "regulatory_common": 249,
+      "regulatory_public_only": 4,
+      "semantic_claim_candidates": 0,
+      "unit_extraction_raw_hash_disagreements": 0,
+      "unit_missing_public_instrument": 0,
+      "units_without_extraction": 0,
+      "views_in_account_palm_bridge": 4
+    },
+    "observed_utc": "2026-11-14",
+    "project_ref": "pgsybzggewhinaniybiy",
+    "relationships": [
+      {
+        "from": "account_palm.atomization_eval_sample_v1",
+        "from_columns": [
+          "assertion_candidate_id"
+        ],
+        "id": "account_palm.atomization_eval_sample_v1.assertion_candidate_id__fk__account_palm.normative_assertion_candidates_v1.assertion_candidate_id",
+        "kind": "FOREIGN_KEY",
+        "to": "account_palm.normative_assertion_candidates_v1",
+        "to_columns": [
+          "assertion_candidate_id"
+        ],
+        "validated": true
+      },
+      {
+        "from": "account_palm.atomization_eval_sample_v1",
+        "from_columns": [
+          "normalized_unit_id"
+        ],
+        "id": "account_palm.atomization_eval_sample_v1.normalized_unit_id__fk__account_palm.normalized_units_v1.normalized_unit_id",
+        "kind": "FOREIGN_KEY",
+        "to": "account_palm.normalized_units_v1",
+        "to_columns": [
+          "normalized_unit_id"
+        ],
+        "validated": true
+      },
+      {
+        "from": "account_palm.atomization_fragment_quality_v1",
+        "from_columns": [
+          "normalized_unit_id"
+        ],
+        "id": "account_palm.atomization_fragment_quality_v1.normalized_unit_id__fk__account_palm.normalized_units_v1.normalized_unit_id",
+        "kind": "FOREIGN_KEY",
+        "to": "account_palm.normalized_units_v1",
+        "to_columns": [
+          "normalized_unit_id"
+        ],
+        "validated": true
+      },
+      {
+        "from": "account_palm.atomization_gold_draft_proposals_v1",
+        "from_columns": [
+          "sample_id"
+        ],
+        "id": "account_palm.atomization_gold_draft_proposals_v1.sample_id__fk__account_palm.atomization_eval_sample_v1.sample_id",
+        "kind": "FOREIGN_KEY",
+        "to": "account_palm.atomization_eval_sample_v1",
+        "to_columns": [
+          "sample_id"
+        ],
+        "validated": true
+      },
+      {
+        "from": "account_palm.atomization_gold_replacements_v1",
+        "from_columns": [
+          "assertion_candidate_id"
+        ],
+        "id": "account_palm.atomization_gold_replacements_v1.assertion_candidate_id__fk__account_palm.normative_assertion_candidates_v1.assertion_candidate_id",
+        "kind": "FOREIGN_KEY",
+        "to": "account_palm.normative_assertion_candidates_v1",
+        "to_columns": [
+          "assertion_candidate_id"
+        ],
+        "validated": true
+      },
+      {
+        "from": "account_palm.atomization_gold_replacements_v1",
+        "from_columns": [
+          "normalized_unit_id"
+        ],
+        "id": "account_palm.atomization_gold_replacements_v1.normalized_unit_id__fk__account_palm.normalized_units_v1.normalized_unit_id",
+        "kind": "FOREIGN_KEY",
+        "to": "account_palm.normalized_units_v1",
+        "to_columns": [
+          "normalized_unit_id"
+        ],
+        "validated": true
+      },
+      {
+        "from": "account_palm.atomization_gold_replacements_v1",
+        "from_columns": [
+          "replaced_sample_id"
+        ],
+        "id": "account_palm.atomization_gold_replacements_v1.replaced_sample_id__fk__account_palm.atomization_eval_sample_v1.sample_id",
+        "kind": "FOREIGN_KEY",
+        "to": "account_palm.atomization_eval_sample_v1",
+        "to_columns": [
+          "sample_id"
+        ],
+        "validated": true
+      },
+      {
+        "from": "account_palm.atomization_gold_review_batch_v1",
+        "from_columns": [
+          "sample_id"
+        ],
+        "id": "account_palm.atomization_gold_review_batch_v1.sample_id__fk__account_palm.atomization_eval_sample_v1.sample_id",
+        "kind": "FOREIGN_KEY",
+        "to": "account_palm.atomization_eval_sample_v1",
+        "to_columns": [
+          "sample_id"
+        ],
+        "validated": true
+      },
+      {
+        "from": "account_palm.dou_content_validation_v1",
+        "from_columns": [
+          "run_id"
+        ],
+        "id": "account_palm.dou_content_validation_v1.run_id__fk__account_palm.dou_validation_runs_v1.run_id",
+        "kind": "FOREIGN_KEY",
+        "to": "account_palm.dou_validation_runs_v1",
+        "to_columns": [
+          "run_id"
+        ],
+        "validated": true
+      },
+      {
+        "from": "account_palm.dou_discovery_candidates_v1",
+        "from_columns": [
+          "request_id"
+        ],
+        "id": "account_palm.dou_discovery_candidates_v1.request_id__fk__account_palm.dou_discovery_requests_v1.request_id",
+        "kind": "FOREIGN_KEY",
+        "to": "account_palm.dou_discovery_requests_v1",
+        "to_columns": [
+          "request_id"
+        ],
+        "validated": true
+      },
+      {
+        "evidence": "pg_get_viewdef() observado no Supabase; view security_invoker=true; NÃO é FK",
+        "from": "account_palm.entities",
+        "from_columns": [
+          "*"
+        ],
+        "id": "account_palm.entities__view_dependency__cko_master.entities",
+        "kind": "VIEW_DEPENDENCY",
+        "to": "cko_master.entities",
+        "to_columns": [
+          "*"
+        ],
+        "validated": false
+      },
+      {
+        "evidence": "pg_get_viewdef() observado no Supabase; view security_invoker=true; NÃO é FK",
+        "from": "account_palm.master_register",
+        "from_columns": [
+          "*"
+        ],
+        "id": "account_palm.master_register__view_dependency__cko_governance.account_palm_master_register_v1",
+        "kind": "VIEW_DEPENDENCY",
+        "to": "cko_governance.account_palm_master_register_v1",
+        "to_columns": [
+          "*"
+        ],
+        "validated": false
+      },
+      {
+        "from": "account_palm.normalized_units_v1",
+        "from_columns": [
+          "run_id"
+        ],
+        "id": "account_palm.normalized_units_v1.run_id__fk__account_palm.normalization_runs_v1.run_id",
+        "kind": "FOREIGN_KEY",
+        "to": "account_palm.normalization_runs_v1",
+        "to_columns": [
+          "run_id"
+        ],
+        "validated": true
+      },
+      {
+        "from": "account_palm.normative_assertion_candidates_v1",
+        "from_columns": [
+          "normalized_unit_id"
+        ],
+        "id": "account_palm.normative_assertion_candidates_v1.normalized_unit_id__fk__account_palm.normalized_units_v1.normalized_unit_id",
+        "kind": "FOREIGN_KEY",
+        "to": "account_palm.normalized_units_v1",
+        "to_columns": [
+          "normalized_unit_id"
+        ],
+        "validated": true
+      },
+      {
+        "from": "account_palm.normative_claim_candidates_v1",
+        "from_columns": [
+          "assertion_candidate_id"
+        ],
+        "id": "account_palm.normative_claim_candidates_v1.assertion_candidate_id__fk__account_palm.normative_assertion_candidates_v1.assertion_candidate_id",
+        "kind": "FOREIGN_KEY",
+        "to": "account_palm.normative_assertion_candidates_v1",
+        "to_columns": [
+          "assertion_candidate_id"
+        ],
+        "validated": true
+      },
+      {
+        "from": "account_palm.normative_claim_candidates_v1",
+        "from_columns": [
+          "normalized_unit_id"
+        ],
+        "id": "account_palm.normative_claim_candidates_v1.normalized_unit_id__fk__account_palm.normalized_units_v1.normalized_unit_id",
+        "kind": "FOREIGN_KEY",
+        "to": "account_palm.normalized_units_v1",
+        "to_columns": [
+          "normalized_unit_id"
+        ],
+        "validated": true
+      },
+      {
+        "from": "account_palm.normative_temporal_evidence_v1",
+        "from_columns": [
+          "temporal_type"
+        ],
+        "id": "account_palm.normative_temporal_evidence_v1.temporal_type__fk__account_palm.normative_temporal_type_registry_v1.temporal_type",
+        "kind": "FOREIGN_KEY",
+        "to": "account_palm.normative_temporal_type_registry_v1",
+        "to_columns": [
+          "temporal_type"
+        ],
+        "validated": true
+      },
+      {
+        "evidence": "pg_get_viewdef() observado no Supabase; view security_invoker=true; NÃO é FK",
+        "from": "account_palm.normative_works",
+        "from_columns": [
+          "*"
+        ],
+        "id": "account_palm.normative_works__view_dependency__cko_master.entities",
+        "kind": "VIEW_DEPENDENCY",
+        "to": "cko_master.entities",
+        "to_columns": [
+          "*"
+        ],
+        "validated": false
+      },
+      {
+        "evidence": "pg_get_viewdef() observado no Supabase; view security_invoker=true; NÃO é FK",
+        "from": "account_palm.regulatory_instruments",
+        "from_columns": [
+          "*"
+        ],
+        "id": "account_palm.regulatory_instruments__view_dependency__public.regulatory_instruments",
+        "kind": "VIEW_DEPENDENCY",
+        "to": "public.regulatory_instruments",
+        "to_columns": [
+          "*"
+        ],
+        "validated": false
+      },
+      {
+        "from": "contabilidade_cfc.audit_normative_scope_v1",
+        "from_columns": [
+          "instrument_id"
+        ],
+        "id": "contabilidade_cfc.audit_normative_scope_v1.instrument_id__fk__public.regulatory_instruments.instrument_id",
+        "kind": "FOREIGN_KEY",
+        "to": "public.regulatory_instruments",
+        "to_columns": [
+          "instrument_id"
+        ],
+        "validated": true
+      },
+      {
+        "from": "contabilidade_cfc.audit_normative_segment_drafts_v1",
+        "from_columns": [
+          "parent_unit_id"
+        ],
+        "id": "contabilidade_cfc.audit_normative_segment_drafts_v1.parent_unit_id__fk__account_palm.normalized_units_v1.normalized_unit_id",
+        "kind": "FOREIGN_KEY",
+        "to": "account_palm.normalized_units_v1",
+        "to_columns": [
+          "normalized_unit_id"
+        ],
+        "validated": true
+      },
+      {
+        "from": "contabilidade_cfc.audit_normative_segment_parent_qa_v1",
+        "from_columns": [
+          "parent_unit_id"
+        ],
+        "id": "contabilidade_cfc.audit_normative_segment_parent_qa_v1.parent_unit_id__fk__account_palm.normalized_units_v1.normalized_unit_id",
+        "kind": "FOREIGN_KEY",
+        "to": "account_palm.normalized_units_v1",
+        "to_columns": [
+          "normalized_unit_id"
+        ],
+        "validated": true
+      },
+      {
+        "from": "contabilidade_cfc.questions",
+        "from_columns": [
+          "source_id"
+        ],
+        "id": "contabilidade_cfc.questions.source_id__fk__contabilidade_cfc.sources.source_id",
+        "kind": "FOREIGN_KEY",
+        "to": "contabilidade_cfc.sources",
+        "to_columns": [
+          "source_id"
+        ],
+        "validated": true
+      },
+      {
+        "evidence": "Candidate relation, cardinality unknown; NOT an FK",
+        "from": "account_palm.master_register",
+        "from_columns": [
+          "object_id"
+        ],
+        "id": "master_register__generic_object",
+        "kind": "LOGICAL_CROSSWALK",
+        "to": "account_palm.entities",
+        "to_columns": [
+          "canonical_id"
+        ],
+        "validated": false
+      },
+      {
+        "evidence": "249 common; 4 only public; NOT an FK",
+        "from": "account_palm.regulatory_instruments",
+        "from_columns": [
+          "instrument_id"
+        ],
+        "id": "public__palm_regulatory_identity",
+        "kind": "LOGICAL_CROSSWALK",
+        "to": "public.regulatory_instruments",
+        "to_columns": [
+          "instrument_id"
+        ],
+        "validated": false
+      },
+      {
+        "evidence": "2026-11-14 SELECT orphans=0; NOT an FK",
+        "from": "account_palm.normalized_units_v1",
+        "from_columns": [
+          "instrument_id"
+        ],
+        "id": "units__instrument_identity",
+        "kind": "LOGICAL_CROSSWALK",
+        "to": "public.regulatory_instruments",
+        "to_columns": [
+          "instrument_id"
+        ],
+        "validated": false
+      },
+      {
+        "evidence": "pg_get_viewdef; security_invoker=true; origem public.cfc_internal_normative_extractions",
+        "from": "account_palm.normative_extractions",
+        "from_columns": [
+          "instrument_id"
+        ],
+        "id": "account_palm.normative_extractions__view_dependency__public.cfc_internal_normative_extractions",
+        "kind": "VIEW_DEPENDENCY",
+        "to": "public.cfc_internal_normative_extractions",
+        "to_columns": [
+          "instrument_id"
+        ],
+        "validated": false
+      }
+    ],
+    "schema_tables_counts": {
+      "account_palm": 18,
+      "contabilidade_cfc": 11
+    },
+    "schema_version": "canone.meta-observation.v1",
+    "scope": "PARTIAL_INSPECTION_NO_SECRETS",
+    "source": "Supabase MCP read-only pg_catalog and row counts",
+    "tables": [
+      {
+        "columns": [],
+        "id": "account_palm.atomization_eval_sample_v1",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "atomization_eval_sample_v1",
+        "object_kind": "TABLE",
+        "primary_key": [],
+        "row_count": null,
+        "schema": "account_palm"
+      },
+      {
+        "columns": [],
+        "id": "account_palm.atomization_fragment_quality_v1",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "atomization_fragment_quality_v1",
+        "object_kind": "TABLE",
+        "primary_key": [],
+        "row_count": null,
+        "schema": "account_palm"
+      },
+      {
+        "columns": [],
+        "id": "account_palm.atomization_gold_draft_proposals_v1",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "atomization_gold_draft_proposals_v1",
+        "object_kind": "TABLE",
+        "primary_key": [],
+        "row_count": null,
+        "schema": "account_palm"
+      },
+      {
+        "columns": [],
+        "id": "account_palm.atomization_gold_replacements_v1",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "atomization_gold_replacements_v1",
+        "object_kind": "TABLE",
+        "primary_key": [],
+        "row_count": null,
+        "schema": "account_palm"
+      },
+      {
+        "columns": [],
+        "id": "account_palm.atomization_gold_review_batch_v1",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "atomization_gold_review_batch_v1",
+        "object_kind": "TABLE",
+        "primary_key": [],
+        "row_count": null,
+        "schema": "account_palm"
+      },
+      {
+        "columns": [],
+        "id": "account_palm.dou_content_validation_v1",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "dou_content_validation_v1",
+        "object_kind": "TABLE",
+        "primary_key": [],
+        "row_count": null,
+        "schema": "account_palm"
+      },
+      {
+        "columns": [],
+        "id": "account_palm.dou_discovery_candidates_v1",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "dou_discovery_candidates_v1",
+        "object_kind": "TABLE",
+        "primary_key": [],
+        "row_count": null,
+        "schema": "account_palm"
+      },
+      {
+        "columns": [],
+        "id": "account_palm.dou_discovery_requests_v1",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "dou_discovery_requests_v1",
+        "object_kind": "TABLE",
+        "primary_key": [],
+        "row_count": null,
+        "schema": "account_palm"
+      },
+      {
+        "columns": [],
+        "id": "account_palm.dou_validation_runs_v1",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "dou_validation_runs_v1",
+        "object_kind": "TABLE",
+        "primary_key": [],
+        "row_count": null,
+        "schema": "account_palm"
+      },
+      {
+        "columns": [
+          {
+            "comment": "",
+            "name": "canonical_id",
+            "nullable": null,
+            "type": "text"
+          },
+          {
+            "comment": "",
+            "name": "entity_type_id",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "business_key",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "source_of_truth",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "status",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "version",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "current_version_ref",
+            "nullable": null,
+            "type": "unknown"
+          }
+        ],
+        "id": "account_palm.entities",
+        "introspection_level": "live_selected_columns",
+        "logical_identity": [
+          "canonical_id"
+        ],
+        "name": "entities",
+        "object_kind": "VIEW",
+        "primary_key": [],
+        "row_count": 555,
+        "schema": "account_palm",
+        "view_base": "cko_master.entities",
+        "view_security_invoker": true
+      },
+      {
+        "columns": [
+          {
+            "comment": "",
+            "name": "register_id",
+            "nullable": null,
+            "type": "text"
+          },
+          {
+            "comment": "",
+            "name": "category",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "object_type",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "object_id",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "canonical_status",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "canonical_promotion",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "source_scope",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "source_ref",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "evidence_refs",
+            "nullable": null,
+            "type": "unknown"
+          }
+        ],
+        "id": "account_palm.master_register",
+        "introspection_level": "live_selected_columns",
+        "logical_identity": [
+          "register_id"
+        ],
+        "name": "master_register",
+        "object_kind": "VIEW",
+        "primary_key": [],
+        "row_count": 549,
+        "schema": "account_palm",
+        "view_base": "cko_governance.account_palm_master_register_v1",
+        "view_security_invoker": true
+      },
+      {
+        "columns": [],
+        "id": "account_palm.normalization_runs_v1",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "normalization_runs_v1",
+        "object_kind": "TABLE",
+        "primary_key": [],
+        "row_count": null,
+        "schema": "account_palm"
+      },
+      {
+        "columns": [
+          {
+            "comment": "",
+            "name": "normalized_unit_id",
+            "nullable": null,
+            "type": "text"
+          },
+          {
+            "comment": "",
+            "name": "run_id",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "instrument_id",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "normative_work_id",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "locator",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "source_text_sha256",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "normalized_text_sha256",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "publication_mode",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "canonical_promotion",
+            "nullable": null,
+            "type": "unknown"
+          }
+        ],
+        "id": "account_palm.normalized_units_v1",
+        "introspection_level": "live_selected_columns",
+        "name": "normalized_units_v1",
+        "object_kind": "TABLE",
+        "primary_key": [
+          "normalized_unit_id"
+        ],
+        "row_count": 24385,
+        "schema": "account_palm"
+      },
+      {
+        "columns": [],
+        "id": "account_palm.normative_assertion_candidates_v1",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "normative_assertion_candidates_v1",
+        "object_kind": "TABLE",
+        "primary_key": [],
+        "row_count": null,
+        "schema": "account_palm"
+      },
+      {
+        "columns": [],
+        "id": "account_palm.normative_claim_candidates_v1",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "normative_claim_candidates_v1",
+        "object_kind": "TABLE",
+        "primary_key": [],
+        "row_count": null,
+        "schema": "account_palm"
+      },
+      {
+        "columns": [],
+        "id": "account_palm.normative_temporal_evidence_v1",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "normative_temporal_evidence_v1",
+        "object_kind": "TABLE",
+        "primary_key": [],
+        "row_count": null,
+        "schema": "account_palm"
+      },
+      {
+        "columns": [],
+        "id": "account_palm.normative_temporal_type_registry_v1",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "normative_temporal_type_registry_v1",
+        "object_kind": "TABLE",
+        "primary_key": [],
+        "row_count": null,
+        "schema": "account_palm"
+      },
+      {
+        "columns": [
+          {
+            "comment": "",
+            "name": "canonical_id",
+            "nullable": null,
+            "type": "text"
+          },
+          {
+            "comment": "",
+            "name": "entity_type_id",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "business_key",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "source_of_truth",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "status",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "version",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "current_version_ref",
+            "nullable": null,
+            "type": "unknown"
+          }
+        ],
+        "id": "account_palm.normative_works",
+        "introspection_level": "live_selected_columns",
+        "logical_identity": [
+          "canonical_id"
+        ],
+        "name": "normative_works",
+        "object_kind": "VIEW",
+        "primary_key": [],
+        "row_count": 256,
+        "schema": "account_palm",
+        "view_base": "cko_master.entities",
+        "view_security_invoker": true
+      },
+      {
+        "columns": [
+          {
+            "comment": "",
+            "name": "instrument_id",
+            "nullable": null,
+            "type": "text"
+          },
+          {
+            "comment": "",
+            "name": "title",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "issuer",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "canonical_status",
+            "nullable": null,
+            "type": "unknown"
+          }
+        ],
+        "id": "account_palm.regulatory_instruments",
+        "introspection_level": "live_selected_columns",
+        "logical_identity": [
+          "instrument_id"
+        ],
+        "name": "regulatory_instruments",
+        "object_kind": "VIEW",
+        "primary_key": [],
+        "row_count": 249,
+        "schema": "account_palm",
+        "view_base": "public.regulatory_instruments",
+        "view_security_invoker": true
+      },
+      {
+        "columns": [],
+        "id": "cko_governance.account_palm_master_register_v1",
+        "introspection_level": "catalog_object_kind_only",
+        "name": "account_palm_master_register_v1",
+        "object_kind": "TABLE",
+        "primary_key": [],
+        "row_count": null,
+        "schema": "cko_governance"
+      },
+      {
+        "columns": [],
+        "id": "cko_master.entities",
+        "introspection_level": "catalog_object_kind_only",
+        "name": "entities",
+        "object_kind": "TABLE",
+        "primary_key": [],
+        "row_count": null,
+        "schema": "cko_master"
+      },
+      {
+        "columns": [],
+        "id": "contabilidade_cfc.audit_normative_change_events_v1",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "audit_normative_change_events_v1",
+        "object_kind": "TABLE",
+        "primary_key": [
+          "event_id"
+        ],
+        "row_count": 3,
+        "schema": "contabilidade_cfc"
+      },
+      {
+        "columns": [],
+        "id": "contabilidade_cfc.audit_normative_pmo_v1",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "audit_normative_pmo_v1",
+        "object_kind": "TABLE",
+        "primary_key": [
+          "task_id"
+        ],
+        "row_count": 9,
+        "schema": "contabilidade_cfc"
+      },
+      {
+        "columns": [
+          {
+            "comment": "",
+            "name": "instrument_id",
+            "nullable": null,
+            "type": "text"
+          },
+          {
+            "comment": "",
+            "name": "family",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "source_verified",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "publication_eligible",
+            "nullable": null,
+            "type": "unknown"
+          }
+        ],
+        "id": "contabilidade_cfc.audit_normative_scope_v1",
+        "introspection_level": "live_selected_columns",
+        "name": "audit_normative_scope_v1",
+        "object_kind": "TABLE",
+        "primary_key": [
+          "instrument_id"
+        ],
+        "row_count": 42,
+        "schema": "contabilidade_cfc"
+      },
+      {
+        "columns": [
+          {
+            "comment": "",
+            "name": "segment_id",
+            "nullable": null,
+            "type": "text"
+          },
+          {
+            "comment": "",
+            "name": "instrument_id",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "parent_unit_id",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "segment_sha256",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "technical_validation_status",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "editorial_validation_status",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "publication_eligible",
+            "nullable": null,
+            "type": "unknown"
+          }
+        ],
+        "id": "contabilidade_cfc.audit_normative_segment_drafts_v1",
+        "introspection_level": "live_selected_columns",
+        "name": "audit_normative_segment_drafts_v1",
+        "object_kind": "TABLE",
+        "primary_key": [
+          "segment_id"
+        ],
+        "row_count": 393,
+        "schema": "contabilidade_cfc"
+      },
+      {
+        "columns": [],
+        "id": "contabilidade_cfc.audit_normative_segment_parent_qa_v1",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "audit_normative_segment_parent_qa_v1",
+        "object_kind": "TABLE",
+        "primary_key": [],
+        "row_count": 4,
+        "schema": "contabilidade_cfc"
+      },
+      {
+        "columns": [],
+        "id": "contabilidade_cfc.pmo_findings",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "pmo_findings",
+        "object_kind": "TABLE",
+        "primary_key": [
+          "finding_id"
+        ],
+        "row_count": 6,
+        "schema": "contabilidade_cfc"
+      },
+      {
+        "columns": [],
+        "id": "contabilidade_cfc.pmo_source_register",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "pmo_source_register",
+        "object_kind": "TABLE",
+        "primary_key": [
+          "source_id"
+        ],
+        "row_count": 0,
+        "schema": "contabilidade_cfc"
+      },
+      {
+        "columns": [],
+        "id": "contabilidade_cfc.pmo_sync_runs",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "pmo_sync_runs",
+        "object_kind": "TABLE",
+        "primary_key": [
+          "sync_id"
+        ],
+        "row_count": 1,
+        "schema": "contabilidade_cfc"
+      },
+      {
+        "columns": [],
+        "id": "contabilidade_cfc.pmo_workstreams",
+        "introspection_level": "catalog_name_or_fk_only",
+        "name": "pmo_workstreams",
+        "object_kind": "TABLE",
+        "primary_key": [
+          "pmo_id"
+        ],
+        "row_count": 20,
+        "schema": "contabilidade_cfc"
+      },
+      {
+        "columns": [
+          {
+            "comment": "",
+            "name": "question_id",
+            "nullable": null,
+            "type": "text"
+          },
+          {
+            "comment": "",
+            "name": "source_id",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "question_number",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "statement",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "raw_text",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "options",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "classification",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "answer_key",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "answer_status",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "extraction_status",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "provenance",
+            "nullable": null,
+            "type": "unknown"
+          }
+        ],
+        "id": "contabilidade_cfc.questions",
+        "introspection_level": "live_selected_columns",
+        "name": "questions",
+        "object_kind": "TABLE",
+        "primary_key": [
+          "question_id"
+        ],
+        "row_count": 50,
+        "schema": "contabilidade_cfc"
+      },
+      {
+        "columns": [
+          {
+            "comment": "",
+            "name": "source_id",
+            "nullable": null,
+            "type": "text"
+          },
+          {
+            "comment": "",
+            "name": "title",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "source_url",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "edition",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "exam_year",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "exam_board",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "question_count",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "status",
+            "nullable": null,
+            "type": "unknown"
+          }
+        ],
+        "id": "contabilidade_cfc.sources",
+        "introspection_level": "live_selected_columns",
+        "name": "sources",
+        "object_kind": "TABLE",
+        "primary_key": [
+          "source_id"
+        ],
+        "row_count": 1,
+        "schema": "contabilidade_cfc"
+      },
+      {
+        "columns": [
+          {
+            "comment": "",
+            "name": "instrument_id",
+            "nullable": null,
+            "type": "text"
+          },
+          {
+            "comment": "",
+            "name": "title",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "issuer",
+            "nullable": null,
+            "type": "unknown"
+          },
+          {
+            "comment": "",
+            "name": "canonical_status",
+            "nullable": null,
+            "type": "unknown"
+          }
+        ],
+        "id": "public.regulatory_instruments",
+        "introspection_level": "live_selected_columns",
+        "name": "regulatory_instruments",
+        "object_kind": "TABLE",
+        "primary_key": [
+          "instrument_id"
+        ],
+        "row_count": 253,
+        "schema": "public"
+      },
+      {
+        "columns": [],
+        "id": "public.cfc_internal_normative_extractions",
+        "introspection_level": "catalog_object_and_view_source_only",
+        "name": "cfc_internal_normative_extractions",
+        "object_kind": "TABLE",
+        "primary_key": [],
+        "row_count": null,
+        "schema": "public"
+      },
+      {
+        "columns": [
+          {
+            "name": "instrument_id",
+            "nullable": true,
+            "type": "text"
+          },
+          {
+            "name": "raw_sha256",
+            "nullable": true,
+            "type": "text"
+          },
+          {
+            "name": "text_sha256",
+            "nullable": true,
+            "type": "text"
+          },
+          {
+            "name": "mask_sha256",
+            "nullable": true,
+            "type": "text"
+          },
+          {
+            "name": "source_url",
+            "nullable": true,
+            "type": "text"
+          },
+          {
+            "name": "extraction_status",
+            "nullable": true,
+            "type": "text"
+          },
+          {
+            "name": "publication_mode",
+            "nullable": true,
+            "type": "text"
+          },
+          {
+            "name": "canonical_promotion",
+            "nullable": true,
+            "type": "boolean"
+          }
+        ],
+        "id": "account_palm.normative_extractions",
+        "introspection_level": "eight_columns_types_confirmed_rest_not_introspected",
+        "logical_identity": [
+          "instrument_id"
+        ],
+        "name": "normative_extractions",
+        "object_kind": "VIEW",
+        "primary_key": [],
+        "row_count": 249,
+        "schema": "account_palm",
+        "view_base": "public.cfc_internal_normative_extractions",
+        "view_security_invoker": true
+      }
+    ]
+  },
+  "sources": [
+    "account_palm.atomization_eval_sample_v1",
+    "account_palm.atomization_fragment_quality_v1",
+    "account_palm.atomization_gold_draft_proposals_v1",
+    "account_palm.atomization_gold_replacements_v1",
+    "account_palm.atomization_gold_review_batch_v1",
+    "account_palm.dou_content_validation_v1",
+    "account_palm.dou_discovery_candidates_v1",
+    "account_palm.dou_discovery_requests_v1",
+    "account_palm.dou_validation_runs_v1",
+    "account_palm.entities",
+    "account_palm.master_register",
+    "account_palm.normalization_runs_v1",
+    "account_palm.normalized_units_v1",
+    "account_palm.normative_assertion_candidates_v1",
+    "account_palm.normative_claim_candidates_v1",
+    "account_palm.normative_extractions",
+    "account_palm.normative_temporal_evidence_v1",
+    "account_palm.normative_temporal_type_registry_v1",
+    "account_palm.normative_works",
+    "account_palm.regulatory_instruments",
+    "cko_governance.account_palm_master_register_v1",
+    "cko_master.entities",
+    "contabilidade_cfc.audit_normative_change_events_v1",
+    "contabilidade_cfc.audit_normative_pmo_v1",
+    "contabilidade_cfc.audit_normative_scope_v1",
+    "contabilidade_cfc.audit_normative_segment_drafts_v1",
+    "contabilidade_cfc.audit_normative_segment_parent_qa_v1",
+    "contabilidade_cfc.pmo_findings",
+    "contabilidade_cfc.pmo_source_register",
+    "contabilidade_cfc.pmo_sync_runs",
+    "contabilidade_cfc.pmo_workstreams",
+    "contabilidade_cfc.questions",
+    "contabilidade_cfc.sources",
+    "public.cfc_internal_normative_extractions",
+    "public.regulatory_instruments"
+  ],
+  "targets": [
+    "identity.account",
+    "identity.consent",
+    "identity.consent_purpose",
+    "identity.data_request",
+    "identity.data_request_event",
+    "identity.magic_link",
+    "identity.role",
+    "identity.session",
+    "identity.user_profile",
+    "identity.user_role",
+    "editorial.content_item",
+    "editorial.content_item_version",
+    "editorial.content_norm_citation",
+    "editorial.content_relation",
+    "editorial.content_relation_type",
+    "editorial.content_revision",
+    "editorial.content_type",
+    "editorial.content_type_version",
+    "editorial.enumeration",
+    "editorial.enumeration_value",
+    "editorial.field_definition",
+    "editorial.source",
+    "editorial.state_definition",
+    "editorial.state_transition",
+    "editorial.verification",
+    "taxonomy.blueprint",
+    "taxonomy.exam_edition",
+    "taxonomy.exam_track",
+    "taxonomy.item_placement",
+    "taxonomy.knowledge_area",
+    "taxonomy.module",
+    "taxonomy.module_subject",
+    "taxonomy.subject",
+    "taxonomy.subtopic",
+    "norms.issuer",
+    "norms.norm",
+    "norms.norm_item",
+    "norms.norm_version",
+    "learning.answer_key",
+    "learning.answer_key_entry",
+    "learning.case_step",
+    "learning.duel",
+    "learning.exam_attempt",
+    "learning.exam_attempt_answer",
+    "learning.exam_form",
+    "learning.exam_form_item",
+    "learning.explanation",
+    "learning.favorite",
+    "learning.item",
+    "learning.item_option",
+    "learning.item_subject",
+    "learning.mastery",
+    "learning.mind_map",
+    "learning.mind_map_node",
+    "learning.mock_exam",
+    "learning.mock_exam_item",
+    "learning.note",
+    "learning.offline_pack",
+    "learning.pocket_entry",
+    "learning.review_event",
+    "learning.session",
+    "learning.study_block",
+    "learning.study_plan",
+    "learning.user_item_state",
+    "commerce.coupon",
+    "commerce.entitlement",
+    "commerce.invoice",
+    "commerce.payment",
+    "commerce.plan",
+    "commerce.plan_feature",
+    "commerce.subscription",
+    "admin.content_report",
+    "admin.feature_flag",
+    "admin.moderation_queue",
+    "admin.support_access_grant",
+    "admin.support_access_log",
+    "admin.user_note",
+    "ops.api_key",
+    "ops.error_event",
+    "ops.integration",
+    "ops.job_run",
+    "ops.metric_daily",
+    "ops.migration_log",
+    "ops.notification",
+    "ops.notification_delivery",
+    "ops.notification_template",
+    "ops.setting",
+    "ops.webhook",
+    "ops.webhook_delivery",
+    "audit.audit_log"
+  ],
+  "view_dependencies": 5
+}

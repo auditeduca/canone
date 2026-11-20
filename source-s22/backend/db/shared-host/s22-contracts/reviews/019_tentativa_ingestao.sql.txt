@@ -1,0 +1,586 @@
+-- S22 REVIEW CANDIDATE ONLY: 019_tentativa_ingestao.sql
+-- ORIGINAL_SHA256=c01f383f23b2189e889e4a8bf919cd5d3bcc252c6828349764775de38fb44989
+-- CANONICAL_NAMESPACE_PROJECTION; NO PRODUCTION AUTHORIZATION
+-- =============================================================================
+-- 019 · TENTATIVA DE PROVA E INGESTÃO DO ACERVO
+-- -----------------------------------------------------------------------------
+-- DUAS COISAS QUE FALTAVAM
+--
+-- 1. A TENTATIVA. A 018 deu casa para a prova e para o gabarito, mas o
+--    gabarito não tinha CONSUMIDOR: ninguém respondia uma prova real. Sem
+--    tentativa, o gabarito é um documento — e o produto é um instrumento.
+--
+--    canone_learning.exam_attempt é a resposta do candidato a uma prova (real ou
+--    simulada). canone_learning.exam_attempt_answer guarda a RESPOSTA e o VEREDITO
+--    do servidor, questão por questão. E o gabarito só é revelado a quem já
+--    terminou a tentativa: antes disso, revelá-lo é dar a resposta.
+--
+--    NOTA: NÃO existe coluna de nota nem de aprovação. A regra de cálculo
+--    (o que acontece com a questão anulada no denominador, qual o
+--    arredondamento) depende do edital de cada edição, e o Cânone não tem
+--    essa fonte. Guardar o dado bruto (respostas + vereditos) é honesto;
+--    calcular a aprovação sem fonte seria inventar número.
+--
+-- 2. A INGESTÃO. O acervo (56 edições, 1.975 questões) vive em outro
+--    ambiente, em JSON. canone_ops.import_corpus_form é a ponte: ela lê o JSON do
+--    acervo e escreve no schema — SEM escrita paralela, sempre pela mesma
+--    porta (payload → projeção → gabarito).
+-- =============================================================================
+
+-- -----------------------------------------------------------------------------
+-- 0 · A RODADA ACEITA NÚMERO DESCONHECIDO
+-- -----------------------------------------------------------------------------
+-- A rodada do acervo tem 50 questões (Suficiência) OU 25 (EQT), e a mesma
+-- rodada tem as DUAS. Um único número na rodada não dá conta disso — e a
+-- nota de aprovação depende do edital de cada trilha. O número fica NULL
+-- enquanto não houver fonte, e a regra de conflito só vale quando os dois
+-- lados têm número.
+ALTER TABLE canone_taxonomy.exam_edition ALTER COLUMN question_count DROP NOT NULL;
+ALTER TABLE canone_taxonomy.exam_edition ALTER COLUMN passing_score DROP NOT NULL;
+
+-- -----------------------------------------------------------------------------
+-- 1 · TENTATIVA
+-- -----------------------------------------------------------------------------
+CREATE TABLE canone_learning.exam_attempt (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id       uuid NOT NULL REFERENCES canone_identity.account(id) ON DELETE CASCADE,
+  -- Prova REAL (variante aplicada) ou SIMULADO. Exatamente uma das duas.
+  exam_form_id  uuid REFERENCES canone_learning.exam_form(id) ON DELETE CASCADE,
+  mock_exam_id  uuid REFERENCES canone_learning.mock_exam(id) ON DELETE CASCADE,
+  status        text NOT NULL DEFAULT 'em_andamento'
+                CHECK (status IN ('em_andamento','concluida','abandonada')),
+  started_at    timestamptz NOT NULL DEFAULT now(),
+  finished_at   timestamptz,
+  -- Contagens de FATO sobre as respostas (não são nota de aprovação).
+  answered_count int NOT NULL DEFAULT 0,
+  correct_count  int NOT NULL DEFAULT 0,
+  wrong_count    int NOT NULL DEFAULT 0,
+  annulled_count int NOT NULL DEFAULT 0,
+  CONSTRAINT ck_exam_attempt_alvo CHECK (
+    (exam_form_id IS NOT NULL)::int + (mock_exam_id IS NOT NULL)::int = 1
+  ),
+  CONSTRAINT ck_exam_attempt_fim CHECK (
+    status = 'em_andamento' OR finished_at IS NOT NULL
+  )
+);
+
+CREATE INDEX ix_exam_attempt_user ON canone_learning.exam_attempt (user_id, started_at DESC);
+
+CREATE TABLE canone_learning.exam_attempt_answer (
+  attempt_id    uuid NOT NULL REFERENCES canone_learning.exam_attempt(id) ON DELETE CASCADE,
+  ordinal       int NOT NULL CHECK (ordinal > 0),
+  item_id       uuid NOT NULL REFERENCES canone_learning.item(id),
+  chosen_option text CHECK (chosen_option IN ('A','B','C','D','E')),
+  -- O VEREDITO do servidor, guardado. 'anulada' é um estado de primeira
+  -- classe: a questão foi anulada pelo CFC.
+  verdict       text NOT NULL CHECK (verdict IN ('correta','errada','anulada')),
+  answered_at   timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (attempt_id, ordinal),
+  UNIQUE (attempt_id, item_id)
+);
+
+COMMENT ON TABLE canone_learning.exam_attempt IS
+  'Tentativa de prova. Guarda as respostas e os vereditos — não guarda nota: a regra de aprovação depende do edital.';
+COMMENT ON COLUMN canone_learning.exam_attempt_answer.verdict IS
+  'Veredito do servidor no momento da resposta. anulada = o CFC anulou a questão.';
+
+-- -----------------------------------------------------------------------------
+-- 2 · A TENTATIVA É DO USUÁRIO DO CONTEXTO
+-- -----------------------------------------------------------------------------
+-- Nenhuma função aceita userId: a identidade vem do contexto (GUC), como
+-- em todo o resto do backend. Se aceitasse, bastaria um parâmetro trocado
+-- para ler a prova de outra pessoa.
+CREATE OR REPLACE FUNCTION canone_learning.start_exam_attempt(p_exam_form_id uuid)
+RETURNS uuid
+LANGUAGE plpgsql
+SECURITY DEFINER AS $$
+DECLARE
+  v_user uuid := canone_ops.current_user_id();
+  v_id   uuid;
+BEGIN
+  IF v_user IS NULL THEN
+    RAISE EXCEPTION 'Tentativa sem usuário no contexto' USING ERRCODE = '42501';
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM canone_learning.exam_form WHERE id = p_exam_form_id) THEN
+    RAISE EXCEPTION 'Prova % inexistente', p_exam_form_id USING ERRCODE = '23503';
+  END IF;
+
+  INSERT INTO canone_learning.exam_attempt (user_id, exam_form_id)
+  VALUES (v_user, p_exam_form_id) RETURNING id INTO v_id;
+  RETURN v_id;
+END $$;
+
+CREATE OR REPLACE FUNCTION canone_learning.answer_exam_attempt(
+  p_attempt_id uuid, p_ordinal int, p_option text
+) RETURNS text
+LANGUAGE plpgsql
+SECURITY DEFINER AS $$
+DECLARE
+  v_user uuid := canone_ops.current_user_id();
+  v_att  canone_learning.exam_attempt%ROWTYPE;
+  v_item uuid;
+  v_verdict text;
+BEGIN
+  SELECT * INTO v_att FROM canone_learning.exam_attempt WHERE id = p_attempt_id;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION 'Tentativa % inexistente', p_attempt_id USING ERRCODE = '23503';
+  END IF;
+  IF v_att.user_id <> v_user THEN
+    RAISE EXCEPTION 'Tentativa % não é do usuário do contexto', p_attempt_id
+      USING ERRCODE = '42501';
+  END IF;
+  IF v_att.status <> 'em_andamento' THEN
+    RAISE EXCEPTION 'Tentativa % está %', p_attempt_id, v_att.status
+      USING ERRCODE = '23514';
+  END IF;
+
+  SELECT efi.item_id INTO v_item
+    FROM canone_learning.exam_form_item efi
+   WHERE efi.exam_form_id = v_att.exam_form_id
+     AND efi.ordinal = p_ordinal;
+  IF v_item IS NULL THEN
+    RAISE EXCEPTION 'A prova % não tem item na posição %', v_att.exam_form_id, p_ordinal
+      USING ERRCODE = '23514';
+  END IF;
+
+  -- A correção é do servidor: o cliente manda a alternativa, o banco julga.
+  v_verdict := canone_learning.grade_answer(v_item, p_option);
+
+  INSERT INTO canone_learning.exam_attempt_answer (attempt_id, ordinal, item_id, chosen_option, verdict)
+  VALUES (p_attempt_id, p_ordinal, v_item, upper(p_option), v_verdict)
+  ON CONFLICT (attempt_id, ordinal) DO UPDATE
+    SET chosen_option = EXCLUDED.chosen_option,
+        verdict = EXCLUDED.verdict,
+        answered_at = now();
+
+  -- As contagens são de FATO sobre as respostas, recalculadas a cada
+  -- resposta. Recalcular (e não incrementar) é o que impede contagem
+  -- torta quando o candidato muda a resposta.
+  UPDATE canone_learning.exam_attempt a
+     SET answered_count = s.total,
+         correct_count  = s.certos,
+         wrong_count    = s.errados,
+         annulled_count = s.anuladas
+    FROM (SELECT count(*) AS total,
+                 count(*) FILTER (WHERE verdict = 'correta') AS certos,
+                 count(*) FILTER (WHERE verdict = 'errada')  AS errados,
+                 count(*) FILTER (WHERE verdict = 'anulada') AS anuladas
+            FROM canone_learning.exam_attempt_answer WHERE attempt_id = p_attempt_id) s
+   WHERE a.id = p_attempt_id;
+
+  RETURN v_verdict;
+END $$;
+
+CREATE OR REPLACE FUNCTION canone_learning.finish_exam_attempt(p_attempt_id uuid)
+RETURNS canone_learning.exam_attempt
+LANGUAGE plpgsql
+SECURITY DEFINER AS $$
+DECLARE
+  v_user uuid := canone_ops.current_user_id();
+  v_att  canone_learning.exam_attempt%ROWTYPE;
+BEGIN
+  SELECT * INTO v_att FROM canone_learning.exam_attempt WHERE id = p_attempt_id FOR UPDATE;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION 'Tentativa % inexistente', p_attempt_id USING ERRCODE = '23503';
+  END IF;
+  IF v_att.user_id <> v_user AND NOT canone_ops.is_staff() THEN
+    RAISE EXCEPTION 'Tentativa % não é do usuário do contexto', p_attempt_id
+      USING ERRCODE = '42501';
+  END IF;
+
+  UPDATE canone_learning.exam_attempt
+     SET status = 'concluida', finished_at = now()
+   WHERE id = p_attempt_id
+  RETURNING * INTO v_att;
+  RETURN v_att;
+END $$;
+
+-- -----------------------------------------------------------------------------
+-- 3 · A REVELAÇÃO DO GABARITO
+-- -----------------------------------------------------------------------------
+-- O gabarito de uma prova REAL é documento público (o CFC publica). Mas
+-- revelá-lo ANTES da tentativa é dar a resposta de graça. A regra: só quem
+-- já terminou a tentativa enxerga o gabarito; o staff confere.
+CREATE OR REPLACE FUNCTION canone_learning.reveal_exam_key(p_attempt_id uuid)
+RETURNS TABLE (
+  ordinal int, chosen_option text, verdict text,
+  correct_option text, is_annulled boolean, stem text
+)
+LANGUAGE plpgsql
+SECURITY DEFINER AS $$
+DECLARE
+  v_user uuid := canone_ops.current_user_id();
+  v_att  canone_learning.exam_attempt%ROWTYPE;
+BEGIN
+  SELECT * INTO v_att FROM canone_learning.exam_attempt WHERE id = p_attempt_id;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION 'Tentativa % inexistente', p_attempt_id USING ERRCODE = '23503';
+  END IF;
+
+  IF NOT canone_ops.is_staff() THEN
+    IF v_att.user_id <> v_user THEN
+      RAISE EXCEPTION 'Tentativa % não é do usuário do contexto', p_attempt_id
+        USING ERRCODE = '42501';
+    END IF;
+    IF v_att.status <> 'concluida' THEN
+      RAISE EXCEPTION 'O gabarito só é revelado depois de terminar a tentativa (% está %)',
+        p_attempt_id, v_att.status USING ERRCODE = '42501';
+    END IF;
+  END IF;
+
+  RETURN QUERY
+  SELECT a.ordinal, a.chosen_option, a.verdict,
+         k.correct_option, k.is_annulled,
+         coalesce(cv.payload->>'stem', '')
+    FROM canone_learning.exam_attempt_answer a
+    JOIN canone_learning.exam_form_item efi
+      ON efi.exam_form_id = v_att.exam_form_id AND efi.ordinal = a.ordinal
+    JOIN canone_learning.item i ON i.id = efi.item_id
+    JOIN canone_editorial.content_item ci ON ci.id = i.content_item_id
+    LEFT JOIN canone_editorial.content_item_version cv ON cv.id = ci.current_version_id
+    LEFT JOIN LATERAL (
+      SELECT e.correct_option, e.is_annulled
+        FROM canone_learning.answer_key_entry e
+        JOIN canone_learning.answer_key ak ON ak.id = e.answer_key_id
+       WHERE ak.exam_form_id = v_att.exam_form_id
+         AND e.ordinal = a.ordinal
+       ORDER BY (ak.status = 'definitivo') DESC
+       LIMIT 1
+    ) k ON true
+   WHERE a.attempt_id = p_attempt_id
+   ORDER BY a.ordinal;
+END $$;
+COMMENT ON FUNCTION canone_learning.reveal_exam_key(uuid) IS
+  'Revela o gabarito da tentativa. Só depois de concluída (ou para o staff).';
+
+-- -----------------------------------------------------------------------------
+-- 4 · INGESTÃO DO ACERVO
+-- -----------------------------------------------------------------------------
+-- O contrato de entrada é o CATÁLOGO DO ACERVO:
+--
+--   {
+--     "id": "cfc_suf_2024_2_T01",
+--     "ano": 2024, "edicao": 2,
+--     "tipo_prova": "T01",
+--     "exam_type": "Suf",          -- Suf = Suficiência; BCB/CVM/... = EQT
+--     "banca": "FGV",
+--     "gabarito_type": "definitive" | "preliminary",
+--     "questoes": [
+--       { "numero": 1, "gabarito": "A", "enunciado": "...", "alternativas": {...} }
+--     ]
+--   }
+--
+-- DECISÕES DE HONESTIDADE:
+--   · o enunciado e as alternativas são lidos DEFENSIVAMENTE (vários nomes
+--     de campo) e a AUSÊNCIA DE ENUNCIADO É ERRO — uma questão sem enunciado
+--     é perda silenciosa, e perda silenciosa é o que o acervo não pode ter;
+--   · se a edição/forma já existe com OUTRO número de questões, a importação
+--     CONFLITA em vez de sobrescrever (fusão é união de chaves; campo em
+--     comum com valores diferentes é conflito, não vencedor silencioso);
+--   · a importação é IDEMPOTENTE: rodar duas vezes não duplica nem diverge.
+CREATE OR REPLACE FUNCTION canone_ops.import_corpus_form(p_payload jsonb)
+RETURNS uuid
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = pg_catalog, public, ops, editorial, taxonomy, learning, identity, norms
+AS $$
+DECLARE
+  v_id         text;
+  v_ano       int;
+  v_edicao    int;
+  v_tipo      text;
+  v_exam_type text;
+  v_banca     text;
+  v_gab_type  text;
+  v_questoes  jsonb;
+  v_q         jsonb;
+  v_ordinal   int;
+  v_letter    text;
+  v_annulled  boolean;
+  v_total     int;
+  v_ed_code   text;
+  v_track_code text;
+  v_specialty text;
+  v_edition_id uuid;
+  v_track_id   uuid;
+  v_form_id    uuid;
+  v_key_id     uuid;
+  v_source_id  uuid;
+  v_ct_id      uuid;
+  v_ctv_id     uuid;
+  v_item_id    uuid;
+  v_stem      text;
+  v_opts      jsonb;
+  v_alt       jsonb;
+  v_alt_key   text;
+  v_alt_body  text;
+  v_correct   text;
+  v_content_id uuid;
+  v_version_id uuid;
+  v_existing   jsonb;
+  v_count      int;
+  v_conflict   int;
+BEGIN
+  -- 1 · O QUE CAIU DENTRO
+  v_id         := p_payload->>'id';
+  v_ano       := (p_payload->>'ano')::int;
+  v_edicao    := (p_payload->>'edicao')::int;
+  v_tipo      := upper(p_payload->>'tipo_prova');
+  v_exam_type := p_payload->>'exam_type';
+  v_banca     := p_payload->>'banca';
+  v_gab_type  := lower(coalesce(p_payload->>'gabarito_type', 'preliminary'));
+  v_questoes  := p_payload->'questoes';
+
+  IF v_id IS NULL OR v_ano IS NULL OR v_edicao IS NULL OR v_tipo IS NULL
+     OR v_exam_type IS NULL OR v_questoes IS NULL THEN
+    RAISE EXCEPTION 'Acervo inválido: faltam id, ano, edicao, tipo_prova, exam_type ou questoes'
+      USING ERRCODE = '22023';
+  END IF;
+  IF jsonb_typeof(v_questoes) <> 'array' THEN
+    RAISE EXCEPTION 'Acervo %: questoes não é lista', v_id USING ERRCODE = '22023';
+  END IF;
+  IF v_gab_type NOT IN ('definitive', 'preliminary') THEN
+    RAISE EXCEPTION 'Acervo %: gabarito_type % desconhecido', v_id, v_gab_type
+      USING ERRCODE = '22023';
+  END IF;
+  -- O acervo fala 'definitive/preliminary'; o banco fala 'definitivo/preliminar'.
+  -- O TRADUÇÃO É EXPLÍCITA — as palavras não são as mesmas em inglês e em
+  -- português, e quem lê o banco tem que saber qual dos dois está vendo.
+  v_gab_type := CASE v_gab_type WHEN 'definitive' THEN 'definitivo'
+                                ELSE 'preliminar' END;
+
+  v_total := jsonb_array_length(v_questoes);
+  IF v_total = 0 THEN
+    RAISE EXCEPTION 'Acervo %: nenhuma questão', v_id USING ERRCODE = '22023';
+  END IF;
+
+  -- O código da rodada segue o PADRÃO DO SEED ('2026.1', não '2026.01'):
+  -- o mesmo exame tem que ter o mesmo nome em toda parte, senão a rodada
+  -- vira duas rodadas e o acervo se parte ao meio.
+  v_ed_code    := v_ano::text || '.' || v_edicao::text;
+  v_track_code := CASE WHEN lower(v_exam_type) IN ('suf', 'suficiencia', 'suficiência')
+                       THEN 'suficiencia' ELSE 'eqt' END;
+  v_specialty := CASE WHEN v_track_code = 'eqt' THEN upper(v_exam_type) ELSE NULL END;
+
+  -- 2 · A RODADA
+  SELECT id INTO v_edition_id FROM canone_taxonomy.exam_edition WHERE code = v_ed_code;
+  IF NOT FOUND THEN
+    INSERT INTO canone_taxonomy.exam_edition
+      (code, label, edition_number, year, application_date, question_count,
+       passing_score, status, bank, exam_kind)
+    VALUES (v_ed_code, 'Exame ' || v_ed_code, v_edicao, v_ano, NULL,
+            CASE WHEN v_track_code = 'suficiencia' THEN v_total ELSE NULL END,
+            NULL, 'realizada', v_banca,
+            CASE WHEN v_track_code = 'suficiencia' THEN 'suficiencia' ELSE 'qualificacao_tecnica' END)
+    RETURNING id INTO v_edition_id;
+  ELSE
+    -- A rodada tem como exame principal a Suficiência. Se a EQT chegou
+    -- primeiro, o campo é corrigido agora — a regra é fixa (Suficiência é a
+    -- principal), não é "o último que chegou vence".
+    IF v_track_code = 'suficiencia' THEN
+      UPDATE canone_taxonomy.exam_edition SET exam_kind = 'suficiencia'
+       WHERE id = v_edition_id AND exam_kind <> 'suficiencia';
+    END IF;
+
+    -- CONFLITO: a mesma rodada com outro número de questões é divergência
+    -- de fonte, e divergência não se resolve sobrescrevendo.
+    IF v_track_code = 'suficiencia' THEN
+      SELECT question_count INTO v_count FROM canone_taxonomy.exam_edition WHERE id = v_edition_id;
+      IF v_count IS NOT NULL AND v_count <> v_total THEN
+        RAISE EXCEPTION 'Conflito: a rodada % tem % questões no banco e % no acervo',
+          v_ed_code, v_count, v_total USING ERRCODE = '23505';
+      END IF;
+    END IF;
+  END IF;
+
+  -- 3 · A TRILHA
+  SELECT id INTO v_track_id FROM canone_taxonomy.exam_track
+   WHERE exam_edition_id = v_edition_id
+     AND track_code = v_track_code
+     AND COALESCE(specialty_code, '') = COALESCE(v_specialty, '');
+  IF NOT FOUND THEN
+    INSERT INTO canone_taxonomy.exam_track
+      (exam_edition_id, track_code, specialty_code, label, question_count, passing_score)
+    VALUES (v_edition_id, v_track_code, v_specialty,
+            CASE WHEN v_track_code = 'suficiencia' THEN 'Suficiência' ELSE 'EQT — ' || v_specialty END,
+            v_total, NULL)
+    RETURNING id INTO v_track_id;
+  END IF;
+
+  -- 4 · A VARIANTE
+  SELECT id INTO v_form_id FROM canone_learning.exam_form
+   WHERE exam_track_id = v_track_id AND form_code = v_tipo;
+  IF NOT FOUND THEN
+    INSERT INTO canone_learning.exam_form (exam_track_id, form_code, form_label)
+    VALUES (v_track_id, v_tipo, 'Tipo ' || v_tipo)
+    RETURNING id INTO v_form_id;
+  END IF;
+
+  -- 5 · A FONTE (o PDF da prova)
+  SELECT id INTO v_source_id FROM canone_editorial.source WHERE key = v_id;
+  IF NOT FOUND THEN
+    INSERT INTO canone_editorial.source (key, kind, title, publisher, source_quote, consulted_at)
+    VALUES (v_id, 'arquivo', 'Prova ' || v_ed_code || ' — ' || v_tipo, v_banca,
+            'Prova oficial ' || v_ed_code || ', variante ' || v_tipo || ', ' || v_total || ' questões.',
+            now())
+    RETURNING id INTO v_source_id;
+  END IF;
+
+  -- 6 · AS QUESTÕES (payload canônico → projeção por trigger)
+  SELECT ct.id, ctv.id INTO v_ct_id, v_ctv_id
+    FROM canone_editorial.content_type ct
+    JOIN canone_editorial.content_type_version ctv ON ctv.content_type_id = ct.id
+   WHERE ct.key = 'questao' AND ctv.version = 1;
+  IF v_ct_id IS NULL THEN
+    RAISE EXCEPTION 'O tipo de conteúdo "questao" não existe' USING ERRCODE = '23503';
+  END IF;
+
+  FOR v_q IN SELECT a FROM jsonb_array_elements(v_questoes) AS a ORDER BY (a->>'numero')::int LOOP
+    v_ordinal  := (v_q->>'numero')::int;
+    v_letter   := v_q->>'gabarito';
+    v_annulled := (v_letter IS NULL OR btrim(v_letter) = '' OR v_letter = '*');
+
+    -- O ENUNCIADO: lido defensivamente, ausência é ERRO.
+    v_stem := coalesce(
+      v_q->>'enunciado', v_q->>'texto', v_q->>'questao', v_q->>'statement', v_q->>'pergunta'
+    );
+    IF v_stem IS NULL OR btrim(v_stem) = '' THEN
+      RAISE EXCEPTION
+        'Acervo %: a questão % não tem enunciado (nenhum dos campos enunciado|texto|questao|statement|pergunta existe)',
+        v_id, v_ordinal USING ERRCODE = '22023';
+    END IF;
+
+    -- AS ALTERNATIVAS: objeto {A:..,B:..} ou lista [{ordinal,body}].
+    v_opts := v_q->'alternativas';
+    IF v_opts IS NULL THEN v_opts := v_q->'options'; END IF;
+    IF v_opts IS NULL THEN v_opts := v_q->'opcoes'; END IF;
+    IF v_opts IS NULL THEN
+      RAISE EXCEPTION 'Acervo %: a questão % não tem alternativas', v_id, v_ordinal
+        USING ERRCODE = '22023';
+    END IF;
+
+    v_alt := '[]'::jsonb;
+    IF jsonb_typeof(v_opts) = 'object' THEN
+      FOR v_alt_key IN SELECT jsonb_object_keys(v_opts) ORDER BY 1 LOOP
+        v_alt_body := v_opts->>v_alt_key;
+        v_alt := v_alt || jsonb_build_array(jsonb_build_object(
+          'ordinal', v_alt_key, 'body', v_alt_body,
+          'correct', (NOT v_annulled AND upper(v_alt_key) = upper(v_letter))));
+      END LOOP;
+    ELSIF jsonb_typeof(v_opts) = 'array' THEN
+      FOR v_alt_key, v_alt_body IN
+        SELECT coalesce(a->>'ordinal', a->>'letra'), coalesce(a->>'body', a->>'texto')
+          FROM jsonb_array_elements(v_opts) a
+      LOOP
+        v_alt := v_alt || jsonb_build_array(jsonb_build_object(
+          'ordinal', v_alt_key, 'body', v_alt_body,
+          'correct', (NOT v_annulled AND upper(v_alt_key) = upper(v_letter))));
+      END LOOP;
+    ELSE
+      RAISE EXCEPTION 'Acervo %: as alternativas da questão % não são lista nem objeto', v_id, v_ordinal
+        USING ERRCODE = '22023';
+    END IF;
+
+    v_correct := CASE WHEN v_annulled THEN NULL ELSE upper(v_letter) END;
+
+    -- O ITEM (idempotente pela chave do acervo)
+    SELECT id INTO v_content_id FROM canone_editorial.content_item WHERE key = v_id || '_q' || lpad(v_ordinal::text, 3, '0');
+    IF NOT FOUND THEN
+      INSERT INTO canone_editorial.content_item
+        (content_type_id, content_type_version_id, key, state, title)
+      VALUES (v_ct_id, v_ctv_id, v_id || '_q' || lpad(v_ordinal::text, 3, '0'), 'rascunho', v_stem)
+      RETURNING id INTO v_content_id;
+    END IF;
+
+    -- A VERSÃO: o payload é canônico; a projeção em canone_learning.* é derivada.
+    SELECT id INTO v_version_id FROM canone_editorial.content_item_version
+     WHERE content_item_id = v_content_id ORDER BY version DESC LIMIT 1;
+    IF v_version_id IS NULL THEN
+      INSERT INTO canone_editorial.content_item_version (content_item_id, version, payload)
+      VALUES (v_content_id, 1, jsonb_build_object(
+                'kind', 'questao', 'stem', v_stem, 'options', v_alt))
+      RETURNING id INTO v_version_id;
+    ELSE
+      UPDATE canone_editorial.content_item_version
+         SET payload = jsonb_build_object('kind','questao','stem',v_stem,'options',v_alt)
+       WHERE id = v_version_id;
+    END IF;
+    UPDATE canone_editorial.content_item SET current_version_id = v_version_id WHERE id = v_content_id;
+
+    SELECT id INTO v_item_id FROM canone_learning.item WHERE content_item_id = v_content_id;
+
+    -- A POSIÇÃO NA PROVA
+    INSERT INTO canone_learning.exam_form_item (exam_form_id, ordinal, item_id)
+    VALUES (v_form_id, v_ordinal, v_item_id)
+    ON CONFLICT (exam_form_id, ordinal) DO UPDATE SET item_id = EXCLUDED.item_id;
+
+  END LOOP;
+
+  -- 7 · O GABARITO
+  IF (SELECT count(*) FROM canone_learning.exam_form_item WHERE exam_form_id = v_form_id) <> v_total THEN
+    RAISE EXCEPTION 'Acervo %: a prova ficou com % questões de %',
+      v_id, (SELECT count(*) FROM canone_learning.exam_form_item WHERE exam_form_id = v_form_id), v_total
+      USING ERRCODE = '23514';
+  END IF;
+
+  SELECT id INTO v_key_id FROM canone_learning.answer_key
+   WHERE exam_form_id = v_form_id AND status = v_gab_type;
+  IF NOT FOUND THEN
+    INSERT INTO canone_learning.answer_key
+      (exam_form_id, status, source_id, extraction)
+    VALUES (v_form_id, v_gab_type, v_source_id,
+            jsonb_build_object('method', 'importacao', 'acervo_id', v_id,
+                               'parser_version', 'acervo-cfc-2.0'))
+    RETURNING id INTO v_key_id;
+  END IF;
+
+  -- As entradas, na POSIÇÃO. A letra vem do acervo; a anulação é o
+  -- gabarito ausente naquela posição.
+  FOR v_q IN SELECT a FROM jsonb_array_elements(v_questoes) AS a ORDER BY (a->>'numero')::int LOOP
+    v_ordinal  := (v_q->>'numero')::int;
+    v_letter   := v_q->>'gabarito';
+    v_annulled := (v_letter IS NULL OR btrim(v_letter) = '' OR v_letter = '*');
+    INSERT INTO canone_learning.answer_key_entry (answer_key_id, ordinal, correct_option, is_annulled)
+    VALUES (v_key_id, v_ordinal, CASE WHEN v_annulled THEN NULL ELSE upper(v_letter) END, v_annulled)
+    ON CONFLICT (answer_key_id, ordinal) DO UPDATE
+      SET correct_option = EXCLUDED.correct_option,
+          is_annulled = EXCLUDED.is_annulled;
+  END LOOP;
+
+  RETURN v_form_id;
+END $$;
+COMMENT ON FUNCTION canone_ops.import_corpus_form(jsonb) IS
+  'Ingere uma variante de prova do acervo (JSON) no schema. Idempotente e sem escrita paralela.';
+
+-- -----------------------------------------------------------------------------
+-- 5 · RLS E PRIVILÉGIOS
+-- -----------------------------------------------------------------------------
+ALTER TABLE canone_learning.exam_attempt       ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.exam_attempt       FORCE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.exam_attempt_answer ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.exam_attempt_answer FORCE ROW LEVEL SECURITY;
+
+-- A tentativa é DADO DE USUÁRIO: só o dono (e o staff, pela porta auditada).
+CREATE POLICY sub_own_attempt ON canone_learning.exam_attempt FOR ALL TO canone_subscriber
+  USING (user_id = canone_ops.current_user_id())
+  WITH CHECK (user_id = canone_ops.current_user_id());
+
+CREATE POLICY sub_own_attempt_answer ON canone_learning.exam_attempt_answer FOR ALL TO canone_subscriber
+  USING (EXISTS (SELECT 1 FROM canone_learning.exam_attempt a
+                  WHERE a.id = attempt_id AND a.user_id = canone_ops.current_user_id()))
+  WITH CHECK (EXISTS (SELECT 1 FROM canone_learning.exam_attempt a
+                       WHERE a.id = attempt_id AND a.user_id = canone_ops.current_user_id()));
+
+GRANT SELECT, INSERT, UPDATE ON
+  canone_learning.exam_attempt, canone_learning.exam_attempt_answer
+  TO canone_subscriber, canone_staff, canone_admin;
+
+GRANT EXECUTE ON FUNCTION
+  canone_learning.start_exam_attempt(uuid),
+  canone_learning.answer_exam_attempt(uuid, int, text),
+  canone_learning.finish_exam_attempt(uuid),
+  canone_learning.reveal_exam_key(uuid)
+  TO canone_subscriber, canone_staff, canone_admin;
+
+GRANT EXECUTE ON FUNCTION canone_ops.import_corpus_form(jsonb)
+  TO canone_staff, canone_admin;

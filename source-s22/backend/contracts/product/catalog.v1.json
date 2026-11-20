@@ -1,0 +1,578 @@
+{
+  "schema_version": "canone.product-catalog.v1",
+  "canonical_ownership": {
+    "catalog": "backend/contracts/product/catalog.v1.json",
+    "frontend_projection": "app/src/content/modulos.ts",
+    "database_target": "canone_taxonomy.module",
+    "database_status": "NOT_MIGRATED",
+    "canonical_content_engine": "backend/integrations/canonical-knowledge/",
+    "semantic_provenance_status": "HOLD_SOURCE",
+    "runtime_source": "frontend projection until database migrations homologated; after acceptance, database becomes live read model with checked drift and this catalog remains versioned product definition"
+  },
+  "cross_cutting_guards": [
+    "evidence-lineage",
+    "identity/authorization",
+    "entitlements",
+    "audit/logging",
+    "accessibility"
+  ],
+  "phases": [
+    {
+      "id": "Estudar",
+      "lema": "Fixar o essencial com o menor esforço possível."
+    },
+    {
+      "id": "Praticar",
+      "lema": "Converter conhecimento em acerto sob pressão."
+    },
+    {
+      "id": "Evoluir",
+      "lema": "Descobrir a lacuna antes da prova."
+    },
+    {
+      "id": "Aprovar",
+      "lema": "Simular o dia e chegar pronto."
+    }
+  ],
+  "engines": [
+    {
+      "id": "content-projection",
+      "domain": "Editorial/formatos",
+      "authority_path": "backend/integrations/canonical-knowledge/engine.mjs",
+      "implementation_state": "PARTIAL_INFRASTRUCTURE",
+      "purpose": "Renderização de conteúdo educacional a partir de versões aprovadas"
+    },
+    {
+      "id": "evidence-lineage",
+      "domain": "Evidência/afirmação",
+      "authority_path": "backend/integrations/canonical-knowledge/engine.mjs",
+      "implementation_state": "PARTIAL_INFRASTRUCTURE",
+      "purpose": "Linhas de origem, versões e direitos; sem autopromoção"
+    },
+    {
+      "id": "item-bank",
+      "domain": "Questões e alternativas",
+      "authority_path": "backend/src/areas/subscriber/provas.ts",
+      "implementation_state": "PARTIAL_BACKEND",
+      "purpose": "Banco único de itens e regras de entrega de questões"
+    },
+    {
+      "id": "exam-attempt",
+      "domain": "Prova e tentativas",
+      "authority_path": "backend/src/areas/subscriber/provas.ts",
+      "implementation_state": "PARTIAL_BACKEND",
+      "purpose": "Tentativa, cronômetro, resposta, conclusão e gabarito selado"
+    },
+    {
+      "id": "srs-review",
+      "domain": "Revisão espaçada",
+      "authority_path": "backend/db/migrations/012_srs_engine.sql",
+      "implementation_state": "DDL_NOT_APPLIED",
+      "purpose": "Agendamento único de repetições e caderno de erros"
+    },
+    {
+      "id": "learning-plan",
+      "domain": "Trilhas de estudo",
+      "authority_path": "backend/db/migrations/006_learning_items.sql",
+      "implementation_state": "DDL_NOT_APPLIED",
+      "purpose": "Metas, calendário e blocos de estudo"
+    },
+    {
+      "id": "progress-analytics",
+      "domain": "Evolução e indicadores",
+      "authority_path": "backend/src/areas/subscriber/progresso.ts",
+      "implementation_state": "PARTIAL_BACKEND",
+      "purpose": "Métricas e eventos de progresso por perfil"
+    },
+    {
+      "id": "concept-graph",
+      "domain": "Conhecimento semântico",
+      "authority_path": "backend/integrations/canonical-knowledge/engine.mjs",
+      "implementation_state": "EMPTY_CORPUS",
+      "purpose": "Átomos, conceitos e ligações com fontes preservadas"
+    },
+    {
+      "id": "accounting-simulation",
+      "domain": "Simulação contábil",
+      "authority_path": null,
+      "implementation_state": "PLANNED",
+      "purpose": "Lançamentos, razão, DRE, balanço, cenários e perícia"
+    },
+    {
+      "id": "calculation-core",
+      "domain": "Motor matemático",
+      "authority_path": null,
+      "implementation_state": "PLANNED",
+      "purpose": "Fórmulas versionadas para calculadoras e matemática financeira"
+    },
+    {
+      "id": "case-workflow",
+      "domain": "Casos e fluxos",
+      "authority_path": null,
+      "implementation_state": "PLANNED",
+      "purpose": "Cenários interativos e execução por etapas"
+    },
+    {
+      "id": "media-player",
+      "domain": "Mídia educacional",
+      "authority_path": null,
+      "implementation_state": "PLANNED",
+      "purpose": "Vídeo, áudio, transcrições, progresso e acessibilidade"
+    },
+    {
+      "id": "social-challenge",
+      "domain": "Prática multiplayer",
+      "authority_path": null,
+      "implementation_state": "PLANNED",
+      "purpose": "Duelo com filas, pareamento e antifraude"
+    },
+    {
+      "id": "adaptive-selector",
+      "domain": "Seleção adaptativa",
+      "authority_path": null,
+      "implementation_state": "PLANNED",
+      "purpose": "Escolha de itens baseada em regras auditáveis"
+    },
+    {
+      "id": "offline-sync",
+      "domain": "Sincronização offline",
+      "authority_path": null,
+      "implementation_state": "PLANNED",
+      "purpose": "Manifestos de cache, conflitos e sincronização de tentativas"
+    }
+  ],
+  "modules": [
+    {
+      "n": 2,
+      "id": "flashcards",
+      "name": "Flashcards",
+      "short_name": "Flashcards",
+      "phase": "Estudar",
+      "icon": "IcCards",
+      "description": "Revisão espaçada com repetição em intervalos crescentes.",
+      "wave": "V1 núcleo",
+      "engine_ids": [
+        "content-projection",
+        "srs-review",
+        "concept-graph"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 3,
+      "id": "mapas-mentais",
+      "name": "Mapas Mentais",
+      "short_name": "Mapas",
+      "phase": "Estudar",
+      "icon": "IcMap",
+      "description": "Visualização completa e organizada dos temas.",
+      "wave": "V1.1 extensão",
+      "engine_ids": [
+        "concept-graph",
+        "content-projection"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 4,
+      "id": "contabilidade-ilustrada",
+      "name": "Contabilidade Ilustrada",
+      "short_name": "C. Ilustrada",
+      "phase": "Estudar",
+      "icon": "IcBookOpen",
+      "description": "Conceitos complexos explicados de forma visual.",
+      "wave": "V1.1 extensão",
+      "engine_ids": [
+        "content-projection",
+        "concept-graph"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 5,
+      "id": "guia-de-bolso",
+      "name": "Guia de Bolso",
+      "short_name": "Guia",
+      "phase": "Estudar",
+      "icon": "IcFile",
+      "description": "Conteúdo essencial para consulta rápida e objetiva.",
+      "wave": "V1 núcleo",
+      "engine_ids": [
+        "content-projection",
+        "concept-graph"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 6,
+      "id": "plano-de-estudos",
+      "name": "Plano de Estudos",
+      "short_name": "Plano",
+      "phase": "Estudar",
+      "icon": "IcCalendar",
+      "description": "Cronograma personalizado até a prova.",
+      "wave": "V1 núcleo",
+      "engine_ids": [
+        "learning-plan",
+        "progress-analytics"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 7,
+      "id": "laboratorio",
+      "name": "Laboratório Contábil",
+      "short_name": "Lab",
+      "phase": "Estudar",
+      "icon": "IcCalculator",
+      "description": "Pratique lançamentos contábeis e DFs.",
+      "wave": "V2 avançado",
+      "engine_ids": [
+        "accounting-simulation",
+        "case-workflow"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 9,
+      "id": "cpc-visual",
+      "name": "CPC Visual",
+      "short_name": "CPC",
+      "phase": "Estudar",
+      "icon": "IcFile",
+      "description": "Normas ilustradas e atualizadas.",
+      "wave": "V1.1 extensão",
+      "engine_ids": [
+        "concept-graph",
+        "content-projection"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 10,
+      "id": "dre-interativa",
+      "name": "DRE Interativa",
+      "short_name": "DRE",
+      "phase": "Estudar",
+      "icon": "IcTrendingIn",
+      "description": "Monte e analise a DRE passo a passo.",
+      "wave": "V1.1 extensão",
+      "engine_ids": [
+        "accounting-simulation"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "./icones-internos"
+    },
+    {
+      "n": 11,
+      "id": "balanco-3d",
+      "name": "Balanço Patrimonial 3D",
+      "short_name": "BP 3D",
+      "phase": "Estudar",
+      "icon": "IcLayers",
+      "description": "Visualize a estrutura e a composição das contas.",
+      "wave": "V2 avançado",
+      "engine_ids": [
+        "accounting-simulation",
+        "content-projection"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 12,
+      "id": "diario-e-razao",
+      "name": "Diário e Razão",
+      "short_name": "D&R",
+      "phase": "Estudar",
+      "icon": "IcBook",
+      "description": "Escrituração contábil interativa.",
+      "wave": "V1.1 extensão",
+      "engine_ids": [
+        "accounting-simulation"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 13,
+      "id": "auditoria-pratica",
+      "name": "Auditoria na Prática",
+      "short_name": "Auditoria",
+      "phase": "Estudar",
+      "icon": "IcShield",
+      "description": "Procedimentos, evidências e papéis de trabalho.",
+      "wave": "V1.1 extensão",
+      "engine_ids": [
+        "case-workflow",
+        "concept-graph"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 14,
+      "id": "pericia",
+      "name": "Perícia Contábil",
+      "short_name": "Perícia",
+      "phase": "Estudar",
+      "icon": "IcScale",
+      "description": "Casos reais e laudos práticos.",
+      "wave": "V2 avançado",
+      "engine_ids": [
+        "case-workflow",
+        "concept-graph"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 15,
+      "id": "contabilidade-publica",
+      "name": "Contabilidade Pública",
+      "short_name": "Pública",
+      "phase": "Estudar",
+      "icon": "IcGem",
+      "description": "MCASP, LRF e demais normas em linguagem clara.",
+      "wave": "V1.1 extensão",
+      "engine_ids": [
+        "concept-graph",
+        "content-projection"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 21,
+      "id": "podcast",
+      "name": "Podcast de Revisão",
+      "short_name": "Podcast",
+      "phase": "Estudar",
+      "icon": "IcMic",
+      "description": "Conteúdos em áudio para estudar em qualquer lugar.",
+      "wave": "V2 avançado",
+      "engine_ids": [
+        "media-player",
+        "content-projection"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 22,
+      "id": "videodulas",
+      "name": "Vídeoaulas Interativas",
+      "short_name": "Vídeo",
+      "phase": "Estudar",
+      "icon": "IcPlay",
+      "description": "Assista, anote e pratique no mesmo lugar.",
+      "wave": "V2 avançado",
+      "engine_ids": [
+        "media-player",
+        "item-bank"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 24,
+      "id": "caderno-erros",
+      "name": "Caderno de Erros",
+      "short_name": "Erros",
+      "phase": "Estudar",
+      "icon": "IcSwords",
+      "description": "Transforme erros em aprendizado dirigido.",
+      "wave": "V1 núcleo",
+      "engine_ids": [
+        "exam-attempt",
+        "srs-review",
+        "progress-analytics"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 1,
+      "id": "simulados",
+      "name": "Simulados",
+      "short_name": "Simulados",
+      "phase": "Praticar",
+      "icon": "IcTarget",
+      "description": "Questões comentadas e adaptativas.",
+      "wave": "V1 núcleo",
+      "engine_ids": [
+        "item-bank",
+        "exam-attempt",
+        "progress-analytics"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 16,
+      "id": "matematica",
+      "name": "Matemática Financeira",
+      "short_name": "Mat. Fin.",
+      "phase": "Praticar",
+      "icon": "IcCalculator",
+      "description": "Fórmulas, exemplos e exercícios iterativos.",
+      "wave": "V1.1 extensão",
+      "engine_ids": [
+        "calculation-core",
+        "item-bank"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 17,
+      "id": "duelo",
+      "name": "Duelo de Questões",
+      "short_name": "Duelo",
+      "phase": "Praticar",
+      "icon": "IcSwords",
+      "description": "Desafie outro estudante em tempo real.",
+      "wave": "V2 avançado",
+      "engine_ids": [
+        "social-challenge",
+        "item-bank",
+        "exam-attempt"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 18,
+      "id": "simulado-adaptativo",
+      "name": "Simulado Adaptativo",
+      "short_name": "Adaptativo",
+      "phase": "Praticar",
+      "icon": "IcZap",
+      "description": "Acompanhe seu nível em tempo real.",
+      "wave": "V2 avançado",
+      "engine_ids": [
+        "adaptive-selector",
+        "item-bank",
+        "exam-attempt"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 8,
+      "id": "calculadoras",
+      "name": "Calculadoras Contábeis",
+      "short_name": "Calculadoras",
+      "phase": "Praticar",
+      "icon": "IcCalculator",
+      "description": "Valor presente, taxa de juros, depreciação e mais.",
+      "wave": "V1.1 extensão",
+      "engine_ids": [
+        "calculation-core"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 19,
+      "id": "reposicao",
+      "name": "Banco de Dados de Questões",
+      "short_name": "Banco Q",
+      "phase": "Praticar",
+      "icon": "IcArchive",
+      "description": "Questões filtradas por edital.",
+      "wave": "V1 núcleo",
+      "engine_ids": [
+        "item-bank",
+        "concept-graph"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 20,
+      "id": "glossario",
+      "name": "Glossário Contábil",
+      "short_name": "Glossário",
+      "phase": "Evoluir",
+      "icon": "IcBook",
+      "description": "Termos, conceitos e exemplos sempre à mão.",
+      "wave": "V1 núcleo",
+      "engine_ids": [
+        "concept-graph",
+        "content-projection"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 25,
+      "id": "dashboard",
+      "name": "Dashboard de Aprovação",
+      "short_name": "Dashboard",
+      "phase": "Evoluir",
+      "icon": "IcGauge",
+      "description": "Acompanhe sua evolução até a prova.",
+      "wave": "V1 núcleo",
+      "engine_ids": [
+        "progress-analytics"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "./icones-internos"
+    },
+    {
+      "n": 23,
+      "id": "casos",
+      "name": "Casos Práticos",
+      "short_name": "Casos",
+      "phase": "Evoluir",
+      "icon": "IcFile",
+      "description": "Situações reais com resolução passo a passo.",
+      "wave": "V2 avançado",
+      "engine_ids": [
+        "case-workflow",
+        "item-bank"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    },
+    {
+      "n": 26,
+      "id": "offline",
+      "name": "Cânone Offline",
+      "short_name": "Offline",
+      "phase": "Aprovar",
+      "icon": "IcLock",
+      "description": "Estude sem conexão com pacotes baixados.",
+      "wave": "V2 avançado",
+      "engine_ids": [
+        "offline-sync",
+        "content-projection"
+      ],
+      "review_state": "NOT_HOMOLOGATED",
+      "icon_source": "../brand/icons"
+    }
+  ],
+  "aliases_pending_human_review": [
+    {
+      "current_id": "reposicao",
+      "label": "Banco de Dados de Questões",
+      "proposed_alias": "banco-questoes",
+      "reason": "Do not rename historic ids or URLs without migration."
+    },
+    {
+      "current_id": "videodulas",
+      "label": "Vídeoaulas Interativas",
+      "proposed_alias": "videoaulas",
+      "reason": "Do not rename historic ids or URLs without migration."
+    }
+  ],
+  "product_gate": "HOLD_HUMAN_NO_GO"
+}

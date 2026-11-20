@@ -1,0 +1,107 @@
+-- GENERATED FOR AUDIT ONLY; NEVER EXECUTE IN SHARED HOST OR MIGRATION RUNNER.
+-- Authority: backend/db/migrations/030_porta_da_prova.sql
+-- Original sha256: 144e11ea0c873bfa7f8f7b460a49f51fada2b5cd4d1f1d4424b51938fcaf2c0b
+-- S11 status: HOLD_HUMAN_NO_GO; QA subset 002..005 runs ONLY in disposable PGlite.
+-- Hazards: DEPENDENCY_GRAPH_NOT_HOMOLOGATED | DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP | DOLLAR_BODY_NOT_LEXICALLY_PORTED | GRANT_OR_REVOKE_REVIEW | NON_CODE_SQL_BODY_NEEDS_SEMANTIC_PORT | ROLE_GRANTS_NEED_REVIEW | UNMAPPED_DOMAIN_IN_PROCEDURAL_BODY
+
+-- Qualified schema name projection (procedural/dynamic bodies NOT rewritten).
+
+-- =============================================================================
+-- 030 · A PORTA DE LEITURA DA PROVA
+-- -----------------------------------------------------------------------------
+-- O motor da prova estava pronto e a PORTA não existia: quando o app tentou
+-- servir a lista de provas, o banco respondeu "permission denied for table
+-- exam_edition". O serviço do assinante não tinha caminho de leitura — as
+-- views do assinante cobriam o ESTUDO (progresso, revisão, alternativas), não
+-- a PROVA.
+--
+-- Duas views, e a propriedade de cada uma:
+--
+--   subscriber.v_exam_forms     — as provas aplicadas. Traz o STATUS do
+--                                  gabarito (preliminar/definitivo), nunca a
+--                                  letra. Saber que existe gabarito
+--                                  definitivo é informação de produto; a
+--                                  letra é o segredo.
+--
+--   subscriber.v_exam_questions — o enunciado e as alternativas da prova.
+--                                  SEM a coluna is_correct: quem lê a
+--                                  alternativa não sabe qual é a certa.
+--
+-- POR QUE AS VIEWS SÃO DO PAPEL DE SISTEMA
+--
+-- As tabelas de trás (learning.item, editorial.content_item,
+-- learning.answer_key) têm RLS, e o assinante não pode (e não deve) ler
+-- learning.answer_key. A view é o filtro: o dono dela é canone_system,
+-- que enxerga o estado final — e o que sai é exatamente o que a view
+-- projeta. O gabarito não sai porque a view não o tem.
+--
+-- A PROVA NÃO É LIDA "SOLTA": a view só entrega itens que estão em uma
+-- prova de uma edição REALIZADA.
+-- =============================================================================
+
+-- -----------------------------------------------------------------------------
+-- 1 · AS PROVAS APLICADAS
+-- -----------------------------------------------------------------------------
+CREATE OR REPLACE VIEW canone_subscriber.v_exam_forms AS
+SELECT ef.id AS exam_form_id,
+       ef.form_code,
+       ef.form_label,
+       e.code AS edition_code,
+       e.status AS edition_status,
+       t.track_code,
+       t.specialty_code,
+       t.question_count,
+       (SELECT ak.status
+          FROM canone_learning.answer_key ak
+         WHERE ak.exam_form_id = ef.id
+         ORDER BY (ak.status = 'definitivo') DESC, ak.created_at DESC
+         LIMIT 1) AS key_status
+  FROM canone_learning.exam_form ef
+  JOIN canone_taxonomy.exam_track t ON t.id = ef.exam_track_id
+  JOIN canone_taxonomy.exam_edition e ON e.id = t.exam_edition_id
+ WHERE e.status = 'realizada';
+
+COMMENT ON VIEW canone_subscriber.v_exam_forms IS
+  'Provas aplicadas, visíveis ao assinante. Traz o STATUS do gabarito, nunca a letra.';
+
+-- -----------------------------------------------------------------------------
+-- 2 · AS QUESTÕES DA PROVA
+-- -----------------------------------------------------------------------------
+CREATE OR REPLACE VIEW canone_subscriber.v_exam_questions AS
+SELECT efi.exam_form_id,
+       efi.ordinal            AS posicao,
+       i.id                   AS item_id,
+       v.payload->>'stem'     AS enunciado,
+       o.ordinal              AS opcao,
+       o.ordinal_pos          AS opcao_pos,
+       o.body                 AS alternativa
+  FROM canone_learning.exam_form_item efi
+  JOIN canone_learning.exam_form ef ON ef.id = efi.exam_form_id
+  JOIN canone_taxonomy.exam_track t ON t.id = ef.exam_track_id
+  JOIN canone_taxonomy.exam_edition e ON e.id = t.exam_edition_id
+  JOIN canone_learning.item i ON i.id = efi.item_id
+  JOIN canone_editorial.content_item ci ON ci.id = i.content_item_id
+  JOIN canone_editorial.content_item_version v ON v.id = ci.current_version_id
+  JOIN canone_learning.item_option o ON o.item_id = i.id
+ WHERE e.status = 'realizada';
+
+COMMENT ON VIEW canone_subscriber.v_exam_questions IS
+  'Enunciado e alternativas por posição. A coluna is_correct NÃO existe aqui: o gabarito não sai do servidor.';
+
+-- -----------------------------------------------------------------------------
+-- 3 · O DONO E O ACESSO
+-- -----------------------------------------------------------------------------
+DO $$
+BEGIN
+  EXECUTE 'ALTER VIEW subscriber.v_exam_forms OWNER TO canone_system';
+  EXECUTE 'ALTER VIEW subscriber.v_exam_questions OWNER TO canone_system';
+END $$;
+
+GRANT USAGE ON SCHEMA subscriber TO canone_subscriber, canone_staff, canone_admin;
+GRANT SELECT ON canone_subscriber.v_exam_forms, canone_subscriber.v_exam_questions
+  TO canone_subscriber, canone_staff, canone_admin;
+
+-- A rodada é informação pública (a data da prova é pública). A trilha e a
+-- prova também — o que o assinante não pode ler é o GABARITO.
+GRANT SELECT ON canone_taxonomy.exam_edition, canone_taxonomy.exam_track
+  TO canone_subscriber, canone_staff;

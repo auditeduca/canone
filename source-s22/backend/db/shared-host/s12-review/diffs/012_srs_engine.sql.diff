@@ -1,0 +1,147 @@
+--- S11/012_srs_engine.sql
++++ S12/012_srs_engine.sql
+@@ -45,8 +45,8 @@
+ 
+   -- Base sistema: só sabemos acertou ou errou. 'facil' vs 'esforco' é
+   -- autoavaliação — não se pode inventar a partir do gabarito.
+-  RETURN CASE WHEN p_correct THEN 'facil'::learning.review_grade
+-              ELSE 'errei'::learning.review_grade END;
++  RETURN CASE WHEN p_correct THEN 'facil'::canone_learning.review_grade
++              ELSE 'errei'::canone_learning.review_grade END;
+ END $$;
+ 
+ -- -----------------------------------------------------------------------------
+@@ -68,28 +68,28 @@
+ RETURNS canone_learning.user_item_state
+ LANGUAGE plpgsql AS $$
+ DECLARE
+-  v_event   learning.review_event%ROWTYPE;
+-  v_state   learning.user_item_state%ROWTYPE;
+-  v_grade   learning.review_grade;
++  v_event   canone_learning.review_event%ROWTYPE;
++  v_state   canone_learning.user_item_state%ROWTYPE;
++  v_grade   canone_learning.review_grade;
+   v_new_stability numeric;
+   v_new_difficulty numeric;
+   v_new_due timestamptz;
+   v_interval_days int;
+ BEGIN
+-  SELECT * INTO v_event FROM learning.review_event WHERE id = p_event_id;
++  SELECT * INTO v_event FROM canone_learning.review_event WHERE id = p_event_id;
+   IF NOT FOUND THEN
+     RAISE EXCEPTION 'Evento de revisão % inexistente', p_event_id USING ERRCODE = '23503';
+   END IF;
+ 
+-  v_grade := learning.derive_grade(v_event.basis, v_event.correct, v_event.grade);
++  v_grade := canone_learning.derive_grade(v_event.basis, v_event.correct, v_event.grade);
+ 
+   SELECT * INTO v_state
+-    FROM learning.user_item_state
++    FROM canone_learning.user_item_state
+    WHERE user_id = v_event.user_id AND item_id = v_event.item_id
+    FOR UPDATE;
+ 
+   IF NOT FOUND THEN
+-    INSERT INTO learning.user_item_state (user_id, item_id, algorithm_version)
++    INSERT INTO canone_learning.user_item_state (user_id, item_id, algorithm_version)
+     VALUES (v_event.user_id, v_event.item_id, v_event.algorithm_version)
+     RETURNING * INTO v_state;
+   END IF;
+@@ -98,7 +98,7 @@
+   -- Conteúdo nunca visto não é revisão. O item fica 'nova' e o motor de
+   -- trilha de estudo o puxa. Revisar o que nunca foi ensinado é desperdício.
+   IF v_grade = 'naosei' THEN
+-    UPDATE learning.user_item_state
++    UPDATE canone_learning.user_item_state
+        SET state = 'nova',
+            due_at = NULL,
+            last_review_at = now(),
+@@ -136,7 +136,7 @@
+ 
+   v_new_due := now() + make_interval(days => v_interval_days);
+ 
+-  UPDATE learning.user_item_state
++  UPDATE canone_learning.user_item_state
+      SET state = CASE
+                    WHEN v_grade = 'errei' THEN 'reaprendendo'
+                    WHEN v_state.state = 'nova' THEN 'aprendendo'
+@@ -184,15 +184,15 @@
+   v_event_id uuid;
+ BEGIN
+   -- Valida ANTES de gravar: um evento inválido não entra no log.
+-  PERFORM learning.derive_grade(p_basis, p_correct, p_grade);
+-
+-  INSERT INTO learning.review_event
++  PERFORM canone_learning.derive_grade(p_basis, p_correct, p_grade);
++
++  INSERT INTO canone_learning.review_event
+     (user_id, item_id, grade, basis, correct, duration_ms, algorithm_version)
+   VALUES
+     (p_user_id, p_item_id, p_grade, p_basis, p_correct, p_duration_ms, p_algorithm_version)
+   RETURNING id INTO v_event_id;
+ 
+-  RETURN learning.replay_event(v_event_id);
++  RETURN canone_learning.replay_event(v_event_id);
+ END $$;
+ 
+ -- -----------------------------------------------------------------------------
+@@ -201,7 +201,7 @@
+ CREATE OR REPLACE FUNCTION canone_learning.refresh_mastery(p_user_id uuid, p_subject_id uuid)
+ RETURNS void LANGUAGE plpgsql AS $$
+ BEGIN
+-  INSERT INTO learning.mastery (
++  INSERT INTO canone_learning.mastery (
+     user_id, subject_id, items_seen, items_mastered, items_fragile, items_unseen,
+     correct_answers, total_answers, confidence, updated_at)
+   -- A AGREGACAÇÃO É POR ASSUNTO, e a versão anterior errava em dois
+@@ -236,12 +236,12 @@
+              coalesce(s.is_fragile, false)   AS is_fragile,
+              count(e.id)                     AS total_answers,
+              count(e.id) FILTER (WHERE e.correct) AS correct_answers
+-        FROM learning.item i
+-        JOIN learning.item_subject isub
++        FROM canone_learning.item i
++        JOIN canone_learning.item_subject isub
+           ON isub.item_id = i.id AND isub.subject_id = p_subject_id
+-        LEFT JOIN learning.user_item_state s
++        LEFT JOIN canone_learning.user_item_state s
+           ON s.item_id = i.id AND s.user_id = p_user_id
+-        LEFT JOIN learning.review_event e
++        LEFT JOIN canone_learning.review_event e
+           ON e.item_id = i.id AND e.user_id = p_user_id AND e.basis = 'sistema'
+        GROUP BY i.id, s.state, s.stability_days, s.is_fragile
+     ) x
+@@ -269,9 +269,9 @@
+ )
+ LANGUAGE sql STABLE AS $$
+   SELECT i.id, isub.subject_id, s.due_at, s.state, s.stability_days, s.is_fragile, s.last_grade
+-    FROM learning.user_item_state s
+-    JOIN learning.item i ON i.id = s.item_id
+-    JOIN learning.item_subject isub ON isub.item_id = i.id
++    FROM canone_learning.user_item_state s
++    JOIN canone_learning.item i ON i.id = s.item_id
++    JOIN canone_learning.item_subject isub ON isub.item_id = i.id
+    WHERE s.user_id = p_user_id
+      AND s.due_at IS NOT NULL
+      AND s.due_at <= now()
+@@ -292,17 +292,17 @@
+   v_event RECORD;
+   v_count int := 0;
+ BEGIN
+-  DELETE FROM learning.user_item_state WHERE user_id = p_user_id;
++  DELETE FROM canone_learning.user_item_state WHERE user_id = p_user_id;
+ 
+   FOR v_event IN
+     SELECT id
+-      FROM learning.review_event
++      FROM canone_learning.review_event
+      WHERE user_id = p_user_id
+      ORDER BY reviewed_at, id
+   LOOP
+     -- replay_event, NUNCA apply_review_event: reconstruir não pode criar
+     -- eventos novos, senão o log cresce a cada reconstrução.
+-    PERFORM learning.replay_event(v_event.id);
++    PERFORM canone_learning.replay_event(v_event.id);
+     v_count := v_count + 1;
+   END LOOP;
+ 

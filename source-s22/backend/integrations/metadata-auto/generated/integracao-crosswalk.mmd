@@ -1,0 +1,15 @@
+%% GERADO · source of record -> candidato canônico
+flowchart LR
+  SRC0["contabilidade_cfc.sources"] -.->|"SOURCE_VERIFICATION_REQUIRED"| DEST0["editorial.source"]
+  SRC1["contabilidade_cfc.questions"] -.->|"OFFICIAL_KEY_AND_EDITORIAL_QA_REQUIRED"| DEST1["editorial.content_item_version (+ learning.item after projection)"]
+  SRC2["account_palm.master_register"] -.->|"CANONICAL_PROMOTION_FALSE_HOLD"| DEST2["governed master registry -> norms.norm / editorial.source after approval"]
+  SRC3["account_palm.entities"] -.->|"MASTER_ENTITY_REVIEW"| DEST3["crosswalk master entity registry"]
+  SRC4["account_palm.normative_works"] -.->|"SOURCE_RIGHTS_EFFECTIVE_DATE_REQUIRED"| DEST4["norms.norm candidate"]
+  SRC5["account_palm.regulatory_instruments"] -.->|"VERSION_AND_VIGENCY_REQUIRED"| DEST5["norms.norm candidate (do not assume current version)"]
+  SRC6["public.regulatory_instruments"] -.->|"RECONCILE_4_PUBLIC_ONLY"| DEST6["reconciliation only with account_palm.regulatory_instruments"]
+  SRC7["account_palm.normalized_units_v1"] -.->|"SEMANTIC_REVIEW_RIGHTS_AND_VERSION_REQUIRED"| DEST7["norms.norm_item candidate (text not public)"]
+  SRC8["contabilidade_cfc.audit_normative_scope_v1"] -.->|"SOURCE_VERIFIED_AND_PUBLICATION_ELIGIBLE"| DEST8["source normative QA registry"]
+  SRC9["contabilidade_cfc.audit_normative_segment_drafts_v1"] -.->|"EDITORIAL_REVIEW_REQUIRED"| DEST9["normative segment candidate registry (text withheld)"]
+  SRC10["account_palm.normative_extractions"] -.->|"SOURCE_BYTES_AND_RIGHTS_PENDING"| DEST10["canone_evidence.source_document candidate"]
+  SRC11["account_palm.normative_assertion_candidates_v1"] -.->|"ATOM_AND_SEMANTIC_REVIEW_PENDING"| DEST11["canone_evidence.canonical_claim candidate (not promoted)"]
+  SRC12["account_palm.normative_claim_candidates_v1"] -.->|"CLAIM_REVIEW_AND_SOURCE_PROOF_PENDING"| DEST12["canone_evidence.canonical_claim candidate (not promoted)"]

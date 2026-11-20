@@ -1,0 +1,15 @@
+{
+  "release": "NO_GO",
+  "pg17_ddl_pass": true,
+  "pg17_ddl_script_count": 17,
+  "db_auth_rls_go": false,
+  "commercial_go": false,
+  "blocker_codes": [
+    "S21-P0-AUTH-ROLE",
+    "S21-P0-LEGACY-SCHEMA-SQL",
+    "S21-P0-IDENTITY-SCHEMA-USAGE",
+    "S21-P0-DEFINER-OWNER"
+  ],
+  "manual_signoff_required": true,
+  "source_original_30_sha_pass": true
+}

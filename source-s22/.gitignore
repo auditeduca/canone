@@ -1,0 +1,27 @@
+# dependências e compilação
+**/node_modules/
+**/dist/
+**/coverage/
+**/.cache/
+**/.vercel/
+*.tsbuildinfo
+
+# credenciais e local
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# arquivos de sessão e testes
+playwright-report/
+test-results/
+*.log
+.DS_Store
+
+# Dados de origem, snapshots e candidatos de importação (NUNCA versionar)
+backend/.local-bridge/
+
+# caches Python de validação
+**/__pycache__/
+*.pyc

@@ -1,0 +1,171 @@
+-- =============================================================================
+-- 013 · VIEWS DAS TRÊS ÁREAS
+-- -----------------------------------------------------------------------------
+-- Cada área lê ATRAVÉS de uma view, não das tabelas cruas. Isso faz duas
+-- coisas:
+--   · o contrato de leitura é explícito (a view É a API de dados)
+--   · mudar a estrutura interna não quebra o frontend
+--
+-- As views de conteúdo público aplicam o filtro de estado. Uma view que
+-- "esquece" de filtrar é como se publica item em rascunho — daí o teste
+-- que prova que a view não vaza rascunho.
+-- =============================================================================
+
+-- -----------------------------------------------------------------------------
+-- ÁREA PÚBLICA
+-- -----------------------------------------------------------------------------
+CREATE OR REPLACE VIEW public.v_public_plan AS
+SELECT p.id, p.key, p.name, p.description, p.billing_period, p.trial_days,
+       p.price_cents, p.currency, p.sort_order
+  FROM commerce.plan p
+ WHERE p.is_public AND p.is_active;
+
+COMMENT ON VIEW public.v_public_plan IS
+  'Planos públicos. price_cents NULL = preço ainda não definido pelo comercial.';
+
+CREATE OR REPLACE VIEW public.v_public_subject AS
+SELECT s.id, s.key, s.label, s.description, s.ordinal,
+       a.label AS area_label, a.key AS area_key
+  FROM taxonomy.subject s
+  JOIN taxonomy.knowledge_area a ON a.key = s.area_key
+ WHERE s.active AND a.active;
+
+CREATE OR REPLACE VIEW public.v_public_module AS
+SELECT m.id, m.key, m.name, m.short_name, m.description, m.phase, m.ordinal, m.icon_key
+  FROM taxonomy.module m
+ WHERE m.active;
+
+CREATE OR REPLACE VIEW public.v_public_content AS
+SELECT ci.id, ci.key, ci.title, ci.summary, ci.state, ci.published_at,
+       ci.content_type_id, ct.key AS content_type_key, ct.family,
+       s.key AS subject_key, s.label AS subject_label,
+       st.key AS subtopic_key, st.label AS subtopic_label,
+       ci.difficulty_band, ci.estimated_seconds, ci.ordinal
+  FROM editorial.content_item ci
+  JOIN editorial.content_type ct ON ct.id = ci.content_type_id
+  JOIN editorial.state_definition sd
+    ON sd.family = ct.family AND sd.key = ci.state
+  LEFT JOIN taxonomy.subject s ON s.id = ci.subject_id
+  LEFT JOIN taxonomy.subtopic st ON st.id = ci.subtopic_id
+ WHERE ci.retired_at IS NULL
+   AND sd.is_public;
+
+COMMENT ON VIEW public.v_public_content IS
+  'Conteúdo publicado. Filtra por state_definition.is_public — rascunho e em revisão NÃO vazam.';
+
+-- Itens de avaliação prontos para entrega ao cliente (sem gabarito).
+CREATE OR REPLACE VIEW public.v_public_item AS
+SELECT li.id, li.content_item_id, li.kind, li.difficulty, li.estimated_seconds,
+       ci.title, ci.subject_id, ci.subtopic_id, ci.ordinal
+  FROM learning.item li
+  JOIN editorial.content_item ci ON ci.id = li.content_item_id
+  JOIN editorial.state_definition sd
+    ON sd.family = 'avaliacao' AND sd.key = ci.state
+ WHERE sd.is_public AND ci.retired_at IS NULL;
+
+-- -----------------------------------------------------------------------------
+-- ÁREA DO ASSINANTE
+-- -----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+-- ALTERNATIVAS SEM GABARITO
+-- -----------------------------------------------------------------------------
+-- O cliente precisa das alternativas para responder. NÃO pode precisar do
+-- is_correct: quem lê learning.item_option com o gabarito aberto consegue
+-- responder certo sem saber a matéria.
+--
+-- Por isso a entrega de alternativas é uma VIEW que esconde a coluna, e o
+-- gabarito fica na tabela, legível só pelo servidor (via a função
+-- SECURITY DEFINER learning.grade_answer) e pelo staff.
+CREATE OR REPLACE VIEW subscriber.v_item_options AS
+SELECT o.item_id, o.ordinal, o.body, o.distractor_kind, o.ordinal_pos
+  FROM learning.item_option o;
+
+COMMENT ON VIEW subscriber.v_item_options IS
+  'Alternativas do item, SEM a coluna is_correct. O gabarito não sai do servidor.';
+
+CREATE OR REPLACE VIEW subscriber.v_my_progress AS
+SELECT s.user_id, s.subject_id, sub.label AS subject_label, sub.key AS subject_key,
+       s.items_seen, s.items_mastered, s.items_fragile, s.items_unseen,
+       s.correct_answers, s.total_answers, s.accuracy, s.confidence, s.updated_at
+  FROM learning.mastery s
+  JOIN taxonomy.subject sub ON sub.id = s.subject_id;
+
+COMMENT ON VIEW subscriber.v_my_progress IS
+  'Progresso por assunto. items_fragile é o que o dashboard destaca: acertou, mas frágil.';
+
+CREATE OR REPLACE VIEW subscriber.v_my_due AS
+SELECT * FROM learning.due_items(ops.current_user_id());
+
+CREATE OR REPLACE VIEW subscriber.v_my_history AS
+SELECT e.id, e.item_id, ci.title, ci.key AS item_key, e.grade, e.basis, e.correct,
+       e.duration_ms, e.repetition, e.reviewed_at, e.session_id,
+       e.mock_exam_id
+  FROM learning.review_event e
+  JOIN learning.item i ON i.id = e.item_id
+  JOIN editorial.content_item ci ON ci.id = i.content_item_id
+ WHERE e.user_id = ops.current_user_id();
+
+CREATE OR REPLACE VIEW subscriber.v_my_state AS
+SELECT * FROM learning.user_item_state WHERE user_id = ops.current_user_id();
+
+-- -----------------------------------------------------------------------------
+-- ÁREA ADMINISTRATIVA
+-- -----------------------------------------------------------------------------
+CREATE OR REPLACE VIEW admin.v_content_health AS
+SELECT ci.id, ci.key, ci.title, ct.key AS content_type_key, ct.family,
+       ci.state, ci.subject_id, ci.updated_at,
+       v.state AS verification_state, v.valid_until, v.verified_at,
+       (v.state = 'verificada' AND (v.valid_until IS NULL OR v.valid_until > now())) AS is_valid,
+       li.correct_rate, li.answer_count, li.flagged_for_review,
+       (SELECT count(*) FROM editorial.content_relation r
+         WHERE r.from_item_id = ci.id AND r.relation_type = 'cita_norma') AS norm_citations
+  FROM editorial.content_item ci
+  JOIN editorial.content_type ct ON ct.id = ci.content_type_id
+  LEFT JOIN editorial.verification v
+    ON v.content_item_id = ci.id AND v.state IN
+       ('nao_verificada','em_revisao','verificada','expirada','necessita_atualizacao')
+  LEFT JOIN learning.item li ON li.content_item_id = ci.id
+ WHERE ci.retired_at IS NULL;
+
+COMMENT ON VIEW admin.v_content_health IS
+  'Saúde do acervo: o que está publicado sem verificação válida, o que está com taxa de acerto baixa, o que expirou.';
+
+CREATE OR REPLACE VIEW admin.v_user_overview AS
+SELECT a.id, a.email, a.status, a.created_at, a.last_login_at,
+       p.display_name, p.onboarded_at,
+       (SELECT count(*) FROM commerce.subscription s
+         WHERE s.user_id = a.id AND s.status = 'ativa') AS active_subscriptions,
+       (SELECT count(*) FROM learning.review_event e WHERE e.user_id = a.id) AS review_events,
+       (SELECT max(e.reviewed_at) FROM learning.review_event e WHERE e.user_id = a.id) AS last_activity,
+       (SELECT count(*) FROM learning.favorite f WHERE f.user_id = a.id) AS favorites
+  FROM identity.account a
+  LEFT JOIN identity.user_profile p ON p.user_id = a.id;
+
+CREATE OR REPLACE VIEW admin.v_user_mastery AS
+SELECT m.user_id, m.subject_id, sub.label AS subject_label, sub.key AS subject_key,
+       m.items_seen, m.items_mastered, m.items_fragile, m.items_unseen,
+       m.accuracy, m.confidence, m.updated_at
+  FROM learning.mastery m
+  JOIN taxonomy.subject sub ON sub.id = m.subject_id;
+
+CREATE OR REPLACE VIEW admin.v_audit_recent AS
+SELECT seq, occurred_at, actor_id, actor_role, subject_user_id,
+       action, entity_type, entity_id, request_id, row_hash
+  FROM audit.audit_log
+ ORDER BY seq DESC
+ LIMIT 500;
+
+-- Relatório de ALEGACOES RECUSADAS — insumo direto da página de integridade.
+CREATE OR REPLACE VIEW admin.v_refused_claims AS
+SELECT ci.id, ci.key, ci.title, ci.updated_at,
+       v.state AS verification_state, v.refusal_reason, v.verified_at,
+       v.source_id, s.title AS source_title, s.url AS source_url
+  FROM editorial.content_item ci
+  JOIN editorial.verification v ON v.content_item_id = ci.id
+  LEFT JOIN editorial.source s ON s.id = v.source_id
+ WHERE v.state = 'rejeitada'
+    OR (v.state = 'necessita_atualizacao')
+ ORDER BY v.updated_at DESC;
+
+COMMENT ON VIEW admin.v_refused_claims IS
+  'O que a marca recusou publicar, com o motivo. É a matéria-prima da página /integridade.';

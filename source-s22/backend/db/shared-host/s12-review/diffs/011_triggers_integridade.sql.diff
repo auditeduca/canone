@@ -1,0 +1,280 @@
+--- S11/011_triggers_integridade.sql
++++ S12/011_triggers_integridade.sql
+@@ -31,7 +31,7 @@
+   END IF;
+ 
+   SELECT ct.requires_verification INTO v_requires
+-    FROM editorial.content_type ct WHERE ct.id = NEW.content_type_id;
++    FROM canone_editorial.content_type ct WHERE ct.id = NEW.content_type_id;
+ 
+   IF NOT v_requires OR NEW.state <> 'publicado' THEN
+     RETURN NEW;
+@@ -45,14 +45,14 @@
+   -- A REGRA CORRETA: publica se EXISTE ao menos uma verificação 'verificada'
+   -- e vigente. Se não existe, a mensagem mostra a decisão MAIS RECENTE.
+   SELECT count(*) INTO v_valid
+-    FROM editorial.verification v
++    FROM canone_editorial.verification v
+    WHERE v.content_item_id = NEW.id
+      AND v.state = 'verificada'
+      AND (v.valid_until IS NULL OR v.valid_until > now());
+ 
+   IF v_valid = 0 THEN
+     SELECT v.state INTO v_state
+-      FROM editorial.verification v
++      FROM canone_editorial.verification v
+      WHERE v.content_item_id = NEW.id
+      ORDER BY v.created_at DESC, v.id DESC
+      LIMIT 1;
+@@ -65,7 +65,7 @@
+         ELSE 'verificação em estado ' || v_state
+       END
+       USING ERRCODE = '23514',
+-            HINT = 'Passe por editorial.verification com state=''verificada'' e trecho da fonte.';
++            HINT = 'Passe por canone_editorial.verification com state=''verificada'' e trecho da fonte.';
+   END IF;
+ 
+   NEW.published_at := now();
+@@ -90,20 +90,20 @@
+   v_count     int;
+ BEGIN
+   SELECT n.code INTO v_norm_code
+-    FROM norms.norm_version nv
+-    JOIN norms.norm n ON n.id = nv.norm_id
++    FROM canone_norms.norm_version nv
++    JOIN canone_norms.norm n ON n.id = nv.norm_id
+    WHERE nv.id = NEW.id;
+ 
+-  -- Itens que CITAM esta norma. A aresta é editorial.content_norm_citation
+-  -- (a versão anterior fazia JOIN com norms.norm_item por um id que era
++  -- Itens que CITAM esta norma. A aresta é canone_editorial.content_norm_citation
++  -- (a versão anterior fazia JOIN com canone_norms.norm_item por um id que era
+   -- content_item — e não casava nunca).
+   WITH citadas AS (
+     SELECT DISTINCT c.content_item_id AS id
+-      FROM editorial.content_norm_citation c
+-     WHERE c.norm_id = (SELECT id FROM norms.norm WHERE code = v_norm_code)
++      FROM canone_editorial.content_norm_citation c
++     WHERE c.norm_id = (SELECT id FROM canone_norms.norm WHERE code = v_norm_code)
+        AND c.norm_version_id <> NEW.id
+   )
+-  UPDATE editorial.verification v
++  UPDATE canone_editorial.verification v
+      SET state = 'necessita_atualizacao',
+          updated_at = now()
+    WHERE v.content_item_id IN (SELECT id FROM citadas)
+@@ -112,19 +112,19 @@
+   GET DIAGNOSTICS v_count = ROW_COUNT;
+ 
+   IF v_count > 0 THEN
+-    INSERT INTO admin.moderation_queue (content_item_id, queue, priority, reason, detail)
++    INSERT INTO canone_admin.moderation_queue (content_item_id, queue, priority, reason, detail)
+     SELECT c.id, 'expirada', 80,
+            'Norma ' || v_norm_code || ' teve nova versão (' || NEW.label || ').',
+            jsonb_build_object('norm_code', v_norm_code, 'new_version', NEW.label,
+                               'effective_from', NEW.effective_from)
+       FROM (
+         SELECT DISTINCT c.content_item_id AS id
+-          FROM editorial.content_norm_citation c
+-         WHERE c.norm_id = (SELECT id FROM norms.norm WHERE code = v_norm_code)
++          FROM canone_editorial.content_norm_citation c
++         WHERE c.norm_id = (SELECT id FROM canone_norms.norm WHERE code = v_norm_code)
+            AND c.norm_version_id <> NEW.id
+       ) c
+       WHERE NOT EXISTS (
+-        SELECT 1 FROM admin.moderation_queue q
++        SELECT 1 FROM canone_admin.moderation_queue q
+          WHERE q.content_item_id = c.id AND q.queue = 'expirada' AND q.resolved_at IS NULL
+       );
+   END IF;
+@@ -145,7 +145,7 @@
+   v_count int;
+ BEGIN
+   IF NEW.is_correct THEN
+-    SELECT count(*) INTO v_count FROM learning.item_option
++    SELECT count(*) INTO v_count FROM canone_learning.item_option
+       WHERE item_id = NEW.item_id AND is_correct;
+     IF v_count > 1 THEN
+       RAISE EXCEPTION 'Item % teria % alternativas corretas; o edital admite uma',
+@@ -178,19 +178,19 @@
+   -- projeção ('IF v_item_id IS NULL THEN RETURN NEW'), e por isso um item
+   -- de avaliação sem payload era publicado com ZERO alternativas.
+   SELECT ct.family INTO v_family
+-    FROM editorial.content_type ct
++    FROM canone_editorial.content_type ct
+    WHERE ct.id = NEW.content_type_id;
+ 
+   IF v_family <> 'avaliacao' THEN
+     RETURN NEW;  -- conteúdo de estudo: a regra não se aplica
+   END IF;
+ 
+-  -- A trigger vive em editorial.content_item; as alternativas vivem em
+-  -- learning.item_option, que referencia learning.item.id — NÃO o id do
++  -- A trigger vive em canone_editorial.content_item; as alternativas vivem em
++  -- canone_learning.item_option, que referencia canone_learning.item.id — NÃO o id do
+   -- content_item. Sem esta ponte a contagem daria 0 e TODO item seria
+   -- publicado sem alternativa correta.
+   SELECT i.id INTO v_item_id
+-    FROM learning.item i
++    FROM canone_learning.item i
+    WHERE i.content_item_id = NEW.id;
+ 
+   IF v_item_id IS NULL THEN
+@@ -202,7 +202,7 @@
+ 
+   SELECT count(*) FILTER (WHERE is_correct), count(*)
+     INTO v_correct, v_options
+-    FROM learning.item_option WHERE item_id = v_item_id;
++    FROM canone_learning.item_option WHERE item_id = v_item_id;
+ 
+   IF v_options = 0 OR v_correct <> 1 THEN
+     RAISE EXCEPTION
+@@ -230,9 +230,9 @@
+ LANGUAGE plpgsql AS $$
+ DECLARE
+   -- DOIS identificadores, e confundi-los era o bug:
+-  --   v_content_item = editorial.content_item.id  (o documento)
+-  --   v_item         = learning.item.id           (a PROJEÇÃO)
+-  -- learning.item_option.item_id referencia learning.item.id, NÃO o
++  --   v_content_item = canone_editorial.content_item.id  (o documento)
++  --   v_item         = canone_learning.item.id           (a PROJEÇÃO)
++  -- canone_learning.item_option.item_id referencia canone_learning.item.id, NÃO o
+   -- content_item. A versão anterior gravava v_item (= content_item.id) e
+   -- violava a FK em toda criação de item.
+   v_content_item uuid;
+@@ -252,9 +252,9 @@
+     RETURN NEW;  -- não é item de avaliação; nada a projetar
+   END IF;
+ 
+-  INSERT INTO learning.item (content_item_id, content_type_key, kind, difficulty, estimated_seconds)
+-  VALUES (v_content_item, (SELECT ct.key FROM editorial.content_type ct WHERE ct.id =
+-                    (SELECT content_type_id FROM editorial.content_item WHERE id = v_content_item)),
++  INSERT INTO canone_learning.item (content_item_id, content_type_key, kind, difficulty, estimated_seconds)
++  VALUES (v_content_item, (SELECT ct.key FROM canone_editorial.content_type ct WHERE ct.id =
++                    (SELECT content_type_id FROM canone_editorial.content_item WHERE id = v_content_item)),
+           v_kind,
+           coalesce((v_payload->>'difficulty')::numeric, 2.00),
+           (v_payload->>'estimated_seconds')::int)
+@@ -266,11 +266,11 @@
+ 
+   -- O id da PROJEÇÃO (não do documento).
+   SELECT i.id INTO v_item
+-    FROM learning.item i
++    FROM canone_learning.item i
+    WHERE i.content_item_id = v_content_item;
+ 
+   -- Alternativas: substituem o conjunto inteiro (o payload é a verdade).
+-  DELETE FROM learning.item_option WHERE item_id = v_item;
++  DELETE FROM canone_learning.item_option WHERE item_id = v_item;
+ 
+   v_opts := v_payload->'options';
+   IF v_opts IS NOT NULL AND jsonb_typeof(v_opts) = 'array' THEN
+@@ -280,7 +280,7 @@
+     -- PROJEÇÃO NUNCA FUNCIONOU: todo item com alternativas derrubava no
+     -- trigger. Foi o teste de comportamento que pegou — a migration
+     -- aplicava sem erro, o que não é prova de que a regra funciona.
+-    INSERT INTO learning.item_option (item_id, ordinal, body, is_correct, distractor_kind, ordinal_pos)
++    INSERT INTO canone_learning.item_option (item_id, ordinal, body, is_correct, distractor_kind, ordinal_pos)
+     SELECT v_item,
+            upper(coalesce(opt.value->>'ordinal', chr((opt.n_ord - 1)::int + 65)::text)),
+            coalesce(opt.value->>'body',''),
+@@ -291,7 +291,7 @@
+       WHERE jsonb_typeof(opt.value) = 'object';
+ 
+     SELECT count(*) FILTER (WHERE is_correct) INTO v_correct_count
+-      FROM learning.item_option WHERE item_id = v_item;
++      FROM canone_learning.item_option WHERE item_id = v_item;
+ 
+     IF v_correct_count > 1 THEN
+       RAISE EXCEPTION
+@@ -326,11 +326,11 @@
+   --  diferentes. O JOIN não filtrava nada e podia devolver a família
+   --  errada.)
+   SELECT ct.family INTO v_family
+-    FROM editorial.content_type ct
++    FROM canone_editorial.content_type ct
+    WHERE ct.id = NEW.content_type_id;
+ 
+   -- Estados fora do catálogo são erro de digitação, não transição.
+-  IF NOT EXISTS (SELECT 1 FROM editorial.state_definition WHERE family = v_family AND key = NEW.state) THEN
++  IF NOT EXISTS (SELECT 1 FROM canone_editorial.state_definition WHERE family = v_family AND key = NEW.state) THEN
+     RAISE EXCEPTION 'Estado % inexistente para a família %', NEW.state, v_family
+       USING ERRCODE = '23514';
+   END IF;
+@@ -340,14 +340,14 @@
+   -- A TRANSIÇÃO PRECISA ESTAR NA TABELA. Caminho não catalogado é
+   -- recusado, não aceito por omissão.
+   SELECT requires INTO v_requires
+-    FROM editorial.state_transition
++    FROM canone_editorial.state_transition
+    WHERE family = v_family AND from_state = v_from AND to_state = v_to;
+ 
+   v_allow := (v_requires IS NOT NULL) OR (v_from IS NULL);
+ 
+   IF NOT v_allow THEN
+     RAISE EXCEPTION
+-      'Transição não permitida: % → % (família %) não está em editorial.state_transition',
++      'Transição não permitida: % → % (família %) não está em canone_editorial.state_transition',
+       v_from, v_to, v_family
+       USING ERRCODE = '23514';
+   END IF;
+@@ -356,7 +356,7 @@
+   IF v_requires = 'verificacao_vigente' THEN
+     IF NOT EXISTS (
+       SELECT 1
+-        FROM editorial.verification v
++        FROM canone_editorial.verification v
+        WHERE v.content_item_id = NEW.id
+          AND v.state = 'verificada'
+          AND (v.valid_until IS NULL OR v.valid_until > now())
+@@ -369,9 +369,9 @@
+   END IF;
+ 
+   -- Grava o histórico de workflow, sempre.
+-  INSERT INTO editorial.content_revision
++  INSERT INTO canone_editorial.content_revision
+     (content_item_id, version_id, from_state, to_state, actor_id, reason)
+-  VALUES (NEW.id, NEW.current_version_id, v_from, v_to, ops.current_user_id(), NULL);
++  VALUES (NEW.id, NEW.current_version_id, v_from, v_to, canone_ops.current_user_id(), NULL);
+ 
+   RETURN NEW;
+ END $$;
+@@ -397,15 +397,15 @@
+   v_tab text;
+ BEGIN
+   FOREACH t IN ARRAY ARRAY[
+-    'identity.account','identity.user_profile','editorial.content_item','editorial.verification',
+-    'learning.item','learning.user_item_state','learning.mastery','learning.note',
+-    'commerce.plan','commerce.subscription','ops.setting','ops.integration','ops.webhook'
++    'canone_identity.account','canone_identity.user_profile','canone_editorial.content_item','canone_editorial.verification',
++    'canone_learning.item','canone_learning.user_item_state','canone_learning.mastery','canone_learning.note',
++    'canone_commerce.plan','canone_commerce.subscription','canone_ops.setting','canone_ops.integration','canone_ops.webhook'
+   ] LOOP
+     v_sch := split_part(t, '.', 1);
+     v_tab := split_part(t, '.', 2);
+-    -- %I.%I: sem e vírgula o %I citaria "identity.account" como UM nome só.
++    -- %I.%I: sem e vírgula o %I citaria "canone_identity.account" como UM nome só.
+     EXECUTE format(
+-      'CREATE TRIGGER trg_touch_%s BEFORE UPDATE ON %I.%I FOR EACH ROW EXECUTE FUNCTION ops.touch_updated_at()',
++      'CREATE TRIGGER trg_touch_%s BEFORE UPDATE ON %I.%I FOR EACH ROW EXECUTE FUNCTION canone_ops.touch_updated_at()',
+       replace(t,'.','_'), v_sch, v_tab);
+   END LOOP;
+ END $$;
+@@ -428,7 +428,7 @@
+ 
+   PERFORM set_config('app.expiring_grants', '1', true);
+ 
+-  UPDATE admin.support_access_grant
++  UPDATE canone_admin.support_access_grant
+      SET revoked_at = now(), revoke_reason = 'expirada automaticamente'
+    WHERE revoked_at IS NULL AND expires_at <= now();
+ 
+@@ -449,7 +449,7 @@
+ LANGUAGE plpgsql AS $$
+ DECLARE v_count int;
+ BEGIN
+-  UPDATE admin.support_access_grant
++  UPDATE canone_admin.support_access_grant
+      SET revoked_at = now(), revoke_reason = 'expirada automaticamente'
+    WHERE revoked_at IS NULL AND expires_at <= now();
+   GET DIAGNOSTICS v_count = ROW_COUNT;

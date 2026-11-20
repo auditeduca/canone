@@ -1,0 +1,219 @@
+-- GENERATED FOR AUDIT ONLY; NEVER EXECUTE IN SHARED HOST OR MIGRATION RUNNER.
+-- Authority: backend/db/migrations/010_ops_platform.sql
+-- Original sha256: 3d8c5eee7c68f9b6379742bd997071ea114c8e249805fa2869ecf2cfdbfbc336
+-- S11 status: HOLD_HUMAN_NO_GO; QA subset 002..005 runs ONLY in disposable PGlite.
+-- Hazards: DEPENDENCY_GRAPH_NOT_HOMOLOGATED | DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP
+
+-- Qualified schema name projection (procedural/dynamic bodies NOT rewritten).
+
+-- =============================================================================
+-- 010 · PLATAFORMA E INTEGRAÇÕES (ops)
+-- -----------------------------------------------------------------------------
+-- Onde vive a CONFIGURAÇÃO E CONEXÃO COM BACKEND.
+--
+-- A REGRA DE SEGREDOS
+-- Nunca guardamos o segredo. Guardamos a REFERÊNCIA ao segredo, e o
+-- segredo vive num cofre (Vercel/KMS/Secrets Manager) ou em variável de
+-- ambiente. A tabela guarda a ponte, não a chave. Assim:
+--   · dump de banco não expõe credencial
+--   · rotação não exige migration
+--   · auditoria mostra QUEM trocou a ponte, sem mostrar o valor
+--
+-- INTEGRAÇÕES
+-- Cada integração externa (email, analytics, pagamento, storage, IA) é uma
+-- linha com: chave, tipo, config pública, secret_ref, status, health.
+-- O backend resolve a integração por chave. Adicionar provedor = inserir
+-- linha, não editar código.
+-- =============================================================================
+
+CREATE TABLE canone_ops.setting (
+  key         text NOT NULL,
+  scope       text NOT NULL DEFAULT 'global' CHECK (scope IN ('global','staff','public')),
+  value       jsonb NOT NULL,
+  description text,
+  -- Chave sensível: o valor não sai em API de leitura de config.
+  is_secret   boolean NOT NULL DEFAULT false,
+  updated_by  uuid REFERENCES canone_identity.account(id),
+  updated_at  timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (key, scope)
+);
+
+CREATE TABLE canone_ops.integration (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  key         text NOT NULL UNIQUE,
+  kind        text NOT NULL CHECK (kind IN
+                ('email','analytics','pagamento','storage','ia','webhook','crm','sms','push')),
+  label       text NOT NULL,
+  -- Config NÃO sensible (endpoint público, remetente, flags).
+  config      jsonb NOT NULL DEFAULT '{}'::jsonb,
+  -- Referência ao segredo no cofre. NUNCA o valor.
+  secret_ref  text,
+  status      text NOT NULL DEFAULT 'inativo' CHECK (status IN ('inativo','ativo','degradado','suspenso')),
+  is_default  boolean NOT NULL DEFAULT false,
+  -- Última verificação de saúde.
+  health      jsonb NOT NULL DEFAULT '{}'::jsonb,
+  last_checked_at timestamptz,
+  created_at  timestamptz NOT NULL DEFAULT now(),
+  updated_at  timestamptz NOT NULL DEFAULT now()
+);
+COMMENT ON TABLE canone_ops.integration IS
+  'Configuração de integração externa. secret_ref aponta para o cofre; o segredo NUNCA fica aqui.';
+COMMENT ON COLUMN canone_ops.integration.secret_ref IS
+  'Ex.: "vercel://env/STRIPE_SECRET_KEY". Ponte para o cofre, não a credencial.';
+
+CREATE TABLE canone_ops.api_key (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  -- Prefixo público para identificação: "ck_live_a1b2c3".
+  prefix      text NOT NULL UNIQUE,
+  -- Hash do segredo. O segredo é exibido UMA vez na criação.
+  secret_hash text NOT NULL,
+  label       text NOT NULL,
+  scopes      text[] NOT NULL DEFAULT '{}',
+  -- Vinculado a uma integração específica ou global.
+  integration_id uuid REFERENCES canone_ops.integration(id) ON DELETE SET NULL,
+  created_by  uuid REFERENCES canone_identity.account(id),
+  created_at  timestamptz NOT NULL DEFAULT now(),
+  expires_at  timestamptz,
+  last_used_at timestamptz,
+  revoked_at  timestamptz,
+  revoked_by  uuid REFERENCES canone_identity.account(id)
+);
+CREATE INDEX ix_api_key_prefix ON canone_ops.api_key (prefix);
+
+CREATE TABLE canone_ops.webhook (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  integration_id uuid REFERENCES canone_ops.integration(id) ON DELETE CASCADE,
+  endpoint    text NOT NULL,
+  events      text[] NOT NULL DEFAULT '{}',
+  secret_ref  text,
+  active      boolean NOT NULL DEFAULT true,
+  -- Proteções contra replay e floods.
+  max_attempts int NOT NULL DEFAULT 5,
+  timeout_ms  int NOT NULL DEFAULT 5000,
+  created_at  timestamptz NOT NULL DEFAULT now(),
+  updated_at  timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE TABLE canone_ops.webhook_delivery (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  webhook_id   uuid NOT NULL REFERENCES canone_ops.webhook(id) ON DELETE CASCADE,
+  event        text NOT NULL,
+  payload      jsonb NOT NULL,
+  status       text NOT NULL DEFAULT 'pendente'
+               CHECK (status IN ('pendente','enviado','falhou','descartado')),
+  attempt      int NOT NULL DEFAULT 1,
+  response_status int,
+  response_body text,
+  next_attempt_at timestamptz,
+  delivered_at timestamptz,
+  created_at   timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX ix_webhook_delivery_retry ON canone_ops.webhook_delivery (status, next_attempt_at)
+  WHERE status = 'pendente';
+
+-- -----------------------------------------------------------------------------
+-- FILA DE JOBS
+-- -----------------------------------------------------------------------------
+CREATE TABLE canone_ops.job_run (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  job_name     text NOT NULL,
+  -- Chave de idempotência: reprocessar o mesmo dia não duplica.
+  idempotency_key text UNIQUE,
+  payload      jsonb NOT NULL DEFAULT '{}'::jsonb,
+  status       text NOT NULL DEFAULT 'pendente'
+               CHECK (status IN ('pendente','executando','concluido','falhou','cancelado')),
+  attempts     int NOT NULL DEFAULT 0,
+  max_attempts int NOT NULL DEFAULT 3,
+  error        text,
+  error_detail jsonb,
+  scheduled_at timestamptz NOT NULL DEFAULT now(),
+  started_at   timestamptz,
+  finished_at  timestamptz,
+  duration_ms  int,
+  triggered_by text NOT NULL DEFAULT 'scheduler'
+);
+CREATE INDEX ix_job_run_pending ON canone_ops.job_run (scheduled_at)
+  WHERE status IN ('pendente','executando');
+
+-- -----------------------------------------------------------------------------
+-- NOTIFICAÇÕES
+-- -----------------------------------------------------------------------------
+CREATE TABLE canone_ops.notification_template (
+  key         text NOT NULL,
+  channel     text NOT NULL CHECK (channel IN ('email','push','inapp','sms')),
+  locale      text NOT NULL DEFAULT 'pt-BR',
+  subject     text,
+  body        text NOT NULL,
+  -- Variáveis aceitas no template.
+  variables   jsonb NOT NULL DEFAULT '{}'::jsonb,
+  version     int NOT NULL DEFAULT 1,
+  active      boolean NOT NULL DEFAULT true,
+  updated_at  timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (key, channel, locale, version)
+);
+
+CREATE TABLE canone_ops.notification (
+  id         uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id    uuid NOT NULL REFERENCES canone_identity.account(id) ON DELETE CASCADE,
+  template_key text NOT NULL,
+  channel    text NOT NULL,
+  payload    jsonb NOT NULL DEFAULT '{}'::jsonb,
+  status     text NOT NULL DEFAULT 'pendente'
+             CHECK (status IN ('pendente','enviado','falhou','lido','cancelado')),
+  read_at    timestamptz,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  sent_at    timestamptz
+);
+CREATE INDEX ix_notification_user ON canone_ops.notification (user_id, created_at DESC);
+
+CREATE TABLE canone_ops.notification_delivery (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  notification_id uuid NOT NULL REFERENCES canone_ops.notification(id) ON DELETE CASCADE,
+  provider        text,
+  provider_ref    text,
+  status          text NOT NULL DEFAULT 'pendente',
+  attempt         int NOT NULL DEFAULT 1,
+  error           text,
+  created_at      timestamptz NOT NULL DEFAULT now(),
+  delivered_at    timestamptz
+);
+
+-- -----------------------------------------------------------------------------
+-- TELA DE OPERAÇÃO
+-- -----------------------------------------------------------------------------
+CREATE TABLE canone_ops.error_event (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  fingerprint  text NOT NULL,
+  message      text NOT NULL,
+  stack        text,
+  context      jsonb NOT NULL DEFAULT '{}'::jsonb,
+  request_id   text,
+  user_id      uuid,
+  environment  text NOT NULL DEFAULT 'production',
+  occurrence_count int NOT NULL DEFAULT 1,
+  first_seen_at timestamptz NOT NULL DEFAULT now(),
+  last_seen_at  timestamptz NOT NULL DEFAULT now(),
+  resolved_at  timestamptz,
+  UNIQUE (fingerprint, environment)
+);
+
+CREATE TABLE canone_ops.metric_daily (
+  metric_date  date NOT NULL,
+  metric_key   text NOT NULL,
+  dimensions   jsonb NOT NULL DEFAULT '{}'::jsonb,
+  value        numeric(18,4) NOT NULL DEFAULT 0,
+  updated_at   timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (metric_date, metric_key, dimensions)
+);
+
+CREATE TABLE canone_ops.migration_log (
+  version      text PRIMARY KEY,
+  checksum     char(64) NOT NULL,
+  applied_at   timestamptz NOT NULL DEFAULT now(),
+  applied_by   text NOT NULL DEFAULT 'runner',
+  duration_ms  int,
+  -- Se true, a migration foi aplicada em ambiente de desenvolvimento.
+  is_dev       boolean NOT NULL DEFAULT false
+);
+COMMENT ON TABLE canone_ops.migration_log IS
+  'Checksum detecta migration editada depois de aplicada — erro silencioso que vira bug de ambiente.';

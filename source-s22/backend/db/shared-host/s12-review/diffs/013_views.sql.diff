@@ -1,0 +1,18 @@
+--- S11/013_views.sql
++++ S12/013_views.sql
+@@ -83,12 +83,13 @@
+ COMMENT ON VIEW canone_subscriber.v_item_options IS
+   'Alternativas do item, SEM a coluna is_correct. O gabarito não sai do servidor.';
+ 
+-CREATE OR REPLACE VIEW canone_subscriber.v_my_progress AS
++CREATE OR REPLACE VIEW canone_subscriber.v_my_progress WITH (security_invoker = true) AS
+ SELECT s.user_id, s.subject_id, sub.label AS subject_label, sub.key AS subject_key,
+        s.items_seen, s.items_mastered, s.items_fragile, s.items_unseen,
+        s.correct_answers, s.total_answers, s.accuracy, s.confidence, s.updated_at
+   FROM canone_learning.mastery s
+-  JOIN canone_taxonomy.subject sub ON sub.id = s.subject_id;
++  JOIN canone_taxonomy.subject sub ON sub.id = s.subject_id
++ WHERE s.user_id = canone_ops.current_user_id();
+ 
+ COMMENT ON VIEW canone_subscriber.v_my_progress IS
+   'Progresso por assunto. items_fragile é o que o dashboard destaca: acertou, mas frágil.';

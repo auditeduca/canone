@@ -1,0 +1,262 @@
+{
+  "status": "BLOCKED",
+  "release_approved": false,
+  "manual_go_required": true,
+  "review_schema_count": 14,
+  "role_mapping": {
+    "publica": "canone_public",
+    "acesso": "canone_auth",
+    "assinante": "canone_subscriber",
+    "staff": "canone_staff",
+    "admin": "canone_admin"
+  },
+  "known_bootstrap_roles": [
+    "canone_admin",
+    "canone_app",
+    "canone_migrator",
+    "canone_public",
+    "canone_staff",
+    "canone_subscriber"
+  ],
+  "missing_roles": [
+    "canone_auth"
+  ],
+  "legacy_backend_sql_ref_count": 43,
+  "legacy_backend_sql_refs": [
+    {
+      "file": "backend/src/areas/admin/comander.ts",
+      "schema": "admin",
+      "object": "read_user_progress_as"
+    },
+    {
+      "file": "backend/src/areas/admin/comander.ts",
+      "schema": "admin",
+      "object": "support_access_grant"
+    },
+    {
+      "file": "backend/src/areas/admin/comander.ts",
+      "schema": "editorial",
+      "object": "content_item"
+    },
+    {
+      "file": "backend/src/areas/admin/comander.ts",
+      "schema": "editorial",
+      "object": "verification"
+    },
+    {
+      "file": "backend/src/areas/admin/comander.ts",
+      "schema": "learning",
+      "object": "answer_key"
+    },
+    {
+      "file": "backend/src/areas/admin/comander.ts",
+      "schema": "learning",
+      "object": "answer_key_entry"
+    },
+    {
+      "file": "backend/src/areas/admin/comander.ts",
+      "schema": "ops",
+      "object": "import_corpus_form"
+    },
+    {
+      "file": "backend/src/areas/admin/estado.ts",
+      "schema": "admin",
+      "object": "moderation_queue"
+    },
+    {
+      "file": "backend/src/areas/admin/estado.ts",
+      "schema": "admin",
+      "object": "support_access_grant"
+    },
+    {
+      "file": "backend/src/areas/admin/estado.ts",
+      "schema": "admin",
+      "object": "v_audit_recent"
+    },
+    {
+      "file": "backend/src/areas/admin/estado.ts",
+      "schema": "audit",
+      "object": "verify_chain"
+    },
+    {
+      "file": "backend/src/areas/admin/estado.ts",
+      "schema": "editorial",
+      "object": "content_item"
+    },
+    {
+      "file": "backend/src/areas/admin/suporte.ts",
+      "schema": "admin",
+      "object": "read_user_progress_as"
+    },
+    {
+      "file": "backend/src/areas/admin/suporte.ts",
+      "schema": "admin",
+      "object": "support_access_grant"
+    },
+    {
+      "file": "backend/src/areas/admin/suporte.ts",
+      "schema": "admin",
+      "object": "v_content_health"
+    },
+    {
+      "file": "backend/src/areas/admin/suporte.ts",
+      "schema": "admin",
+      "object": "v_exam_form_status"
+    },
+    {
+      "file": "backend/src/areas/admin/suporte.ts",
+      "schema": "admin",
+      "object": "v_refused_claims"
+    },
+    {
+      "file": "backend/src/areas/auth/conta.ts",
+      "schema": "identity",
+      "object": "account"
+    },
+    {
+      "file": "backend/src/areas/auth/conta.ts",
+      "schema": "identity",
+      "object": "magic_link"
+    },
+    {
+      "file": "backend/src/areas/auth/conta.ts",
+      "schema": "identity",
+      "object": "session"
+    },
+    {
+      "file": "backend/src/areas/auth/conta.ts",
+      "schema": "identity",
+      "object": "user_profile"
+    },
+    {
+      "file": "backend/src/areas/auth/conta.ts",
+      "schema": "identity",
+      "object": "user_role"
+    },
+    {
+      "file": "backend/src/areas/public/catalogo.ts",
+      "schema": "public",
+      "object": "v_public_content"
+    },
+    {
+      "file": "backend/src/areas/public/catalogo.ts",
+      "schema": "public",
+      "object": "v_public_item"
+    },
+    {
+      "file": "backend/src/areas/public/catalogo.ts",
+      "schema": "public",
+      "object": "v_public_module"
+    },
+    {
+      "file": "backend/src/areas/public/catalogo.ts",
+      "schema": "public",
+      "object": "v_public_plan"
+    },
+    {
+      "file": "backend/src/areas/public/catalogo.ts",
+      "schema": "public",
+      "object": "v_public_subject"
+    },
+    {
+      "file": "backend/src/areas/subscriber/progresso.ts",
+      "schema": "learning",
+      "object": "apply_review_event"
+    },
+    {
+      "file": "backend/src/areas/subscriber/progresso.ts",
+      "schema": "learning",
+      "object": "refresh_mastery"
+    },
+    {
+      "file": "backend/src/areas/subscriber/progresso.ts",
+      "schema": "learning",
+      "object": "review_basis"
+    },
+    {
+      "file": "backend/src/areas/subscriber/progresso.ts",
+      "schema": "learning",
+      "object": "review_grade"
+    },
+    {
+      "file": "backend/src/areas/subscriber/progresso.ts",
+      "schema": "ops",
+      "object": "current_user_id"
+    },
+    {
+      "file": "backend/src/areas/subscriber/progresso.ts",
+      "schema": "subscriber",
+      "object": "v_my_due"
+    },
+    {
+      "file": "backend/src/areas/subscriber/progresso.ts",
+      "schema": "subscriber",
+      "object": "v_my_history"
+    },
+    {
+      "file": "backend/src/areas/subscriber/progresso.ts",
+      "schema": "subscriber",
+      "object": "v_my_progress"
+    },
+    {
+      "file": "backend/src/areas/subscriber/provas.ts",
+      "schema": "learning",
+      "object": "answer_exam_attempt"
+    },
+    {
+      "file": "backend/src/areas/subscriber/provas.ts",
+      "schema": "learning",
+      "object": "finish_exam_attempt"
+    },
+    {
+      "file": "backend/src/areas/subscriber/provas.ts",
+      "schema": "learning",
+      "object": "reveal_exam_key"
+    },
+    {
+      "file": "backend/src/areas/subscriber/provas.ts",
+      "schema": "learning",
+      "object": "start_exam_attempt"
+    },
+    {
+      "file": "backend/src/areas/subscriber/provas.ts",
+      "schema": "subscriber",
+      "object": "v_exam_forms"
+    },
+    {
+      "file": "backend/src/areas/subscriber/provas.ts",
+      "schema": "subscriber",
+      "object": "v_exam_questions"
+    },
+    {
+      "file": "backend/src/http/api.ts",
+      "schema": "commerce",
+      "object": "entitlement"
+    },
+    {
+      "file": "backend/src/http/api.ts",
+      "schema": "commerce",
+      "object": "subscription"
+    }
+  ],
+  "missing_canone_identity_usage": true,
+  "issues": [
+    {
+      "code": "S21-P0-AUTH-ROLE",
+      "detail": [
+        "canone_auth"
+      ]
+    },
+    {
+      "code": "S21-P0-LEGACY-SCHEMA-SQL",
+      "detail": {
+        "count": 43
+      }
+    },
+    {
+      "code": "S21-P0-IDENTITY-SCHEMA-USAGE",
+      "detail": "S12 privilege candidate does not grant USAGE on canone_identity"
+    }
+  ],
+  "no_database_access": true
+}

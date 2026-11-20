@@ -1,0 +1,11 @@
+--- S11/007_learning_srs.sql
++++ S12/007_learning_srs.sql
+@@ -91,7 +91,7 @@
+ CREATE OR REPLACE FUNCTION canone_learning.review_event_is_immutable() RETURNS trigger
+ LANGUAGE plpgsql AS $$
+ BEGIN
+-  RAISE EXCEPTION 'learning.review_event é append-only: crie um novo evento (reviewed_at='') em vez de editar'
++  RAISE EXCEPTION 'canone_learning.review_event é append-only: crie um novo evento (reviewed_at='') em vez de editar'
+     USING ERRCODE = '23514';
+ END $$;
+ 

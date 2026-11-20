@@ -1,0 +1,37 @@
+-- S22 REVIEW CANDIDATE ONLY: 020_tipo_conteudo_versao.sql
+-- ORIGINAL_SHA256=bf7f90337133fefe7e4767e24eaaf5fcbc86dbf68ae1bef1de0d938459268223
+-- CANONICAL_NAMESPACE_PROJECTION; NO PRODUCTION AUTHORIZATION
+-- =============================================================================
+-- 020 · VERSÃO DE TIPO DE CONTEÚDO PARA TODOS OS TIPOS SEMEADOS
+-- -----------------------------------------------------------------------------
+-- O ACHADO
+--
+-- A 016 semeia os TIPOS de conteúdo (questao, aula, flashcard, mapa_mental …)
+-- mas não semeia as VERSÕES. E canone_editorial.content_item.content_type_version_id
+-- é NOT NULL: sem versão, não existe item — e a importação do acervo
+-- (canone_ops.import_corpus_form) morre em "O tipo de conteúdo 'questao' não
+-- existe".
+--
+-- Os testes passavam porque o helper de teste CRIA a versão na hora
+-- (INSERT … version = 1) — ou seja, o teste media o helper, não o schema.
+-- É a mesma classe de erro do "gate que nunca falha": o dado faltava, e
+-- quem produzia o dado era o próprio teste.
+--
+-- A CORREÇÃO
+--
+-- A versão 1 de cada tipo passa a existir no seed, com a definição mínima
+-- honesta: a chave e a família do tipo. Os CAMPOS do tipo (field_definition)
+-- continuam por definir — e a validação de contrato entre field_definition
+-- e o payload é um trabalho em aberto, declarado como tal.
+-- =============================================================================
+
+INSERT INTO canone_editorial.content_type_version (content_type_id, version, definition)
+SELECT ct.id, 1, jsonb_build_object('key', ct.key, 'family', ct.family)
+  FROM canone_editorial.content_type ct
+ WHERE NOT EXISTS (
+   SELECT 1 FROM canone_editorial.content_type_version ctv
+    WHERE ctv.content_type_id = ct.id AND ctv.version = 1
+ );
+
+COMMENT ON TABLE canone_editorial.content_type_version IS
+  'Definição versionada de um tipo de conteúdo. A versão 1 de cada tipo semeado é criada pela 020.';

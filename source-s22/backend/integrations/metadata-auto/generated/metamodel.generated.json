@@ -1,0 +1,5040 @@
+{
+  "entities": [
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "account_palm.atomization_eval_sample_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": null,
+      "primary_key": [],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "account_palm.atomization_fragment_quality_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": null,
+      "primary_key": [],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "account_palm.atomization_gold_draft_proposals_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": null,
+      "primary_key": [],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "account_palm.atomization_gold_replacements_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": null,
+      "primary_key": [],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "account_palm.atomization_gold_review_batch_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": null,
+      "primary_key": [],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "account_palm.dou_content_validation_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": null,
+      "primary_key": [],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "account_palm.dou_discovery_candidates_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": null,
+      "primary_key": [],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "account_palm.dou_discovery_requests_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": null,
+      "primary_key": [],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "account_palm.dou_validation_runs_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": null,
+      "primary_key": [],
+      "view_base": null
+    },
+    {
+      "attributes": [
+        {
+          "comment": "",
+          "name": "canonical_id",
+          "nullable": null,
+          "type": "text"
+        },
+        {
+          "comment": "",
+          "name": "entity_type_id",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "business_key",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "source_of_truth",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "status",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "version",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "current_version_ref",
+          "nullable": null,
+          "type": "unknown"
+        }
+      ],
+      "completeness": "live_selected_columns",
+      "id": "account_palm.entities",
+      "logical_identity": [
+        "canonical_id"
+      ],
+      "object_kind": "VIEW",
+      "observed_rows": 555,
+      "primary_key": [],
+      "view_base": "cko_master.entities"
+    },
+    {
+      "attributes": [
+        {
+          "comment": "",
+          "name": "register_id",
+          "nullable": null,
+          "type": "text"
+        },
+        {
+          "comment": "",
+          "name": "category",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "object_type",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "object_id",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "canonical_status",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "canonical_promotion",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "source_scope",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "source_ref",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "evidence_refs",
+          "nullable": null,
+          "type": "unknown"
+        }
+      ],
+      "completeness": "live_selected_columns",
+      "id": "account_palm.master_register",
+      "logical_identity": [
+        "register_id"
+      ],
+      "object_kind": "VIEW",
+      "observed_rows": 549,
+      "primary_key": [],
+      "view_base": "cko_governance.account_palm_master_register_v1"
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "account_palm.normalization_runs_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": null,
+      "primary_key": [],
+      "view_base": null
+    },
+    {
+      "attributes": [
+        {
+          "comment": "",
+          "name": "normalized_unit_id",
+          "nullable": null,
+          "type": "text"
+        },
+        {
+          "comment": "",
+          "name": "run_id",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "instrument_id",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "normative_work_id",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "locator",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "source_text_sha256",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "normalized_text_sha256",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "publication_mode",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "canonical_promotion",
+          "nullable": null,
+          "type": "unknown"
+        }
+      ],
+      "completeness": "live_selected_columns",
+      "id": "account_palm.normalized_units_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": 24385,
+      "primary_key": [
+        "normalized_unit_id"
+      ],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "account_palm.normative_assertion_candidates_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": null,
+      "primary_key": [],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "account_palm.normative_claim_candidates_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": null,
+      "primary_key": [],
+      "view_base": null
+    },
+    {
+      "attributes": [
+        {
+          "name": "instrument_id",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "raw_sha256",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "text_sha256",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "mask_sha256",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "source_url",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "extraction_status",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "publication_mode",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "canonical_promotion",
+          "nullable": true,
+          "type": "boolean"
+        }
+      ],
+      "completeness": "eight_columns_types_confirmed_rest_not_introspected",
+      "id": "account_palm.normative_extractions",
+      "logical_identity": [
+        "instrument_id"
+      ],
+      "object_kind": "VIEW",
+      "observed_rows": 249,
+      "primary_key": [],
+      "view_base": "public.cfc_internal_normative_extractions"
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "account_palm.normative_temporal_evidence_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": null,
+      "primary_key": [],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "account_palm.normative_temporal_type_registry_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": null,
+      "primary_key": [],
+      "view_base": null
+    },
+    {
+      "attributes": [
+        {
+          "comment": "",
+          "name": "canonical_id",
+          "nullable": null,
+          "type": "text"
+        },
+        {
+          "comment": "",
+          "name": "entity_type_id",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "business_key",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "source_of_truth",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "status",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "version",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "current_version_ref",
+          "nullable": null,
+          "type": "unknown"
+        }
+      ],
+      "completeness": "live_selected_columns",
+      "id": "account_palm.normative_works",
+      "logical_identity": [
+        "canonical_id"
+      ],
+      "object_kind": "VIEW",
+      "observed_rows": 256,
+      "primary_key": [],
+      "view_base": "cko_master.entities"
+    },
+    {
+      "attributes": [
+        {
+          "comment": "",
+          "name": "instrument_id",
+          "nullable": null,
+          "type": "text"
+        },
+        {
+          "comment": "",
+          "name": "title",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "issuer",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "canonical_status",
+          "nullable": null,
+          "type": "unknown"
+        }
+      ],
+      "completeness": "live_selected_columns",
+      "id": "account_palm.regulatory_instruments",
+      "logical_identity": [
+        "instrument_id"
+      ],
+      "object_kind": "VIEW",
+      "observed_rows": 249,
+      "primary_key": [],
+      "view_base": "public.regulatory_instruments"
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_object_kind_only",
+      "id": "cko_governance.account_palm_master_register_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": null,
+      "primary_key": [],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_object_kind_only",
+      "id": "cko_master.entities",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": null,
+      "primary_key": [],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "contabilidade_cfc.audit_normative_change_events_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": 3,
+      "primary_key": [
+        "event_id"
+      ],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "contabilidade_cfc.audit_normative_pmo_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": 9,
+      "primary_key": [
+        "task_id"
+      ],
+      "view_base": null
+    },
+    {
+      "attributes": [
+        {
+          "comment": "",
+          "name": "instrument_id",
+          "nullable": null,
+          "type": "text"
+        },
+        {
+          "comment": "",
+          "name": "family",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "source_verified",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "publication_eligible",
+          "nullable": null,
+          "type": "unknown"
+        }
+      ],
+      "completeness": "live_selected_columns",
+      "id": "contabilidade_cfc.audit_normative_scope_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": 42,
+      "primary_key": [
+        "instrument_id"
+      ],
+      "view_base": null
+    },
+    {
+      "attributes": [
+        {
+          "comment": "",
+          "name": "segment_id",
+          "nullable": null,
+          "type": "text"
+        },
+        {
+          "comment": "",
+          "name": "instrument_id",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "parent_unit_id",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "segment_sha256",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "technical_validation_status",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "editorial_validation_status",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "publication_eligible",
+          "nullable": null,
+          "type": "unknown"
+        }
+      ],
+      "completeness": "live_selected_columns",
+      "id": "contabilidade_cfc.audit_normative_segment_drafts_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": 393,
+      "primary_key": [
+        "segment_id"
+      ],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "contabilidade_cfc.audit_normative_segment_parent_qa_v1",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": 4,
+      "primary_key": [],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "contabilidade_cfc.pmo_findings",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": 6,
+      "primary_key": [
+        "finding_id"
+      ],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "contabilidade_cfc.pmo_source_register",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": 0,
+      "primary_key": [
+        "source_id"
+      ],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "contabilidade_cfc.pmo_sync_runs",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": 1,
+      "primary_key": [
+        "sync_id"
+      ],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_name_or_fk_only",
+      "id": "contabilidade_cfc.pmo_workstreams",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": 20,
+      "primary_key": [
+        "pmo_id"
+      ],
+      "view_base": null
+    },
+    {
+      "attributes": [
+        {
+          "comment": "",
+          "name": "question_id",
+          "nullable": null,
+          "type": "text"
+        },
+        {
+          "comment": "",
+          "name": "source_id",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "question_number",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "statement",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "raw_text",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "options",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "classification",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "answer_key",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "answer_status",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "extraction_status",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "provenance",
+          "nullable": null,
+          "type": "unknown"
+        }
+      ],
+      "completeness": "live_selected_columns",
+      "id": "contabilidade_cfc.questions",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": 50,
+      "primary_key": [
+        "question_id"
+      ],
+      "view_base": null
+    },
+    {
+      "attributes": [
+        {
+          "comment": "",
+          "name": "source_id",
+          "nullable": null,
+          "type": "text"
+        },
+        {
+          "comment": "",
+          "name": "title",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "source_url",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "edition",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "exam_year",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "exam_board",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "question_count",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "status",
+          "nullable": null,
+          "type": "unknown"
+        }
+      ],
+      "completeness": "live_selected_columns",
+      "id": "contabilidade_cfc.sources",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": 1,
+      "primary_key": [
+        "source_id"
+      ],
+      "view_base": null
+    },
+    {
+      "attributes": [],
+      "completeness": "catalog_object_and_view_source_only",
+      "id": "public.cfc_internal_normative_extractions",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": null,
+      "primary_key": [],
+      "view_base": null
+    },
+    {
+      "attributes": [
+        {
+          "comment": "",
+          "name": "instrument_id",
+          "nullable": null,
+          "type": "text"
+        },
+        {
+          "comment": "",
+          "name": "title",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "issuer",
+          "nullable": null,
+          "type": "unknown"
+        },
+        {
+          "comment": "",
+          "name": "canonical_status",
+          "nullable": null,
+          "type": "unknown"
+        }
+      ],
+      "completeness": "live_selected_columns",
+      "id": "public.regulatory_instruments",
+      "logical_identity": [],
+      "object_kind": "TABLE",
+      "observed_rows": 253,
+      "primary_key": [
+        "instrument_id"
+      ],
+      "view_base": null
+    }
+  ],
+  "integration": [
+    {
+      "gate": "SOURCE_VERIFICATION_REQUIRED",
+      "published": false,
+      "source": "contabilidade_cfc.sources",
+      "source_pk": "source_id",
+      "source_type": "SOURCE",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "editorial.source",
+      "target_exists_in_core": true
+    },
+    {
+      "gate": "OFFICIAL_KEY_AND_EDITORIAL_QA_REQUIRED",
+      "published": false,
+      "source": "contabilidade_cfc.questions",
+      "source_pk": "question_id",
+      "source_type": "QUESTION",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "editorial.content_item_version (+ learning.item after projection)",
+      "target_exists_in_core": true
+    },
+    {
+      "gate": "CANONICAL_PROMOTION_FALSE_HOLD",
+      "published": false,
+      "source": "account_palm.master_register",
+      "source_pk": "register_id",
+      "source_type": "MASTER_REGISTER",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "governed master registry -> norms.norm / editorial.source after approval",
+      "target_exists_in_core": false
+    },
+    {
+      "gate": "MASTER_ENTITY_REVIEW",
+      "published": false,
+      "source": "account_palm.entities",
+      "source_pk": "canonical_id",
+      "source_type": "MASTER_ENTITY",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "crosswalk master entity registry",
+      "target_exists_in_core": false
+    },
+    {
+      "gate": "SOURCE_RIGHTS_EFFECTIVE_DATE_REQUIRED",
+      "published": false,
+      "source": "account_palm.normative_works",
+      "source_pk": "canonical_id",
+      "source_type": "NORMATIVE_WORK",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "norms.norm candidate",
+      "target_exists_in_core": true
+    },
+    {
+      "gate": "VERSION_AND_VIGENCY_REQUIRED",
+      "published": false,
+      "source": "account_palm.regulatory_instruments",
+      "source_pk": "instrument_id",
+      "source_type": "REGULATORY_INSTRUMENT",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "norms.norm candidate (do not assume current version)",
+      "target_exists_in_core": true
+    },
+    {
+      "gate": "RECONCILE_4_PUBLIC_ONLY",
+      "published": false,
+      "source": "public.regulatory_instruments",
+      "source_pk": "instrument_id",
+      "source_type": "REGULATORY_PUBLIC_CROSSCHECK",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "reconciliation only with account_palm.regulatory_instruments",
+      "target_exists_in_core": false
+    },
+    {
+      "gate": "SEMANTIC_REVIEW_RIGHTS_AND_VERSION_REQUIRED",
+      "published": false,
+      "source": "account_palm.normalized_units_v1",
+      "source_pk": "normalized_unit_id",
+      "source_type": "NORMATIVE_UNIT",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "norms.norm_item candidate (text not public)",
+      "target_exists_in_core": true
+    },
+    {
+      "gate": "SOURCE_VERIFIED_AND_PUBLICATION_ELIGIBLE",
+      "published": false,
+      "source": "contabilidade_cfc.audit_normative_scope_v1",
+      "source_pk": "instrument_id",
+      "source_type": "NORMATIVE_QA",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "source normative QA registry",
+      "target_exists_in_core": false
+    },
+    {
+      "gate": "EDITORIAL_REVIEW_REQUIRED",
+      "published": false,
+      "source": "contabilidade_cfc.audit_normative_segment_drafts_v1",
+      "source_pk": "segment_id",
+      "source_type": "NORMATIVE_SEGMENT",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "normative segment candidate registry (text withheld)",
+      "target_exists_in_core": false
+    },
+    {
+      "gate": "SOURCE_BYTES_AND_RIGHTS_PENDING",
+      "published": false,
+      "source": "account_palm.normative_extractions",
+      "source_pk": "instrument_id",
+      "source_type": "NORMATIVE_EXTRACTION",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "canone_evidence.source_document candidate",
+      "target_exists_in_core": false
+    },
+    {
+      "gate": "ATOM_AND_SEMANTIC_REVIEW_PENDING",
+      "published": false,
+      "source": "account_palm.normative_assertion_candidates_v1",
+      "source_pk": "assertion_candidate_id",
+      "source_type": "ASSERTION_FEATURE_CANDIDATE",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "canone_evidence.canonical_claim candidate (not promoted)",
+      "target_exists_in_core": false
+    },
+    {
+      "gate": "CLAIM_REVIEW_AND_SOURCE_PROOF_PENDING",
+      "published": false,
+      "source": "account_palm.normative_claim_candidates_v1",
+      "source_pk": "claim_candidate_id",
+      "source_type": "SEMANTIC_CLAIM_CANDIDATE",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "canone_evidence.canonical_claim candidate (not promoted)",
+      "target_exists_in_core": false
+    }
+  ],
+  "publication_policy": "HOLD_HUMAN",
+  "relations": [
+    {
+      "from": "account_palm.atomization_eval_sample_v1",
+      "from_columns": [
+        "assertion_candidate_id"
+      ],
+      "id": "account_palm.atomization_eval_sample_v1.assertion_candidate_id__fk__account_palm.normative_assertion_candidates_v1.assertion_candidate_id",
+      "kind": "FOREIGN_KEY",
+      "to": "account_palm.normative_assertion_candidates_v1",
+      "to_columns": [
+        "assertion_candidate_id"
+      ],
+      "validated": true
+    },
+    {
+      "from": "account_palm.atomization_eval_sample_v1",
+      "from_columns": [
+        "normalized_unit_id"
+      ],
+      "id": "account_palm.atomization_eval_sample_v1.normalized_unit_id__fk__account_palm.normalized_units_v1.normalized_unit_id",
+      "kind": "FOREIGN_KEY",
+      "to": "account_palm.normalized_units_v1",
+      "to_columns": [
+        "normalized_unit_id"
+      ],
+      "validated": true
+    },
+    {
+      "from": "account_palm.atomization_fragment_quality_v1",
+      "from_columns": [
+        "normalized_unit_id"
+      ],
+      "id": "account_palm.atomization_fragment_quality_v1.normalized_unit_id__fk__account_palm.normalized_units_v1.normalized_unit_id",
+      "kind": "FOREIGN_KEY",
+      "to": "account_palm.normalized_units_v1",
+      "to_columns": [
+        "normalized_unit_id"
+      ],
+      "validated": true
+    },
+    {
+      "from": "account_palm.atomization_gold_draft_proposals_v1",
+      "from_columns": [
+        "sample_id"
+      ],
+      "id": "account_palm.atomization_gold_draft_proposals_v1.sample_id__fk__account_palm.atomization_eval_sample_v1.sample_id",
+      "kind": "FOREIGN_KEY",
+      "to": "account_palm.atomization_eval_sample_v1",
+      "to_columns": [
+        "sample_id"
+      ],
+      "validated": true
+    },
+    {
+      "from": "account_palm.atomization_gold_replacements_v1",
+      "from_columns": [
+        "assertion_candidate_id"
+      ],
+      "id": "account_palm.atomization_gold_replacements_v1.assertion_candidate_id__fk__account_palm.normative_assertion_candidates_v1.assertion_candidate_id",
+      "kind": "FOREIGN_KEY",
+      "to": "account_palm.normative_assertion_candidates_v1",
+      "to_columns": [
+        "assertion_candidate_id"
+      ],
+      "validated": true
+    },
+    {
+      "from": "account_palm.atomization_gold_replacements_v1",
+      "from_columns": [
+        "normalized_unit_id"
+      ],
+      "id": "account_palm.atomization_gold_replacements_v1.normalized_unit_id__fk__account_palm.normalized_units_v1.normalized_unit_id",
+      "kind": "FOREIGN_KEY",
+      "to": "account_palm.normalized_units_v1",
+      "to_columns": [
+        "normalized_unit_id"
+      ],
+      "validated": true
+    },
+    {
+      "from": "account_palm.atomization_gold_replacements_v1",
+      "from_columns": [
+        "replaced_sample_id"
+      ],
+      "id": "account_palm.atomization_gold_replacements_v1.replaced_sample_id__fk__account_palm.atomization_eval_sample_v1.sample_id",
+      "kind": "FOREIGN_KEY",
+      "to": "account_palm.atomization_eval_sample_v1",
+      "to_columns": [
+        "sample_id"
+      ],
+      "validated": true
+    },
+    {
+      "from": "account_palm.atomization_gold_review_batch_v1",
+      "from_columns": [
+        "sample_id"
+      ],
+      "id": "account_palm.atomization_gold_review_batch_v1.sample_id__fk__account_palm.atomization_eval_sample_v1.sample_id",
+      "kind": "FOREIGN_KEY",
+      "to": "account_palm.atomization_eval_sample_v1",
+      "to_columns": [
+        "sample_id"
+      ],
+      "validated": true
+    },
+    {
+      "from": "account_palm.dou_content_validation_v1",
+      "from_columns": [
+        "run_id"
+      ],
+      "id": "account_palm.dou_content_validation_v1.run_id__fk__account_palm.dou_validation_runs_v1.run_id",
+      "kind": "FOREIGN_KEY",
+      "to": "account_palm.dou_validation_runs_v1",
+      "to_columns": [
+        "run_id"
+      ],
+      "validated": true
+    },
+    {
+      "from": "account_palm.dou_discovery_candidates_v1",
+      "from_columns": [
+        "request_id"
+      ],
+      "id": "account_palm.dou_discovery_candidates_v1.request_id__fk__account_palm.dou_discovery_requests_v1.request_id",
+      "kind": "FOREIGN_KEY",
+      "to": "account_palm.dou_discovery_requests_v1",
+      "to_columns": [
+        "request_id"
+      ],
+      "validated": true
+    },
+    {
+      "evidence": "pg_get_viewdef() observado no Supabase; view security_invoker=true; NÃO é FK",
+      "from": "account_palm.entities",
+      "from_columns": [
+        "*"
+      ],
+      "id": "account_palm.entities__view_dependency__cko_master.entities",
+      "kind": "VIEW_DEPENDENCY",
+      "to": "cko_master.entities",
+      "to_columns": [
+        "*"
+      ],
+      "validated": false
+    },
+    {
+      "evidence": "pg_get_viewdef() observado no Supabase; view security_invoker=true; NÃO é FK",
+      "from": "account_palm.master_register",
+      "from_columns": [
+        "*"
+      ],
+      "id": "account_palm.master_register__view_dependency__cko_governance.account_palm_master_register_v1",
+      "kind": "VIEW_DEPENDENCY",
+      "to": "cko_governance.account_palm_master_register_v1",
+      "to_columns": [
+        "*"
+      ],
+      "validated": false
+    },
+    {
+      "from": "account_palm.normalized_units_v1",
+      "from_columns": [
+        "run_id"
+      ],
+      "id": "account_palm.normalized_units_v1.run_id__fk__account_palm.normalization_runs_v1.run_id",
+      "kind": "FOREIGN_KEY",
+      "to": "account_palm.normalization_runs_v1",
+      "to_columns": [
+        "run_id"
+      ],
+      "validated": true
+    },
+    {
+      "from": "account_palm.normative_assertion_candidates_v1",
+      "from_columns": [
+        "normalized_unit_id"
+      ],
+      "id": "account_palm.normative_assertion_candidates_v1.normalized_unit_id__fk__account_palm.normalized_units_v1.normalized_unit_id",
+      "kind": "FOREIGN_KEY",
+      "to": "account_palm.normalized_units_v1",
+      "to_columns": [
+        "normalized_unit_id"
+      ],
+      "validated": true
+    },
+    {
+      "from": "account_palm.normative_claim_candidates_v1",
+      "from_columns": [
+        "assertion_candidate_id"
+      ],
+      "id": "account_palm.normative_claim_candidates_v1.assertion_candidate_id__fk__account_palm.normative_assertion_candidates_v1.assertion_candidate_id",
+      "kind": "FOREIGN_KEY",
+      "to": "account_palm.normative_assertion_candidates_v1",
+      "to_columns": [
+        "assertion_candidate_id"
+      ],
+      "validated": true
+    },
+    {
+      "from": "account_palm.normative_claim_candidates_v1",
+      "from_columns": [
+        "normalized_unit_id"
+      ],
+      "id": "account_palm.normative_claim_candidates_v1.normalized_unit_id__fk__account_palm.normalized_units_v1.normalized_unit_id",
+      "kind": "FOREIGN_KEY",
+      "to": "account_palm.normalized_units_v1",
+      "to_columns": [
+        "normalized_unit_id"
+      ],
+      "validated": true
+    },
+    {
+      "evidence": "pg_get_viewdef; security_invoker=true; origem public.cfc_internal_normative_extractions",
+      "from": "account_palm.normative_extractions",
+      "from_columns": [
+        "instrument_id"
+      ],
+      "id": "account_palm.normative_extractions__view_dependency__public.cfc_internal_normative_extractions",
+      "kind": "VIEW_DEPENDENCY",
+      "to": "public.cfc_internal_normative_extractions",
+      "to_columns": [
+        "instrument_id"
+      ],
+      "validated": false
+    },
+    {
+      "from": "account_palm.normative_temporal_evidence_v1",
+      "from_columns": [
+        "temporal_type"
+      ],
+      "id": "account_palm.normative_temporal_evidence_v1.temporal_type__fk__account_palm.normative_temporal_type_registry_v1.temporal_type",
+      "kind": "FOREIGN_KEY",
+      "to": "account_palm.normative_temporal_type_registry_v1",
+      "to_columns": [
+        "temporal_type"
+      ],
+      "validated": true
+    },
+    {
+      "evidence": "pg_get_viewdef() observado no Supabase; view security_invoker=true; NÃO é FK",
+      "from": "account_palm.normative_works",
+      "from_columns": [
+        "*"
+      ],
+      "id": "account_palm.normative_works__view_dependency__cko_master.entities",
+      "kind": "VIEW_DEPENDENCY",
+      "to": "cko_master.entities",
+      "to_columns": [
+        "*"
+      ],
+      "validated": false
+    },
+    {
+      "evidence": "pg_get_viewdef() observado no Supabase; view security_invoker=true; NÃO é FK",
+      "from": "account_palm.regulatory_instruments",
+      "from_columns": [
+        "*"
+      ],
+      "id": "account_palm.regulatory_instruments__view_dependency__public.regulatory_instruments",
+      "kind": "VIEW_DEPENDENCY",
+      "to": "public.regulatory_instruments",
+      "to_columns": [
+        "*"
+      ],
+      "validated": false
+    },
+    {
+      "from": "contabilidade_cfc.audit_normative_scope_v1",
+      "from_columns": [
+        "instrument_id"
+      ],
+      "id": "contabilidade_cfc.audit_normative_scope_v1.instrument_id__fk__public.regulatory_instruments.instrument_id",
+      "kind": "FOREIGN_KEY",
+      "to": "public.regulatory_instruments",
+      "to_columns": [
+        "instrument_id"
+      ],
+      "validated": true
+    },
+    {
+      "from": "contabilidade_cfc.audit_normative_segment_drafts_v1",
+      "from_columns": [
+        "parent_unit_id"
+      ],
+      "id": "contabilidade_cfc.audit_normative_segment_drafts_v1.parent_unit_id__fk__account_palm.normalized_units_v1.normalized_unit_id",
+      "kind": "FOREIGN_KEY",
+      "to": "account_palm.normalized_units_v1",
+      "to_columns": [
+        "normalized_unit_id"
+      ],
+      "validated": true
+    },
+    {
+      "from": "contabilidade_cfc.audit_normative_segment_parent_qa_v1",
+      "from_columns": [
+        "parent_unit_id"
+      ],
+      "id": "contabilidade_cfc.audit_normative_segment_parent_qa_v1.parent_unit_id__fk__account_palm.normalized_units_v1.normalized_unit_id",
+      "kind": "FOREIGN_KEY",
+      "to": "account_palm.normalized_units_v1",
+      "to_columns": [
+        "normalized_unit_id"
+      ],
+      "validated": true
+    },
+    {
+      "from": "contabilidade_cfc.questions",
+      "from_columns": [
+        "source_id"
+      ],
+      "id": "contabilidade_cfc.questions.source_id__fk__contabilidade_cfc.sources.source_id",
+      "kind": "FOREIGN_KEY",
+      "to": "contabilidade_cfc.sources",
+      "to_columns": [
+        "source_id"
+      ],
+      "validated": true
+    },
+    {
+      "evidence": "Candidate relation, cardinality unknown; NOT an FK",
+      "from": "account_palm.master_register",
+      "from_columns": [
+        "object_id"
+      ],
+      "id": "master_register__generic_object",
+      "kind": "LOGICAL_CROSSWALK",
+      "to": "account_palm.entities",
+      "to_columns": [
+        "canonical_id"
+      ],
+      "validated": false
+    },
+    {
+      "evidence": "249 common; 4 only public; NOT an FK",
+      "from": "account_palm.regulatory_instruments",
+      "from_columns": [
+        "instrument_id"
+      ],
+      "id": "public__palm_regulatory_identity",
+      "kind": "LOGICAL_CROSSWALK",
+      "to": "public.regulatory_instruments",
+      "to_columns": [
+        "instrument_id"
+      ],
+      "validated": false
+    },
+    {
+      "evidence": "2026-11-14 SELECT orphans=0; NOT an FK",
+      "from": "account_palm.normalized_units_v1",
+      "from_columns": [
+        "instrument_id"
+      ],
+      "id": "units__instrument_identity",
+      "kind": "LOGICAL_CROSSWALK",
+      "to": "public.regulatory_instruments",
+      "to_columns": [
+        "instrument_id"
+      ],
+      "validated": false
+    }
+  ],
+  "scope": "PARTIAL_INSPECTION_NO_SECRETS",
+  "source_ref": "pgsybzggewhinaniybiy",
+  "targets": [
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "email",
+          "type": "text"
+        },
+        {
+          "name": "email_verified_at",
+          "type": "ts"
+        },
+        {
+          "name": "password_hash",
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "type": "text"
+        },
+        {
+          "name": "last_login_at",
+          "type": "ts"
+        },
+        {
+          "name": "failed_logins",
+          "type": "int"
+        },
+        {
+          "name": "locked_until",
+          "type": "ts"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        },
+        {
+          "name": "updated_at",
+          "type": "ts"
+        },
+        {
+          "name": "deleted_at",
+          "type": "ts"
+        }
+      ],
+      "id": "identity.account"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "purpose_key",
+          "type": "text"
+        },
+        {
+          "name": "purpose_version",
+          "type": "int"
+        },
+        {
+          "name": "granted",
+          "type": "bool"
+        },
+        {
+          "name": "legal_basis",
+          "type": "text"
+        },
+        {
+          "name": "ip_address",
+          "type": "inet"
+        },
+        {
+          "name": "user_agent",
+          "type": "text"
+        },
+        {
+          "name": "evidence",
+          "type": "json"
+        },
+        {
+          "name": "collected_at",
+          "type": "ts"
+        },
+        {
+          "name": "collected_by",
+          "type": "text"
+        },
+        {
+          "name": "source",
+          "type": "text"
+        }
+      ],
+      "id": "identity.consent"
+    },
+    {
+      "columns": [
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "label",
+          "type": "text"
+        },
+        {
+          "name": "legal_basis",
+          "type": "text"
+        },
+        {
+          "name": "required",
+          "type": "bool"
+        },
+        {
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "name": "version",
+          "type": "int"
+        },
+        {
+          "name": "active",
+          "type": "bool"
+        }
+      ],
+      "id": "identity.consent_purpose"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "kind",
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "type": "text"
+        },
+        {
+          "name": "requested_at",
+          "type": "ts"
+        },
+        {
+          "name": "deadline_at",
+          "type": "ts"
+        },
+        {
+          "name": "completed_at",
+          "type": "ts"
+        },
+        {
+          "name": "requested_via",
+          "type": "text"
+        },
+        {
+          "name": "ip_address",
+          "type": "inet"
+        },
+        {
+          "name": "notes",
+          "type": "text"
+        }
+      ],
+      "id": "identity.data_request"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "request_id",
+          "type": "uuid"
+        },
+        {
+          "name": "from_status",
+          "type": "text"
+        },
+        {
+          "name": "to_status",
+          "type": "text"
+        },
+        {
+          "name": "actor_id",
+          "type": "uuid"
+        },
+        {
+          "name": "detail",
+          "type": "json"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "identity.data_request_event"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "email",
+          "type": "text"
+        },
+        {
+          "name": "token_hash",
+          "type": "text"
+        },
+        {
+          "name": "purpose",
+          "type": "text"
+        },
+        {
+          "name": "expires_at",
+          "type": "ts"
+        },
+        {
+          "name": "consumed_at",
+          "type": "ts"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "identity.magic_link"
+    },
+    {
+      "columns": [
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "label",
+          "type": "text"
+        },
+        {
+          "name": "scope",
+          "type": "text"
+        },
+        {
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "name": "requires_subscription",
+          "type": "bool"
+        }
+      ],
+      "id": "identity.role"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "refresh_hash",
+          "type": "text"
+        },
+        {
+          "name": "user_agent",
+          "type": "text"
+        },
+        {
+          "name": "ip_address",
+          "type": "inet"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        },
+        {
+          "name": "last_used_at",
+          "type": "ts"
+        },
+        {
+          "name": "expires_at",
+          "type": "ts"
+        },
+        {
+          "name": "revoked_at",
+          "type": "ts"
+        },
+        {
+          "name": "revoked_reason",
+          "type": "text"
+        }
+      ],
+      "id": "identity.session"
+    },
+    {
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "display_name",
+          "type": "text"
+        },
+        {
+          "name": "given_name",
+          "type": "text"
+        },
+        {
+          "name": "family_name",
+          "type": "text"
+        },
+        {
+          "name": "birth_date",
+          "type": "date"
+        },
+        {
+          "name": "cpf_encrypted",
+          "type": "bytes"
+        },
+        {
+          "name": "cpf_last4",
+          "type": "bpchar"
+        },
+        {
+          "name": "phone_e164",
+          "type": "text"
+        },
+        {
+          "name": "timezone",
+          "type": "text"
+        },
+        {
+          "name": "locale",
+          "type": "text"
+        },
+        {
+          "name": "avatar_url",
+          "type": "text"
+        },
+        {
+          "name": "onboarded_at",
+          "type": "ts"
+        },
+        {
+          "name": "marketing_opt_in",
+          "type": "bool"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        },
+        {
+          "name": "updated_at",
+          "type": "ts"
+        }
+      ],
+      "id": "identity.user_profile"
+    },
+    {
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "role_key",
+          "type": "text"
+        },
+        {
+          "name": "granted_by",
+          "type": "uuid"
+        },
+        {
+          "name": "granted_at",
+          "type": "ts"
+        },
+        {
+          "name": "valid_until",
+          "type": "ts"
+        },
+        {
+          "name": "revoked_at",
+          "type": "ts"
+        },
+        {
+          "name": "reason",
+          "type": "text"
+        }
+      ],
+      "id": "identity.user_role"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "content_type_id",
+          "type": "uuid"
+        },
+        {
+          "name": "content_type_version_id",
+          "type": "uuid"
+        },
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "state",
+          "type": "text"
+        },
+        {
+          "name": "current_version_id",
+          "type": "uuid"
+        },
+        {
+          "name": "title",
+          "type": "text"
+        },
+        {
+          "name": "summary",
+          "type": "text"
+        },
+        {
+          "name": "subject_id",
+          "type": "uuid"
+        },
+        {
+          "name": "subtopic_id",
+          "type": "uuid"
+        },
+        {
+          "name": "ordinal",
+          "type": "int"
+        },
+        {
+          "name": "estimated_seconds",
+          "type": "int"
+        },
+        {
+          "name": "difficulty_band",
+          "type": "text"
+        },
+        {
+          "name": "created_by",
+          "type": "uuid"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        },
+        {
+          "name": "updated_at",
+          "type": "ts"
+        },
+        {
+          "name": "retired_at",
+          "type": "ts"
+        },
+        {
+          "name": "published_at",
+          "type": "ts"
+        },
+        {
+          "name": "search_tsv",
+          "type": "tsvector"
+        }
+      ],
+      "id": "editorial.content_item"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "content_item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "version",
+          "type": "int"
+        },
+        {
+          "name": "payload",
+          "type": "json"
+        },
+        {
+          "name": "diff",
+          "type": "json"
+        },
+        {
+          "name": "author_id",
+          "type": "uuid"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        },
+        {
+          "name": "published_at",
+          "type": "ts"
+        }
+      ],
+      "id": "editorial.content_item_version"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "content_item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "norm_id",
+          "type": "uuid"
+        },
+        {
+          "name": "norm_item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "norm_version_id",
+          "type": "uuid"
+        },
+        {
+          "name": "quote",
+          "type": "text"
+        },
+        {
+          "name": "locator",
+          "type": "text"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "editorial.content_norm_citation"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "relation_type",
+          "type": "text"
+        },
+        {
+          "name": "from_item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "to_item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "attributes",
+          "type": "json"
+        },
+        {
+          "name": "created_by",
+          "type": "uuid"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "editorial.content_relation"
+    },
+    {
+      "columns": [
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "label",
+          "type": "text"
+        },
+        {
+          "name": "cardinality",
+          "type": "text"
+        },
+        {
+          "name": "requires_verification",
+          "type": "bool"
+        },
+        {
+          "name": "description",
+          "type": "text"
+        }
+      ],
+      "id": "editorial.content_relation_type"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "content_item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "version_id",
+          "type": "uuid"
+        },
+        {
+          "name": "from_state",
+          "type": "text"
+        },
+        {
+          "name": "to_state",
+          "type": "text"
+        },
+        {
+          "name": "actor_id",
+          "type": "uuid"
+        },
+        {
+          "name": "actor_role",
+          "type": "text"
+        },
+        {
+          "name": "reason",
+          "type": "text"
+        },
+        {
+          "name": "diff",
+          "type": "json"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "editorial.content_revision"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "label",
+          "type": "text"
+        },
+        {
+          "name": "family",
+          "type": "text"
+        },
+        {
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "name": "is_relation_type",
+          "type": "bool"
+        },
+        {
+          "name": "requires_verification",
+          "type": "bool"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        },
+        {
+          "name": "retired_at",
+          "type": "ts"
+        }
+      ],
+      "id": "editorial.content_type"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "content_type_id",
+          "type": "uuid"
+        },
+        {
+          "name": "version",
+          "type": "int"
+        },
+        {
+          "name": "definition",
+          "type": "json"
+        },
+        {
+          "name": "created_by",
+          "type": "uuid"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "editorial.content_type_version"
+    },
+    {
+      "columns": [
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "label",
+          "type": "text"
+        },
+        {
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "name": "is_multi",
+          "type": "bool"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "editorial.enumeration"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "enumeration_key",
+          "type": "text"
+        },
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "label",
+          "type": "text"
+        },
+        {
+          "name": "meta",
+          "type": "json"
+        },
+        {
+          "name": "ordinal",
+          "type": "int"
+        },
+        {
+          "name": "is_active",
+          "type": "bool"
+        }
+      ],
+      "id": "editorial.enumeration_value"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "content_type_version_id",
+          "type": "uuid"
+        },
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "label",
+          "type": "text"
+        },
+        {
+          "name": "data_kind",
+          "type": "text"
+        },
+        {
+          "name": "required",
+          "type": "bool"
+        },
+        {
+          "name": "ref_content_type_key",
+          "type": "text"
+        },
+        {
+          "name": "enumeration_key",
+          "type": "text"
+        },
+        {
+          "name": "validations",
+          "type": "json"
+        },
+        {
+          "name": "help_text",
+          "type": "text"
+        },
+        {
+          "name": "ordinal",
+          "type": "int"
+        },
+        {
+          "name": "is_indexed",
+          "type": "bool"
+        }
+      ],
+      "id": "editorial.field_definition"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "kind",
+          "type": "text"
+        },
+        {
+          "name": "title",
+          "type": "text"
+        },
+        {
+          "name": "publisher",
+          "type": "text"
+        },
+        {
+          "name": "url",
+          "type": "text"
+        },
+        {
+          "name": "version_label",
+          "type": "text"
+        },
+        {
+          "name": "published_at",
+          "type": "date"
+        },
+        {
+          "name": "content_sha256",
+          "type": "bpchar"
+        },
+        {
+          "name": "source_quote",
+          "type": "text"
+        },
+        {
+          "name": "archived_path",
+          "type": "text"
+        },
+        {
+          "name": "consulted_at",
+          "type": "ts"
+        },
+        {
+          "name": "consulted_by",
+          "type": "uuid"
+        },
+        {
+          "name": "notes",
+          "type": "text"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "editorial.source"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "family",
+          "type": "text"
+        },
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "label",
+          "type": "text"
+        },
+        {
+          "name": "is_initial",
+          "type": "bool"
+        },
+        {
+          "name": "is_terminal",
+          "type": "bool"
+        },
+        {
+          "name": "requires_verification",
+          "type": "bool"
+        },
+        {
+          "name": "is_public",
+          "type": "bool"
+        },
+        {
+          "name": "is_refusal",
+          "type": "bool"
+        },
+        {
+          "name": "color_token",
+          "type": "text"
+        },
+        {
+          "name": "ordinal",
+          "type": "int"
+        }
+      ],
+      "id": "editorial.state_definition"
+    },
+    {
+      "columns": [
+        {
+          "name": "family",
+          "type": "text"
+        },
+        {
+          "name": "from_state",
+          "type": "text"
+        },
+        {
+          "name": "to_state",
+          "type": "text"
+        },
+        {
+          "name": "requires",
+          "type": "text"
+        },
+        {
+          "name": "label",
+          "type": "text"
+        }
+      ],
+      "id": "editorial.state_transition"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "content_item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "state",
+          "type": "text"
+        },
+        {
+          "name": "method",
+          "type": "text"
+        },
+        {
+          "name": "source_id",
+          "type": "uuid"
+        },
+        {
+          "name": "source_quote",
+          "type": "text"
+        },
+        {
+          "name": "verified_by",
+          "type": "uuid"
+        },
+        {
+          "name": "verified_at",
+          "type": "ts"
+        },
+        {
+          "name": "valid_until",
+          "type": "ts"
+        },
+        {
+          "name": "refusal_reason",
+          "type": "text"
+        },
+        {
+          "name": "notes",
+          "type": "text"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        },
+        {
+          "name": "updated_at",
+          "type": "ts"
+        }
+      ],
+      "id": "editorial.verification"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "exam_edition_id",
+          "type": "uuid"
+        },
+        {
+          "name": "subject_id",
+          "type": "uuid"
+        },
+        {
+          "name": "weight",
+          "type": "num"
+        },
+        {
+          "name": "expected_questions",
+          "type": "int"
+        }
+      ],
+      "id": "taxonomy.blueprint"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "code",
+          "type": "text"
+        },
+        {
+          "name": "label",
+          "type": "text"
+        },
+        {
+          "name": "edition_number",
+          "type": "int"
+        },
+        {
+          "name": "year",
+          "type": "int"
+        },
+        {
+          "name": "registration_opens_at",
+          "type": "ts"
+        },
+        {
+          "name": "registration_closes_at",
+          "type": "ts"
+        },
+        {
+          "name": "payment_deadline",
+          "type": "date"
+        },
+        {
+          "name": "application_date",
+          "type": "date"
+        },
+        {
+          "name": "application_start_time",
+          "type": "time"
+        },
+        {
+          "name": "application_end_time",
+          "type": "time"
+        },
+        {
+          "name": "modality",
+          "type": "text"
+        },
+        {
+          "name": "question_count",
+          "type": "int"
+        },
+        {
+          "name": "options_per_question",
+          "type": "int"
+        },
+        {
+          "name": "passing_score",
+          "type": "int"
+        },
+        {
+          "name": "passing_percent",
+          "type": "num"
+        },
+        {
+          "name": "registration_fee_cents",
+          "type": "int"
+        },
+        {
+          "name": "source_id",
+          "type": "uuid"
+        },
+        {
+          "name": "notes",
+          "type": "text"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        },
+        {
+          "name": "status",
+          "type": "text"
+        },
+        {
+          "name": "exam_kind",
+          "type": "text"
+        },
+        {
+          "name": "bank",
+          "type": "text"
+        }
+      ],
+      "id": "taxonomy.exam_edition"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "exam_edition_id",
+          "type": "uuid"
+        },
+        {
+          "name": "track_code",
+          "type": "text"
+        },
+        {
+          "name": "specialty_code",
+          "type": "text"
+        },
+        {
+          "name": "label",
+          "type": "text"
+        },
+        {
+          "name": "question_count",
+          "type": "int"
+        },
+        {
+          "name": "options_per_question",
+          "type": "int"
+        },
+        {
+          "name": "passing_score",
+          "type": "int"
+        },
+        {
+          "name": "passing_percent",
+          "type": "num"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "taxonomy.exam_track"
+    },
+    {
+      "columns": [
+        {
+          "name": "content_item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "exam_edition_id",
+          "type": "uuid"
+        },
+        {
+          "name": "subject_id",
+          "type": "uuid"
+        },
+        {
+          "name": "subtopic_id",
+          "type": "uuid"
+        },
+        {
+          "name": "weight",
+          "type": "num"
+        },
+        {
+          "name": "is_forecast",
+          "type": "bool"
+        }
+      ],
+      "id": "taxonomy.item_placement"
+    },
+    {
+      "columns": [
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "label",
+          "type": "text"
+        },
+        {
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "name": "ordinal",
+          "type": "int"
+        },
+        {
+          "name": "active",
+          "type": "bool"
+        }
+      ],
+      "id": "taxonomy.knowledge_area"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "name": "short_name",
+          "type": "text"
+        },
+        {
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "name": "phase",
+          "type": "text"
+        },
+        {
+          "name": "ordinal",
+          "type": "int"
+        },
+        {
+          "name": "content_type_key",
+          "type": "text"
+        },
+        {
+          "name": "icon_key",
+          "type": "text"
+        },
+        {
+          "name": "active",
+          "type": "bool"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "taxonomy.module"
+    },
+    {
+      "columns": [
+        {
+          "name": "module_id",
+          "type": "uuid"
+        },
+        {
+          "name": "subject_id",
+          "type": "uuid"
+        }
+      ],
+      "id": "taxonomy.module_subject"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "label",
+          "type": "text"
+        },
+        {
+          "name": "area_key",
+          "type": "text"
+        },
+        {
+          "name": "content_type_key",
+          "type": "text"
+        },
+        {
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "name": "ordinal",
+          "type": "int"
+        },
+        {
+          "name": "active",
+          "type": "bool"
+        }
+      ],
+      "id": "taxonomy.subject"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "subject_id",
+          "type": "uuid"
+        },
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "label",
+          "type": "text"
+        },
+        {
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "name": "ordinal",
+          "type": "int"
+        }
+      ],
+      "id": "taxonomy.subtopic"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "name": "country",
+          "type": "bpchar"
+        },
+        {
+          "name": "website",
+          "type": "text"
+        },
+        {
+          "name": "kind",
+          "type": "text"
+        }
+      ],
+      "id": "norms.issuer"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "issuer_id",
+          "type": "uuid"
+        },
+        {
+          "name": "code",
+          "type": "text"
+        },
+        {
+          "name": "title",
+          "type": "text"
+        },
+        {
+          "name": "category",
+          "type": "text"
+        },
+        {
+          "name": "amends_norm_code",
+          "type": "text"
+        },
+        {
+          "name": "source_id",
+          "type": "uuid"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "norms.norm"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "norm_version_id",
+          "type": "uuid"
+        },
+        {
+          "name": "locator",
+          "type": "text"
+        },
+        {
+          "name": "heading",
+          "type": "text"
+        },
+        {
+          "name": "body",
+          "type": "text"
+        },
+        {
+          "name": "parent_id",
+          "type": "uuid"
+        },
+        {
+          "name": "ordinal",
+          "type": "int"
+        },
+        {
+          "name": "supersedes_id",
+          "type": "uuid"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "norms.norm_item"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "norm_id",
+          "type": "uuid"
+        },
+        {
+          "name": "label",
+          "type": "text"
+        },
+        {
+          "name": "revision_code",
+          "type": "text"
+        },
+        {
+          "name": "effective_from",
+          "type": "date"
+        },
+        {
+          "name": "effective_to",
+          "type": "date"
+        },
+        {
+          "name": "content_sha256",
+          "type": "bpchar"
+        },
+        {
+          "name": "source_id",
+          "type": "uuid"
+        },
+        {
+          "name": "notes",
+          "type": "text"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "norms.norm_version"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "exam_form_id",
+          "type": "uuid"
+        },
+        {
+          "name": "status",
+          "type": "text"
+        },
+        {
+          "name": "source_id",
+          "type": "uuid"
+        },
+        {
+          "name": "source_quote",
+          "type": "text"
+        },
+        {
+          "name": "published_at",
+          "type": "date"
+        },
+        {
+          "name": "supersedes_id",
+          "type": "uuid"
+        },
+        {
+          "name": "extraction",
+          "type": "json"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "learning.answer_key"
+    },
+    {
+      "columns": [
+        {
+          "name": "answer_key_id",
+          "type": "uuid"
+        },
+        {
+          "name": "ordinal",
+          "type": "int"
+        },
+        {
+          "name": "correct_option",
+          "type": "text"
+        },
+        {
+          "name": "is_annulled",
+          "type": "bool"
+        }
+      ],
+      "id": "learning.answer_key_entry"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "content_item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "ordinal",
+          "type": "int"
+        },
+        {
+          "name": "title",
+          "type": "text"
+        },
+        {
+          "name": "body",
+          "type": "text"
+        },
+        {
+          "name": "kind",
+          "type": "text"
+        }
+      ],
+      "id": "learning.case_step"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "host_user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "guest_user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "subject_id",
+          "type": "uuid"
+        },
+        {
+          "name": "status",
+          "type": "text"
+        },
+        {
+          "name": "started_at",
+          "type": "ts"
+        },
+        {
+          "name": "ended_at",
+          "type": "ts"
+        }
+      ],
+      "id": "learning.duel"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "exam_form_id",
+          "type": "uuid"
+        },
+        {
+          "name": "mock_exam_id",
+          "type": "uuid"
+        },
+        {
+          "name": "status",
+          "type": "text"
+        },
+        {
+          "name": "started_at",
+          "type": "ts"
+        },
+        {
+          "name": "finished_at",
+          "type": "ts"
+        },
+        {
+          "name": "answered_count",
+          "type": "int"
+        },
+        {
+          "name": "correct_count",
+          "type": "int"
+        },
+        {
+          "name": "wrong_count",
+          "type": "int"
+        },
+        {
+          "name": "annulled_count",
+          "type": "int"
+        }
+      ],
+      "id": "learning.exam_attempt"
+    },
+    {
+      "columns": [
+        {
+          "name": "attempt_id",
+          "type": "uuid"
+        },
+        {
+          "name": "ordinal",
+          "type": "int"
+        },
+        {
+          "name": "item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "chosen_option",
+          "type": "text"
+        },
+        {
+          "name": "verdict",
+          "type": "text"
+        },
+        {
+          "name": "answered_at",
+          "type": "ts"
+        }
+      ],
+      "id": "learning.exam_attempt_answer"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "exam_track_id",
+          "type": "uuid"
+        },
+        {
+          "name": "form_code",
+          "type": "text"
+        },
+        {
+          "name": "form_label",
+          "type": "text"
+        },
+        {
+          "name": "source_id",
+          "type": "uuid"
+        },
+        {
+          "name": "applied_at",
+          "type": "date"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "learning.exam_form"
+    },
+    {
+      "columns": [
+        {
+          "name": "exam_form_id",
+          "type": "uuid"
+        },
+        {
+          "name": "ordinal",
+          "type": "int"
+        },
+        {
+          "name": "item_id",
+          "type": "uuid"
+        }
+      ],
+      "id": "learning.exam_form_item"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "kind",
+          "type": "text"
+        },
+        {
+          "name": "option_ordinal",
+          "type": "text"
+        },
+        {
+          "name": "body",
+          "type": "text"
+        },
+        {
+          "name": "basis",
+          "type": "text"
+        },
+        {
+          "name": "ordinal",
+          "type": "int"
+        }
+      ],
+      "id": "learning.explanation"
+    },
+    {
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "content_item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "note",
+          "type": "text"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "learning.favorite"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "content_item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "content_type_key",
+          "type": "text"
+        },
+        {
+          "name": "kind",
+          "type": "text"
+        },
+        {
+          "name": "difficulty",
+          "type": "num"
+        },
+        {
+          "name": "estimated_seconds",
+          "type": "int"
+        },
+        {
+          "name": "discrimination",
+          "type": "num"
+        },
+        {
+          "name": "answer_count",
+          "type": "int"
+        },
+        {
+          "name": "correct_count",
+          "type": "int"
+        },
+        {
+          "name": "correct_rate",
+          "type": "num"
+        },
+        {
+          "name": "flagged_for_review",
+          "type": "bool"
+        },
+        {
+          "name": "flag_reason",
+          "type": "text"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        },
+        {
+          "name": "updated_at",
+          "type": "ts"
+        }
+      ],
+      "id": "learning.item"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "ordinal",
+          "type": "text"
+        },
+        {
+          "name": "body",
+          "type": "text"
+        },
+        {
+          "name": "is_correct",
+          "type": "bool"
+        },
+        {
+          "name": "distractor_kind",
+          "type": "text"
+        },
+        {
+          "name": "ordinal_pos",
+          "type": "int"
+        }
+      ],
+      "id": "learning.item_option"
+    },
+    {
+      "columns": [
+        {
+          "name": "item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "subject_id",
+          "type": "uuid"
+        }
+      ],
+      "id": "learning.item_subject"
+    },
+    {
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "subject_id",
+          "type": "uuid"
+        },
+        {
+          "name": "items_seen",
+          "type": "int"
+        },
+        {
+          "name": "items_mastered",
+          "type": "int"
+        },
+        {
+          "name": "items_fragile",
+          "type": "int"
+        },
+        {
+          "name": "items_unseen",
+          "type": "int"
+        },
+        {
+          "name": "correct_answers",
+          "type": "int"
+        },
+        {
+          "name": "total_answers",
+          "type": "int"
+        },
+        {
+          "name": "accuracy",
+          "type": "num"
+        },
+        {
+          "name": "confidence",
+          "type": "num"
+        },
+        {
+          "name": "updated_at",
+          "type": "ts"
+        }
+      ],
+      "id": "learning.mastery"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "content_item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "root_label",
+          "type": "text"
+        },
+        {
+          "name": "layout",
+          "type": "text"
+        }
+      ],
+      "id": "learning.mind_map"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "mind_map_id",
+          "type": "uuid"
+        },
+        {
+          "name": "parent_id",
+          "type": "uuid"
+        },
+        {
+          "name": "label",
+          "type": "text"
+        },
+        {
+          "name": "content_item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "ordinal",
+          "type": "int"
+        },
+        {
+          "name": "x_num",
+          "type": "num"
+        },
+        {
+          "name": "y_num",
+          "type": "num"
+        }
+      ],
+      "id": "learning.mind_map_node"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "content_item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "exam_edition_id",
+          "type": "uuid"
+        },
+        {
+          "name": "blueprint",
+          "type": "json"
+        },
+        {
+          "name": "time_limit_seconds",
+          "type": "int"
+        },
+        {
+          "name": "total_items",
+          "type": "int"
+        },
+        {
+          "name": "passing_score",
+          "type": "int"
+        },
+        {
+          "name": "is_adaptive",
+          "type": "bool"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "learning.mock_exam"
+    },
+    {
+      "columns": [
+        {
+          "name": "mock_exam_id",
+          "type": "uuid"
+        },
+        {
+          "name": "item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "ordinal",
+          "type": "int"
+        }
+      ],
+      "id": "learning.mock_exam_item"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "content_item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "subject_id",
+          "type": "uuid"
+        },
+        {
+          "name": "body",
+          "type": "text"
+        },
+        {
+          "name": "anchor",
+          "type": "json"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        },
+        {
+          "name": "updated_at",
+          "type": "ts"
+        }
+      ],
+      "id": "learning.note"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "label",
+          "type": "text"
+        },
+        {
+          "name": "subject_id",
+          "type": "uuid"
+        },
+        {
+          "name": "item_ids",
+          "type": "uuid[]"
+        },
+        {
+          "name": "bytes_estimate",
+          "type": "bigint"
+        },
+        {
+          "name": "downloaded_at",
+          "type": "ts"
+        },
+        {
+          "name": "expires_at",
+          "type": "ts"
+        },
+        {
+          "name": "revoked_at",
+          "type": "ts"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "learning.offline_pack"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "content_item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "format",
+          "type": "text"
+        },
+        {
+          "name": "summary",
+          "type": "text"
+        },
+        {
+          "name": "key_points",
+          "type": "json"
+        },
+        {
+          "name": "common_errors",
+          "type": "json"
+        },
+        {
+          "name": "formulas",
+          "type": "json"
+        }
+      ],
+      "id": "learning.pocket_entry"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "session_id",
+          "type": "uuid"
+        },
+        {
+          "name": "grade",
+          "type": "review_grade"
+        },
+        {
+          "name": "basis",
+          "type": "review_basis"
+        },
+        {
+          "name": "correct",
+          "type": "bool"
+        },
+        {
+          "name": "response",
+          "type": "json"
+        },
+        {
+          "name": "duration_ms",
+          "type": "int"
+        },
+        {
+          "name": "repetition",
+          "type": "int"
+        },
+        {
+          "name": "mock_exam_id",
+          "type": "uuid"
+        },
+        {
+          "name": "algorithm_version",
+          "type": "text"
+        },
+        {
+          "name": "reviewed_at",
+          "type": "ts"
+        }
+      ],
+      "id": "learning.review_event"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "kind",
+          "type": "session_kind"
+        },
+        {
+          "name": "origin",
+          "type": "text"
+        },
+        {
+          "name": "subject_id",
+          "type": "uuid"
+        },
+        {
+          "name": "module_id",
+          "type": "uuid"
+        },
+        {
+          "name": "planned_count",
+          "type": "int"
+        },
+        {
+          "name": "answered_count",
+          "type": "int"
+        },
+        {
+          "name": "correct_count",
+          "type": "int"
+        },
+        {
+          "name": "started_at",
+          "type": "ts"
+        },
+        {
+          "name": "last_event_at",
+          "type": "ts"
+        },
+        {
+          "name": "ended_at",
+          "type": "ts"
+        },
+        {
+          "name": "duration_ms",
+          "type": "int"
+        },
+        {
+          "name": "client",
+          "type": "json"
+        }
+      ],
+      "id": "learning.session"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "content_item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "ordinal",
+          "type": "int"
+        },
+        {
+          "name": "block_type",
+          "type": "text"
+        },
+        {
+          "name": "data",
+          "type": "json"
+        }
+      ],
+      "id": "learning.study_block"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "exam_edition_id",
+          "type": "uuid"
+        },
+        {
+          "name": "target_date",
+          "type": "date"
+        },
+        {
+          "name": "daily_minutes",
+          "type": "int"
+        },
+        {
+          "name": "focus",
+          "type": "json"
+        },
+        {
+          "name": "is_adaptive",
+          "type": "bool"
+        },
+        {
+          "name": "generated_at",
+          "type": "ts"
+        },
+        {
+          "name": "valid_until",
+          "type": "ts"
+        },
+        {
+          "name": "generator_version",
+          "type": "text"
+        }
+      ],
+      "id": "learning.study_plan"
+    },
+    {
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "state",
+          "type": "text"
+        },
+        {
+          "name": "stability_days",
+          "type": "num"
+        },
+        {
+          "name": "difficulty",
+          "type": "num"
+        },
+        {
+          "name": "due_at",
+          "type": "ts"
+        },
+        {
+          "name": "last_review_at",
+          "type": "ts"
+        },
+        {
+          "name": "last_grade",
+          "type": "review_grade"
+        },
+        {
+          "name": "last_interval_days",
+          "type": "int"
+        },
+        {
+          "name": "repetitions",
+          "type": "int"
+        },
+        {
+          "name": "lapses",
+          "type": "int"
+        },
+        {
+          "name": "fragile_streak",
+          "type": "int"
+        },
+        {
+          "name": "is_fragile",
+          "type": "bool"
+        },
+        {
+          "name": "algorithm_version",
+          "type": "text"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        },
+        {
+          "name": "updated_at",
+          "type": "ts"
+        }
+      ],
+      "id": "learning.user_item_state"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "code",
+          "type": "text"
+        },
+        {
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "name": "percent_off",
+          "type": "int"
+        },
+        {
+          "name": "amount_off_cents",
+          "type": "int"
+        },
+        {
+          "name": "max_redemptions",
+          "type": "int"
+        },
+        {
+          "name": "redemptions",
+          "type": "int"
+        },
+        {
+          "name": "valid_from",
+          "type": "ts"
+        },
+        {
+          "name": "valid_until",
+          "type": "ts"
+        },
+        {
+          "name": "plan_ids",
+          "type": "uuid[]"
+        },
+        {
+          "name": "active",
+          "type": "bool"
+        }
+      ],
+      "id": "commerce.coupon"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "feature_key",
+          "type": "text"
+        },
+        {
+          "name": "source",
+          "type": "text"
+        },
+        {
+          "name": "source_ref",
+          "type": "text"
+        },
+        {
+          "name": "granted_at",
+          "type": "ts"
+        },
+        {
+          "name": "expires_at",
+          "type": "ts"
+        },
+        {
+          "name": "revoked_at",
+          "type": "ts"
+        },
+        {
+          "name": "metadata",
+          "type": "json"
+        }
+      ],
+      "id": "commerce.entitlement"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "subscription_id",
+          "type": "uuid"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "payment_id",
+          "type": "uuid"
+        },
+        {
+          "name": "number",
+          "type": "text"
+        },
+        {
+          "name": "amount_cents",
+          "type": "int"
+        },
+        {
+          "name": "tax_cents",
+          "type": "int"
+        },
+        {
+          "name": "total_cents",
+          "type": "int"
+        },
+        {
+          "name": "currency",
+          "type": "bpchar"
+        },
+        {
+          "name": "status",
+          "type": "text"
+        },
+        {
+          "name": "issued_at",
+          "type": "ts"
+        },
+        {
+          "name": "due_at",
+          "type": "ts"
+        },
+        {
+          "name": "paid_at",
+          "type": "ts"
+        },
+        {
+          "name": "lines",
+          "type": "json"
+        }
+      ],
+      "id": "commerce.invoice"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "subscription_id",
+          "type": "uuid"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "provider",
+          "type": "text"
+        },
+        {
+          "name": "provider_ref",
+          "type": "text"
+        },
+        {
+          "name": "amount_cents",
+          "type": "int"
+        },
+        {
+          "name": "currency",
+          "type": "bpchar"
+        },
+        {
+          "name": "status",
+          "type": "text"
+        },
+        {
+          "name": "method",
+          "type": "text"
+        },
+        {
+          "name": "installments",
+          "type": "int"
+        },
+        {
+          "name": "paid_at",
+          "type": "ts"
+        },
+        {
+          "name": "failure_code",
+          "type": "text"
+        },
+        {
+          "name": "failure_message",
+          "type": "text"
+        },
+        {
+          "name": "raw_payload",
+          "type": "json"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "commerce.payment"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "name": "billing_period",
+          "type": "text"
+        },
+        {
+          "name": "price_cents",
+          "type": "int"
+        },
+        {
+          "name": "currency",
+          "type": "bpchar"
+        },
+        {
+          "name": "trial_days",
+          "type": "int"
+        },
+        {
+          "name": "is_public",
+          "type": "bool"
+        },
+        {
+          "name": "is_active",
+          "type": "bool"
+        },
+        {
+          "name": "sort_order",
+          "type": "int"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        },
+        {
+          "name": "updated_at",
+          "type": "ts"
+        }
+      ],
+      "id": "commerce.plan"
+    },
+    {
+      "columns": [
+        {
+          "name": "plan_id",
+          "type": "uuid"
+        },
+        {
+          "name": "feature_key",
+          "type": "text"
+        },
+        {
+          "name": "limit_value",
+          "type": "int"
+        },
+        {
+          "name": "enabled",
+          "type": "bool"
+        }
+      ],
+      "id": "commerce.plan_feature"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "plan_id",
+          "type": "uuid"
+        },
+        {
+          "name": "provider",
+          "type": "text"
+        },
+        {
+          "name": "provider_ref",
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "type": "text"
+        },
+        {
+          "name": "current_period_start",
+          "type": "ts"
+        },
+        {
+          "name": "current_period_end",
+          "type": "ts"
+        },
+        {
+          "name": "cancel_at_period_end",
+          "type": "bool"
+        },
+        {
+          "name": "cancelled_at",
+          "type": "ts"
+        },
+        {
+          "name": "trial_ends_at",
+          "type": "ts"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        },
+        {
+          "name": "updated_at",
+          "type": "ts"
+        }
+      ],
+      "id": "commerce.subscription"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "content_item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "reporter_id",
+          "type": "uuid"
+        },
+        {
+          "name": "reason",
+          "type": "text"
+        },
+        {
+          "name": "detail",
+          "type": "text"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "admin.content_report"
+    },
+    {
+      "columns": [
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "name": "enabled",
+          "type": "bool"
+        },
+        {
+          "name": "rollout",
+          "type": "json"
+        },
+        {
+          "name": "updated_by",
+          "type": "uuid"
+        },
+        {
+          "name": "updated_at",
+          "type": "ts"
+        }
+      ],
+      "id": "admin.feature_flag"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "content_item_id",
+          "type": "uuid"
+        },
+        {
+          "name": "queue",
+          "type": "text"
+        },
+        {
+          "name": "priority",
+          "type": "int"
+        },
+        {
+          "name": "reason",
+          "type": "text"
+        },
+        {
+          "name": "detail",
+          "type": "json"
+        },
+        {
+          "name": "assigned_to",
+          "type": "uuid"
+        },
+        {
+          "name": "opened_at",
+          "type": "ts"
+        },
+        {
+          "name": "due_at",
+          "type": "ts"
+        },
+        {
+          "name": "resolved_at",
+          "type": "ts"
+        },
+        {
+          "name": "resolution",
+          "type": "text"
+        }
+      ],
+      "id": "admin.moderation_queue"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "staff_user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "subject_user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "scope",
+          "type": "text"
+        },
+        {
+          "name": "reason",
+          "type": "text"
+        },
+        {
+          "name": "ticket_ref",
+          "type": "text"
+        },
+        {
+          "name": "granted_at",
+          "type": "ts"
+        },
+        {
+          "name": "expires_at",
+          "type": "ts"
+        },
+        {
+          "name": "revoked_at",
+          "type": "ts"
+        },
+        {
+          "name": "revoked_by",
+          "type": "uuid"
+        },
+        {
+          "name": "revoke_reason",
+          "type": "text"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "admin.support_access_grant"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "grant_id",
+          "type": "uuid"
+        },
+        {
+          "name": "staff_user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "subject_user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "resource",
+          "type": "text"
+        },
+        {
+          "name": "action",
+          "type": "text"
+        },
+        {
+          "name": "filter",
+          "type": "json"
+        },
+        {
+          "name": "row_count",
+          "type": "int"
+        },
+        {
+          "name": "occurred_at",
+          "type": "ts"
+        }
+      ],
+      "id": "admin.support_access_log"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "author_id",
+          "type": "uuid"
+        },
+        {
+          "name": "body",
+          "type": "text"
+        },
+        {
+          "name": "category",
+          "type": "text"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        },
+        {
+          "name": "deleted_at",
+          "type": "ts"
+        }
+      ],
+      "id": "admin.user_note"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "prefix",
+          "type": "text"
+        },
+        {
+          "name": "secret_hash",
+          "type": "text"
+        },
+        {
+          "name": "label",
+          "type": "text"
+        },
+        {
+          "name": "scopes",
+          "type": "text[]"
+        },
+        {
+          "name": "integration_id",
+          "type": "uuid"
+        },
+        {
+          "name": "created_by",
+          "type": "uuid"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        },
+        {
+          "name": "expires_at",
+          "type": "ts"
+        },
+        {
+          "name": "last_used_at",
+          "type": "ts"
+        },
+        {
+          "name": "revoked_at",
+          "type": "ts"
+        },
+        {
+          "name": "revoked_by",
+          "type": "uuid"
+        }
+      ],
+      "id": "ops.api_key"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "fingerprint",
+          "type": "text"
+        },
+        {
+          "name": "message",
+          "type": "text"
+        },
+        {
+          "name": "stack",
+          "type": "text"
+        },
+        {
+          "name": "context",
+          "type": "json"
+        },
+        {
+          "name": "request_id",
+          "type": "text"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "environment",
+          "type": "text"
+        },
+        {
+          "name": "occurrence_count",
+          "type": "int"
+        },
+        {
+          "name": "first_seen_at",
+          "type": "ts"
+        },
+        {
+          "name": "last_seen_at",
+          "type": "ts"
+        },
+        {
+          "name": "resolved_at",
+          "type": "ts"
+        }
+      ],
+      "id": "ops.error_event"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "kind",
+          "type": "text"
+        },
+        {
+          "name": "label",
+          "type": "text"
+        },
+        {
+          "name": "config",
+          "type": "json"
+        },
+        {
+          "name": "secret_ref",
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "type": "text"
+        },
+        {
+          "name": "is_default",
+          "type": "bool"
+        },
+        {
+          "name": "health",
+          "type": "json"
+        },
+        {
+          "name": "last_checked_at",
+          "type": "ts"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        },
+        {
+          "name": "updated_at",
+          "type": "ts"
+        }
+      ],
+      "id": "ops.integration"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "job_name",
+          "type": "text"
+        },
+        {
+          "name": "idempotency_key",
+          "type": "text"
+        },
+        {
+          "name": "payload",
+          "type": "json"
+        },
+        {
+          "name": "status",
+          "type": "text"
+        },
+        {
+          "name": "attempts",
+          "type": "int"
+        },
+        {
+          "name": "max_attempts",
+          "type": "int"
+        },
+        {
+          "name": "error",
+          "type": "text"
+        },
+        {
+          "name": "error_detail",
+          "type": "json"
+        },
+        {
+          "name": "scheduled_at",
+          "type": "ts"
+        },
+        {
+          "name": "started_at",
+          "type": "ts"
+        },
+        {
+          "name": "finished_at",
+          "type": "ts"
+        },
+        {
+          "name": "duration_ms",
+          "type": "int"
+        },
+        {
+          "name": "triggered_by",
+          "type": "text"
+        }
+      ],
+      "id": "ops.job_run"
+    },
+    {
+      "columns": [
+        {
+          "name": "metric_date",
+          "type": "date"
+        },
+        {
+          "name": "metric_key",
+          "type": "text"
+        },
+        {
+          "name": "dimensions",
+          "type": "json"
+        },
+        {
+          "name": "value",
+          "type": "num"
+        },
+        {
+          "name": "updated_at",
+          "type": "ts"
+        }
+      ],
+      "id": "ops.metric_daily"
+    },
+    {
+      "columns": [
+        {
+          "name": "version",
+          "type": "text"
+        },
+        {
+          "name": "checksum",
+          "type": "bpchar"
+        },
+        {
+          "name": "applied_at",
+          "type": "ts"
+        },
+        {
+          "name": "applied_by",
+          "type": "text"
+        },
+        {
+          "name": "duration_ms",
+          "type": "int"
+        },
+        {
+          "name": "is_dev",
+          "type": "bool"
+        }
+      ],
+      "id": "ops.migration_log"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "template_key",
+          "type": "text"
+        },
+        {
+          "name": "channel",
+          "type": "text"
+        },
+        {
+          "name": "payload",
+          "type": "json"
+        },
+        {
+          "name": "status",
+          "type": "text"
+        },
+        {
+          "name": "read_at",
+          "type": "ts"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        },
+        {
+          "name": "sent_at",
+          "type": "ts"
+        }
+      ],
+      "id": "ops.notification"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "notification_id",
+          "type": "uuid"
+        },
+        {
+          "name": "provider",
+          "type": "text"
+        },
+        {
+          "name": "provider_ref",
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "type": "text"
+        },
+        {
+          "name": "attempt",
+          "type": "int"
+        },
+        {
+          "name": "error",
+          "type": "text"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        },
+        {
+          "name": "delivered_at",
+          "type": "ts"
+        }
+      ],
+      "id": "ops.notification_delivery"
+    },
+    {
+      "columns": [
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "channel",
+          "type": "text"
+        },
+        {
+          "name": "locale",
+          "type": "text"
+        },
+        {
+          "name": "subject",
+          "type": "text"
+        },
+        {
+          "name": "body",
+          "type": "text"
+        },
+        {
+          "name": "variables",
+          "type": "json"
+        },
+        {
+          "name": "version",
+          "type": "int"
+        },
+        {
+          "name": "active",
+          "type": "bool"
+        },
+        {
+          "name": "updated_at",
+          "type": "ts"
+        }
+      ],
+      "id": "ops.notification_template"
+    },
+    {
+      "columns": [
+        {
+          "name": "key",
+          "type": "text"
+        },
+        {
+          "name": "scope",
+          "type": "text"
+        },
+        {
+          "name": "value",
+          "type": "json"
+        },
+        {
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "name": "is_secret",
+          "type": "bool"
+        },
+        {
+          "name": "updated_by",
+          "type": "uuid"
+        },
+        {
+          "name": "updated_at",
+          "type": "ts"
+        }
+      ],
+      "id": "ops.setting"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "integration_id",
+          "type": "uuid"
+        },
+        {
+          "name": "endpoint",
+          "type": "text"
+        },
+        {
+          "name": "events",
+          "type": "text[]"
+        },
+        {
+          "name": "secret_ref",
+          "type": "text"
+        },
+        {
+          "name": "active",
+          "type": "bool"
+        },
+        {
+          "name": "max_attempts",
+          "type": "int"
+        },
+        {
+          "name": "timeout_ms",
+          "type": "int"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        },
+        {
+          "name": "updated_at",
+          "type": "ts"
+        }
+      ],
+      "id": "ops.webhook"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "webhook_id",
+          "type": "uuid"
+        },
+        {
+          "name": "event",
+          "type": "text"
+        },
+        {
+          "name": "payload",
+          "type": "json"
+        },
+        {
+          "name": "status",
+          "type": "text"
+        },
+        {
+          "name": "attempt",
+          "type": "int"
+        },
+        {
+          "name": "response_status",
+          "type": "int"
+        },
+        {
+          "name": "response_body",
+          "type": "text"
+        },
+        {
+          "name": "next_attempt_at",
+          "type": "ts"
+        },
+        {
+          "name": "delivered_at",
+          "type": "ts"
+        },
+        {
+          "name": "created_at",
+          "type": "ts"
+        }
+      ],
+      "id": "ops.webhook_delivery"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid"
+        },
+        {
+          "name": "seq",
+          "type": "bigint"
+        },
+        {
+          "name": "occurred_at",
+          "type": "ts"
+        },
+        {
+          "name": "actor_id",
+          "type": "uuid"
+        },
+        {
+          "name": "actor_role",
+          "type": "text"
+        },
+        {
+          "name": "subject_user_id",
+          "type": "uuid"
+        },
+        {
+          "name": "action",
+          "type": "text"
+        },
+        {
+          "name": "entity_type",
+          "type": "text"
+        },
+        {
+          "name": "entity_id",
+          "type": "text"
+        },
+        {
+          "name": "before",
+          "type": "json"
+        },
+        {
+          "name": "after",
+          "type": "json"
+        },
+        {
+          "name": "request_id",
+          "type": "text"
+        },
+        {
+          "name": "ip_address",
+          "type": "inet"
+        },
+        {
+          "name": "user_agent",
+          "type": "text"
+        },
+        {
+          "name": "prev_hash",
+          "type": "bpchar"
+        },
+        {
+          "name": "row_hash",
+          "type": "bpchar"
+        },
+        {
+          "name": "metadata",
+          "type": "json"
+        }
+      ],
+      "id": "audit.audit_log"
+    }
+  ],
+  "version": "canone.metamodel.observed.v1"
+}

@@ -1,0 +1,12 @@
+{
+  "schema_version": "canone.evidence-graph.v1",
+  "corpus_status": "AWAITING_PRESERVED_SOURCE_EXPORT",
+  "source_documents": [],
+  "atoms": [],
+  "claims": [],
+  "concepts": [],
+  "relations": [],
+  "content_projections": [],
+  "field_definitions": [],
+  "technical_decisions": []
+}

@@ -1,0 +1,18 @@
+{
+  "content_authority": "PRESERVED_SOURCE",
+  "editorial_is_independent_evidence_not_normative_substitute": true,
+  "graph": {
+    "atoms": [],
+    "claims": [],
+    "concepts": [],
+    "content_projections": [],
+    "corpus_status": "AWAITING_PRESERVED_SOURCE_EXPORT",
+    "field_definitions": [],
+    "relations": [],
+    "schema_version": "canone.evidence-graph.v1",
+    "source_documents": [],
+    "technical_decisions": []
+  },
+  "normative_priority": true,
+  "schema_version": "canone.evidence-graph.v1"
+}

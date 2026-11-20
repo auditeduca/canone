@@ -1,0 +1,19 @@
+{
+  "schema": "canone.senado.page-scope-reconciliation.v1",
+  "observed_on": "2026-11-14",
+  "total_candidates": 28,
+  "v8_reconciled": 26,
+  "posterior_change_candidates": 2,
+  "high_priority_exame_suficiencia": 2,
+  "backed_by_preserved_source_bytes": 0,
+  "canonical_claims": 0,
+  "publication_eligible": false,
+  "gates": [
+    "HOLD_RAW_SOURCE_BYTES",
+    "HOLD_CURRENT_TEXT_AND_TEMPORAL_VALIDITY",
+    "HOLD_LEGAL_REVIEW",
+    "HOLD_EDITORIAL_REVIEW"
+  ],
+  "evidence_source": "OFFICIAL_SENATE_PAGES_RENDERED_TEXT__NOT_API_JSON",
+  "csv_sha256": "8e4da580fc1997426dc405266fa66f8d47ae3ac23d5c0b98df0ed862215cc477"
+}

@@ -1,0 +1,248 @@
+-- =============================================================================
+-- 009 · ADMINISTRAÇÃO, GOVERNANÇA E "VISÃO DE USUÁRIO"
+-- -----------------------------------------------------------------------------
+-- TRÊS COISAS DIFERENTES QUE VIVEM AQUI:
+--
+-- 1) AUDITORIA (audit.audit_log)
+--    Append-only, com ENCADEAMENTO DE HASH. Cada linha guarda o hash da
+--    anterior; alterar qualquer linha quebra a cadeia e é detectável por
+--    uma função. É o que permite dizer "nenhum número foi alterado depois
+--    de publicado" — a tese do produto, com prova mecânica.
+--
+-- 2) MODERAÇÃO
+--    Fila editorial: o que está em revisão, o que foi reportado, o que
+--    expirou (norma mudou).
+--
+-- 3) VISÃO DE USUÁRIO (admin.support_access_grant)
+--    O administrador precisa enxergar a conta do aluno para diagnosticar.
+--    Isso é dado pessoal do titular sendo lido por terceiro — logo:
+--      · exige CONCESSÃO COM MOTIVO e PRAZO
+--      · é SOMENTE LEITURA no banco (RLS bloqueia escrita no papel do titular)
+--      · TUDO que o staff vê sob a concessão é registrado
+--      · a concessão expira sozinha
+--      · revogar é imediato e também é auditado
+--
+-- =============================================================================
+
+-- -----------------------------------------------------------------------------
+-- AUDITORIA — schema isolado, append-only, com cadeia de hash
+-- -----------------------------------------------------------------------------
+CREATE TABLE audit.audit_log (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  -- Numeração monotônica: duas requisições simultâneas não colidem na ordem.
+  seq          bigserial,
+  occurred_at  timestamptz NOT NULL DEFAULT now(),
+  -- Quem agiu. NULL = sistema.
+  actor_id     uuid,
+  actor_role   text,
+  -- Se a ação foi feita SOBRE outro usuário (visão de usuário), o alvo.
+  subject_user_id uuid,
+  action       text NOT NULL,
+  entity_type  text NOT NULL,
+  entity_id    text,
+  before       jsonb,
+  after        jsonb,
+  -- Contexto da requisição.
+  request_id   text,
+  ip_address   inet,
+  user_agent   text,
+  -- Hash da linha anterior e hash desta linha. A cadeia é verificável.
+  prev_hash    char(64),
+  row_hash     char(64) NOT NULL,
+  metadata     jsonb NOT NULL DEFAULT '{}'::jsonb
+);
+CREATE INDEX ix_audit_log_actor ON audit.audit_log (actor_id, occurred_at DESC);
+CREATE INDEX ix_audit_log_entity ON audit.audit_log (entity_type, entity_id, occurred_at DESC);
+CREATE INDEX ix_audit_log_action ON audit.audit_log (action, occurred_at DESC);
+CREATE INDEX ix_audit_log_subject ON audit.audit_log (subject_user_id, occurred_at DESC)
+  WHERE subject_user_id IS NOT NULL;
+CREATE UNIQUE INDEX ux_audit_log_seq ON audit.audit_log (seq);
+
+COMMENT ON TABLE audit.audit_log IS
+  'Log append-only com encadeamento de hash. UPDATE e DELETE são bloqueados por trigger.';
+
+-- Função de encadeamento: calcula row_hash = sha256(prev_hash || payload canônico).
+CREATE OR REPLACE FUNCTION audit.compute_row_hash(
+  p_prev char(64), p_action text, p_entity_type text, p_entity_id text,
+  p_actor uuid, p_before jsonb, p_after jsonb, p_occurred_at timestamptz
+) RETURNS char(64)
+LANGUAGE sql IMMUTABLE AS $$
+  -- sha256(bytea) é função de NÚCLEO desde o PostgreSQL 11 — dispensa pgcrypto.
+  -- O carimbo de tempo entra como EPOCH, não como texto: 'p_occurred_at::text'
+  -- depende do TimeZone e do DateStyle da sessão, e o hash mudaria conforme
+  -- quem verifica. Um hash que depende do ambiente não é uma prova.
+  SELECT encode(sha256(convert_to(
+    coalesce(p_prev,'') || '|' || p_action || '|' || p_entity_type || '|' ||
+    coalesce(p_entity_id,'') || '|' || coalesce(p_actor::text,'') || '|' ||
+    coalesce(p_before::text,'') || '|' || coalesce(p_after::text,'') || '|' ||
+    coalesce(extract(epoch from p_occurred_at)::text,'')
+  , 'UTF8')), 'hex')::char(64)
+$$;
+
+CREATE OR REPLACE FUNCTION audit.set_row_hash() RETURNS trigger
+LANGUAGE plpgsql AS $$
+DECLARE v_prev char(64);
+BEGIN
+  SELECT row_hash INTO v_prev FROM audit.audit_log ORDER BY seq DESC LIMIT 1;
+  NEW.prev_hash := v_prev;
+  NEW.row_hash := audit.compute_row_hash(
+    v_prev, NEW.action, NEW.entity_type, NEW.entity_id,
+    NEW.actor_id, NEW.before, NEW.after, NEW.occurred_at
+  );
+  RETURN NEW;
+END $$;
+
+CREATE TRIGGER trg_audit_hash BEFORE INSERT ON audit.audit_log
+  FOR EACH ROW EXECUTE FUNCTION audit.set_row_hash();
+
+CREATE OR REPLACE FUNCTION audit.forbid_mutation() RETURNS trigger
+LANGUAGE plpgsql AS $$
+BEGIN
+  RAISE EXCEPTION 'audit.audit_log é append-only: % proibido', TG_OP
+    USING ERRCODE = '23514';
+END $$;
+
+CREATE TRIGGER trg_audit_no_update BEFORE UPDATE OR DELETE ON audit.audit_log
+  FOR EACH ROW EXECUTE FUNCTION audit.forbid_mutation();
+
+-- Verificação de integridade da cadeia. Usar no CI: se quebrar, houve
+-- adulteração ou truncate fora do procedimento.
+CREATE OR REPLACE FUNCTION audit.verify_chain(p_from bigint DEFAULT NULL)
+RETURNS TABLE(seq bigint, ok boolean, expected char(64), found char(64))
+LANGUAGE sql STABLE AS $$
+  -- O lag() é calculado SOBRE A CADEIA INTEIRA e só DEPOIS se filtra.
+  -- A versão anterior filtrava dentro da CTE: com p_from, a primeira linha
+  -- do recorte tinha prev_in_chain = NULL, enquanto o prev_hash real apontava
+  -- para a linha anterior — e o verificador acusava cadeia quebrada em toda
+  -- verificação parcial. O verificador MENTIA.
+  -- O verificador RECALCULA o hash de cada linha a partir do conteúdo.
+  -- A versão anterior só comparava o prev_hash com o row_hash da linha
+  -- anterior: quem reescrevesse o conteúdo de uma linha SEM recalcular o
+  -- hash deixava a cadeia "íntegra" do ponto de vista do verificador. A
+  -- cadeia parecia intacta justamente porque a prova não era conferida.
+  WITH ordered AS (
+    SELECT a.*, lag(a.row_hash) OVER (ORDER BY a.seq) AS prev_in_chain
+    FROM audit.audit_log a
+  ),
+  scoped AS (
+    SELECT * FROM ordered
+     WHERE p_from IS NULL OR seq >= p_from
+  ),
+  checked AS (
+    SELECT o.*,
+           audit.compute_row_hash(
+             o.prev_hash, o.action, o.entity_type, o.entity_id,
+             o.actor_id, o.before, o.after, o.occurred_at
+           ) AS recomputed
+      FROM scoped o
+  )
+  SELECT c.seq,
+         (c.prev_hash IS NOT DISTINCT FROM c.prev_in_chain)
+         AND (c.row_hash IS NOT DISTINCT FROM c.recomputed),
+         c.recomputed, c.row_hash
+  FROM checked c
+  WHERE c.prev_hash IS DISTINCT FROM c.prev_in_chain
+     OR c.row_hash IS DISTINCT FROM c.recomputed
+$$;
+
+-- -----------------------------------------------------------------------------
+-- CONCESSÃO DE VISÃO DE USUÁRIO (suporte)
+-- -----------------------------------------------------------------------------
+CREATE TABLE admin.support_access_grant (
+  id             uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  staff_user_id  uuid NOT NULL REFERENCES identity.account(id),
+  subject_user_id uuid NOT NULL REFERENCES identity.account(id) ON DELETE CASCADE,
+  -- Escopo: 'progresso' | 'conta' | 'assinatura' | 'completo'
+  scope          text NOT NULL DEFAULT 'progresso'
+                 CHECK (scope IN ('progresso','conta','assinatura','completo')),
+  -- Motivo é obrigatório. Sem motivo, não há concessão — e sem concessão,
+  -- ninguém vê dado de terceiro.
+  reason         text NOT NULL CHECK (length(btrim(reason)) >= 10),
+  ticket_ref     text,
+  granted_at     timestamptz NOT NULL DEFAULT now(),
+  expires_at     timestamptz NOT NULL,
+  revoked_at     timestamptz,
+  revoked_by     uuid REFERENCES identity.account(id),
+  revoke_reason  text,
+  created_at     timestamptz NOT NULL DEFAULT now(),
+  CONSTRAINT ck_grant_expiry CHECK (expires_at > granted_at),
+  CONSTRAINT ck_grant_max_duration CHECK (expires_at <= granted_at + interval '72 hours')
+);
+COMMENT ON CONSTRAINT ck_grant_max_duration ON admin.support_access_grant IS
+  'Visão de usuário dura no máximo 72h. Acesso permanente a dado de terceiro é violação de LGPD.';
+-- ATENÇÃO: `expires_at > now()` NÃO pode entrar no predicado — now() é
+-- STABLE e Postgres exige IMMUTABLE em índice parcial. A expiração é
+-- tratada pela função admin.purge_expired_grants() e pelo filtro de consulta.
+CREATE INDEX ix_grant_active ON admin.support_access_grant (staff_user_id)
+  WHERE revoked_at IS NULL;
+CREATE INDEX ix_grant_subject ON admin.support_access_grant (subject_user_id, granted_at DESC);
+
+-- O que o staff efetivamente abriu sob a concessão.
+CREATE TABLE admin.support_access_log (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  grant_id      uuid NOT NULL REFERENCES admin.support_access_grant(id) ON DELETE CASCADE,
+  staff_user_id uuid NOT NULL REFERENCES identity.account(id),
+  subject_user_id uuid NOT NULL REFERENCES identity.account(id),
+  -- Qual recurso foi lido (ex.: 'learning.review_event').
+  resource      text NOT NULL,
+  action        text NOT NULL DEFAULT 'leitura',
+  filter        jsonb NOT NULL DEFAULT '{}'::jsonb,
+  row_count     int,
+  occurred_at   timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX ix_support_access_log_grant ON admin.support_access_log (grant_id, occurred_at DESC);
+
+-- -----------------------------------------------------------------------------
+-- MODERAÇÃO
+-- -----------------------------------------------------------------------------
+CREATE TABLE admin.moderation_queue (
+  id             uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id uuid REFERENCES editorial.content_item(id) ON DELETE CASCADE,
+  -- Tipo de fila: 'revisao' | 'expirada' | 'reportada' | 'reclamacao'
+  queue          text NOT NULL CHECK (queue IN ('revisao','expirada','reportada','reclamacao')),
+  priority       int NOT NULL DEFAULT 0,
+  reason         text NOT NULL,
+  detail         jsonb NOT NULL DEFAULT '{}'::jsonb,
+  assigned_to    uuid REFERENCES identity.account(id),
+  opened_at      timestamptz NOT NULL DEFAULT now(),
+  due_at         timestamptz,
+  resolved_at    timestamptz,
+  resolution     text
+);
+CREATE INDEX ix_moderation_open ON admin.moderation_queue (priority DESC, opened_at)
+  WHERE resolved_at IS NULL;
+
+-- Reported por usuário (aluno ou público).
+CREATE TABLE admin.content_report (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id uuid NOT NULL REFERENCES editorial.content_item(id) ON DELETE CASCADE,
+  reporter_id     uuid REFERENCES identity.account(id),
+  reason          text NOT NULL CHECK (reason IN
+                    ('gabarito','redacao','norma','duplicidade','outro')),
+  detail          text,
+  created_at      timestamptz NOT NULL DEFAULT now()
+);
+
+-- Nota interna sobre usuário. Só staff.
+CREATE TABLE admin.user_note (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id     uuid NOT NULL REFERENCES identity.account(id) ON DELETE CASCADE,
+  author_id   uuid NOT NULL REFERENCES identity.account(id),
+  body        text NOT NULL,
+  category    text,
+  created_at  timestamptz NOT NULL DEFAULT now(),
+  deleted_at  timestamptz
+);
+
+-- -----------------------------------------------------------------------------
+-- FEATURE FLAG
+-- -----------------------------------------------------------------------------
+CREATE TABLE admin.feature_flag (
+  key         text PRIMARY KEY,
+  description text,
+  enabled     boolean NOT NULL DEFAULT false,
+  -- Rollout por papel, plano ou coorte. Vazio = 100%.
+  rollout     jsonb NOT NULL DEFAULT '{}'::jsonb,
+  updated_by  uuid REFERENCES identity.account(id),
+  updated_at  timestamptz NOT NULL DEFAULT now()
+);

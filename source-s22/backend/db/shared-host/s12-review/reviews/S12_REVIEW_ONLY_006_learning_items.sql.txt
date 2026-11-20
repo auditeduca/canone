@@ -1,0 +1,218 @@
+-- S12 CANDIDATE FOR HUMAN REVIEW ONLY - NEVER EXECUTE AGAINST SHARED DATABASE.
+-- Source: 006_learning_items.sql SHA256 55417f64192b8b4e5081416c2b874f207bedaf011fd2670e38e1f37bc5c75031
+-- S11 lexical preview SHA256 2301017609a8fbace95ce22872aaf36f1c258bb62647fbd78034117ecaf3eca5
+-- Incomplete until ownership, role, view, RLS and PostgreSQL integration gates PASS.
+-- NON-EXECUTABLE DELIVERABLE: .sql.txt review artifact.
+
+-- =============================================================================
+-- 006 · ITENS DE ESTUDO E PROJEÇÕES RELACIONAIS
+-- -----------------------------------------------------------------------------
+-- O PAYLOAD É CANÔNICO; AS PROJEÇÕES SÃO DERIVADAS.
+--
+-- Por que projetar: o banco precisa responder "quais itens de Auditoria
+-- citam NBC TA 300" e "qual o gabarito do item X" em milliseconds, com
+-- integridade referencial. JSONB não dá nem um nem outro.
+--
+-- Por que não duplicar: dual-write manual diverge. As projeções são
+-- mantidas por TRIGGER a partir do payload — logo, a divergência é
+-- estruturalmente impossível, e isso é testável.
+--
+-- A REGRA DE OURO (do projeto): o que o banco projete, o banco VALIDA.
+-- Se o payload diz "alternativa A é correta" e a projeção diz outra coisa,
+-- o item não entra em produção.
+-- =============================================================================
+
+-- -----------------------------------------------------------------------------
+-- PROJEÇÃO: ITEM (todo item de avaliação é um 'learning_item')
+-- -----------------------------------------------------------------------------
+CREATE TABLE canone_learning.item (
+  id               uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id  uuid NOT NULL UNIQUE REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  content_type_key text NOT NULL REFERENCES canone_editorial.content_type(key),
+  -- Tipo concreto de item de avaliação.
+  kind             text NOT NULL CHECK (kind IN ('questao','flashcard','caso','simulado_item','calculo')),
+  -- Nível de dificuldade (1-4) usado pelo simulado adaptativo.
+  difficulty       numeric(3,2) NOT NULL DEFAULT 2.00
+                   CHECK (difficulty >= 1 AND difficulty <= 4),
+  -- Segundos estimados de resolução.
+  estimated_seconds int,
+  -- Discriminação: questão que ninguém distingue não vale ser item.
+  discrimination   numeric(4,3) NOT NULL DEFAULT 0.000,
+  -- Quantas vezes o item foi respondido (cache de estatística).
+  answer_count     int NOT NULL DEFAULT 0,
+  correct_count    int NOT NULL DEFAULT 0,
+  -- Percentual de acerto acumulado — NÃO é "taxa de aprovação da plataforma",
+  -- é estatística do item, e serve para revisar item ruim.
+  correct_rate     numeric(5,2) GENERATED ALWAYS AS (
+                     CASE WHEN answer_count = 0 THEN NULL
+                          ELSE round(correct_count::numeric * 100 / answer_count, 2) END
+                   ) STORED,
+  -- Sinalizado por QC quando o item tem defeito (distrator ambíguo etc).
+  flagged_for_review boolean NOT NULL DEFAULT false,
+  flag_reason      text,
+  created_at       timestamptz NOT NULL DEFAULT now(),
+  updated_at       timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX ix_learning_item_kind ON canone_learning.item (kind, difficulty);
+CREATE INDEX ix_learning_item_rate ON canone_learning.item (correct_rate) WHERE answer_count >= 20;
+
+-- -----------------------------------------------------------------------------
+-- PROJEÇÃO: ALTERNATIVAS
+-- -----------------------------------------------------------------------------
+CREATE TABLE canone_learning.item_option (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  item_id      uuid NOT NULL REFERENCES canone_learning.item(id) ON DELETE CASCADE,
+  ordinal      text NOT NULL CHECK (ordinal IN ('A','B','C','D','E')),
+  body         text NOT NULL,
+  is_correct   boolean NOT NULL DEFAULT false,
+  -- Por que a alternativa está errada. O erro do candidato é quase sempre
+  -- um distrator CONCEITUAL; explicar só a correta não ensina o distrator.
+  distractor_kind text,
+  ordinal_pos  int NOT NULL,
+  UNIQUE (item_id, ordinal)
+);
+CREATE INDEX ix_item_option_correct ON canone_learning.item_option (item_id) WHERE is_correct;
+
+-- -----------------------------------------------------------------------------
+-- CORREÇÃO — o servidor julga
+-- -----------------------------------------------------------------------------
+-- O cliente envia a alternativa escolhida; o banco compara com o gabarito e
+-- devolve apenas o VEREDITO. A alternativa correta nunca é entregue.
+--
+-- SECURITY DEFINER porque precisa ler learning.item_option, que o papel do
+-- assinante NÃO tem permissão de ler — é exatamente esse o ponto.
+CREATE OR REPLACE FUNCTION canone_learning.grade_answer(p_item_id uuid, p_ordinal text)
+RETURNS boolean
+LANGUAGE sql
+SECURITY DEFINER
+SET search_path = pg_catalog, canone_learning, pg_temp
+STABLE AS $$
+  SELECT EXISTS (
+    SELECT 1 FROM canone_learning.item_option
+     WHERE item_id = p_item_id
+       AND ordinal = upper(p_ordinal)
+       AND is_correct
+  )
+$$;
+REVOKE ALL ON FUNCTION canone_learning.grade_answer(uuid, text) FROM PUBLIC;
+COMMENT ON FUNCTION canone_learning.grade_answer(uuid, text) IS
+  'Corrige a resposta. Devolve só o veredito — o gabarito não sai do servidor.';
+
+-- -----------------------------------------------------------------------------
+-- PROJEÇÃO: EXPLICAÇÃO
+-- -----------------------------------------------------------------------------
+CREATE TABLE canone_learning.explanation (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  item_id      uuid NOT NULL REFERENCES canone_learning.item(id) ON DELETE CASCADE,
+  kind         text NOT NULL CHECK (kind IN ('correta','distrator','metodologia','normativa')),
+  -- Para distrator, aponta para a alternativa que ele explica.
+  -- FK COMPOSTA: 'ordinal' só é único dentro do item, não globalmente.
+  option_ordinal text,
+  body         text NOT NULL,
+  -- Base normativa declarada (texto livre; a âncora relacional está em
+  -- content_relation 'cita_norma').
+  basis        text,
+  ordinal      int NOT NULL DEFAULT 0,
+  UNIQUE (item_id, kind, option_ordinal),
+  FOREIGN KEY (item_id, option_ordinal)
+    REFERENCES canone_learning.item_option(item_id, ordinal) ON DELETE CASCADE
+);
+
+-- -----------------------------------------------------------------------------
+-- PROJEÇÃO: ITEM × ASSUNTO (atalho para consulta quente)
+-- -----------------------------------------------------------------------------
+CREATE TABLE canone_learning.item_subject (
+  item_id    uuid NOT NULL REFERENCES canone_learning.item(id) ON DELETE CASCADE,
+  subject_id uuid NOT NULL REFERENCES canone_taxonomy.subject(id) ON DELETE CASCADE,
+  PRIMARY KEY (item_id, subject_id)
+);
+CREATE INDEX ix_item_subject_subject ON canone_learning.item_subject (subject_id, item_id);
+
+-- -----------------------------------------------------------------------------
+-- CONTEÚDO DE ESTUDO NÃO-AVALIATIVO (aula, mapa, guia)
+-- -----------------------------------------------------------------------------
+CREATE TABLE canone_learning.study_block (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id uuid NOT NULL REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  ordinal     int NOT NULL,
+  block_type  text NOT NULL CHECK (block_type IN
+                ('texto','titulo','imagem','diagrama','formula','tabela','lista',
+                 'quiz_embutido','referencia_norma','galeria','video','audio','callout')),
+  data        jsonb NOT NULL DEFAULT '{}'::jsonb,
+  UNIQUE (content_item_id, ordinal)
+);
+COMMENT ON TABLE canone_learning.study_block IS
+  'Blocos de conteúdo de estudo. O app renderiza esta lista na ordem; o editor arrasta para reordenar.';
+
+-- -----------------------------------------------------------------------------
+-- TIPO "SIMULADO" — composição de itens
+-- -----------------------------------------------------------------------------
+CREATE TABLE canone_learning.mock_exam (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id uuid NOT NULL UNIQUE REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  exam_edition_id uuid REFERENCES canone_taxonomy.exam_edition(id),
+  -- Composição: [{subject_id, count}]
+  blueprint     jsonb NOT NULL DEFAULT '{}'::jsonb,
+  time_limit_seconds int,
+  total_items   int NOT NULL DEFAULT 50,
+  passing_score int NOT NULL DEFAULT 25,
+  is_adaptive   boolean NOT NULL DEFAULT false,
+  created_at    timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE TABLE canone_learning.mock_exam_item (
+  mock_exam_id uuid NOT NULL REFERENCES canone_learning.mock_exam(id) ON DELETE CASCADE,
+  item_id      uuid NOT NULL REFERENCES canone_learning.item(id),
+  ordinal      int NOT NULL,
+  PRIMARY KEY (mock_exam_id, item_id),
+  UNIQUE (mock_exam_id, ordinal)
+);
+
+-- -----------------------------------------------------------------------------
+-- TIPO "MAPA MENTAL" — grafo de nós
+-- -----------------------------------------------------------------------------
+CREATE TABLE canone_learning.mind_map (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id uuid NOT NULL UNIQUE REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  root_label      text NOT NULL,
+  layout          text NOT NULL DEFAULT 'radial'
+                 CHECK (layout IN ('radial','fluxograma','linha_do_tempo','quadro','checklist'))
+);
+
+CREATE TABLE canone_learning.mind_map_node (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  mind_map_id uuid NOT NULL REFERENCES canone_learning.mind_map(id) ON DELETE CASCADE,
+  parent_id   uuid REFERENCES canone_learning.mind_map_node(id),
+  label       text NOT NULL,
+  content_item_id uuid REFERENCES canone_editorial.content_item(id),
+  ordinal     int NOT NULL DEFAULT 0,
+  x_num       numeric(10,4),
+  y_num       numeric(10,4)
+);
+CREATE INDEX ix_mind_map_node_parent ON canone_learning.mind_map_node (parent_id);
+
+-- -----------------------------------------------------------------------------
+-- TIPO "GUIA DE BOLSO" — consulta rápida
+-- -----------------------------------------------------------------------------
+CREATE TABLE canone_learning.pocket_entry (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id uuid NOT NULL UNIQUE REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  format          text NOT NULL,
+  summary         text NOT NULL,
+  key_points      jsonb NOT NULL DEFAULT '[]'::jsonb,
+  common_errors   jsonb NOT NULL DEFAULT '[]'::jsonb,
+  formulas        jsonb NOT NULL DEFAULT '[]'::jsonb
+);
+
+-- -----------------------------------------------------------------------------
+-- TIPO "CASO PRÁTICO" — enunciado + resolução por etapas
+-- -----------------------------------------------------------------------------
+CREATE TABLE canone_learning.case_step (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id uuid NOT NULL REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  ordinal         int NOT NULL,
+  title           text NOT NULL,
+  body            text NOT NULL,
+  -- Etapa que exige decisão do aluno (interativa) ou é apenas informativa.
+  kind            text NOT NULL DEFAULT 'informativa' CHECK (kind IN ('informativa','decisao','conclusao'))
+);

@@ -1,0 +1,21 @@
+{
+  "schema": "canone.v9.reconciliacao-implantacao.v1",
+  "date": "2026-11-14",
+  "status": "NO_GO_HOLD_HUMAN",
+  "baseline_commit": "58676382aa7b651da00059455267664e92573a0a",
+  "original_user_zip_sha256": "38428440c0da43bebb79790408e9ca0f826fc28a8737d0eab53109cef0a12ab0",
+  "original_file_count": 229,
+  "original_files_byte_identical": true,
+  "new_files_sha256": {
+    "tools/preflight_implantacao.py": "eb15b1ee66e5734ed1da9a2165e496066acbc74a58f53598923a9059bd3f4c11",
+    "tools/test_preflight_implantacao.py": "1f41bc0abe7b7643e80ec6478c923cc467c5a5f613933ae5d59bb991a438c473",
+    ".github/workflows/canone-release-preflight.yml": "ec63f94eace871580d0cc1278f13a1c3a6e8f5f63f95ebb8f7e994a182c22f91",
+    "docs/pmo/RECONCILIACAO_IMPLANTACAO_V9_2026-11-14.md": "07033b41e3e5c92dfb3bcc5d1134b4d6bf75ab7205d57ab9a48087b07ffedc08",
+    "docs/evidencias/RECONCILIACAO_V9_PREFLIGHT_BLOQUEADO_2026-11-14.json": "4df7b51a55cf8e6bddeb22c8ce9721c9b5b30c297c12032ea6b43801eac5a8cd",
+    "docs/evidencias/RECONCILIACAO_V9_TESTES_INTEGRADOS_2026-11-14.txt": "3708c16378e19436b45985887c86bf00c9d14b033f222fcf951268b6f7b3b45d",
+    "docs/evidencias/RECONCILIACAO_V9_UNIT_TESTS_2026-11-14.txt": "5e97a02b2da9163c943749e8b8b3615d4f54c6def88a20ebe74ec57e918a03f1"
+  },
+  "preview_deployed": false,
+  "supabase_writes": 0,
+  "github_push": false
+}

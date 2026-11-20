@@ -1,0 +1,31 @@
+name: Cânone — Release Preflight (NO-GO until remediation)
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  provenance-and-structure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - name: Run offline evidence and metadata checks
+        run: |
+          python3 tools/verificar_pacote.py
+          ( cd backend && node --test integrations/*/tests/*.test.mjs tests/12-audit-educa-bridge.test.mjs )
+          ( cd backend && node integrations/metadata-auto/generate.mjs --check )
+          ( cd backend && node integrations/canonical-knowledge/generate.mjs --check )
+          ( cd backend && node integrations/senado-legislacao/source-backed-review.mjs --check )
+      - name: Verify frontend supply chain and strict TypeScript
+        run: |
+          node app/scripts/check-preview-security.mjs
+          node --test app/tests/check-preview-security.test.mjs
+          ( cd app && npm ci && npm audit --audit-level=high && npm run build )
+      - name: Require release preflight (known NO-GO until remediation)
+        run: python3 tools/preflight_implantacao.py --strict

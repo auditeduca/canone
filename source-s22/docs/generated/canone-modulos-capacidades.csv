@@ -1,0 +1,27 @@
+numero;id;modulo;fase;onda;engines_compartilhados;homologacao;go_live
+1;simulados;Simulados;Praticar;V1 núcleo;item-bank | exam-attempt | progress-analytics;NOT_HOMOLOGATED;NO_GO
+2;flashcards;Flashcards;Estudar;V1 núcleo;content-projection | srs-review | concept-graph;NOT_HOMOLOGATED;NO_GO
+3;mapas-mentais;Mapas Mentais;Estudar;V1.1 extensão;concept-graph | content-projection;NOT_HOMOLOGATED;NO_GO
+4;contabilidade-ilustrada;Contabilidade Ilustrada;Estudar;V1.1 extensão;content-projection | concept-graph;NOT_HOMOLOGATED;NO_GO
+5;guia-de-bolso;Guia de Bolso;Estudar;V1 núcleo;content-projection | concept-graph;NOT_HOMOLOGATED;NO_GO
+6;plano-de-estudos;Plano de Estudos;Estudar;V1 núcleo;learning-plan | progress-analytics;NOT_HOMOLOGATED;NO_GO
+7;laboratorio;Laboratório Contábil;Estudar;V2 avançado;accounting-simulation | case-workflow;NOT_HOMOLOGATED;NO_GO
+8;calculadoras;Calculadoras Contábeis;Praticar;V1.1 extensão;calculation-core;NOT_HOMOLOGATED;NO_GO
+9;cpc-visual;CPC Visual;Estudar;V1.1 extensão;concept-graph | content-projection;NOT_HOMOLOGATED;NO_GO
+10;dre-interativa;DRE Interativa;Estudar;V1.1 extensão;accounting-simulation;NOT_HOMOLOGATED;NO_GO
+11;balanco-3d;Balanço Patrimonial 3D;Estudar;V2 avançado;accounting-simulation | content-projection;NOT_HOMOLOGATED;NO_GO
+12;diario-e-razao;Diário e Razão;Estudar;V1.1 extensão;accounting-simulation;NOT_HOMOLOGATED;NO_GO
+13;auditoria-pratica;Auditoria na Prática;Estudar;V1.1 extensão;case-workflow | concept-graph;NOT_HOMOLOGATED;NO_GO
+14;pericia;Perícia Contábil;Estudar;V2 avançado;case-workflow | concept-graph;NOT_HOMOLOGATED;NO_GO
+15;contabilidade-publica;Contabilidade Pública;Estudar;V1.1 extensão;concept-graph | content-projection;NOT_HOMOLOGATED;NO_GO
+16;matematica;Matemática Financeira;Praticar;V1.1 extensão;calculation-core | item-bank;NOT_HOMOLOGATED;NO_GO
+17;duelo;Duelo de Questões;Praticar;V2 avançado;social-challenge | item-bank | exam-attempt;NOT_HOMOLOGATED;NO_GO
+18;simulado-adaptativo;Simulado Adaptativo;Praticar;V2 avançado;adaptive-selector | item-bank | exam-attempt;NOT_HOMOLOGATED;NO_GO
+19;reposicao;Banco de Dados de Questões;Praticar;V1 núcleo;item-bank | concept-graph;NOT_HOMOLOGATED;NO_GO
+20;glossario;Glossário Contábil;Evoluir;V1 núcleo;concept-graph | content-projection;NOT_HOMOLOGATED;NO_GO
+21;podcast;Podcast de Revisão;Estudar;V2 avançado;media-player | content-projection;NOT_HOMOLOGATED;NO_GO
+22;videodulas;Vídeoaulas Interativas;Estudar;V2 avançado;media-player | item-bank;NOT_HOMOLOGATED;NO_GO
+23;casos;Casos Práticos;Evoluir;V2 avançado;case-workflow | item-bank;NOT_HOMOLOGATED;NO_GO
+24;caderno-erros;Caderno de Erros;Estudar;V1 núcleo;exam-attempt | srs-review | progress-analytics;NOT_HOMOLOGATED;NO_GO
+25;dashboard;Dashboard de Aprovação;Evoluir;V1 núcleo;progress-analytics;NOT_HOMOLOGATED;NO_GO
+26;offline;Cânone Offline;Aprovar;V2 avançado;offline-sync | content-projection;NOT_HOMOLOGATED;NO_GO

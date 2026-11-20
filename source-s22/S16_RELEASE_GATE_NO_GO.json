@@ -1,0 +1,17 @@
+{
+  "stage": "CANONE_V9_S16",
+  "date": "2026-11-14",
+  "preview": "READY",
+  "deployment_id": "dpl_32fbJxtBy8wP24BTe4wEadbLGNkj",
+  "source_parity": {"matched": 51, "total": 51},
+  "local_tests": {"pass": 111, "fail": 0},
+  "original_migrations_modified": 0,
+  "catalog_modules": 26,
+  "preview_interactive_modules": 14,
+  "commercially_homologated_modules": 0,
+  "backend": "NOT_DEPLOYED",
+  "shared_supabase": "NOT_MODIFIED",
+  "github_remote_push": false,
+  "browser_e2e": "NOT_EXECUTED",
+  "production": "NO_GO"
+}

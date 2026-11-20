@@ -1,0 +1,33 @@
+{
+  "version": "canone.s12.preintegration.review.v1",
+  "date": "2026-11-14",
+  "baseline_commit": "716e01fd6c3619e336c1d7b2494f19355b951c29",
+  "scope": [6,7,8,9,10,11,12,13,14,17],
+  "source_migrations_modified": 0,
+  "sql_executed_in_this_work": 0,
+  "database_write_operations": 0,
+  "vercel_deployments": 0,
+  "github_remote_pushes": 0,
+  "proposed_review_files": 10,
+  "semantic_intervention_count": 17,
+  "dollar_blocks_reviewed_by_generator": 24,
+  "static_tests": {"passed": 14, "failed": 0, "scope": "S12 candidate generator and static invariants"},
+  "regression_tests": {"passed": 14, "failed": 0, "scope": "Original S11 shared-host test suite"},
+  "database_integration_tests": {"performed": false, "status": "HOLD_POSTGRES_REAL_ISOLATED"},
+  "production": "NO_GO",
+  "adversarial_risks_pending": [
+    "001 global roles/extensions and ownership",
+    "RLS FORCE vs trigger writes and support logs",
+    "Authenticator/server session and spoofable PostgreSQL GUC",
+    "Grade-answer boolean oracle and entitlement",
+    "Support read audit trail and staff grant approval workflow",
+    "SRS replay/idempotence and simultaneous audit writes",
+    "013 subscriber view user A/B and privileged view owners",
+    "017 admin direct access to underlying mastery tables",
+    "015-030 privileged functions, exam engine, index/seed integrity",
+    "External schemas and ACL snapshot diff zero, backup/restore",
+    "Legal/editorial evidence and commercial readiness"
+  ],
+  "decision": "HOLD_HUMAN_NO_GO",
+  "warning": "Review artifacts have .sql.txt extension and MUST NOT be executed or promoted"
+}

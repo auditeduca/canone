@@ -1,0 +1,23 @@
+{
+  "stage": "S22",
+  "release": "NO_GO",
+  "production_allowed": false,
+  "candidate_overlay_018_030": "HOLD_HUMAN",
+  "hardening_sql": "CANDIDATE_ONLY_HOLD",
+  "backend_sql_namespace": "RECONCILED_LOCALLY",
+  "pg17_staged_ddl": "30_30_PASS_DISPOSABLE",
+  "pg17_http_api_e2e": "5_5_PASS_NON_SUPERUSER_SANDBOX",
+  "postgresql_rls_full_security_approval": false,
+  "browser_end_to_end": "NOT_RUN",
+  "github_remote": "NOT_PUSHED",
+  "vercel_static_preview": "UNCHANGED_S19",
+  "shared_supabase": "UNTOUCHED",
+  "human_approvals": "PENDING",
+  "blockers": [
+    "review/approve 018-030 and hardening before permanent migrations",
+    "RLS/SECURITY DEFINER adversarial and concurrent authentication grading",
+    "positive subscription and official exam attempt E2E",
+    "browser E2E, editorial/normative/legal signoff",
+    "production infrastructure and runtime authentication review"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "schema": "canone.senado.page-observations.v1",
+  "observed_on": "2026-11-14",
+  "basis": "Páginas HTML oficiais do Senado consultadas com recuperador de texto; offsets abaixo são indicações de navegação e NÃO bytes do documento original, nem prova de vigência atual.",
+  "observations": [
+    {
+      "group_id": "SENADO-2007-ALTERA-LSA",
+      "source_id": "BR-FED-LEI-11638-2007",
+      "target_id": "BR-FED-LEI-6404-1976",
+      "source_locator": "alteracao_de_dispositivos",
+      "source_url": "https://legis.senado.leg.br/norma/569477",
+      "observed_lines_hint": [30, 48],
+      "target_units": ["art.176", "art.177", "art.178", "art.179", "art.181", "art.182", "art.182.caput.c", "art.182.caput.d", "art.183", "art.184", "art.187", "art.187.par2", "art.188", "art.195-A", "art.197", "art.199", "art.226", "art.248"],
+      "relationship_type": "AMENDS",
+      "record_kind": "SENADO_HTML_METADATA_ONLY",
+      "source_bytes_verified": false,
+      "atom_verified": false,
+      "publication_eligible": false,
+      "status": "HOLD_SOURCE_BYTES_AND_TEMPORAL_REVIEW"
+    },
+    {
+      "group_id": "SENADO-2010-ALTERA-DL9295",
+      "source_id": "BR-FED-LEI-12249-2010",
+      "target_id": "BR-FED-DL-9295-1946",
+      "source_locator": "art.76",
+      "source_url": "https://legis.senado.leg.br/norma/575891/publicacao/34618955",
+      "observed_lines_hint": [970, 1019],
+      "target_units": ["art.2", "art.6", "art.12", "art.21", "art.22", "art.23", "art.27"],
+      "relationship_type": "AMENDS",
+      "record_kind": "SENADO_HTML_PUBLISHED_TEXT_DISPLAY",
+      "source_bytes_verified": false,
+      "atom_verified": false,
+      "publication_eligible": false,
+      "status": "HOLD_SOURCE_BYTES_AND_TEMPORAL_REVIEW"
+    },
+    {
+      "group_id": "SENADO-2010-ACRESCENTA-36A",
+      "source_id": "BR-FED-LEI-12249-2010",
+      "target_id": "BR-FED-DL-9295-1946",
+      "source_locator": "art.77",
+      "source_url": "https://legis.senado.leg.br/norma/575891/publicacao/34618955",
+      "observed_lines_hint": [1023, 1024],
+      "target_units": ["art.36-A"],
+      "relationship_type": "ADDS",
+      "record_kind": "SENADO_HTML_PUBLISHED_TEXT_DISPLAY",
+      "source_bytes_verified": false,
+      "atom_verified": false,
+      "publication_eligible": false,
+      "status": "HOLD_SOURCE_BYTES_AND_TEMPORAL_REVIEW"
+    },
+    {
+      "group_id": "SENADO-2020-ADICIONA-PARAGRAFOS-ART25",
+      "source_id": "BR-FED-LEI-14039-2020",
+      "target_id": "BR-FED-DL-9295-1946",
+      "source_locator": "NOT_ATOMIZED",
+      "source_url": "https://legis.senado.leg.br/norma/534334",
+      "observed_lines_hint": [38, 40],
+      "target_units": ["art.25.par1", "art.25.par2"],
+      "relationship_type": "ADDS",
+      "record_kind": "SENADO_HTML_POSTERIOR_CHANGE_METADATA",
+      "source_bytes_verified": false,
+      "atom_verified": false,
+      "publication_eligible": false,
+      "status": "HOLD_NEW_ACT_ENROLLMENT_AND_TEMPORAL_REVIEW"
+    }
+  ],
+  "global_publication_eligible": false
+}

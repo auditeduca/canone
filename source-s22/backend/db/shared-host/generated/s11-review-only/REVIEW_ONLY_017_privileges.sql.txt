@@ -1,0 +1,196 @@
+-- GENERATED FOR AUDIT ONLY; NEVER EXECUTE IN SHARED HOST OR MIGRATION RUNNER.
+-- Authority: backend/db/migrations/017_privileges.sql
+-- Original sha256: fd65e114c8dfdcfb929e5591f628dd8dfba6a3e06ffca6cd5d806cc71a1a7d30
+-- S11 status: HOLD_HUMAN_NO_GO; QA subset 002..005 runs ONLY in disposable PGlite.
+-- Hazards: DEPENDENCY_GRAPH_NOT_HOMOLOGATED | DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP | DYNAMIC_SQL_REVIEW | GRANT_OR_REVOKE_REVIEW | ROLE_GRANTS_NEED_REVIEW
+
+-- Qualified schema name projection (procedural/dynamic bodies NOT rewritten).
+
+-- =============================================================================
+-- 017 · PRIVILÉGIOS POR PAPEL
+-- -----------------------------------------------------------------------------
+-- Os papéis existem desde a 001, mas NENHUM privilégio foi concedido. Um
+-- papel sem privilégio não é uma restrição: é um erro de configuração que
+-- só aparece em produção, quando o primeiro SELECT retorna
+-- "permission denied for table" e ninguém sabe se é RLS ou privilégio.
+--
+-- A SEPARAÇÃO DE TRÊS FRONTEIRAS:
+--
+--   1. PRIVÍLEGIO (aqui)  → o papel pode sequer tocar na tabela?
+--   2. RLS     (014)      → o papel pode ver ESTA LINHA?
+--   3. VIEW    (013)      → o papel enxerga a ATRAVÉS de qual contrato?
+--
+-- As três precisam estar certainas. A 014 fecha a fronteira de linha, a 013
+-- dá o contrato de leitura, e esta fecha a fronteira de objeto.
+--
+-- NENHUM papel público recebe acesso a learning.item_option: o GABARITO
+-- não é público. A view v_public_item entrega o item sem a resposta.
+-- =============================================================================
+
+-- -----------------------------------------------------------------------------
+-- 1 · SCHEMAS
+-- -----------------------------------------------------------------------------
+-- O schema 'public' do Postgres é REUTILIZADO como a área pública do
+-- produto (já que ele é reservado). Tudo que existe dentro é nosso.
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+
+GRANT USAGE ON SCHEMA public, subscriber, taxonomy, editorial, norms, learning, commerce, admin, ops, audit
+  TO canone_app, canone_public, canone_subscriber, canone_staff, canone_admin;
+
+-- canone_app é o TRAMPOLIM: o backend conecta com ele e troca de papel por
+-- requisição. Para isso ele precisa ser MEMBRO dos papéis de área.
+-- canone_app é NOINHERIT (criado na 001) — ou seja, NÃO herda as
+-- permissões automaticamente. Trocar de papel é sempre EXPLÍCITO.
+GRANT canone_public, canone_subscriber, canone_staff, canone_admin TO canone_app;
+
+-- -----------------------------------------------------------------------------
+-- 2 · ÁREA PÚBLICA (sem login)
+-- -----------------------------------------------------------------------------
+-- O público lê conteúdo publicado e material de referência. Não lê dado de
+-- aluno, não lê gabarito, não lê nada de usuário.
+GRANT SELECT ON
+  -- taxonomia
+  canone_taxonomy.knowledge_area, canone_taxonomy.subject, canone_taxonomy.subtopic, canone_taxonomy.module,
+  canone_taxonomy.exam_edition, canone_taxonomy.blueprint, canone_taxonomy.item_placement,
+  -- conteúdo (o RLS da 014 filtra por estado público)
+  canone_editorial.content_item, canone_editorial.content_item_version, canone_editorial.content_relation,
+  canone_editorial.content_type, canone_editorial.content_type_version, canone_editorial.field_definition,
+  canone_editorial.enumeration, canone_editorial.enumeration_value, canone_editorial.state_definition,
+  canone_editorial.source,
+  -- normas
+  canone_norms.issuer, canone_norms.norm, canone_norms.norm_version, canone_norms.norm_item,
+  -- comercial
+  canone_commerce.plan
+  TO canone_public;
+
+-- As VIEWS são o contrato de leitura da área.
+GRANT SELECT ON
+  canone_public.v_public_plan, canone_public.v_public_subject, canone_public.v_public_module,
+  canone_public.v_public_content, canone_public.v_public_item
+  TO canone_public;
+
+-- O GABARITO NÃO É PÚBLICO. learning.item também não: o público usa a view.
+-- learning.item_option NÃO entra na lista — é a resposta.
+GRANT SELECT ON canone_learning.item_option TO canone_staff, canone_admin;
+
+-- TABELAS DE CATÁLOGO usadas pelas funções do motor de repetição.
+-- Sem estes SELECT, learning.refresh_mastery e learning.due_items falham
+-- com "permission denied" quando rodam como o papel do assinante.
+-- (learning.review_event e learning.user_item_state NÃO entram aqui: são
+--  dado de usuário, e ficam sob o RLS.)
+GRANT SELECT ON canone_learning.item, canone_learning.item_subject, canone_learning.explanation
+  TO canone_subscriber, canone_staff, canone_admin;
+
+-- O assinante recebe as ALTERNATIVAS pela view, que esconde o gabarito.
+GRANT SELECT ON canone_subscriber.v_item_options TO canone_subscriber;
+
+-- -----------------------------------------------------------------------------
+-- 3 · ÁREA DO ASSINANTE
+-- -----------------------------------------------------------------------------
+-- O assinante vê o que é DELE, e só o que é dele. A regra está em duas
+-- camadas: o RLS (014) diz "user_id = ops.current_user_id()" e a view
+-- (013) repete o filtro. Duas camadas, porque uma só pode ser esquecida.
+GRANT SELECT ON
+  canone_identity.user_profile, canone_identity.consent, canone_identity.data_request,
+  canone_commerce.subscription, canone_commerce.payment, canone_commerce.entitlement
+  TO canone_subscriber;
+
+GRANT INSERT ON canone_identity.consent, canone_identity.data_request TO canone_subscriber;
+GRANT UPDATE ON canone_identity.user_profile TO canone_subscriber;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON
+  canone_learning.session, canone_learning.review_event, canone_learning.user_item_state,
+  canone_learning.mastery, canone_learning.favorite, canone_learning.note,
+  canone_learning.offline_pack, canone_learning.study_plan
+  TO canone_subscriber;
+
+GRANT SELECT ON canone_subscriber.v_my_progress, canone_subscriber.v_my_due, canone_subscriber.v_my_history, canone_subscriber.v_my_state
+  TO canone_subscriber;
+
+-- -----------------------------------------------------------------------------
+-- 4 · ÁREA ADMINISTRATIVA — STAFF
+-- -----------------------------------------------------------------------------
+-- Staff lê o que precisa para trabalhar. NÃO enxerga o progresso do aluno
+-- por tabela: só pela porta única admin.read_user_progress_as, que exige
+-- concessão e registra o acesso. Por isso learning.mastery e
+-- learning.review_event NÃO entram na lista de SELECT do staff.
+GRANT SELECT ON
+  canone_identity.account, canone_identity.user_profile, canone_identity.consent, canone_identity.data_request,
+  canone_editorial.content_item, canone_editorial.content_item_version, canone_editorial.content_relation,
+  canone_editorial.verification, canone_editorial.source, canone_editorial.content_type, canone_editorial.content_type_version,
+  canone_editorial.field_definition, canone_editorial.enumeration, canone_editorial.enumeration_value,
+  canone_editorial.state_definition, canone_editorial.content_revision,
+  canone_taxonomy.knowledge_area, canone_taxonomy.subject, canone_taxonomy.subtopic, canone_taxonomy.module,
+  canone_taxonomy.exam_edition, canone_taxonomy.blueprint, canone_taxonomy.item_placement,
+  canone_norms.issuer, canone_norms.norm, canone_norms.norm_version, canone_norms.norm_item,
+  canone_commerce.plan, canone_commerce.subscription, canone_commerce.payment, canone_commerce.entitlement,
+  canone_admin.moderation_queue, canone_admin.support_access_grant, canone_admin.support_access_log,
+  canone_admin.content_report, canone_admin.user_note, canone_admin.feature_flag,
+  canone_ops.setting, canone_ops.integration, canone_ops.webhook, canone_ops.job_run,
+  canone_audit.audit_log
+  TO canone_staff;
+
+GRANT INSERT, UPDATE ON
+  canone_editorial.content_item, canone_editorial.content_item_version, canone_editorial.verification,
+  canone_editorial.content_revision,
+  canone_admin.support_access_grant, canone_admin.moderation_queue, canone_admin.user_note, canone_admin.feature_flag,
+  canone_admin.content_report
+  TO canone_staff;
+
+GRANT INSERT ON canone_audit.audit_log TO canone_staff;
+-- audit.audit_log é append-only: UPDATE e DELETE ficam bloqueados pelo
+-- trigger, e o privilégio nem é concedido.
+
+GRANT SELECT ON canone_admin.v_content_health, canone_admin.v_user_overview, canone_admin.v_user_mastery,
+                  canone_admin.v_audit_recent, canone_admin.v_refused_claims
+  TO canone_staff;
+
+-- -----------------------------------------------------------------------------
+-- 5 · ÁREA ADMINISTRATIVA — ADMIN
+-- -----------------------------------------------------------------------------
+-- Admin tem acesso pleno, exceto ao log de auditoria, que é append-only
+-- por trigger. O admin também não "é" o aluno: a visão de usuário do
+-- admin passa pela mesma concessão auditada.
+GRANT SELECT, INSERT, UPDATE, DELETE ON
+  canone_identity.account, canone_identity.user_profile, canone_identity.consent, canone_identity.data_request,
+  canone_editorial.content_item, canone_editorial.content_item_version, canone_editorial.content_relation,
+  canone_editorial.verification, canone_editorial.source, canone_editorial.content_type, canone_editorial.content_type_version,
+  canone_editorial.field_definition, canone_editorial.enumeration, canone_editorial.enumeration_value,
+  canone_editorial.state_definition, canone_editorial.content_revision,
+  canone_taxonomy.knowledge_area, canone_taxonomy.subject, canone_taxonomy.subtopic, canone_taxonomy.module,
+  canone_taxonomy.exam_edition, canone_taxonomy.blueprint, canone_taxonomy.item_placement,
+  canone_norms.issuer, canone_norms.norm, canone_norms.norm_version, canone_norms.norm_item,
+  canone_learning.item, canone_learning.item_option, canone_learning.explanation, canone_learning.item_subject,
+  canone_learning.session, canone_learning.review_event, canone_learning.user_item_state, canone_learning.mastery,
+  canone_learning.favorite, canone_learning.note, canone_learning.offline_pack, canone_learning.study_plan,
+  canone_learning.mock_exam, canone_learning.mock_exam_item,
+  canone_commerce.plan, canone_commerce.subscription, canone_commerce.payment, canone_commerce.entitlement,
+  canone_admin.moderation_queue, canone_admin.support_access_grant, canone_admin.support_access_log,
+  canone_admin.content_report, canone_admin.user_note, canone_admin.feature_flag,
+  canone_ops.setting, canone_ops.integration, canone_ops.webhook, canone_ops.job_run
+  TO canone_admin;
+
+GRANT INSERT ON canone_audit.audit_log TO canone_admin;
+GRANT SELECT ON canone_admin.v_content_health, canone_admin.v_user_overview, canone_admin.v_user_mastery,
+                  canone_admin.v_audit_recent, canone_admin.v_refused_claims
+  TO canone_admin;
+
+-- -----------------------------------------------------------------------------
+-- 6 · FUNÇÕES
+-- -----------------------------------------------------------------------------
+-- As funções de apoio precisam ser executáveis pelos papéis de área.
+GRANT EXECUTE ON FUNCTION
+  canone_ops.current_user_id(), canone_ops.current_area(), canone_ops.current_request_id(), canone_ops.is_staff()
+  TO canone_public, canone_subscriber, canone_staff, canone_admin, canone_app;
+
+-- A PORTA ÚNICA de leitura de dado de aluno por staff.
+GRANT EXECUTE ON FUNCTION canone_admin.read_user_progress_as(uuid, uuid, uuid)
+  TO canone_staff, canone_admin;
+
+-- As views de assinante chamam learning.due_items().
+GRANT EXECUTE ON FUNCTION canone_learning.due_items(uuid, uuid, int)
+  TO canone_subscriber, canone_staff, canone_admin;
+
+-- A correção é do servidor: o assinante manda a alternativa, recebe o veredito.
+GRANT EXECUTE ON FUNCTION canone_learning.grade_answer(uuid, text)
+  TO canone_subscriber, canone_staff, canone_admin;

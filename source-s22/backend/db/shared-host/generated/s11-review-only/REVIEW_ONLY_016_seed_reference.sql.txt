@@ -1,0 +1,300 @@
+-- GENERATED FOR AUDIT ONLY; NEVER EXECUTE IN SHARED HOST OR MIGRATION RUNNER.
+-- Authority: backend/db/migrations/016_seed_reference.sql
+-- Original sha256: d9424b0f09ab43ead5645c351ec5352123795e4e07a41ec7ca36047b607d5236
+-- S11 status: HOLD_HUMAN_NO_GO; QA subset 002..005 runs ONLY in disposable PGlite.
+-- Hazards: DEPENDENCY_GRAPH_NOT_HOMOLOGATED | DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP
+
+-- Qualified schema name projection (procedural/dynamic bodies NOT rewritten).
+
+-- =============================================================================
+-- 016 · DADOS DE REFERÊNCIA
+-- -----------------------------------------------------------------------------
+-- Só entra aqui o que é VERIFICÁVEL e NÃO MUDA.
+--   · os 13 conteúdos programáticos do edital
+--   · as edições de 2026 com data e taxa conferidas na fonte oficial
+--   · os módulos do ecossistema
+--   · os papéis
+--
+-- NÃO entra: número de alunos, rating, taxa de aprovação, preço, tamanho
+-- do banco de questões. Esses são placeholders até haver dado real — e o
+-- gate de integridade reprova se alguém os preencher no seed.
+-- ============================================================================
+
+-- -----------------------------------------------------------------------------
+-- FONTES
+-- -----------------------------------------------------------------------------
+-- source_quote: TRECHO LITERAL do edital. Copiado do PDF da FGV.
+INSERT INTO canone_editorial.source (key, kind, title, publisher, url, version_label, published_at, consulted_at, source_quote, notes) VALUES
+  ('cfc-exame-2026-1', 'edital', 'Edital Exame de Suficiência nº 1/2026', 'FGV Conhecimento',
+   'https://conhecimento.fgv.br/sites/default/files/concursos/cfc-edital-2026.1-versao-final.pdf',
+   'Edição 1/2026', '2026-02-23', '2026-10-23',
+   'acessar o endereço eletrônico a partir das 16h00 do dia 23 de fevereiro de 2026 até as 16h00 do dia 24 de março de 2026. A taxa de inscrição, no valor de R$ 130,00 (cento e trinta reais), deverá ser recolhida, em guia própria, em favor do CFC.',
+   'Prova aplicada em 24/05/2026. Boleto pagável até 25/03/2026.'),
+  ('cfc-exame-2026-2', 'edital', 'Edital Exame de Suficiência nº 2/2026', 'FGV Conhecimento',
+   'https://conhecimento.fgv.br/sites/default/files/concursos/cfc-edital-2026.2-08.07.2026.pdf',
+   'Edição 2/2026', '2026-07-08', '2026-10-23',
+   'acessar o endereço eletrônico a partir das 16h00 do dia 09 de julho de 2026 até as 16h00 do dia 07 de agosto de 2026. A taxa de inscrição, no valor de R$ 130,00 (cento e trinta reais), deverá ser recolhida, em guia própria, em favor do CFC.',
+   'Prova aplicada em 27/09/2026, das 10h às 14h. Boleto pagável até 10/08/2026.'),
+  ('cfc-exame-2026-3', 'edital', 'Edital Exame de Suficiência nº 3/2026', 'FGV Conhecimento',
+   'https://conhecimento.fgv.br/sites/default/files/concursos/cfc-edital-2026.3-05.10.2026.pdf',
+   'Edição 3/2026', '2026-10-05', '2026-10-23',
+   'As inscrições deverão ser efetuadas somente no site da Fundação Getúlio Vargas – FGV, no período compreendido entre 16h00 do dia 05 de outubro de 2026 até às 16h00 ao dia 30 de outubro de 2026, observado o horário oficial de Brasília (DF). A taxa de inscrição é de R$ 199,00 (cento e noventa e nove reais), a ser recolhida em guia própria, em favor do CFC.',
+   'Prova em 13/12/2026, das 10h às 14h. Boleto pagável até 03/11/2026.'),
+  ('res-cfc-1486', 'norma', 'Resolução CFC nº 1.486/2015', 'Conselho Federal de Contabilidade',
+   'https://cfc.org.br/wp-content/uploads/2016/01/RES_1486.doc',
+   'Com alterações posteriores', '2015-05-15', '2026-10-23',
+   'Art. 3º fixa a periodicidade semestral das edições do Exame de Suficiência.',
+   'Alterada pela Res. CFC 1.789/2026 e 1.798/2026.'),
+  ('dl-9295', 'legislacao', 'Decreto-Lei nº 9.295/1946', 'Presidência da República',
+   'https://www.planalto.gov.br/ccivil_03/decreto-lei/del9295.htm',
+   'Art. 12, redação do art. 76 da Lei 12.249/2010', '1946-05-27', '2026-10-23',
+   'Art. 12. Exercer a profissão de contabilidade ou outros serviços técnicos de contabilidade depende de habilitação legal.',
+   NULL),
+  ('lei-12249', 'legislacao', 'Lei nº 12.249/2010', 'Presidência da República',
+   'https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12249.htm',
+   'De 11 de junho de 2010', '2010-06-11', '2026-10-23',
+   'Art. 76. O art. 12 do Decreto-Lei nº 9.295, de 1946, passa a vigorar com a seguinte redação: ...',
+   'O art. 76 desta lei dá nova redação ao art. 12 do DL 9.295/1946.');
+
+-- -----------------------------------------------------------------------------
+-- ÓRGÃOS EMITENTES
+-- -----------------------------------------------------------------------------
+INSERT INTO canone_norms.issuer (key, name, website, kind) VALUES
+  ('cfc',   'Conselho Federal de Contabilidade', 'https://cfc.org.br', 'conselho'),
+  ('cpc',   'Comité de Pronúncias Contábeis',      'https://www.cpc.org.br', 'norma_tecnica'),
+  ('fgv',   'FGV Conhecimento',                    'https://conhecimento.fgv.br', 'banca');
+
+-- -----------------------------------------------------------------------------
+-- EDICÕES DO EXAME — datas conferidas na fonte
+-- -----------------------------------------------------------------------------
+INSERT INTO canone_taxonomy.exam_edition
+  (code, label, edition_number, year, registration_opens_at, registration_closes_at,
+   payment_deadline, application_date, application_start_time, application_end_time, modality,
+   question_count, options_per_question, passing_score, passing_percent,
+   registration_fee_cents, source_id, notes) VALUES
+  ('2026.1', '1º Exame de Suficiência 2026', 1, 2026,
+   '2026-02-23 16:00', '2026-03-24 16:00', '2026-03-25',
+   '2026-05-24', '10:00', '14:00', 'presencial',
+   50, 4, 25, 50.00, 13000, (SELECT id FROM canone_editorial.source WHERE key='cfc-exame-2026-1'),
+   'Prova aplicada em 24/05/2026. Isenção: 23/02 a 25/02/2026.'),
+  ('2026.2', '2º Exame de Suficiência 2026', 2, 2026,
+   '2026-07-09 16:00', '2026-08-07 16:00', '2026-08-10',
+   '2026-09-27', '10:00', '14:00', 'presencial',
+   50, 4, 25, 50.00, 13000, (SELECT id FROM canone_editorial.source WHERE key='cfc-exame-2026-2'),
+   'Isenção: 09/07 a 13/07/2026. A partir desta edição, estudantes a partir do 5º semestre.'),
+  ('2026.3', '3º Exame de Suficiência 2026', 3, 2026,
+   '2026-10-05 16:00', '2026-10-30 16:00', '2026-11-03',
+   '2026-12-13', '10:00', '14:00', 'presencial',
+   50, 4, 25, 50.00, 19900, (SELECT id FROM canone_editorial.source WHERE key='cfc-exame-2026-3'),
+   'Terceira edição no mesmo ano — exceção ao padrão semestral do art. 3º da Res. 1.486/2015. Isenção: 05/10 a 07/10/2026.');
+
+-- -----------------------------------------------------------------------------
+-- AS 13 ÁREAS DE CONHECIMENTO — ordem do edital
+-- -----------------------------------------------------------------------------
+INSERT INTO canone_taxonomy.knowledge_area (key, label, ordinal) VALUES
+  ('portugues',            'Língua Portuguesa Aplicada',            1),
+  ('matematica',           'Matemática Financeira e Estatística',   2),
+  ('direito',              'Noções de Direito e Legislação Aplicada',3),
+  ('legislacao',           'Legislação e Ética Profissional',       4),
+  ('teoria',               'Teoria da Contabilidade',               5),
+  ('principios',           'Princípios de Contabilidade e NBC',     6),
+  ('contabilidade_geral',  'Contabilidade Geral',                   7),
+  ('contabilidade_custos', 'Contabilidade de Custos',               8),
+  ('contabilidade_gerencial','Contabilidade Gerencial',             9),
+  ('setor_publico',        'Contabilidade Aplicada ao Setor Público',10),
+  ('controladoria',        'Controladoria',                        11),
+  ('auditoria',            'Auditoria Contábil',                   12),
+  ('pericia',              'Perícia Contábil',                     13);
+
+-- -----------------------------------------------------------------------------
+-- TIPOS DE CONTEÚDO DO METAMODELO
+-- -----------------------------------------------------------------------------
+INSERT INTO canone_editorial.content_type (key, label, family, description, requires_verification) VALUES
+  ('questao',     'Questão',            'avaliacao','Questão objetiva de múltipla escolha, 4 alternativas.', true),
+  ('flashcard',   'Flashcard',          'estudo',   'Card de revisão espaçada com autoavaliação.',         false),
+  ('aula',        'Aula ilustrada',     'estudo',   'Conteúdo de estudo em blocos visuais.',                 false),
+  ('mapa_mental', 'Mapa mental',        'estudo',   'Grafo de conceitos com múltiplos layouts.',             false),
+  ('guia',        'Guia de bolso',      'estudo',   'Consulta rápida estruturada.',                           false),
+  ('caso',        'Caso prático',       'estudo',   'Situação real com resolução por etapas.',                false),
+  ('simulado',    'Simulado',           'estudo',   'Composição de itens seguindo o blueprint do edital.',   false),
+  ('cpc_visual',  'CPC Visual',         'estudo',   'Norma apresentada visualmente.',                         false),
+  ('dre',         'DRE interativa',     'estudo',   'Demonstração de resultado do exercício passo a passo.', false),
+  ('balanco_3d',  'Balanço 3D',         'estudo',   'Estrutura do balanço em três dimensões.',                false),
+  ('diario_razao','Diário e Razão',     'estudo',   'Escrituração contábil interativa.',                      false),
+  ('procedimento','Procedimento',       'estudo',   'Procedimento passo a passo com evidência.',               false),
+  ('calculadora', 'Calculadora',        'estudo',   'Ferramenta de cálculo com rastro do cálculo.',           false),
+  ('duelo',       'Duelo',              'estudo',   'Sessão competitiva entre dois participantes.',           false),
+  ('glossario',   'Glossário',          'estudo',   'Verbete com conceito, exemplos e contraexemplos.',        false),
+  ('podcast',     'Podcast',            'estudo',   'Episódio de áudio.',                                     false),
+  ('video',       'Vídeoaula',          'estudo',   'Vídeo com marcações temporais.',                         false),
+  ('laboratorio', 'Laboratório',        'estudo',   'Ambiente de simulação de lançamentos.',                   false),
+  ('colecao',     'Coleção',            'estudo',   'Agrupamento de itens (caderno de erros, revisão).',      false),
+  ('dashboard',   'Dashboard',          'estudo',   'Painel de progresso do aluno.',                          false),
+  ('plano',       'Plano',              'estudo',   'Cronograma de estudo.',                                  false),
+  ('artigo',      'Artigo',             'editorial','Conteúdo editorial do blog institucional.',             false);
+
+-- -----------------------------------------------------------------------------
+-- OS 13 CONTEÚDOS PROGRAMÁTICOS — ordem do edital
+-- -----------------------------------------------------------------------------
+INSERT INTO canone_taxonomy.subject (key, label, area_key, description, ordinal) VALUES
+  ('lingua_portuguesa_aplicada', 'Língua Portuguesa Aplicada',           'portugues',   NULL, 1),
+  ('matematica_financeira',       'Matemática Financeira e Estatística',  'matematica',  NULL, 2),
+  ('nooes_de_direito',            'Noções de Direito e Legislação Aplicada','direito',   NULL, 3),
+  ('legislacao_etica',            'Legislação e Ética Profissional',      'legislacao',  NULL, 4),
+  ('teoria_contabilidade',        'Teoria da Contabilidade',              'teoria',      NULL, 5),
+  ('principios_nbc',              'Princípios de Contabilidade e NBC',    'principios',  NULL, 6),
+  ('contabilidade_geral',         'Contabilidade Geral',                  'contabilidade_geral', NULL, 7),
+  ('contabilidade_custos',        'Contabilidade de Custos',              'contabilidade_custos', NULL, 8),
+  ('contabilidade_gerencial',     'Contabilidade Gerencial',             'contabilidade_gerencial', NULL, 9),
+  ('setor_publico',               'Contabilidade Aplicada ao Setor Público','setor_publico', NULL, 10),
+  ('controladoria',               'Controladoria',                        'controladoria', NULL, 11),
+  ('auditoria',                   'Auditoria Contábil',                   'auditoria',   NULL, 12),
+  ('pericia',                     'Perícia Contábil',                     'pericia',     NULL, 13);
+
+-- -----------------------------------------------------------------------------
+-- MÓDULOS DO ECOSSISTEMA — a ordem é o Método Cânone
+-- -----------------------------------------------------------------------------
+INSERT INTO canone_taxonomy.module (key, name, short_name, description, phase, ordinal, content_type_key, icon_key) VALUES
+  ('simulados',           'Simulados',                     'Simulados',   'Questões comentadas e adaptativas.',                                    'Praticar',  1,  'simulado',    'target'),
+  ('flashcards',          'Flashcards',                    'Flashcards',  'Revisão espaçada com repetição em intervalos crescentes.',               'Estudar',   2,  'flashcard',   'cards'),
+  ('mapas_mentais',       'Mapas Mentais',                 'Mapas',       'Visualização completa e organizada dos temas.',                           'Estudar',   3,  'mapa_mental','map'),
+  ('contabilidade_ilustrada','Contabilidade Ilustrada',     'C. Ilustrada','Conceitos complexos explicados de forma visual.',                          'Estudar',   4,  'aula',        'book-open'),
+  ('guia_de_bolso',       'Guia de Bolso',                 'Guia',        'Conteúdo essencial para consulta rápida e objetiva.',                     'Estudar',   5,  'guia',        'file'),
+  ('plano_de_estudos',    'Plano de Estudos',              'Plano',       'Cronograma personalizado até a prova.',                                    'Estudar',   6,  'plano',       'calendar'),
+  ('laboratorio',         'Laboratório Contábil',         'Lab',         'Pratique lançamentos contábeis e DFs.',                                   'Estudar',   7,  'laboratorio', 'calculator'),
+  ('calculadoras',        'Calculadoras Contábeis',       'Calculadoras','Valor presente, taxa de juros, depreciação e mais.',                         'Praticar',  8,  'calculadora', 'calculator'),
+  ('cpc_visual',          'CPC Visual',                   'CPC',         'Normas ilustradas e atualizadas.',                                       'Estudar',   9,  'cpc_visual',  'book'),
+  ('dre_interativa',      'DRE Interativa',                'DRE',         'Monte e analise a DRE passo a passo.',                                    'Estudar',  10,  'dre',         'trending'),
+  ('balanco_3d',          'Balanço Patrimonial 3D',       'BP 3D',       'Visualize a estrutura e a composição das contas.',                         'Estudar',  11,  'balanco_3d',  'layers'),
+  ('diario_e_razao',      'Diário e Razão',                'D&R',         'Escrituração contábil interativa.',                                        'Estudar',  12,  'diario_razao','book'),
+  ('auditoria_pratica',   'Auditoria na Prática',          'Auditoria',   'Procedimentos, evidências e papéis de trabalho.',                          'Estudar',  13,  'procedimento','shield'),
+  ('pericia',             'Perícia Contábil',             'Perícia',     'Casos reais e laudos práticos.',                                           'Estudar',  14,  'procedimento','scale'),
+  ('contabilidade_publica','Contabilidade Pública',        'Pública',     'MCASP, LRF e demais normas em linguagem clara.',                           'Estudar',  15,  'aula',        'gem'),
+  ('matematica',          'Matemática Financeira',        'Mat. Fin.',   'Fórmulas, exemplos e exercícios iterativos.',                              'Praticar', 16,  'calculadora', 'calculator'),
+  ('duelo',               'Duelo de Questões',             'Duelo',       'Desafie outro estudante em tempo real.',                                  'Praticar', 17,  'duelo',       'swords'),
+  ('simulado_adaptativo', 'Simulado Adaptativo',           'Adaptativo',  'Acompanhe seu nível em tempo real.',                                       'Praticar', 18,  'simulado',    'zap'),
+  ('banco_questoes',      'Banco de Dados de Questões',    'Banco Q',     'Questões filtradas por edital.',                                           'Praticar', 19,  'questao',    'archive'),
+  ('glossario',           'Glossário Contábil',            'Glossário',   'Termos, conceitos e exemplos sempre à mão.',                              'Evoluir',  20,  'glossario',   'book'),
+  ('podcast',             'Podcast de Revisão',            'Podcast',     'Conteúdos em áudio para estudar em qualquer lugar.',                      'Estudar',  21,  'podcast',     'mic'),
+  ('videodulas',          'Vídeoaulas Interativas',        'Vídeo',       'Assista, anote e pratique no mesmo lugar.',                                'Estudar',  22,  'video',       'play'),
+  ('casos',               'Casos Práticos',                'Casos',       'Situações reais com resolução passo a passo.',                            'Evoluir',  23,  'caso',        'file'),
+  ('caderno_erros',       'Caderno de Erros',              'Erros',       'Transforme erros em aprendizado dirigido.',                              'Estudar',  24,  'colecao',     'swords'),
+  ('dashboard',           'Dashboard de Aprovação',        'Dashboard',   'Acompanhe sua evolução até a prova.',                                     'Evoluir',  25,  'dashboard',   'gauge'),
+  ('offline',             'Cânone Offline',                'Offline',     'Estude sem conexão com pacotes baixados.',                                'Aprovar',  26,  'plano',       'lock');
+
+-- -----------------------------------------------------------------------------
+-- VÍNCULO MÓDULO × ASSUNTO (o que cada módulo cobre)
+-- -----------------------------------------------------------------------------
+-- Mapeamento EXPLÍCITO. A versão anterior derivava o vínculo por
+-- `s.area_key = m.key`, o que só funciona por coincidência de nome entre a
+-- área e o módulo — e erra justamente nos casos que importam. Aqui cada
+-- par módulo/assunto está escrito, o que dá para auditar e para o gate
+-- conferir cardinalidade.
+--
+-- Módulos de AVALIAÇÃO cobrem os 13 assuntos: é o que o edital exige.
+-- Módulos de ESTUDO cobrem o que de fato cobrem.
+INSERT INTO canone_taxonomy.module_subject (module_id, subject_id)
+SELECT m.id, s.id
+  FROM (VALUES
+    -- avaliação: todos os assuntos do edital
+    ('simulados',            '*'),
+    ('banco_questoes',       '*'),
+    ('duelo',                '*'),
+    ('simulado_adaptativo',  '*'),
+    ('caderno_erros',        '*'),
+    -- revisão e planejamento: também transversal
+    ('flashcards',           '*'),
+    ('plano_de_estudos',     '*'),
+    ('dashboard',            '*'),
+    ('offline',              '*'),
+    -- estudo por especialidade
+    ('matematica',           'matematica_financeira'),
+    ('cpc_visual',           'principios_nbc'),
+    ('cpc_visual',           'teoria_contabilidade'),
+    ('cpc_visual',           'contabilidade_geral'),
+    ('dre_interativa',       'contabilidade_geral'),
+    ('balanco_3d',           'contabilidade_geral'),
+    ('diario_e_razao',       'contabilidade_geral'),
+    ('laboratorio',          'contabilidade_geral'),
+    ('contabilidade_ilustrada','contabilidade_geral'),
+    ('contabilidade_ilustrada','contabilidade_custos'),
+    ('contabilidade_ilustrada','contabilidade_gerencial'),
+    ('contabilidade_publica','setor_publico'),
+    ('auditoria_pratica',    'auditoria'),
+    ('pericia',              'pericia'),
+    ('guia_de_bolso',        'legislacao_etica'),
+    ('mapas_mentais',        'principios_nbc'),
+    ('podcast',              'legislacao_etica'),
+    ('videodulas',           'contabilidade_geral'),
+    ('glossario',            'nooes_de_direito'),
+    ('calculadoras',         'matematica_financeira')
+  ) AS v(module_key, subject_key)
+  JOIN canone_taxonomy.module m ON m.key = v.module_key
+  JOIN canone_taxonomy.subject s
+    ON v.subject_key = '*'
+    OR s.key = v.subject_key;
+
+-- -----------------------------------------------------------------------------
+-- FINALIDADES DE CONSENTIMENTO
+-- -----------------------------------------------------------------------------
+INSERT INTO canone_identity.consent_purpose (key, label, legal_basis, required, description) VALUES
+  ('termos',        'Termos de uso',            'contrato',            true,  'Condições de uso do produto.'),
+  ('privacidade',   'Política de privacidade',   'contrato',            true,  'Como os dados são tratados.'),
+  ('essencial',     'Funcionalidade essencial',  'execucao_de_contrato',true,  'Conta, login, progresso e pagamento.'),
+  ('marketing',     'Comunicações de marketing', 'consentimento',        false, 'Novidades, conteúdo e promoções por e-mail.'),
+  ('analise',       'Análise de produto',        'consentimento',        false, 'Melhorias de experiência com dados de uso.'),
+  ('suporte',       'Suporte e atendimento',    'legitimo_interesse',   false, 'Uso da conta para responder a chamados.');
+
+-- -----------------------------------------------------------------------------
+-- PLANOS COMERCIAIS
+-- -----------------------------------------------------------------------------
+-- price_cents = NULL: o comercial ainda não definiu preço. NULL é
+-- "indisponível"; ZERO seria "grátis", e o site não pode dizer a mentira
+-- mais barata que existe.
+INSERT INTO canone_commerce.plan (key, name, description, billing_period, price_cents, currency, trial_days, is_public, is_active, sort_order) VALUES
+  ('essencial',  'Essencial',  'Conteúdo programático do edital e simulados.',        'mensal',   NULL, 'BRL', 0,   true, true, 1),
+  ('completo',   'Completo',   'Tudo o Essencial tem, mais flashcards, plano e mapa.',  'mensal',   NULL, 'BRL', 7,   true, true, 2),
+  ('anual',      'Anual',      'O Completo, com ciclo anual.',                        'anual',    NULL, 'BRL', 7,   true, true, 3),
+  ('avaliacao',  'Avaliação',  'Plano de estudos completo até a prova.',              'semestral',NULL, 'BRL', 0,   true, true, 4);
+
+INSERT INTO canone_commerce.plan_feature (plan_id, feature_key, limit_value, enabled)
+SELECT p.id, v.feature_key, v.limit_value, v.enabled
+  FROM (VALUES
+    ('essencial','simulados_mes',        20,  true),
+    ('essencial','flashcards',          NULL,  true),
+    ('essencial','plano_de_estudos',     0,   false),
+    ('completo', 'simulados_mes',       NULL,  true),
+    ('completo', 'flashcards',          NULL,  true),
+    ('completo', 'plano_de_estudos',     NULL,  true),
+    ('anual',    'simulados_mes',       NULL,  true),
+    ('anual',    'flashcards',          NULL,  true),
+    ('anual',    'plano_de_estudos',     NULL,  true),
+    ('avaliacao','simulados_mes',       NULL,  true),
+    ('avaliacao','flashcards',          NULL,  true),
+    ('avaliacao','plano_de_estudos',     NULL,  true)
+  ) AS v(plan_key, feature_key, limit_value, enabled)
+  JOIN canone_commerce.plan p ON p.key = v.plan_key;
+
+-- -----------------------------------------------------------------------------
+-- CONFIGURAÇÃO DE PLATAFORMA
+-- -----------------------------------------------------------------------------
+INSERT INTO canone_ops.setting (key, scope, value, description) VALUES
+  ('plano_precos_indisponiveis', 'public', '{"exibir_preco":false,"mensagem":"Preços em breve."}',
+   'Enquanto o comercial não definir preço, a API pública não expõe valor.'),
+  ('integridade.pagina_publica', 'public', '{"habilitada":true}',
+   'Publica a página de integridade editorial.'),
+  ('srs.algorithm_version', 'global', '"srs-v1"', 'Versão do motor de repetição espaçada.'),
+  ('srs.max_daily_reviews', 'global', '200', 'Teto de revisões por dia.'),
+  ('apoio.max_duracao_horas', 'global', '72', 'Duração máxima de uma concessão de visão de usuário.'),
+  ('limite.sessoes_simultaneas', 'global', '5', 'Sessões ativas por conta.');
+
+INSERT INTO canone_ops.integration (key, kind, label, config, status, is_default) VALUES
+  ('email_transacional', 'email', 'E-mail transacional', '{"from":"nao-responda@exemplo.invalid","provider":"pendente"}', 'inativo', true),
+  ('pagamento_principal', 'pagamento', 'Provedor de pagamento', '{"provider":"pendente"}', 'inativo', true),
+  ('armazenamento_offline','storage', 'Armazenamento de pacotes offline', '{"bucket":"pendente"}', 'inativo', true);
+
+-- Alertas: o que o time precisa ver antes de publicar.
+INSERT INTO canone_admin.feature_flag (key, description, enabled, rollout) VALUES
+  ('pagina_integridade', 'Publica /integridade com alegações recusadas', true, '{}'),
+  ('simulado_adaptativo', 'Simulado com adaptação de dificuldade', false, '{"percentual":10}'),
+  ('duelo_questoes', 'Duelo entre participantes', false, '{"percentual":0}');

@@ -1,0 +1,59 @@
+%% GERADO; 27 relações (19 FKs físicas, 5 dependências de views).
+%% Linhas com marcador “lógico” não são constraints SQL.
+flowchart LR
+  account_palm__atomization_eval_sample_v1["account_palm.atomization_eval_sample_v1"]
+  account_palm__atomization_fragment_quality_v1["account_palm.atomization_fragment_quality_v1"]
+  account_palm__atomization_gold_draft_proposals_v1["account_palm.atomization_gold_draft_proposals_v1"]
+  account_palm__atomization_gold_replacements_v1["account_palm.atomization_gold_replacements_v1"]
+  account_palm__atomization_gold_review_batch_v1["account_palm.atomization_gold_review_batch_v1"]
+  account_palm__dou_content_validation_v1["account_palm.dou_content_validation_v1"]
+  account_palm__dou_discovery_candidates_v1["account_palm.dou_discovery_candidates_v1"]
+  account_palm__dou_discovery_requests_v1["account_palm.dou_discovery_requests_v1"]
+  account_palm__dou_validation_runs_v1["account_palm.dou_validation_runs_v1"]
+  account_palm__entities["account_palm.entities"]
+  account_palm__master_register["account_palm.master_register"]
+  account_palm__normalization_runs_v1["account_palm.normalization_runs_v1"]
+  account_palm__normalized_units_v1["account_palm.normalized_units_v1"]
+  account_palm__normative_assertion_candidates_v1["account_palm.normative_assertion_candidates_v1"]
+  account_palm__normative_claim_candidates_v1["account_palm.normative_claim_candidates_v1"]
+  account_palm__normative_extractions["account_palm.normative_extractions"]
+  account_palm__normative_temporal_evidence_v1["account_palm.normative_temporal_evidence_v1"]
+  account_palm__normative_temporal_type_registry_v1["account_palm.normative_temporal_type_registry_v1"]
+  account_palm__normative_works["account_palm.normative_works"]
+  account_palm__regulatory_instruments["account_palm.regulatory_instruments"]
+  cko_governance__account_palm_master_register_v1["cko_governance.account_palm_master_register_v1"]
+  cko_master__entities["cko_master.entities"]
+  contabilidade_cfc__audit_normative_scope_v1["contabilidade_cfc.audit_normative_scope_v1"]
+  contabilidade_cfc__audit_normative_segment_drafts_v1["contabilidade_cfc.audit_normative_segment_drafts_v1"]
+  contabilidade_cfc__audit_normative_segment_parent_qa_v1["contabilidade_cfc.audit_normative_segment_parent_qa_v1"]
+  contabilidade_cfc__questions["contabilidade_cfc.questions"]
+  contabilidade_cfc__sources["contabilidade_cfc.sources"]
+  public__cfc_internal_normative_extractions["public.cfc_internal_normative_extractions"]
+  public__regulatory_instruments["public.regulatory_instruments"]
+  account_palm__atomization_eval_sample_v1 -->|"assertion_candidate_id → assertion_candidate_id [FK]"| account_palm__normative_assertion_candidates_v1
+  account_palm__atomization_eval_sample_v1 -->|"normalized_unit_id → normalized_unit_id [FK]"| account_palm__normalized_units_v1
+  account_palm__atomization_fragment_quality_v1 -->|"normalized_unit_id → normalized_unit_id [FK]"| account_palm__normalized_units_v1
+  account_palm__atomization_gold_draft_proposals_v1 -->|"sample_id → sample_id [FK]"| account_palm__atomization_eval_sample_v1
+  account_palm__atomization_gold_replacements_v1 -->|"assertion_candidate_id → assertion_candidate_id [FK]"| account_palm__normative_assertion_candidates_v1
+  account_palm__atomization_gold_replacements_v1 -->|"normalized_unit_id → normalized_unit_id [FK]"| account_palm__normalized_units_v1
+  account_palm__atomization_gold_replacements_v1 -->|"replaced_sample_id → sample_id [FK]"| account_palm__atomization_eval_sample_v1
+  account_palm__atomization_gold_review_batch_v1 -->|"sample_id → sample_id [FK]"| account_palm__atomization_eval_sample_v1
+  account_palm__dou_content_validation_v1 -->|"run_id → run_id [FK]"| account_palm__dou_validation_runs_v1
+  account_palm__dou_discovery_candidates_v1 -->|"request_id → request_id [FK]"| account_palm__dou_discovery_requests_v1
+  account_palm__entities -.->|"* → * [VIEW]"| cko_master__entities
+  account_palm__master_register -.->|"* → * [VIEW]"| cko_governance__account_palm_master_register_v1
+  account_palm__normalized_units_v1 -->|"run_id → run_id [FK]"| account_palm__normalization_runs_v1
+  account_palm__normative_assertion_candidates_v1 -->|"normalized_unit_id → normalized_unit_id [FK]"| account_palm__normalized_units_v1
+  account_palm__normative_claim_candidates_v1 -->|"assertion_candidate_id → assertion_candidate_id [FK]"| account_palm__normative_assertion_candidates_v1
+  account_palm__normative_claim_candidates_v1 -->|"normalized_unit_id → normalized_unit_id [FK]"| account_palm__normalized_units_v1
+  account_palm__normative_extractions -.->|"instrument_id → instrument_id [VIEW]"| public__cfc_internal_normative_extractions
+  account_palm__normative_temporal_evidence_v1 -->|"temporal_type → temporal_type [FK]"| account_palm__normative_temporal_type_registry_v1
+  account_palm__normative_works -.->|"* → * [VIEW]"| cko_master__entities
+  account_palm__regulatory_instruments -.->|"* → * [VIEW]"| public__regulatory_instruments
+  contabilidade_cfc__audit_normative_scope_v1 -->|"instrument_id → instrument_id [FK]"| public__regulatory_instruments
+  contabilidade_cfc__audit_normative_segment_drafts_v1 -->|"parent_unit_id → normalized_unit_id [FK]"| account_palm__normalized_units_v1
+  contabilidade_cfc__audit_normative_segment_parent_qa_v1 -->|"parent_unit_id → normalized_unit_id [FK]"| account_palm__normalized_units_v1
+  contabilidade_cfc__questions -->|"source_id → source_id [FK]"| contabilidade_cfc__sources
+  account_palm__master_register -.->|"object_id → canonical_id [LÓGICO]"| account_palm__entities
+  account_palm__regulatory_instruments -.->|"instrument_id → instrument_id [LÓGICO]"| public__regulatory_instruments
+  account_palm__normalized_units_v1 -.->|"instrument_id → instrument_id [LÓGICO]"| public__regulatory_instruments

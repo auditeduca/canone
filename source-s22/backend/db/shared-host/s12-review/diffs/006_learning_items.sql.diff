@@ -1,0 +1,20 @@
+--- S11/006_learning_items.sql
++++ S12/006_learning_items.sql
+@@ -79,14 +79,16 @@
+ RETURNS boolean
+ LANGUAGE sql
+ SECURITY DEFINER
++SET search_path = pg_catalog, canone_learning, pg_temp
+ STABLE AS $$
+   SELECT EXISTS (
+-    SELECT 1 FROM learning.item_option
++    SELECT 1 FROM canone_learning.item_option
+      WHERE item_id = p_item_id
+        AND ordinal = upper(p_ordinal)
+        AND is_correct
+   )
+ $$;
++REVOKE ALL ON FUNCTION canone_learning.grade_answer(uuid, text) FROM PUBLIC;
+ COMMENT ON FUNCTION canone_learning.grade_answer(uuid, text) IS
+   'Corrige a resposta. Devolve só o veredito — o gabarito não sai do servidor.';
+ 

@@ -1,0 +1,57 @@
+--- S11/017_privileges.sql
++++ S12/017_privileges.sql
+@@ -24,9 +24,9 @@
+ -- -----------------------------------------------------------------------------
+ -- O schema 'public' do Postgres é REUTILIZADO como a área pública do
+ -- produto (já que ele é reservado). Tudo que existe dentro é nosso.
+-REVOKE ALL ON SCHEMA public FROM PUBLIC;
++-- Forbidden: no mutation to shared PostgreSQL public schema.
+ 
+-GRANT USAGE ON SCHEMA public, subscriber, taxonomy, editorial, norms, learning, commerce, admin, ops, audit
++GRANT USAGE ON SCHEMA canone_public, canone_subscriber, canone_taxonomy, canone_editorial, canone_norms, canone_learning, canone_commerce, canone_admin, canone_ops, canone_audit
+   TO canone_app, canone_public, canone_subscriber, canone_staff, canone_admin;
+ 
+ -- canone_app é o TRAMPOLIM: o backend conecta com ele e troca de papel por
+@@ -96,6 +96,7 @@
+   canone_learning.offline_pack, canone_learning.study_plan
+   TO canone_subscriber;
+ 
++GRANT SELECT ON canone_taxonomy.subject TO canone_subscriber;
+ GRANT SELECT ON canone_subscriber.v_my_progress, canone_subscriber.v_my_due, canone_subscriber.v_my_history, canone_subscriber.v_my_state
+   TO canone_subscriber;
+ 
+@@ -125,7 +126,7 @@
+ GRANT INSERT, UPDATE ON
+   canone_editorial.content_item, canone_editorial.content_item_version, canone_editorial.verification,
+   canone_editorial.content_revision,
+-  canone_admin.support_access_grant, canone_admin.moderation_queue, canone_admin.user_note, canone_admin.feature_flag,
++  canone_admin.moderation_queue, canone_admin.user_note, canone_admin.feature_flag,
+   canone_admin.content_report
+   TO canone_staff;
+ 
+@@ -133,7 +134,7 @@
+ -- audit.audit_log é append-only: UPDATE e DELETE ficam bloqueados pelo
+ -- trigger, e o privilégio nem é concedido.
+ 
+-GRANT SELECT ON canone_admin.v_content_health, canone_admin.v_user_overview, canone_admin.v_user_mastery,
++GRANT SELECT ON canone_admin.v_content_health, canone_admin.v_user_overview,
+                   canone_admin.v_audit_recent, canone_admin.v_refused_claims
+   TO canone_staff;
+ 
+@@ -163,7 +164,7 @@
+   TO canone_admin;
+ 
+ GRANT INSERT ON canone_audit.audit_log TO canone_admin;
+-GRANT SELECT ON canone_admin.v_content_health, canone_admin.v_user_overview, canone_admin.v_user_mastery,
++GRANT SELECT ON canone_admin.v_content_health, canone_admin.v_user_overview,
+                   canone_admin.v_audit_recent, canone_admin.v_refused_claims
+   TO canone_admin;
+ 
+@@ -186,3 +187,7 @@
+ -- A correção é do servidor: o assinante manda a alternativa, recebe o veredito.
+ GRANT EXECUTE ON FUNCTION canone_learning.grade_answer(uuid, text)
+   TO canone_subscriber, canone_staff, canone_admin;
++
++-- Conservative lockdown: no unmediated read of per-user mastery view.
++REVOKE ALL ON canone_admin.v_user_mastery FROM PUBLIC, canone_staff, canone_admin;
++REVOKE INSERT, UPDATE, DELETE ON canone_admin.support_access_grant FROM canone_staff;

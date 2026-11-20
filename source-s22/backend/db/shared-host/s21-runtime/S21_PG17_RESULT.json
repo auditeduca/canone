@@ -1,0 +1,111 @@
+{
+  "title": "CANONE S21 | PostgreSQL 17.12 DDL + contracts release gates",
+  "observed_utc": "2026-11-15T02:17:46.990257+00:00",
+  "target": "Independent Canone V9 project (accounting exam education)",
+  "environment": {
+    "platform": "Vercel Sandbox ephemeral, no Supabase credentials",
+    "session_id": "sbx_9uMsT4w6Cze9tr78kyZvsU8EslmW",
+    "db_server": "PostgreSQL 17.12 (PGDG Ubuntu 26.04)",
+    "db": "canone_s13_disposable",
+    "disposable_marker": "s13-verified",
+    "foreign_sentinel": "untouched"
+  },
+  "source": {
+    "s13_stage_prepare_sha256_ok": true,
+    "original_migrations_total": 30,
+    "original_migrations_sha256_match": 30,
+    "original_migrations_edited": 0,
+    "s12_review_scripts": 10
+  },
+  "real_pg17": {
+    "DDL": {
+      "status": "PASS",
+      "files_passed": 17,
+      "files_total": 17,
+      "files": "001_s13_bootstrap.sql, 002-017 candidate staging (NOT production migrations)"
+    },
+    "structural_assertions_original": {
+      "status": "FAIL",
+      "reason": "2 SECURITY DEFINER functions owned by PostgreSQL superuser in candidate DDL execution"
+    },
+    "two_user_assertions_initial": {
+      "status": "FAIL",
+      "reason": "canone_subscriber lacked USAGE on canone_identity schema"
+    },
+    "two_user_assertions_overlay": {
+      "status": "PASS",
+      "test_only_overlay": "GRANT USAGE ON SCHEMA canone_identity TO canone_subscriber",
+      "synthetic_users": 2,
+      "cross_user_update_rows": 0
+    },
+    "canonical_schemas": 14,
+    "canonical_tables": 83,
+    "tables_without_enable_and_force_rls": 0,
+    "canonical_schemas_with_usage_by_supabase_roles": 0,
+    "staff_can_write_support_access_grant": false,
+    "definer_functions_without_pinned_search_path": 0,
+    "definer_functions_owned_by_superuser_or_bypassrls": 2,
+    "missing_backend_auth_role": "canone_auth",
+    "backend_schema_contract_refs_unmapped": 43,
+    "pg_dump_restore": {
+      "status": "PASS",
+      "source_dump_format": "custom -Fc",
+      "restoration_target": "canone_s21_restored (same isolated cluster)",
+      "canonical_schemas_restored": 14,
+      "tables_restored": 83,
+      "synthetic_profiles_restored": 2,
+      "foreign_sentinel_preserved": true,
+      "dump_size_bytes": 379045
+    }
+  },
+  "local_tests": {
+    "frontend_s19": {
+      "passed": 195,
+      "total": 195,
+      "node_flag": "--experimental-strip-types",
+      "note": "initial run without this flag produced 7 environment failures; rerun passed"
+    },
+    "s11_shared_host": {
+      "passed": 14,
+      "total": 14
+    },
+    "s12_security_candidates": {
+      "passed": 14,
+      "total": 14
+    },
+    "s13_preflight": {
+      "passed": 20,
+      "total": 20
+    },
+    "s20_context": {
+      "passed": 10,
+      "total": 10
+    },
+    "s21_new_contract_tests": {
+      "passed": 8,
+      "total": 8
+    },
+    "total_passed": 261,
+    "total": 261
+  },
+  "release": {
+    "status": "NO_GO",
+    "pending": [
+      "Role canone_auth missing and grant/member contract",
+      "Legacy SQL schema references in backend",
+      "No USAGE canone_identity for subscriber/staff/admin in release candidate",
+      "SECURITY DEFINER ownership and safe RLS/grants redesign",
+      "018-030 not tested with proposed overlay",
+      "Full authenticated PostgreSQL E2E, concurrency, privileges, browser, legal/editorial review",
+      "GitHub remote canonical integration"
+    ],
+    "postgresql_17_ddl_pass_not_equivalent_to_release_approval": true
+  },
+  "actions": {
+    "shared_supabase_modified": false,
+    "production_migrations_modified": false,
+    "vercel_static_preview_changed": false,
+    "remote_github_push": false
+  },
+  "evidence_note": "Recorded from commands and responses returned by Vercel Sandbox and local tests. Sandbox is ephemeral; release audit is not a signed independent external attestation."
+}

@@ -1,0 +1,28 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { createCard, createTask, studySummary } from '../src/tools/local-learning.ts';
+import { createJournalEntry, projectJournal, SYNTHETIC_ENTRIES } from '../src/tools/synthetic-ledger.ts';
+
+test('card created with trimmed content',()=>assert.deepEqual(createCard(1,' Frente ',' Verso ','flashcards'),{id:1,front:'Frente',back:'Verso',category:'flashcards'}));
+test('card validates empty content',()=>assert.throws(()=>createCard(1,'','b','flashcards')));
+test('card validates max length',()=>assert.throws(()=>createCard(1,'x'.repeat(241),'b','flashcards')));
+test('card validates category',()=>assert.throws(()=>createCard(1,'a','b','duelo')));
+test('card validates ID',()=>assert.throws(()=>createCard(0,'a','b','flashcards')));
+test('task created with bounds',()=>assert.equal(createTask(1,' Leitura ',5).topic,'Leitura'));
+test('task rejects decimal minutes',()=>assert.throws(()=>createTask(1,'Ler',7.5)));
+test('task rejects oversized minutes',()=>assert.throws(()=>createTask(1,'Ler',241)));
+test('task rejects empty topic',()=>assert.throws(()=>createTask(1,' ',30)));
+test('summary empty is zero',()=>assert.equal(studySummary([]).percentage,0));
+test('summary tracks minutes, not number of tasks',()=>assert.deepEqual(studySummary([{id:1,topic:'A',minutes:30,done:true},{id:2,topic:'B',minutes:60,done:false}]),{total:2,done:1,minutes:90,completedMinutes:30,percentage:33}));
+test('synthetic journal balances',()=>assert.equal(projectJournal(SYNTHETIC_ENTRIES).balanced,true));
+test('synthetic journal generates 1100 result',()=>assert.equal(projectJournal(SYNTHETIC_ENTRIES).result,110000));
+test('synthetic journal generates 12100 assets',()=>assert.equal(projectJournal(SYNTHETIC_ENTRIES).assets,1210000));
+test('synthetic journal liability and equity/result equals assets',()=>{const a=projectJournal(SYNTHETIC_ENTRIES);assert.equal(a.liabilities+a.equity+a.result,a.assets)});
+test('distinct account check',()=>assert.throws(()=>createJournalEntry(1,'Teste','caixa','caixa',1)));
+test('account whitelist check',()=>assert.throws(()=>createJournalEntry(1,'Teste','public','capital',1)));
+test('nonfinite value rejected',()=>assert.throws(()=>createJournalEntry(1,'Teste','caixa','capital',NaN)));
+test('negative amount rejected',()=>assert.throws(()=>createJournalEntry(1,'Teste','caixa','capital',-1)));
+test('currency converted into integer cents',()=>assert.equal(createJournalEntry(8,'Teste','caixa','capital',10.235).amountCents,1024));
+test('additional manual entry remains balanced',()=>{const e=createJournalEntry(5,'Pagamento','fornecedores','caixa',50);const a=projectJournal([...SYNTHETIC_ENTRIES,e]);assert.equal(a.balanced,true);assert.equal(a.liabilities,95000)});
+test('tampers are rejected',()=>assert.throws(()=>projectJournal([{id:1,label:'X',debit:'caixa',credit:'caixa',amountCents:1}])));
+test('empty journal is balanced',()=>assert.equal(projectJournal([]).balanced,true));

@@ -1,0 +1,15 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+const src=readFileSync(join(import.meta.dirname,'../src/screens/LocalModules.tsx'),'utf8');
+const main=readFileSync(join(import.meta.dirname,'../src/main.tsx'),'utf8');
+const engine=readFileSync(join(import.meta.dirname,'../src/tools/synthetic-ledger.ts'),'utf8');
+const subjects=['flashcards','caderno-erros','plano-de-estudos','diario-e-razao','laboratorio','dre-interativa','balanco-3d','dashboard'];
+for (const route of subjects) test('S15 provides locally scoped route '+route,()=>assert.ok(src.includes(route)));
+test('global route stays wrapped by the original App',()=>assert.match(main,/if \(!origin && !isLocal && !isKnowledge && !isPractice && !isWorkbench && !isLab\) return <App \/>/));
+test('S14 finance tools are retained',()=>assert.match(main,/<FerramentasFinanceiras origin=\{origin\}/));
+test('synthetic accounting engine has no networking',()=>{assert.doesNotMatch(engine,/fetch\(|XMLHttpRequest|supabase|localStorage|sessionStorage/)});
+test('study engine has no networking or disk persistence',()=>{const code=readFileSync(join(import.meta.dirname,'../src/tools/local-learning.ts'),'utf8');assert.doesNotMatch(code,/fetch\(|XMLHttpRequest|supabase|localStorage|sessionStorage/)});
+test('no grading or correct answers in local learning modules',()=>assert.doesNotMatch(src,/correctAnswer|gradeAnswer|gabarito\.correta/));
+test('the 3D limitation is explicit',()=>assert.match(src,/visualização 3D não está implementada/));

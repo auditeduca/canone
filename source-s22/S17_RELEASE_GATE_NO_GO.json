@@ -1,0 +1,17 @@
+{
+  "stage": "S17",
+  "status": "FRONTEND_PREVIEW_READY",
+  "modules_interactive_preview": 16,
+  "modules_catalog_total": 26,
+  "modules_commercially_approved": 0,
+  "local_test_count": 138,
+  "local_test_failures": 0,
+  "migration_source_files": 30,
+  "migration_changes": 0,
+  "vercel_file_parity": "54/54",
+  "vercel_deployment_id": "dpl_AVqiMk2pCmMAd3xmDFaLMjqyXP99",
+  "vercel_preview_url": "https://canone-contabilidade-preview-cdipep8sd-leivisml-7739s-projects.vercel.app",
+  "source_canonicality": "local_branch_only_no_remote_push",
+  "security": {"supabase_shared":"NO_TOUCH", "authentication":"DISABLED", "grade":"DISABLED", "official_answer_key":"DISABLED", "question_provenance":"user-authored-unverified", "sso_preview":true},
+  "gates": {"frontend_build":"PASS", "source_parity":"PASS", "local_tests":"PASS", "postgreSQL_real":"HOLD_RUNTIME", "browser_e2e":"PENDING", "content":"HOLD_HUMAN", "production":"NO_GO"}
+}

@@ -1,0 +1,43 @@
+--- S11/009_admin_governance.sql
++++ S12/009_admin_governance.sql
+@@ -83,9 +83,11 @@
+ LANGUAGE plpgsql AS $$
+ DECLARE v_prev char(64);
+ BEGIN
+-  SELECT row_hash INTO v_prev FROM audit.audit_log ORDER BY seq DESC LIMIT 1;
++  -- Serializa escritoras em READ COMMITTED; isolamento superior depende de ensaio concorrente.
++  PERFORM pg_catalog.pg_advisory_xact_lock(93112026);
++  SELECT row_hash INTO v_prev FROM canone_audit.audit_log ORDER BY seq DESC LIMIT 1;
+   NEW.prev_hash := v_prev;
+-  NEW.row_hash := audit.compute_row_hash(
++  NEW.row_hash := canone_audit.compute_row_hash(
+     v_prev, NEW.action, NEW.entity_type, NEW.entity_id,
+     NEW.actor_id, NEW.before, NEW.after, NEW.occurred_at
+   );
+@@ -98,7 +100,7 @@
+ CREATE OR REPLACE FUNCTION canone_audit.forbid_mutation() RETURNS trigger
+ LANGUAGE plpgsql AS $$
+ BEGIN
+-  RAISE EXCEPTION 'audit.audit_log é append-only: % proibido', TG_OP
++  RAISE EXCEPTION 'canone_audit.audit_log é append-only: % proibido', TG_OP
+     USING ERRCODE = '23514';
+ END $$;
+ 
+@@ -122,7 +124,7 @@
+   -- cadeia parecia intacta justamente porque a prova não era conferida.
+   WITH ordered AS (
+     SELECT a.*, lag(a.row_hash) OVER (ORDER BY a.seq) AS prev_in_chain
+-    FROM audit.audit_log a
++    FROM canone_audit.audit_log a
+   ),
+   scoped AS (
+     SELECT * FROM ordered
+@@ -130,7 +132,7 @@
+   ),
+   checked AS (
+     SELECT o.*,
+-           audit.compute_row_hash(
++           canone_audit.compute_row_hash(
+              o.prev_hash, o.action, o.entity_type, o.entity_id,
+              o.actor_id, o.before, o.after, o.occurred_at
+            ) AS recomputed

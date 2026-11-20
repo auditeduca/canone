@@ -1,0 +1,18 @@
+{
+  "contract_sha256": "16444cdaa3e007e5bc9c0c2dbcece73ddb643191903408e83d01444c5e9fe3a4",
+  "foreign_keys": 19,
+  "logical_relations": 3,
+  "relationships_count": 27,
+  "release_blockers": [
+    "GABARITO_PENDENTE:50",
+    "NORMAS_NAO_CONCILIADAS:4",
+    "SEGMENTOS_SEM_REVISAO:393",
+    "NENHUMA_NORMA_APTA_A_PUBLICAR"
+  ],
+  "release_gate": "HOLD_HUMAN",
+  "snapshot_sha256": "6211b32822064f261f54b5e2c1edc1c91b10de60917cb3fedeb7c5f94389a5ed",
+  "structural_issues": [],
+  "structurally_valid": true,
+  "target_erd_sha256": "067f75cb1ad2efd559cf0118303b72adb365c9ae853b8ec27f9a11b77bb88ed6",
+  "view_dependencies": 5
+}

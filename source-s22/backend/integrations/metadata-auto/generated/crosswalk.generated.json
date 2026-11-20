@@ -1,0 +1,137 @@
+{
+  "contract": "canone.audit-educa.intake.v2",
+  "links": [
+    {
+      "gate": "SOURCE_VERIFICATION_REQUIRED",
+      "published": false,
+      "source": "contabilidade_cfc.sources",
+      "source_pk": "source_id",
+      "source_type": "SOURCE",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "editorial.source",
+      "target_exists_in_core": true
+    },
+    {
+      "gate": "OFFICIAL_KEY_AND_EDITORIAL_QA_REQUIRED",
+      "published": false,
+      "source": "contabilidade_cfc.questions",
+      "source_pk": "question_id",
+      "source_type": "QUESTION",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "editorial.content_item_version (+ learning.item after projection)",
+      "target_exists_in_core": true
+    },
+    {
+      "gate": "CANONICAL_PROMOTION_FALSE_HOLD",
+      "published": false,
+      "source": "account_palm.master_register",
+      "source_pk": "register_id",
+      "source_type": "MASTER_REGISTER",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "governed master registry -> norms.norm / editorial.source after approval",
+      "target_exists_in_core": false
+    },
+    {
+      "gate": "MASTER_ENTITY_REVIEW",
+      "published": false,
+      "source": "account_palm.entities",
+      "source_pk": "canonical_id",
+      "source_type": "MASTER_ENTITY",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "crosswalk master entity registry",
+      "target_exists_in_core": false
+    },
+    {
+      "gate": "SOURCE_RIGHTS_EFFECTIVE_DATE_REQUIRED",
+      "published": false,
+      "source": "account_palm.normative_works",
+      "source_pk": "canonical_id",
+      "source_type": "NORMATIVE_WORK",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "norms.norm candidate",
+      "target_exists_in_core": true
+    },
+    {
+      "gate": "VERSION_AND_VIGENCY_REQUIRED",
+      "published": false,
+      "source": "account_palm.regulatory_instruments",
+      "source_pk": "instrument_id",
+      "source_type": "REGULATORY_INSTRUMENT",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "norms.norm candidate (do not assume current version)",
+      "target_exists_in_core": true
+    },
+    {
+      "gate": "RECONCILE_4_PUBLIC_ONLY",
+      "published": false,
+      "source": "public.regulatory_instruments",
+      "source_pk": "instrument_id",
+      "source_type": "REGULATORY_PUBLIC_CROSSCHECK",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "reconciliation only with account_palm.regulatory_instruments",
+      "target_exists_in_core": false
+    },
+    {
+      "gate": "SEMANTIC_REVIEW_RIGHTS_AND_VERSION_REQUIRED",
+      "published": false,
+      "source": "account_palm.normalized_units_v1",
+      "source_pk": "normalized_unit_id",
+      "source_type": "NORMATIVE_UNIT",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "norms.norm_item candidate (text not public)",
+      "target_exists_in_core": true
+    },
+    {
+      "gate": "SOURCE_VERIFIED_AND_PUBLICATION_ELIGIBLE",
+      "published": false,
+      "source": "contabilidade_cfc.audit_normative_scope_v1",
+      "source_pk": "instrument_id",
+      "source_type": "NORMATIVE_QA",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "source normative QA registry",
+      "target_exists_in_core": false
+    },
+    {
+      "gate": "EDITORIAL_REVIEW_REQUIRED",
+      "published": false,
+      "source": "contabilidade_cfc.audit_normative_segment_drafts_v1",
+      "source_pk": "segment_id",
+      "source_type": "NORMATIVE_SEGMENT",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "normative segment candidate registry (text withheld)",
+      "target_exists_in_core": false
+    },
+    {
+      "gate": "SOURCE_BYTES_AND_RIGHTS_PENDING",
+      "published": false,
+      "source": "account_palm.normative_extractions",
+      "source_pk": "instrument_id",
+      "source_type": "NORMATIVE_EXTRACTION",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "canone_evidence.source_document candidate",
+      "target_exists_in_core": false
+    },
+    {
+      "gate": "ATOM_AND_SEMANTIC_REVIEW_PENDING",
+      "published": false,
+      "source": "account_palm.normative_assertion_candidates_v1",
+      "source_pk": "assertion_candidate_id",
+      "source_type": "ASSERTION_FEATURE_CANDIDATE",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "canone_evidence.canonical_claim candidate (not promoted)",
+      "target_exists_in_core": false
+    },
+    {
+      "gate": "CLAIM_REVIEW_AND_SOURCE_PROOF_PENDING",
+      "published": false,
+      "source": "account_palm.normative_claim_candidates_v1",
+      "source_pk": "claim_candidate_id",
+      "source_type": "SEMANTIC_CLAIM_CANDIDATE",
+      "status": "HOLD_HUMAN",
+      "target_candidate": "canone_evidence.canonical_claim candidate (not promoted)",
+      "target_exists_in_core": false
+    }
+  ],
+  "policy": "HOLD_HUMAN",
+  "source": "pgsybzggewhinaniybiy"
+}

@@ -1,0 +1,166 @@
+/* ============================================================================
+   CÂNONE — DESIGN TOKENS
+   Fonte única de verdade. Derivado das 10 referências visuais.
+   Regra do projeto: NENHUM componente define cor/espaço/tamanho próprio.
+   Se um valor não está aqui, ele não existe. (Regra do agente canone-marca.)
+   ========================================================================== */
+
+/* --- Fontes: self-hosted. O app promete "Cânone Offline"; CDN quebraria. --- */
+@font-face{font-family:'Bodoni Moda';src:url('/fonts/BodoniModa-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Bodoni Moda';src:url('/fonts/BodoniModa-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Bodoni Moda';src:url('/fonts/BodoniModa-it-400.woff2') format('woff2');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:'Cormorant';src:url('/fonts/Cormorant-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Cormorant';src:url('/fonts/Cormorant-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('/fonts/Inter-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('/fonts/Inter-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('/fonts/Inter-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'JetBrains Mono';src:url('/fonts/JetBrainsMono-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+
+:root{
+  /* ===================== 1. SUPERFÍCIES (escuro, predominante) ========== */
+  --ink-000:#07070A;   /* fundo absoluto —黑色 mais profundo */
+  --ink-050:#0B0B0F;   /* fundo de página */
+  --ink-100:#111116;   /* superfície de card */
+  --ink-150:#16161C;   /* card elevado / hover */
+  --ink-200:#1D1D24;   /* superfície de input, barra de progresso */
+  --ink-300:#26262F;   /* borda visível */
+
+  /* ===================== 2. PAPEL (modo leitura) ========================= */
+  --paper-000:#FFFFFF;
+  --paper-050:#F7F4EE;
+  --paper-100:#F1ECE2;
+  --paper-200:#E4DCCB;
+  --paper-300:#D6CBB4;
+
+  /* ===================== 3. LATAO / BRASS (acento único da marca) ======== */
+  --brass-100:#EFE3C6;  /* texto sobre fundo escuro de alto destaque */
+  --brass-200:#DCC794;
+  --brass-300:#C9A961;  /* ACENTO PRIMÁRIO */
+  --brass-400:#B08F49;
+  --brass-500:#8E7038;
+  --brass-600:#6B5429;
+  --brass-700:#463719;
+  --brass-on:#1A1509;    /* texto sobre pílula de latão */
+
+  /* ===================== 4. TEXTO ======================================== */
+  --tx-hi:#F4F0E7;       /* texto primário em escuro */
+  --tx-mid:#B4AEA2;      /* texto secundário */
+  --tx-low:#7E786C;      /* texto terciário / legendas */
+  --tx-faint:#55514A;    /* hints, watermarks */
+  --tx-dark-hi:#17140E;  /* texto primário em papel */
+  --tx-dark-mid:#5A5347;
+  --tx-dark-low:#8A8274;
+
+  /* ===================== 5. LINHAS ======================================= */
+  --line:rgba(255,255,255,.075);        /* hairline padrão */
+  --line-strong:rgba(255,255,255,.14);  /* hairline de ênfase */
+  --line-brass:rgba(201,169,97,.32);    /* hairline de acento */
+  --line-dark:rgba(23,20,14,.10);       /* hairline em papel */
+
+  /* ===================== 6. ESTADOS DE SINALIZACAO =======================
+     IMPORTANTE (integridade de sinal): estes 4 estados são AUTORRELATOS
+     pelo aluno. Não são gabarito. "Acertei com esforço" é verde-azulado
+     porque significa "acertei mas está frágil". Confundir isso com
+     acerto/erro é mentira pedagógica. Ver /integridade/ESTADOS.md
+     ====================================================================== */
+  --st-facil:#2F9E63;    /* Acertei facilmente  */
+  --st-esforco:#3B82D6;  /* Acertei com esforço */
+  --st-errei:#D08A2C;    /* Errei               */
+  --st-naosei:#C6402F;   /* Não sabia           */
+
+  --ok:#2F9E63;
+  --warn:#D08A2C;
+  --err:#C6402F;
+  --info:#3B82D6;
+
+  /* ===================== 7. TIPOGRAFIA =================================== */
+  --f-display:'Bodoni Moda',Didot,'Bodoni MT',Georgia,serif;
+  --f-serif:'Cormorant',Garamond,Georgia,serif;
+  --f-ui:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --f-mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+
+  /* Escala fluida —Display do hero até micro-label */
+  /* O clamp é medido pelo COLUNA, não pela viewport: a headline de hero ocupa
+     ~50% da largura, então 5.2vw estourava e quebrava em 5 linhas. */
+  --t-display-xl:clamp(3rem,5.4vw,4.75rem);    /* "Flashcards Cânone" */
+  --t-display-lg:clamp(2.25rem,3.6vw,3.25rem); /* headlines de landing */
+  --t-display-md:clamp(1.75rem,2.6vw,2.5rem);
+  --t-h1:clamp(1.6rem,2.6vw,2.125rem);
+  --t-h2:clamp(1.3rem,2vw,1.625rem);
+  --t-h3:1.0625rem;
+  --t-body:1rem;
+  --t-sm:.9375rem;
+  --t-xs:.8125rem;
+  --t-xxs:.6875rem;
+
+  --lh-tight:1.02;   /* 0.98 colidia descendente no Didone (p, ç) */
+  --lh-snug:1.16;
+  --lh-body:1.62;
+
+  /* Tracking: display negativo (Didone), micro-label positivo (editorial) */
+  --tr-display:-.028em;
+  --tr-heading:-.014em;
+  --tr-label:.34em;   /* "S U F I C I Ê N C I A   C F C" */
+  --tr-label-sm:.2em;
+
+  /* ===================== 8. ESPAÇAMENTO (base 4) ======================= */
+  --s-1:4px;   --s-2:8px;   --s-3:12px;  --s-4:16px;
+  --s-5:20px;  --s-6:24px;  --s-8:32px;  --s-10:40px;
+  --s-12:48px; --s-16:64px; --s-20:80px; --s-24:96px;
+  --s-32:128px;
+
+  --gutter:clamp(1.25rem,5vw,5.5rem);
+  --maxw:1400px;
+  --maxw-text:68ch;
+
+  /* ===================== 9. RAIO =========================================
+     Regra: quase tudo é reto. O latão e os chips é que arredondam.
+     ====================================== */
+  --r-none:0;
+  --r-xs:3px;
+  --r-sm:6px;
+  --r-md:10px;
+  --r-lg:16px;
+  --r-pill:999px;
+
+  /* ===================== 10. ELEVAÇÃO ===================================
+     Sombra quente, nunca fria. A marca é papel+tinta, não vidro.
+     ====================================== */
+  --sh-1:0 1px 2px rgba(0,0,0,.4);
+  --sh-2:0 8px 24px -8px rgba(0,0,0,.6);
+  --sh-3:0 24px 64px -16px rgba(0,0,0,.75);
+  --sh-brass:0 8px 28px -10px rgba(201,169,97,.35);
+  --sh-inset:inset 0 1px 0 rgba(255,255,255,.05);
+
+  /* ===================== 11. MOVIMENTO ================================== */
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --dur-1:120ms; --dur-2:220ms; --dur-3:380ms;
+
+  /* ===================== 12. LAYOUT ===================================== */
+  --shell-max:1320px;
+  --nav-h:72px;
+  --phone-w:288px;
+  --phone-h:594px;
+  --z-nav:100; --z-sheet:200; --z-modal:300;
+}
+
+/* Tema claro: só a superfície inverte. A rampa de latão é a mesma —
+   é o que mantém a harmonização entre os dois modos das referências. */
+[data-theme="paper"]{
+  --ink-000:var(--paper-000);
+  --ink-050:var(--paper-050);
+  --ink-100:var(--paper-000);
+  --ink-150:var(--paper-100);
+  --ink-200:var(--paper-200);
+  --tx-hi:var(--tx-dark-hi);
+  --tx-mid:var(--tx-dark-mid);
+  --tx-low:var(--tx-dark-low);
+  --tx-faint:#A8A093;
+  --line:var(--line-dark);
+  --line-strong:rgba(23,20,14,.2);
+  --sh-1:0 1px 2px rgba(23,20,14,.06);
+  --sh-2:0 8px 24px -10px rgba(23,20,14,.16);
+  --sh-3:0 24px 64px -20px rgba(23,20,14,.22);
+  --sh-inset:none;
+}

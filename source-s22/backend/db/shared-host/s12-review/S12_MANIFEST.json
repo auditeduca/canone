@@ -1,0 +1,141 @@
+{
+  "version": "S12-REVIEW-ONLY-2026-11-14",
+  "baseline_commit": "716e01fd6c3619e336c1d7b2494f19355b951c29",
+  "production_gate": "HOLD_HUMAN_NO_GO",
+  "live_executable_count": 0,
+  "generator": "s12_generate_candidates.py",
+  "items": [
+    {
+      "migration": 6,
+      "file": "006_learning_items.sql",
+      "source_sha256": "55417f64192b8b4e5081416c2b874f207bedaf011fd2670e38e1f37bc5c75031",
+      "s11_preview_sha256": "2301017609a8fbace95ce22872aaf36f1c258bb62647fbd78034117ecaf3eca5",
+      "s12_candidate_sha256": "052401e2cb6bd80b2bc2fc57cb731fa36c90907bfa3ff316b6d56f76fbcb7a3c",
+      "dollar_blocks_scanned": 1,
+      "interventions": [
+        "Grade definer search_path",
+        "Grade EXECUTE PUBLIC revoked"
+      ],
+      "status": "PROPOSED_HOLD_NOT_EXECUTABLE"
+    },
+    {
+      "migration": 7,
+      "file": "007_learning_srs.sql",
+      "source_sha256": "d9bb2e97b45b050b24304d89973b4ac284b62f6dff4952a94dd9f4d108e3c545",
+      "s11_preview_sha256": "b601165fe3eb253e50b611f8de787398ca5bda99e78c6ecac2f6efd5d1a663c9",
+      "s12_candidate_sha256": "4703c9c4ec495a626c1d32a04872ed6e336f349972a6b43b950d30012b6d6344",
+      "dollar_blocks_scanned": 1,
+      "interventions": [],
+      "status": "PROPOSED_HOLD_NOT_EXECUTABLE"
+    },
+    {
+      "migration": 8,
+      "file": "008_commerce.sql",
+      "source_sha256": "b5abc75dde4e6183b2ff77232cd87686b37538e632a84b8ff885d117e7c80d60",
+      "s11_preview_sha256": "dd5231aa6caa68390ab108690ff85c16d971fe459a40c72d25cf1b44c537b56d",
+      "s12_candidate_sha256": "f8e15bfbcc28b0fab44756e62363ae98cae33eebefd7708faf7d6b76cbe6055e",
+      "dollar_blocks_scanned": 0,
+      "interventions": [],
+      "status": "PROPOSED_HOLD_NOT_EXECUTABLE"
+    },
+    {
+      "migration": 9,
+      "file": "009_admin_governance.sql",
+      "source_sha256": "08b1e347fef09fba4b2a76ed8f86b5e330b942607e599cdef3952b74422825e8",
+      "s11_preview_sha256": "4b677726a0e456b3ba8490a34ee2209db45aa2b1a198670952fa9fe018e7f848",
+      "s12_candidate_sha256": "aabefc07d40c6578b437d7176fcb1704f49020eacccb298321b2003105c7daed",
+      "dollar_blocks_scanned": 4,
+      "interventions": [
+        "Audit log single-writer advisory transaction lock candidate"
+      ],
+      "status": "PROPOSED_HOLD_NOT_EXECUTABLE"
+    },
+    {
+      "migration": 10,
+      "file": "010_ops_platform.sql",
+      "source_sha256": "3d8c5eee7c68f9b6379742bd997071ea114c8e249805fa2869ecf2cfdbfbc336",
+      "s11_preview_sha256": "b6da75ecb400e1553bc2f620d944db8063ae64da814d8776e54519f9a72bcd75",
+      "s12_candidate_sha256": "daa84a489175d95b6bfe3c4607492a0161bdc2ce137585a487115562f1105b77",
+      "dollar_blocks_scanned": 0,
+      "interventions": [],
+      "status": "PROPOSED_HOLD_NOT_EXECUTABLE"
+    },
+    {
+      "migration": 11,
+      "file": "011_triggers_integridade.sql",
+      "source_sha256": "5a054634c6255348d5a17942845cab44a6ed494e105af726e14b3c2f0f1040ec",
+      "s11_preview_sha256": "f9b0c64cc6bf21c330ec6deb04c3f65a038abce564f35ea8aa9d3ddf75f33b40",
+      "s12_candidate_sha256": "c6c4d99cfbf6d40149839f014ebb3554b9e2bad7ee469efdf8b55b926abacde6",
+      "dollar_blocks_scanned": 10,
+      "interventions": [
+        "13 dynamic trigger table names projected",
+        "Dynamic trigger function namespace projected"
+      ],
+      "status": "PROPOSED_HOLD_NOT_EXECUTABLE"
+    },
+    {
+      "migration": 12,
+      "file": "012_srs_engine.sql",
+      "source_sha256": "aa5152379aecb2184b6976aa24231676770afe80bb38e6bb5bdba4769f066a55",
+      "s11_preview_sha256": "4a9dcb85fa49d6772dd1166cce4385f4275489773c741d1aa6ae73b4407dd4e3",
+      "s12_candidate_sha256": "e1ce9c99accc5bed36f6e79088eb37a06b684d86dc1f2707051b2dfe960fa494",
+      "dollar_blocks_scanned": 6,
+      "interventions": [],
+      "status": "PROPOSED_HOLD_NOT_EXECUTABLE"
+    },
+    {
+      "migration": 13,
+      "file": "013_views.sql",
+      "source_sha256": "2ff3c3099a1ed84b7b5f323e2e14658e33934387b3bcd56e4f1c01d344815af9",
+      "s11_preview_sha256": "fef3cb178649948684c5c71c4402a9abd132b47b30f41e7fd22a551f0ad840a7",
+      "s12_candidate_sha256": "28ed54145ae5093ce2ae382b3fcbee34f594c3a67abf823ba3af47ea03617990",
+      "dollar_blocks_scanned": 0,
+      "interventions": [
+        "Subscriber progress invoker view",
+        "Explicit row-owner predicate"
+      ],
+      "status": "PROPOSED_HOLD_NOT_EXECUTABLE"
+    },
+    {
+      "migration": 14,
+      "file": "014_rls.sql",
+      "source_sha256": "0c573777de58467dca107992f4138e944142c977669854fa35636d035a4c255e",
+      "s11_preview_sha256": "4b7c4405fc5a1988d90079b485e116b1931e0032301e9e27492f3fa5d9e7c249",
+      "s12_candidate_sha256": "933c45bf8c003e54df377bc0e1433e7db20c571492561c2c65c62323d112712e",
+      "dollar_blocks_scanned": 2,
+      "interventions": [
+        "Allowlisted 9 canonical RLS schemas including audit",
+        "Staff self-grant policy removed",
+        "Staff secret policy narrowed",
+        "Admin audit insert policy added",
+        "Support definer search_path and EXECUTE revoked from PUBLIC",
+        "Support identity matched with server session GUC (requires trust-boundary tests)"
+      ],
+      "status": "PROPOSED_HOLD_NOT_EXECUTABLE"
+    },
+    {
+      "migration": 17,
+      "file": "017_privileges.sql",
+      "source_sha256": "fd65e114c8dfdcfb929e5591f628dd8dfba6a3e06ffca6cd5d806cc71a1a7d30",
+      "s11_preview_sha256": "e70c841fc10152f812fe56740247afcc0ba27fddd8cc3b7ce17d0bbed5368e54",
+      "s12_candidate_sha256": "22185b9c9906f5dbb154d680d150193ae8d6ab86a97bb2fda430dec1b41eacb1",
+      "dollar_blocks_scanned": 0,
+      "interventions": [
+        "Global public REVOKE removed",
+        "Staff support grant writes removed",
+        "Subscriber taxonomy dependency granted",
+        "Direct staff/admin mastery view grants removed"
+      ],
+      "status": "PROPOSED_HOLD_NOT_EXECUTABLE"
+    }
+  ],
+  "source_migrations_modified": 0,
+  "limitations": [
+    "Not validated in real PostgreSQL or PGlite",
+    "SQL text projection does not prove PL/pgSQL semantics",
+    "006 grade-answer enumeration/oracle still requires API-level hardening",
+    "RLS identity GUC must be bound to trustworthy server session",
+    "001 bootstrap, 015-030 dependencies and role ownership not homologated",
+    "Any material changes to granting support access require human product/legal review"
+  ]
+}

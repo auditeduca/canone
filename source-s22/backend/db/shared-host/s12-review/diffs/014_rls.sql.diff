@@ -1,0 +1,84 @@
+--- S11/014_rls.sql
++++ S12/014_rls.sql
+@@ -27,7 +27,7 @@
+     SELECT n.nspname AS schema_name, c.relname AS table_name
+       FROM pg_class c
+       JOIN pg_namespace n ON n.oid = c.relnamespace
+-     WHERE n.nspname IN ('identity','editorial','taxonomy','norms','learning','commerce','admin','ops')
++     WHERE n.nspname IN ('canone_identity','canone_editorial','canone_taxonomy','canone_norms','canone_learning','canone_commerce','canone_admin','canone_ops','canone_audit')
+        AND c.relkind IN ('r','p')
+   LOOP
+     EXECUTE format('ALTER TABLE %I.%I ENABLE ROW LEVEL SECURITY', t.schema_name, t.table_name);
+@@ -145,16 +145,17 @@
+   USING (true) WITH CHECK (true);
+ CREATE POLICY staff_read_moderation ON canone_admin.moderation_queue FOR ALL TO canone_staff
+   USING (true) WITH CHECK (true);
+-CREATE POLICY staff_read_grant ON canone_admin.support_access_grant FOR ALL TO canone_staff
+-  USING (true) WITH CHECK (true);
+-CREATE POLICY staff_insert_grant ON canone_admin.support_access_grant FOR INSERT TO canone_staff
+-  WITH CHECK (staff_user_id = canone_ops.current_user_id());
++CREATE POLICY staff_read_grant ON canone_admin.support_access_grant FOR SELECT TO canone_staff
++  USING (staff_user_id = canone_ops.current_user_id());
++-- Staff nao emite nem altera grants: dependencia de fluxo de aprovacao humana.
+ CREATE POLICY staff_read_audit ON canone_audit.audit_log FOR SELECT TO canone_staff
+   USING (true);
+ CREATE POLICY staff_insert_audit ON canone_audit.audit_log FOR INSERT TO canone_staff
+   WITH CHECK (actor_id = canone_ops.current_user_id() OR actor_id IS NULL);
++CREATE POLICY admin_insert_audit ON canone_audit.audit_log FOR INSERT TO canone_admin
++  WITH CHECK (actor_id = canone_ops.current_user_id() OR actor_id IS NULL);
+ CREATE POLICY staff_read_ops ON canone_ops.setting FOR SELECT TO canone_staff
+-  USING (NOT is_secret OR scope IN ('staff','global'));
++  USING (NOT is_secret AND scope IN ('staff','global'));
+ 
+ -- Admin: acesso pleno (exceto audit log, que é append-only).
+ CREATE POLICY admin_read_all_account ON canone_identity.account FOR SELECT TO canone_admin USING (true);
+@@ -193,16 +194,22 @@
+   subject_key text, subject_label text, items_seen int, items_mastered int,
+   items_fragile int, items_unseen int, accuracy numeric, confidence numeric
+ )
+-LANGUAGE plpgsql SECURITY DEFINER AS $$
++LANGUAGE plpgsql SECURITY DEFINER
++SET search_path = pg_catalog, canone_admin, canone_learning, canone_taxonomy, pg_temp AS $$
+ DECLARE
+-  v_grant admin.support_access_grant%ROWTYPE;
++  v_grant canone_admin.support_access_grant%ROWTYPE;
+ BEGIN
+-  SELECT * INTO v_grant FROM admin.support_access_grant WHERE id = p_grant_id;
++  SELECT * INTO v_grant FROM canone_admin.support_access_grant WHERE id = p_grant_id;
+ 
+   IF NOT FOUND THEN
+     RAISE EXCEPTION 'Concessão inexistente' USING ERRCODE = '42501';
+   END IF;
+ 
++  IF p_staff_user_id IS DISTINCT FROM canone_ops.current_user_id()
++     OR canone_ops.current_area() NOT IN ('staff','admin') THEN
++    RAISE EXCEPTION 'Identidade de suporte nao vinculada a sessao' USING ERRCODE = '42501';
++  END IF;
++
+   IF v_grant.staff_user_id <> p_staff_user_id THEN
+     RAISE EXCEPTION 'Concessão não pertence a este staff' USING ERRCODE = '42501';
+   END IF;
+@@ -219,18 +226,19 @@
+     RAISE EXCEPTION 'Escopo % não permite ler progresso', v_grant.scope USING ERRCODE = '42501';
+   END IF;
+ 
+-  INSERT INTO admin.support_access_log
++  INSERT INTO canone_admin.support_access_log
+     (grant_id, staff_user_id, subject_user_id, resource, action, row_count)
+   VALUES (p_grant_id, p_staff_user_id, p_subject_user_id,
+-          'learning.mastery', 'leitura', NULL);
++          'canone_learning.mastery', 'leitura', NULL);
+ 
+   RETURN QUERY
+     SELECT s.key, s.label, m.items_seen, m.items_mastered, m.items_fragile,
+            m.items_unseen, m.accuracy, m.confidence
+-      FROM learning.mastery m
+-      JOIN taxonomy.subject s ON s.id = m.subject_id
++      FROM canone_learning.mastery m
++      JOIN canone_taxonomy.subject s ON s.id = m.subject_id
+      WHERE m.user_id = p_subject_user_id;
+ END $$;
++REVOKE ALL ON FUNCTION canone_admin.read_user_progress_as(uuid, uuid, uuid) FROM PUBLIC;
+ 
+ COMMENT ON FUNCTION canone_admin.read_user_progress_as IS
+   'ÚNICA porta de leitura de dado de aluno por staff. Exige grant válido e registra o acesso.';

@@ -1,0 +1,9 @@
+flowchart LR
+  BASE["Fonte preservada: norma / editorial"]
+  ATOM["Átomo literal + intervalo de bytes"]
+  CLAIM["Afirmação canônica validada"]
+  CONCEPT["Conceito / vocabulário / taxonomia"]
+  PROJ["Conteúdo, metamodelo e contrato"]
+  VIEW["API, tela e material de estudo"]
+  BASE --> ATOM --> CLAIM --> CONCEPT --> PROJ --> VIEW
+  CLAIM --> PROJ

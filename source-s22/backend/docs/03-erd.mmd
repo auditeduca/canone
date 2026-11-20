@@ -1,0 +1,1088 @@
+%% Gerado por scripts/gerar-erd.mjs a partir do schema REAL.
+%% 90 tabelas · 85 chaves estrangeiras.
+%% NÃO EDITE À MÃO: regenere com "npm run erd".
+erDiagram
+  subgraph identity
+  identity.account {
+      id uuid PK
+      email text
+      email_verified_at ts
+      password_hash text
+      status text
+      last_login_at ts
+      failed_logins int
+      locked_until ts
+      created_at ts
+      updated_at ts
+      deleted_at ts
+  }
+  identity.consent {
+      id uuid PK
+      user_id uuid FK
+      purpose_key text FK
+      purpose_version int
+      granted bool
+      legal_basis text
+      ip_address inet
+      user_agent text
+      evidence json
+      collected_at ts
+      collected_by text
+      source text
+  }
+  identity.consent_purpose {
+      key text PK
+      label text
+      legal_basis text
+      required bool
+      description text
+      version int
+      active bool
+  }
+  identity.data_request {
+      id uuid PK
+      user_id uuid FK
+      kind text
+      status text
+      requested_at ts
+      deadline_at ts
+      completed_at ts
+      requested_via text
+      ip_address inet
+      notes text
+  }
+  identity.data_request_event {
+      id uuid PK
+      request_id uuid FK
+      from_status text
+      to_status text
+      actor_id uuid FK
+      detail json
+      created_at ts
+  }
+  identity.magic_link {
+      id uuid PK
+      email text
+      token_hash text
+      purpose text
+      expires_at ts
+      consumed_at ts
+      created_at ts
+  }
+  identity.role {
+      key text PK
+      label text
+      scope text
+      description text
+      requires_subscription bool
+  }
+  identity.session {
+      id uuid PK
+      user_id uuid FK
+      refresh_hash text
+      user_agent text
+      ip_address inet
+      created_at ts
+      last_used_at ts
+      expires_at ts
+      revoked_at ts
+      revoked_reason text
+  }
+  identity.user_profile {
+      user_id uuid PK FK
+      display_name text
+      given_name text
+      family_name text
+      birth_date date
+      cpf_encrypted bytes
+      cpf_last4 bpchar
+      phone_e164 text
+      timezone text
+      locale text
+      avatar_url text
+      onboarded_at ts
+      marketing_opt_in bool
+      created_at ts
+      updated_at ts
+  }
+  identity.user_role {
+      user_id uuid FK
+      role_key text FK
+      granted_by uuid FK
+      granted_at ts PK
+      valid_until ts
+      revoked_at ts
+      reason text
+  }
+  end
+  subgraph editorial
+  editorial.content_item {
+      id uuid PK
+      content_type_id uuid FK
+      content_type_version_id uuid FK
+      key text
+      state text
+      current_version_id uuid FK
+      title text
+      summary text
+      subject_id uuid
+      subtopic_id uuid
+      ordinal int
+      estimated_seconds int
+      difficulty_band text
+      created_by uuid
+      created_at ts
+      updated_at ts
+      retired_at ts
+      published_at ts
+      search_tsv tsvector
+  }
+  editorial.content_item_version {
+      id uuid PK
+      content_item_id uuid FK
+      version int
+      payload json
+      diff json
+      author_id uuid
+      created_at ts
+      published_at ts
+  }
+  editorial.content_norm_citation {
+      id uuid PK
+      content_item_id uuid FK
+      norm_id uuid
+      norm_item_id uuid
+      norm_version_id uuid
+      quote text
+      locator text
+      created_at ts
+  }
+  editorial.content_relation {
+      id uuid PK
+      relation_type text FK
+      from_item_id uuid FK
+      to_item_id uuid FK
+      attributes json
+      created_by uuid
+      created_at ts
+  }
+  editorial.content_relation_type {
+      key text PK
+      label text
+      cardinality text
+      requires_verification bool
+      description text
+  }
+  editorial.content_revision {
+      id uuid PK
+      content_item_id uuid FK
+      version_id uuid FK
+      from_state text
+      to_state text
+      actor_id uuid
+      actor_role text
+      reason text
+      diff json
+      created_at ts
+  }
+  editorial.content_type {
+      id uuid PK
+      key text
+      label text
+      family text
+      description text
+      is_relation_type bool
+      requires_verification bool
+      created_at ts
+      retired_at ts
+  }
+  editorial.content_type_version {
+      id uuid PK
+      content_type_id uuid FK
+      version int
+      definition json
+      created_by uuid
+      created_at ts
+  }
+  editorial.enumeration {
+      key text PK
+      label text
+      description text
+      is_multi bool
+      created_at ts
+  }
+  editorial.enumeration_value {
+      id uuid PK
+      enumeration_key text FK
+      key text
+      label text
+      meta json
+      ordinal int
+      is_active bool
+  }
+  editorial.field_definition {
+      id uuid PK
+      content_type_version_id uuid FK
+      key text
+      label text
+      data_kind text
+      required bool
+      ref_content_type_key text FK
+      enumeration_key text FK
+      validations json
+      help_text text
+      ordinal int
+      is_indexed bool
+  }
+  editorial.source {
+      id uuid PK
+      key text
+      kind text
+      title text
+      publisher text
+      url text
+      version_label text
+      published_at date
+      content_sha256 bpchar
+      source_quote text
+      archived_path text
+      consulted_at ts
+      consulted_by uuid
+      notes text
+      created_at ts
+  }
+  editorial.state_definition {
+      id uuid PK
+      family text
+      key text
+      label text
+      is_initial bool
+      is_terminal bool
+      requires_verification bool
+      is_public bool
+      is_refusal bool
+      color_token text
+      ordinal int
+  }
+  editorial.state_transition {
+      family text FK
+      from_state text FK
+      to_state text PK FK
+      requires text
+      label text
+  }
+  editorial.verification {
+      id uuid PK
+      content_item_id uuid FK
+      state text
+      method text
+      source_id uuid FK
+      source_quote text
+      verified_by uuid
+      verified_at ts
+      valid_until ts
+      refusal_reason text
+      notes text
+      created_at ts
+      updated_at ts
+  }
+  end
+  subgraph taxonomy
+  taxonomy.blueprint {
+      id uuid PK
+      exam_edition_id uuid FK
+      subject_id uuid FK
+      weight num
+      expected_questions int
+  }
+  taxonomy.exam_edition {
+      id uuid PK
+      code text
+      label text
+      edition_number int
+      year int
+      registration_opens_at ts
+      registration_closes_at ts
+      payment_deadline date
+      application_date date
+      application_start_time time
+      application_end_time time
+      modality text
+      question_count int
+      options_per_question int
+      passing_score int
+      passing_percent num
+      registration_fee_cents int
+      source_id uuid
+      notes text
+      created_at ts
+      status text
+      exam_kind text
+      bank text
+  }
+  taxonomy.exam_track {
+      id uuid PK
+      exam_edition_id uuid FK
+      track_code text
+      specialty_code text
+      label text
+      question_count int
+      options_per_question int
+      passing_score int
+      passing_percent num
+      created_at ts
+  }
+  taxonomy.item_placement {
+      content_item_id uuid
+      exam_edition_id uuid PK FK
+      subject_id uuid FK
+      subtopic_id uuid FK
+      weight num
+      is_forecast bool
+  }
+  taxonomy.knowledge_area {
+      key text PK
+      label text
+      description text
+      ordinal int
+      active bool
+  }
+  taxonomy.module {
+      id uuid PK
+      key text
+      name text
+      short_name text
+      description text
+      phase text
+      ordinal int
+      content_type_key text
+      icon_key text
+      active bool
+      created_at ts
+  }
+  taxonomy.module_subject {
+      module_id uuid FK
+      subject_id uuid PK FK
+  }
+  taxonomy.subject {
+      id uuid PK
+      key text
+      label text
+      area_key text FK
+      content_type_key text
+      description text
+      ordinal int
+      active bool
+  }
+  taxonomy.subtopic {
+      id uuid PK
+      subject_id uuid FK
+      key text
+      label text
+      description text
+      ordinal int
+  }
+  end
+  subgraph norms
+  norms.issuer {
+      id uuid PK
+      key text
+      name text
+      country bpchar
+      website text
+      kind text
+  }
+  norms.norm {
+      id uuid PK
+      issuer_id uuid FK
+      code text
+      title text
+      category text
+      amends_norm_code text
+      source_id uuid
+      created_at ts
+  }
+  norms.norm_item {
+      id uuid PK
+      norm_version_id uuid FK
+      locator text
+      heading text
+      body text
+      parent_id uuid FK
+      ordinal int
+      supersedes_id uuid FK
+      created_at ts
+  }
+  norms.norm_version {
+      id uuid PK
+      norm_id uuid FK
+      label text
+      revision_code text
+      effective_from date
+      effective_to date
+      content_sha256 bpchar
+      source_id uuid
+      notes text
+      created_at ts
+  }
+  end
+  subgraph learning
+  learning.answer_key {
+      id uuid PK
+      exam_form_id uuid FK
+      status text
+      source_id uuid
+      source_quote text
+      published_at date
+      supersedes_id uuid FK
+      extraction json
+      created_at ts
+  }
+  learning.answer_key_entry {
+      answer_key_id uuid FK
+      ordinal int PK
+      correct_option text
+      is_annulled bool
+  }
+  learning.case_step {
+      id uuid PK
+      content_item_id uuid
+      ordinal int
+      title text
+      body text
+      kind text
+  }
+  learning.duel {
+      id uuid PK
+      host_user_id uuid
+      guest_user_id uuid
+      subject_id uuid
+      status text
+      started_at ts
+      ended_at ts
+  }
+  learning.exam_attempt {
+      id uuid PK
+      user_id uuid
+      exam_form_id uuid FK
+      mock_exam_id uuid FK
+      status text
+      started_at ts
+      finished_at ts
+      answered_count int
+      correct_count int
+      wrong_count int
+      annulled_count int
+  }
+  learning.exam_attempt_answer {
+      attempt_id uuid FK
+      ordinal int PK
+      item_id uuid FK
+      chosen_option text
+      verdict text
+      answered_at ts
+  }
+  learning.exam_form {
+      id uuid PK
+      exam_track_id uuid
+      form_code text
+      form_label text
+      source_id uuid
+      applied_at date
+      created_at ts
+  }
+  learning.exam_form_item {
+      exam_form_id uuid FK
+      ordinal int PK
+      item_id uuid FK
+  }
+  learning.explanation {
+      id uuid PK
+      item_id uuid FK
+      kind text
+      option_ordinal text FK
+      body text
+      basis text
+      ordinal int
+  }
+  learning.favorite {
+      user_id uuid
+      content_item_id uuid PK
+      note text
+      created_at ts
+  }
+  learning.item {
+      id uuid PK
+      content_item_id uuid
+      content_type_key text
+      kind text
+      difficulty num
+      estimated_seconds int
+      discrimination num
+      answer_count int
+      correct_count int
+      correct_rate num
+      flagged_for_review bool
+      flag_reason text
+      created_at ts
+      updated_at ts
+  }
+  learning.item_option {
+      id uuid PK
+      item_id uuid FK
+      ordinal text
+      body text
+      is_correct bool
+      distractor_kind text
+      ordinal_pos int
+  }
+  learning.item_subject {
+      item_id uuid FK
+      subject_id uuid PK
+  }
+  learning.mastery {
+      user_id uuid
+      subject_id uuid PK
+      items_seen int
+      items_mastered int
+      items_fragile int
+      items_unseen int
+      correct_answers int
+      total_answers int
+      accuracy num
+      confidence num
+      updated_at ts
+  }
+  learning.mind_map {
+      id uuid PK
+      content_item_id uuid
+      root_label text
+      layout text
+  }
+  learning.mind_map_node {
+      id uuid PK
+      mind_map_id uuid FK
+      parent_id uuid FK
+      label text
+      content_item_id uuid
+      ordinal int
+      x_num num
+      y_num num
+  }
+  learning.mock_exam {
+      id uuid PK
+      content_item_id uuid
+      exam_edition_id uuid
+      blueprint json
+      time_limit_seconds int
+      total_items int
+      passing_score int
+      is_adaptive bool
+      created_at ts
+  }
+  learning.mock_exam_item {
+      mock_exam_id uuid FK
+      item_id uuid PK FK
+      ordinal int
+  }
+  learning.note {
+      id uuid PK
+      user_id uuid
+      content_item_id uuid
+      subject_id uuid
+      body text
+      anchor json
+      created_at ts
+      updated_at ts
+  }
+  learning.offline_pack {
+      id uuid PK
+      user_id uuid
+      label text
+      subject_id uuid
+      item_ids uuid[]
+      bytes_estimate bigint
+      downloaded_at ts
+      expires_at ts
+      revoked_at ts
+      created_at ts
+  }
+  learning.pocket_entry {
+      id uuid PK
+      content_item_id uuid
+      format text
+      summary text
+      key_points json
+      common_errors json
+      formulas json
+  }
+  learning.review_event {
+      id uuid PK
+      user_id uuid
+      item_id uuid FK
+      session_id uuid FK
+      grade review_grade
+      basis review_basis
+      correct bool
+      response json
+      duration_ms int
+      repetition int
+      mock_exam_id uuid FK
+      algorithm_version text
+      reviewed_at ts
+  }
+  learning.session {
+      id uuid PK
+      user_id uuid
+      kind session_kind
+      origin text
+      subject_id uuid
+      module_id uuid
+      planned_count int
+      answered_count int
+      correct_count int
+      started_at ts
+      last_event_at ts
+      ended_at ts
+      duration_ms int
+      client json
+  }
+  learning.study_block {
+      id uuid PK
+      content_item_id uuid
+      ordinal int
+      block_type text
+      data json
+  }
+  learning.study_plan {
+      id uuid PK
+      user_id uuid
+      exam_edition_id uuid
+      target_date date
+      daily_minutes int
+      focus json
+      is_adaptive bool
+      generated_at ts
+      valid_until ts
+      generator_version text
+  }
+  learning.user_item_state {
+      user_id uuid
+      item_id uuid PK FK
+      state text
+      stability_days num
+      difficulty num
+      due_at ts
+      last_review_at ts
+      last_grade review_grade
+      last_interval_days int
+      repetitions int
+      lapses int
+      fragile_streak int
+      is_fragile bool
+      algorithm_version text
+      created_at ts
+      updated_at ts
+  }
+  end
+  subgraph commerce
+  commerce.coupon {
+      id uuid PK
+      code text
+      description text
+      percent_off int
+      amount_off_cents int
+      max_redemptions int
+      redemptions int
+      valid_from ts
+      valid_until ts
+      plan_ids uuid[]
+      active bool
+  }
+  commerce.entitlement {
+      id uuid PK
+      user_id uuid
+      feature_key text
+      source text
+      source_ref text
+      granted_at ts
+      expires_at ts
+      revoked_at ts
+      metadata json
+  }
+  commerce.invoice {
+      id uuid PK
+      subscription_id uuid FK
+      user_id uuid
+      payment_id uuid FK
+      number text
+      amount_cents int
+      tax_cents int
+      total_cents int
+      currency bpchar
+      status text
+      issued_at ts
+      due_at ts
+      paid_at ts
+      lines json
+  }
+  commerce.payment {
+      id uuid PK
+      subscription_id uuid FK
+      user_id uuid
+      provider text
+      provider_ref text
+      amount_cents int
+      currency bpchar
+      status text
+      method text
+      installments int
+      paid_at ts
+      failure_code text
+      failure_message text
+      raw_payload json
+      created_at ts
+  }
+  commerce.plan {
+      id uuid PK
+      key text
+      name text
+      description text
+      billing_period text
+      price_cents int
+      currency bpchar
+      trial_days int
+      is_public bool
+      is_active bool
+      sort_order int
+      created_at ts
+      updated_at ts
+  }
+  commerce.plan_feature {
+      plan_id uuid FK
+      feature_key text PK
+      limit_value int
+      enabled bool
+  }
+  commerce.subscription {
+      id uuid PK
+      user_id uuid
+      plan_id uuid FK
+      provider text
+      provider_ref text
+      status text
+      current_period_start ts
+      current_period_end ts
+      cancel_at_period_end bool
+      cancelled_at ts
+      trial_ends_at ts
+      created_at ts
+      updated_at ts
+  }
+  end
+  subgraph admin
+  admin.content_report {
+      id uuid PK
+      content_item_id uuid
+      reporter_id uuid
+      reason text
+      detail text
+      created_at ts
+  }
+  admin.feature_flag {
+      key text PK
+      description text
+      enabled bool
+      rollout json
+      updated_by uuid
+      updated_at ts
+  }
+  admin.moderation_queue {
+      id uuid PK
+      content_item_id uuid
+      queue text
+      priority int
+      reason text
+      detail json
+      assigned_to uuid
+      opened_at ts
+      due_at ts
+      resolved_at ts
+      resolution text
+  }
+  admin.support_access_grant {
+      id uuid PK
+      staff_user_id uuid
+      subject_user_id uuid
+      scope text
+      reason text
+      ticket_ref text
+      granted_at ts
+      expires_at ts
+      revoked_at ts
+      revoked_by uuid
+      revoke_reason text
+      created_at ts
+  }
+  admin.support_access_log {
+      id uuid PK
+      grant_id uuid FK
+      staff_user_id uuid
+      subject_user_id uuid
+      resource text
+      action text
+      filter json
+      row_count int
+      occurred_at ts
+  }
+  admin.user_note {
+      id uuid PK
+      user_id uuid
+      author_id uuid
+      body text
+      category text
+      created_at ts
+      deleted_at ts
+  }
+  end
+  subgraph ops
+  ops.api_key {
+      id uuid PK
+      prefix text
+      secret_hash text
+      label text
+      scopes text[]
+      integration_id uuid FK
+      created_by uuid
+      created_at ts
+      expires_at ts
+      last_used_at ts
+      revoked_at ts
+      revoked_by uuid
+  }
+  ops.error_event {
+      id uuid PK
+      fingerprint text
+      message text
+      stack text
+      context json
+      request_id text
+      user_id uuid
+      environment text
+      occurrence_count int
+      first_seen_at ts
+      last_seen_at ts
+      resolved_at ts
+  }
+  ops.integration {
+      id uuid PK
+      key text
+      kind text
+      label text
+      config json
+      secret_ref text
+      status text
+      is_default bool
+      health json
+      last_checked_at ts
+      created_at ts
+      updated_at ts
+  }
+  ops.job_run {
+      id uuid PK
+      job_name text
+      idempotency_key text
+      payload json
+      status text
+      attempts int
+      max_attempts int
+      error text
+      error_detail json
+      scheduled_at ts
+      started_at ts
+      finished_at ts
+      duration_ms int
+      triggered_by text
+  }
+  ops.metric_daily {
+      metric_date date
+      metric_key text
+      dimensions json PK
+      value num
+      updated_at ts
+  }
+  ops.migration_log {
+      version text PK
+      checksum bpchar
+      applied_at ts
+      applied_by text
+      duration_ms int
+      is_dev bool
+  }
+  ops.notification {
+      id uuid PK
+      user_id uuid
+      template_key text
+      channel text
+      payload json
+      status text
+      read_at ts
+      created_at ts
+      sent_at ts
+  }
+  ops.notification_delivery {
+      id uuid PK
+      notification_id uuid FK
+      provider text
+      provider_ref text
+      status text
+      attempt int
+      error text
+      created_at ts
+      delivered_at ts
+  }
+  ops.notification_template {
+      key text
+      channel text
+      locale text
+      subject text
+      body text
+      variables json
+      version int PK
+      active bool
+      updated_at ts
+  }
+  ops.setting {
+      key text
+      scope text PK
+      value json
+      description text
+      is_secret bool
+      updated_by uuid
+      updated_at ts
+  }
+  ops.webhook {
+      id uuid PK
+      integration_id uuid FK
+      endpoint text
+      events text[]
+      secret_ref text
+      active bool
+      max_attempts int
+      timeout_ms int
+      created_at ts
+      updated_at ts
+  }
+  ops.webhook_delivery {
+      id uuid PK
+      webhook_id uuid FK
+      event text
+      payload json
+      status text
+      attempt int
+      response_status int
+      response_body text
+      next_attempt_at ts
+      delivered_at ts
+      created_at ts
+  }
+  end
+  subgraph audit
+  audit.audit_log {
+      id uuid PK
+      seq bigint
+      occurred_at ts
+      actor_id uuid
+      actor_role text
+      subject_user_id uuid
+      action text
+      entity_type text
+      entity_id text
+      before json
+      after json
+      request_id text
+      ip_address inet
+      user_agent text
+      prev_hash bpchar
+      row_hash bpchar
+      metadata json
+  }
+  end
+
+  user_profile user_id --> account
+  user_role granted_by --> account
+  user_role role_key --> role
+  user_role user_id --> account
+  consent purpose_key --> consent_purpose
+  consent user_id --> account
+  data_request user_id --> account
+  data_request_event actor_id --> account
+  data_request_event request_id --> data_request
+  session user_id --> account
+  content_type_version content_type_id --> content_type
+  field_definition content_type_version_id --> content_type_version
+  field_definition ref_content_type_key --> content_type
+  field_definition enumeration_key --> enumeration
+  enumeration_value enumeration_key --> enumeration
+  state_transition family --> state_definition
+  state_transition from_state --> state_definition
+  state_transition to_state --> state_definition
+  content_item content_type_id --> content_type
+  content_item content_type_version_id --> content_type_version
+  content_item current_version_id --> content_item_version
+  content_item_version content_item_id --> content_item
+  content_relation from_item_id --> content_item
+  content_relation relation_type --> content_relation_type
+  content_relation to_item_id --> content_item
+  content_revision content_item_id --> content_item
+  content_revision version_id --> content_item_version
+  verification content_item_id --> content_item
+  verification source_id --> source
+  subject area_key --> knowledge_area
+  subtopic subject_id --> subject
+  blueprint exam_edition_id --> exam_edition
+  blueprint subject_id --> subject
+  item_placement exam_edition_id --> exam_edition
+  item_placement subject_id --> subject
+  item_placement subtopic_id --> subtopic
+  module_subject module_id --> module
+  module_subject subject_id --> subject
+  norm issuer_id --> issuer
+  norm_version norm_id --> norm
+  norm_item norm_version_id --> norm_version
+  norm_item parent_id --> norm_item
+  norm_item supersedes_id --> norm_item
+  content_norm_citation content_item_id --> content_item
+  item_option item_id --> item
+  explanation item_id --> item
+  explanation item_id --> item_option
+  explanation option_ordinal --> item_option
+  item_subject item_id --> item
+  mock_exam_item item_id --> item
+  mock_exam_item mock_exam_id --> mock_exam
+  mind_map_node mind_map_id --> mind_map
+  mind_map_node parent_id --> mind_map_node
+  review_event item_id --> item
+  review_event mock_exam_id --> mock_exam
+  review_event session_id --> session
+  user_item_state item_id --> item
+  plan_feature plan_id --> plan
+  subscription plan_id --> plan
+  payment subscription_id --> subscription
+  invoice payment_id --> payment
+  invoice subscription_id --> subscription
+  support_access_log grant_id --> support_access_grant
+  api_key integration_id --> integration
+  webhook integration_id --> integration
+  webhook_delivery webhook_id --> webhook
+  notification_delivery notification_id --> notification
+  exam_track exam_edition_id --> exam_edition
+  exam_form_item exam_form_id --> exam_form
+  exam_form_item item_id --> item
+  answer_key exam_form_id --> exam_form
+  answer_key supersedes_id --> answer_key
+  answer_key_entry answer_key_id --> answer_key
+  exam_attempt exam_form_id --> exam_form
+  exam_attempt mock_exam_id --> mock_exam
+  exam_attempt_answer attempt_id --> exam_attempt
+  exam_attempt_answer item_id --> item

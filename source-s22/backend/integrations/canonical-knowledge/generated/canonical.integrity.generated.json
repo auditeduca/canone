@@ -1,0 +1,22 @@
+{
+  "findings": [
+    {
+      "code": "CANONICAL_CORPUS_EMPTY",
+      "ref": "source_documents",
+      "severity": "P1"
+    }
+  ],
+  "integrity_gate": "PASS",
+  "metrics": {
+    "atoms": 0,
+    "claims": 0,
+    "concepts": 0,
+    "fields": 0,
+    "projections": 0,
+    "relations": 0,
+    "sources": 0
+  },
+  "release_blockers": 1,
+  "release_gate": "HOLD_HUMAN",
+  "structural_errors": 0
+}

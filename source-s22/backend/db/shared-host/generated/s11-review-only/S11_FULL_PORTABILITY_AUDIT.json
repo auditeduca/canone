@@ -1,0 +1,583 @@
+{
+  "version": "canone.s11.shared-host.30-migrations.review.v1",
+  "source": "backend/db/migrations/",
+  "targetProject": "pgsybzggewhinaniybiy",
+  "sourceMigrationCount": 30,
+  "reviewArtifacts": 30,
+  "isolatedQaCandidateCount": 4,
+  "liveExecutableCount": 0,
+  "sharedDatabaseTouched": false,
+  "productionGate": "HOLD_HUMAN_NO_GO",
+  "hazardMigrations": 30,
+  "report": [
+    {
+      "sequence": 1,
+      "file": "001_schemas_roles.sql",
+      "originalSha256": "7fc94c1549725619578b8d1599c4556b28195287f85f69dc1339876bcea66380",
+      "candidateSha256": "27cbabbb827c07ca1380a636563118209c33d9343030c95985978efe5f9ddf82",
+      "kind": "BOOTSTRAP_HOLD",
+      "hazards": [
+        "CITEXT_EXTENSION_REQUIRED",
+        "CITEXT_EXTENSION_UNAVAILABLE",
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "EXTENSION_GLOBAL",
+        "FUNCTION_SECURITY_REVIEW",
+        "GLOBAL_BOOTSTRAP_NOT_PORTED",
+        "NON_CODE_SQL_BODY_NEEDS_SEMANTIC_PORT",
+        "UNMAPPED_DOMAIN_IN_PROCEDURAL_BODY"
+      ],
+      "hasSqlBody": true,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 2,
+      "file": "002_identity_lgpd.sql",
+      "originalSha256": "fd1f0491a7e697d14ba80265825ca360069016e9d3e1437de110c2328c263623",
+      "candidateSha256": "3f748abfa45671665b752d4759a5cf19e0298eac1cb1c7cca206d56630050084",
+      "kind": "PGLITE_QA_CANDIDATE",
+      "hazards": [
+        "CITEXT_EXTENSION_REQUIRED",
+        "CITEXT_EXTENSION_UNAVAILABLE",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP"
+      ],
+      "hasSqlBody": false,
+      "isolationQaCandidate": true,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 3,
+      "file": "003_metamodel.sql",
+      "originalSha256": "9f8c972db65d8f59646fb5b4643c929047cd04e7a73dd5c788b68a6a535dc953",
+      "candidateSha256": "e6406724c2417475fdd48aa817c9c8788f9d28712724b22b50c9c6d7f43176c7",
+      "kind": "PGLITE_QA_CANDIDATE",
+      "hazards": [
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP"
+      ],
+      "hasSqlBody": false,
+      "isolationQaCandidate": true,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 4,
+      "file": "004_taxonomy_blueprint.sql",
+      "originalSha256": "ceeb6cc129d5fe7c2ee6d8e7a126c349fa0d0a50f82732d8d5e32ad3d0dd0473",
+      "candidateSha256": "8737e10caf2399b0284adcd8e5f801daeb03e0b787076cf8f70ac77e76971482",
+      "kind": "PGLITE_QA_CANDIDATE",
+      "hazards": [
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP"
+      ],
+      "hasSqlBody": false,
+      "isolationQaCandidate": true,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 5,
+      "file": "005_norms.sql",
+      "originalSha256": "a1926ea47776e642e9d10cd0cf9c8a8102d88c4d3d49af0f5580e95a4e75f75c",
+      "candidateSha256": "285ac72596970d2b788a79728948e7b9c086c439c7c3a6319e337c9c0bb24a97",
+      "kind": "PGLITE_QA_CANDIDATE",
+      "hazards": [
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP"
+      ],
+      "hasSqlBody": false,
+      "isolationQaCandidate": true,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 6,
+      "file": "006_learning_items.sql",
+      "originalSha256": "55417f64192b8b4e5081416c2b874f207bedaf011fd2670e38e1f37bc5c75031",
+      "candidateSha256": "2301017609a8fbace95ce22872aaf36f1c258bb62647fbd78034117ecaf3eca5",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP",
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "FUNCTION_SECURITY_REVIEW",
+        "NON_CODE_SQL_BODY_NEEDS_SEMANTIC_PORT",
+        "PRIVILEGED_FUNCTION",
+        "SECURITY_DEFINER_REVIEW",
+        "UNMAPPED_DOMAIN_IN_PROCEDURAL_BODY"
+      ],
+      "hasSqlBody": true,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 7,
+      "file": "007_learning_srs.sql",
+      "originalSha256": "d9bb2e97b45b050b24304d89973b4ac284b62f6dff4952a94dd9f4d108e3c545",
+      "candidateSha256": "b601165fe3eb253e50b611f8de787398ca5bda99e78c6ecac2f6efd5d1a663c9",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP",
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "DYNAMIC_SQL_REVIEW",
+        "FUNCTION_SECURITY_REVIEW",
+        "NON_CODE_SQL_BODY_NEEDS_SEMANTIC_PORT",
+        "UNMAPPED_DOMAIN_IN_PROCEDURAL_BODY"
+      ],
+      "hasSqlBody": true,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 8,
+      "file": "008_commerce.sql",
+      "originalSha256": "b5abc75dde4e6183b2ff77232cd87686b37538e632a84b8ff885d117e7c80d60",
+      "candidateSha256": "dd5231aa6caa68390ab108690ff85c16d971fe459a40c72d25cf1b44c537b56d",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP"
+      ],
+      "hasSqlBody": false,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 9,
+      "file": "009_admin_governance.sql",
+      "originalSha256": "08b1e347fef09fba4b2a76ed8f86b5e330b942607e599cdef3952b74422825e8",
+      "candidateSha256": "4b677726a0e456b3ba8490a34ee2209db45aa2b1a198670952fa9fe018e7f848",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP",
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "DYNAMIC_SQL_REVIEW",
+        "FUNCTION_SECURITY_REVIEW",
+        "NON_CODE_SQL_BODY_NEEDS_SEMANTIC_PORT",
+        "UNMAPPED_DOMAIN_IN_PROCEDURAL_BODY"
+      ],
+      "hasSqlBody": true,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 10,
+      "file": "010_ops_platform.sql",
+      "originalSha256": "3d8c5eee7c68f9b6379742bd997071ea114c8e249805fa2869ecf2cfdbfbc336",
+      "candidateSha256": "b6da75ecb400e1553bc2f620d944db8063ae64da814d8776e54519f9a72bcd75",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP"
+      ],
+      "hasSqlBody": false,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 11,
+      "file": "011_triggers_integridade.sql",
+      "originalSha256": "5a054634c6255348d5a17942845cab44a6ed494e105af726e14b3c2f0f1040ec",
+      "candidateSha256": "f9b0c64cc6bf21c330ec6deb04c3f65a038abce564f35ea8aa9d3ddf75f33b40",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP",
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "DYNAMIC_SQL_REVIEW",
+        "FUNCTION_SECURITY_REVIEW",
+        "NON_CODE_SQL_BODY_NEEDS_SEMANTIC_PORT",
+        "UNMAPPED_DOMAIN_IN_PROCEDURAL_BODY"
+      ],
+      "hasSqlBody": true,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 12,
+      "file": "012_srs_engine.sql",
+      "originalSha256": "aa5152379aecb2184b6976aa24231676770afe80bb38e6bb5bdba4769f066a55",
+      "candidateSha256": "4a9dcb85fa49d6772dd1166cce4385f4275489773c741d1aa6ae73b4407dd4e3",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP",
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "FUNCTION_SECURITY_REVIEW",
+        "NON_CODE_SQL_BODY_NEEDS_SEMANTIC_PORT",
+        "UNMAPPED_DOMAIN_IN_PROCEDURAL_BODY"
+      ],
+      "hasSqlBody": true,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 13,
+      "file": "013_views.sql",
+      "originalSha256": "2ff3c3099a1ed84b7b5f323e2e14658e33934387b3bcd56e4f1c01d344815af9",
+      "candidateSha256": "fef3cb178649948684c5c71c4402a9abd132b47b30f41e7fd22a551f0ad840a7",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP"
+      ],
+      "hasSqlBody": false,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 14,
+      "file": "014_rls.sql",
+      "originalSha256": "0c573777de58467dca107992f4138e944142c977669854fa35636d035a4c255e",
+      "candidateSha256": "4b7c4405fc5a1988d90079b485e116b1931e0032301e9e27492f3fa5d9e7c249",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP",
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "FUNCTION_SECURITY_REVIEW",
+        "NON_CODE_SQL_BODY_NEEDS_SEMANTIC_PORT",
+        "PRIVILEGED_FUNCTION",
+        "SECURITY_DEFINER_REVIEW",
+        "UNMAPPED_DOMAIN_IN_PROCEDURAL_BODY"
+      ],
+      "hasSqlBody": true,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 15,
+      "file": "015_indexes.sql",
+      "originalSha256": "ad0f15f76752463541b84897cc35b758588c208676db2ae8f67bbaab91ad8bca",
+      "candidateSha256": "c9304e67e714291099500744477cd1d713a30917ec4e7ad8ca57809401127e5d",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP"
+      ],
+      "hasSqlBody": false,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 16,
+      "file": "016_seed_reference.sql",
+      "originalSha256": "d9424b0f09ab43ead5645c351ec5352123795e4e07a41ec7ca36047b607d5236",
+      "candidateSha256": "a4f932927d5e23ff35629f4274f728ee2a46463424c23bd23136b9af03e8e72c",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP"
+      ],
+      "hasSqlBody": false,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 17,
+      "file": "017_privileges.sql",
+      "originalSha256": "fd65e114c8dfdcfb929e5591f628dd8dfba6a3e06ffca6cd5d806cc71a1a7d30",
+      "candidateSha256": "e70c841fc10152f812fe56740247afcc0ba27fddd8cc3b7ce17d0bbed5368e54",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP",
+        "DYNAMIC_SQL_REVIEW",
+        "GRANT_OR_REVOKE_REVIEW",
+        "ROLE_GRANTS_NEED_REVIEW"
+      ],
+      "hasSqlBody": false,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 18,
+      "file": "018_provas_gabarito.sql",
+      "originalSha256": "a1088083d3f0c8aa5d534c1e272ec85fc0c8a151832e4964e5ab939c6799f6a8",
+      "candidateSha256": "0f7809baabc9e40f2f025a508909027d46ee5cfeb4114dbb49b8123131a127cb",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP",
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "DYNAMIC_SQL_REVIEW",
+        "FUNCTION_SECURITY_REVIEW",
+        "GRANT_OR_REVOKE_REVIEW",
+        "NON_CODE_SQL_BODY_NEEDS_SEMANTIC_PORT",
+        "PRIVILEGED_FUNCTION",
+        "ROLE_GRANTS_NEED_REVIEW",
+        "SECURITY_DEFINER_REVIEW",
+        "UNMAPPED_DOMAIN_IN_PROCEDURAL_BODY"
+      ],
+      "hasSqlBody": true,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 19,
+      "file": "019_tentativa_ingestao.sql",
+      "originalSha256": "c01f383f23b2189e889e4a8bf919cd5d3bcc252c6828349764775de38fb44989",
+      "candidateSha256": "2f2bf3c6606060e21cc6b6ad1adb8d86f42c8bcb23647aea97a34fb891ecfb08",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP",
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "DYNAMIC_SQL_REVIEW",
+        "FUNCTION_SECURITY_REVIEW",
+        "GRANT_OR_REVOKE_REVIEW",
+        "NON_CODE_SQL_BODY_NEEDS_SEMANTIC_PORT",
+        "PRIVILEGED_FUNCTION",
+        "ROLE_GRANTS_NEED_REVIEW",
+        "SEARCH_PATH",
+        "SEARCH_PATH_OR_ROLE_REVIEW",
+        "SECURITY_DEFINER_REVIEW",
+        "UNMAPPED_DOMAIN_IN_PROCEDURAL_BODY"
+      ],
+      "hasSqlBody": true,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 20,
+      "file": "020_tipo_conteudo_versao.sql",
+      "originalSha256": "bf7f90337133fefe7e4767e24eaaf5fcbc86dbf68ae1bef1de0d938459268223",
+      "candidateSha256": "ae7139ddaf33fa6ebc61a3015c700cfa067145590deb9b92d665464075d8a3cb",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP"
+      ],
+      "hasSqlBody": false,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 21,
+      "file": "021_letra_derivada.sql",
+      "originalSha256": "f54fc8737efd8ad5d3a1010a7f87a2110a664e4cb932f026d76cca26323a7457",
+      "candidateSha256": "4e2308f374b6f5c64383c10218e6aa1c21216c82005c0db7da9a94dbf4966b32",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP",
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "DYNAMIC_SQL_REVIEW",
+        "FUNCTION_SECURITY_REVIEW",
+        "NON_CODE_SQL_BODY_NEEDS_SEMANTIC_PORT",
+        "PRIVILEGED_FUNCTION",
+        "SEARCH_PATH",
+        "SEARCH_PATH_OR_ROLE_REVIEW",
+        "SECURITY_DEFINER_REVIEW",
+        "UNMAPPED_DOMAIN_IN_PROCEDURAL_BODY"
+      ],
+      "hasSqlBody": true,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 22,
+      "file": "022_prova_selada_letra_inteira.sql",
+      "originalSha256": "574ab76731ecc12e3a52570a47a4f515b9b46a9d9453dd924932ce783a292123",
+      "candidateSha256": "6d30c9db4613a7fac1ea15ed56e3fb1102f004779c58e5de2122fc8e6f5637b5",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP",
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "DYNAMIC_SQL_REVIEW",
+        "FUNCTION_SECURITY_REVIEW",
+        "NON_CODE_SQL_BODY_NEEDS_SEMANTIC_PORT",
+        "PRIVILEGED_FUNCTION",
+        "SEARCH_PATH",
+        "SEARCH_PATH_OR_ROLE_REVIEW",
+        "SECURITY_DEFINER_REVIEW",
+        "UNMAPPED_DOMAIN_IN_PROCEDURAL_BODY"
+      ],
+      "hasSqlBody": true,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 23,
+      "file": "023_tres_fechos_do_qa.sql",
+      "originalSha256": "6c980bc5f350f3732539c8df562a071d1c25c34e1a353bad22c5300a229ab5c4",
+      "candidateSha256": "a0c312b92c06b57860811195e4826445e90356f5e3a3ab52349e765703dda878",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP",
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "DYNAMIC_SQL_REVIEW",
+        "FUNCTION_SECURITY_REVIEW",
+        "NON_CODE_SQL_BODY_NEEDS_SEMANTIC_PORT",
+        "PRIVILEGED_FUNCTION",
+        "SEARCH_PATH",
+        "SEARCH_PATH_OR_ROLE_REVIEW",
+        "SECURITY_DEFINER_REVIEW",
+        "UNMAPPED_DOMAIN_IN_PROCEDURAL_BODY"
+      ],
+      "hasSqlBody": true,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 24,
+      "file": "024_gabarito_imutavel_regua_fixa.sql",
+      "originalSha256": "f22d52a205deaf04b05a0c039ef9de2061143f05d958723455935c8007d23f44",
+      "candidateSha256": "c004caf5022dcdfd661a5a1b5fe820f2e592021e8cdf7131ec5378e95de4603f",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP",
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "DYNAMIC_SQL_REVIEW",
+        "FUNCTION_SECURITY_REVIEW",
+        "NON_CODE_SQL_BODY_NEEDS_SEMANTIC_PORT",
+        "PRIVILEGED_FUNCTION",
+        "SEARCH_PATH",
+        "SEARCH_PATH_OR_ROLE_REVIEW",
+        "SECURITY_DEFINER_REVIEW",
+        "UNMAPPED_DOMAIN_IN_PROCEDURAL_BODY"
+      ],
+      "hasSqlBody": true,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 25,
+      "file": "025_identity_usage.sql",
+      "originalSha256": "7adf620c6a8f034fef6f3fbbdc0f46ad4b74dbf5791656feebb8a688269e9287",
+      "candidateSha256": "ad0cfccf8a5ca4ebda26c972d8b742ece85d54a9379a5b4d482e5527184dca82",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP",
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "FUNCTION_SECURITY_REVIEW",
+        "GRANT_OR_REVOKE_REVIEW",
+        "NON_CODE_SQL_BODY_NEEDS_SEMANTIC_PORT",
+        "ROLE_GRANTS_NEED_REVIEW"
+      ],
+      "hasSqlBody": true,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 26,
+      "file": "026_staff_le_gabarito_default_zero.sql",
+      "originalSha256": "bd0dbdc91f73ab5d2c483168a09c5905105cc2e121ce02c3f8f9f5bd3202cc9f",
+      "candidateSha256": "cfb60bf8f5493b8c90633a5d24ac71709977082f4b61588d7ba424b2d54401c6",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP",
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "FUNCTION_SECURITY_REVIEW",
+        "NON_CODE_SQL_BODY_NEEDS_SEMANTIC_PORT",
+        "PRIVILEGED_FUNCTION",
+        "SEARCH_PATH",
+        "SEARCH_PATH_OR_ROLE_REVIEW",
+        "SECURITY_DEFINER_REVIEW",
+        "UNMAPPED_DOMAIN_IN_PROCEDURAL_BODY"
+      ],
+      "hasSqlBody": true,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 27,
+      "file": "027_papel_de_sistema.sql",
+      "originalSha256": "e41567d42c136528918c1c3c45662e666697c93c5518f4793aae2e0bb772d6ff",
+      "candidateSha256": "8f4273fa8d985b7d2aa7f02dedde6b1d39e609a98c97c8516b957e1a8bf36ebc",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP",
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "FUNCTION_SECURITY_REVIEW",
+        "NON_CODE_SQL_BODY_NEEDS_SEMANTIC_PORT",
+        "UNMAPPED_DOMAIN_IN_PROCEDURAL_BODY"
+      ],
+      "hasSqlBody": true,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 28,
+      "file": "028_preco_comercial.sql",
+      "originalSha256": "ad022430bcec9e54a31441dfe790da92766e546a6b1600dcb10d0a2a6888222f",
+      "candidateSha256": "64593b95bc9039ed8385054b11c218c928df3030642b8dccb178db56da8f705f",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP"
+      ],
+      "hasSqlBody": false,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 29,
+      "file": "029_papel_de_acesso.sql",
+      "originalSha256": "004fa9caa52b13e85eb53949f9c419e9aeaabc098157eadd24a4e080062355a4",
+      "candidateSha256": "6c098bf079716cf99724254389eff40adca386fbb6976136b644b8b2e53024d6",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP",
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "NON_CODE_SQL_BODY_NEEDS_SEMANTIC_PORT",
+        "UNMAPPED_DOMAIN_IN_PROCEDURAL_BODY"
+      ],
+      "hasSqlBody": true,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    },
+    {
+      "sequence": 30,
+      "file": "030_porta_da_prova.sql",
+      "originalSha256": "144e11ea0c873bfa7f8f7b460a49f51fada2b5cd4d1f1d4424b51938fcaf2c0b",
+      "candidateSha256": "5d7b20c06bdd40d4c1ca5edef0cdecfbc0596cd2849f232b73b543969b7a5ba1",
+      "kind": "REVIEW_REQUIRED",
+      "hazards": [
+        "DEPENDENCY_GRAPH_NOT_HOMOLOGATED",
+        "DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP",
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "GRANT_OR_REVOKE_REVIEW",
+        "NON_CODE_SQL_BODY_NEEDS_SEMANTIC_PORT",
+        "ROLE_GRANTS_NEED_REVIEW",
+        "UNMAPPED_DOMAIN_IN_PROCEDURAL_BODY"
+      ],
+      "hasSqlBody": true,
+      "isolationQaCandidate": false,
+      "liveExecuteAllowed": false,
+      "protection": "HOLD_HUMAN_NO_GO"
+    }
+  ]
+}

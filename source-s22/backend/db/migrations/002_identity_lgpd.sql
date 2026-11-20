@@ -1,0 +1,179 @@
+-- =============================================================================
+-- 002 · IDENTIDADE, PAPÉIS E LGPD
+-- -----------------------------------------------------------------------------
+-- Decisões que moldam o resto:
+--   · account (credencial) ≠ user_profile (dados pessoais) — o login é uma
+--     identidade técnica; o perfil é dado pessoal sob LGPD.
+--   · O consentimento é VERSIONADO por propósito. "Aceito os termos" não
+--     cobre "aceito marketing". Mudar um texto de consentimento invalida os
+--     consents anteriores daquela finalidade.
+--   · Papel é relação N:N e pode ter VALIDADE. Um professor temporário
+--     deixa de ser professor em December sem que ninguém precise apagar nada.
+-- =============================================================================
+
+CREATE TABLE identity.account (
+  id                uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  email             citext NOT NULL UNIQUE,
+  email_verified_at timestamptz,
+  password_hash     text,           -- argon2id; NULL = login social/social
+  status            text NOT NULL DEFAULT 'pendente'
+                    CHECK (status IN ('pendente','ativo','bloqueado','excluido','anonimizado')),
+  last_login_at     timestamptz,
+  failed_logins     int NOT NULL DEFAULT 0,
+  locked_until      timestamptz,
+  created_at        timestamptz NOT NULL DEFAULT now(),
+  updated_at        timestamptz NOT NULL DEFAULT now(),
+  deleted_at        timestamptz
+);
+COMMENT ON TABLE identity.account IS
+  'Credencial de acesso. Separada do profile porque é dado de autenticação, não dado pessoal.';
+COMMENT ON COLUMN identity.account.status IS
+  'anonimizado = titular exerceu direito de eliminação e a conta guarda só o identificador mínimo.';
+
+CREATE TABLE identity.user_profile (
+  user_id           uuid PRIMARY KEY REFERENCES identity.account(id) ON DELETE CASCADE,
+  display_name      text NOT NULL,
+  given_name        text,
+  family_name       text,
+  -- Dado pessoal sensível por natureza (LGPD art. 5º II / art. 11).
+  -- Guardamos só o necessário: a data de nascimento é usada para validar
+  -- elegibilidade deTEC/estudante; nunca é exposta em relatório.
+  birth_date        date,
+  cpf_encrypted     bytea,          -- só se houver vínculo com CRC
+  cpf_last4         char(4),
+  phone_e164        text,
+  timezone          text NOT NULL DEFAULT 'America/Sao_Paulo',
+  locale            text NOT NULL DEFAULT 'pt-BR',
+  avatar_url        text,
+  onboarded_at      timestamptz,
+  marketing_opt_in  boolean NOT NULL DEFAULT false,
+  created_at        timestamptz NOT NULL DEFAULT now(),
+  updated_at        timestamptz NOT NULL DEFAULT now()
+);
+COMMENT ON COLUMN identity.user_profile.birth_date IS
+  'Elegibilidade de estudante. Dado pessoal — acesso restrito a staff, e registrado no audit log.';
+
+-- -----------------------------------------------------------------------------
+-- PAPÉIS
+-- -----------------------------------------------------------------------------
+CREATE TABLE identity.role (
+  key         text PRIMARY KEY,
+  label       text NOT NULL,
+  scope       text NOT NULL CHECK (scope IN ('publica','assinante','staff','admin')),
+  description text,
+  -- Se o papel exige o usuário ter assinatura ativa para exerts-lo.
+  requires_subscription boolean NOT NULL DEFAULT false
+);
+
+CREATE TABLE identity.user_role (
+  user_id     uuid NOT NULL REFERENCES identity.account(id) ON DELETE CASCADE,
+  role_key    text NOT NULL REFERENCES identity.role(key) ON DELETE CASCADE,
+  granted_by  uuid REFERENCES identity.account(id),
+  granted_at  timestamptz NOT NULL DEFAULT now(),
+  valid_until timestamptz,
+  revoked_at  timestamptz,
+  reason      text,
+  PRIMARY KEY (user_id, role_key, granted_at)
+);
+CREATE INDEX ix_user_role_active ON identity.user_role (user_id)
+  WHERE revoked_at IS NULL;
+
+-- -----------------------------------------------------------------------------
+-- CONSENTIMENTO LGPD — versionado por finalidade
+-- -----------------------------------------------------------------------------
+CREATE TABLE identity.consent_purpose (
+  key         text PRIMARY KEY,
+  label       text NOT NULL,
+  legal_basis text NOT NULL CHECK (legal_basis IN ('consentimento','contrato','legitimo_interesse','obrigacao_legal','execucao_de_contrato')),
+  required    boolean NOT NULL DEFAULT false,
+  description text NOT NULL,
+  version     int NOT NULL DEFAULT 1,
+  active      boolean NOT NULL DEFAULT true
+);
+COMMENT ON TABLE identity.consent_purpose IS
+  'Cada finalidade tem versão própria. Texto novo invalida consentimento da versão anterior.';
+
+CREATE TABLE identity.consent (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id       uuid REFERENCES identity.account(id) ON DELETE CASCADE,
+  purpose_key   text NOT NULL REFERENCES identity.consent_purpose(key),
+  purpose_version int NOT NULL,
+  granted       boolean NOT NULL,
+  legal_basis   text NOT NULL,
+  -- Evidência do consentimento: IP, user-agent, documento exibido.
+  ip_address    inet,
+  user_agent    text,
+  evidence      jsonb NOT NULL DEFAULT '{}'::jsonb,
+  collected_at  timestamptz NOT NULL DEFAULT now(),
+  collected_by  text NOT NULL DEFAULT 'app',
+  source        text
+);
+CREATE INDEX ix_consent_user ON identity.consent (user_id, purpose_key, collected_at DESC);
+COMMENT ON COLUMN identity.consent.purpose_version IS
+  'Congela a versão do texto aceito. Auditoria futura mostra EXATAMENTE o que foi aprovado.';
+
+-- Requerimentos do titular (LGPD art. 18)
+CREATE TABLE identity.data_request (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id       uuid NOT NULL REFERENCES identity.account(id) ON DELETE CASCADE,
+  kind          text NOT NULL CHECK (kind IN ('acesso','portabilidade','correcao','anonimizacao','eliminacao','revogacao_consentimento')),
+  status        text NOT NULL DEFAULT 'aberto'
+                CHECK (status IN ('aberto','em_analise','executado','parcial','recusado','cancelado')),
+  requested_at  timestamptz NOT NULL DEFAULT now(),
+  deadline_at   timestamptz NOT NULL,
+  completed_at  timestamptz,
+  requested_via text NOT NULL DEFAULT 'app',
+  ip_address    inet,
+  notes         text,
+  -- Prazo legal: 15 dias (art. 19 §). Calculado no INSERT.
+  CHECK (deadline_at > requested_at)
+);
+CREATE INDEX ix_data_request_open ON identity.data_request (status, deadline_at)
+  WHERE status IN ('aberto','em_analise');
+
+CREATE TABLE identity.data_request_event (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  request_id   uuid NOT NULL REFERENCES identity.data_request(id) ON DELETE CASCADE,
+  from_status  text,
+  to_status    text NOT NULL,
+  actor_id     uuid REFERENCES identity.account(id),
+  detail       jsonb NOT NULL DEFAULT '{}'::jsonb,
+  created_at   timestamptz NOT NULL DEFAULT now()
+);
+
+-- Sessões e tokens
+CREATE TABLE identity.session (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id      uuid NOT NULL REFERENCES identity.account(id) ON DELETE CASCADE,
+  refresh_hash text NOT NULL UNIQUE,
+  user_agent   text,
+  ip_address   inet,
+  created_at   timestamptz NOT NULL DEFAULT now(),
+  last_used_at timestamptz NOT NULL DEFAULT now(),
+  expires_at   timestamptz NOT NULL,
+  revoked_at   timestamptz,
+  revoked_reason text
+);
+CREATE INDEX ix_session_user ON identity.session (user_id) WHERE revoked_at IS NULL;
+
+CREATE TABLE identity.magic_link (
+  id         uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  email      citext NOT NULL,
+  token_hash text NOT NULL UNIQUE,
+  purpose    text NOT NULL DEFAULT 'login',
+  expires_at timestamptz NOT NULL,
+  consumed_at timestamptz,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+
+-- Papel inicial garantido a qualquer conta
+INSERT INTO identity.role (key, label, scope, description, requires_subscription) VALUES
+  ('publico',     'Visitante',        'publica',   'Sem login. Acesso apenas ao conteúdo público.',            false),
+  ('assinante',   'Assinante',        'assinante','Assinatura ativa. Acesso à área pessoal.',                   true),
+  ('estudante',   'Estudante',        'assinante','Bacharel ou estudante a partir do 5º semestre.',           true),
+  ('contador',    'Contador',         'assinante','Contador com registro profissional.',                      true),
+  ('editor',      'Editor',           'staff',     'Produz e revisa conteúdo editorial.',                      false),
+  ('revisor',     'Revisor',          'staff',     'Verifica conteúdo contra a fonte normativa.',              false),
+  ('suporte',     'Suporte',          'staff',     'Atende chamados. Pode abrir visão de usuário com grant.',  false),
+  ('moderador',   'Moderador',        'staff',     'Modera fila editorial e conteúdo reportado.',             false),
+  ('admin',       'Administrador',    'admin',     'Administração plena. Toda ação vai para o audit log.',    false);

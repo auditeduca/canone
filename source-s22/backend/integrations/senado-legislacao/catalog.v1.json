@@ -1,0 +1,154 @@
+{
+  "schema": "canone.senado-legislacao.catalog.v1",
+  "authority": "SENADO_FEDERAL_LEGISLACAO",
+  "basis": "Senado Dados Abertos (API documentation) and individually inspected norma.leg.br pages, 2026-11-14",
+  "source_roles": {
+    "SENADO_API": "OFFICIAL_LEGISLATIVE_METADATA_RETRIEVAL",
+    "SENADO_HTML": "OFFICIAL_SECONDARY_LEGISLATIVE_DISPLAY",
+    "CFC_NBC": "ISSUING_AUTHORITY_CFC_REQUIRED",
+    "RFB_IN": "ISSUING_AUTHORITY_RFB_REQUIRED"
+  },
+  "api": {
+    "base_url": "https://legis.senado.leg.br/dadosabertos/",
+    "documented_query_path": "legislacao/lista.json",
+    "documented_detail_pattern": "legislacao/{tipo}/{numero}/{ano}.json",
+    "docs_url": "https://legis.senado.leg.br/dadosabertos/docs/index.html",
+    "authentication_required": false,
+    "live_json_verified_in_this_environment": false
+  },
+  "acts": [
+    {
+      "key": "BR-FED-LEI-6404-1976",
+      "kind": "LEI",
+      "number": 6404,
+      "year": 1976,
+      "senado_norm_id": "548280",
+      "senado_page": "https://legis.senado.leg.br/norma/548280",
+      "title_verified_at_senado_page": "Lei das Sociedades por Ações",
+      "status": "PAGE_FOUND_API_NOT_FETCHED",
+      "canonical_promotion": false
+    },
+    {
+      "key": "BR-FED-LEI-11638-2007",
+      "kind": "LEI",
+      "number": 11638,
+      "year": 2007,
+      "senado_norm_id": "569477",
+      "senado_page": "https://legis.senado.leg.br/norma/569477",
+      "title_verified_at_senado_page": "Altera as Leis 6.404/1976 e 6.385/1976",
+      "status": "PAGE_FOUND_API_NOT_FETCHED",
+      "canonical_promotion": false
+    },
+    {
+      "key": "BR-FED-DL-9295-1946",
+      "kind": "DECRETO-LEI",
+      "number": 9295,
+      "year": 1946,
+      "senado_norm_id": "534334",
+      "senado_page": "https://legis.senado.leg.br/norma/534334",
+      "title_verified_at_senado_page": "Cria o Conselho Federal de Contabilidade",
+      "status": "PAGE_FOUND_API_NOT_FETCHED",
+      "canonical_promotion": false
+    },
+    {
+      "key": "BR-FED-LEI-12249-2010",
+      "kind": "LEI",
+      "number": 12249,
+      "year": 2010,
+      "senado_norm_id": "575891",
+      "senado_page": "https://legis.senado.leg.br/norma/575891/publicacao/34618955",
+      "title_verified_at_senado_page": "Altera, entre outros atos, o Decreto-Lei 9.295/1946",
+      "status": "PAGE_FOUND_API_NOT_FETCHED",
+      "canonical_promotion": false
+    }
+  ],
+  "relationship_candidates": [
+    {
+      "from": "BR-FED-LEI-11638-2007",
+      "relation": "AMENDS",
+      "to": "BR-FED-LEI-6404-1976",
+      "evidence_page": "https://legis.senado.leg.br/norma/569477",
+      "evidence_scope": "SENADO_METADATA",
+      "atom_verified": false,
+      "status": "HOLD_ATOMIZATION"
+    },
+    {
+      "from": "BR-FED-LEI-12249-2010",
+      "relation": "AMENDS",
+      "to": "BR-FED-DL-9295-1946",
+      "evidence_page": "https://legis.senado.leg.br/norma/575891/publicacao/34618955",
+      "evidence_scope": "SENADO_PUBLISHED_TEXT",
+      "atom_verified": false,
+      "status": "HOLD_ATOMIZATION"
+    }
+  ],
+  "publication_eligible": false,
+  "restrictions": [
+    "No automatic crosswalk from federal law to CFC/NBC standard",
+    "Never classify Senate API metadata as a replacement of CFC's normative PDF",
+    "Do not promote a relationship without atomized evidence and reviewer approval",
+    "No cross-domain legal norm inference from shared database tables",
+    "Check current validity against original DOU and consolidation timeline before release"
+  ],
+  "device_scope_candidates": [
+    {
+      "from": "BR-FED-LEI-11638-2007",
+      "to": "BR-FED-LEI-6404-1976",
+      "source_locator": "alteracao_de_dispositivos",
+      "target_units": [
+        "art.176",
+        "art.177",
+        "art.178",
+        "art.179",
+        "art.181",
+        "art.182",
+        "art.182.caput.c",
+        "art.182.caput.d",
+        "art.183",
+        "art.184",
+        "art.187",
+        "art.187.par2",
+        "art.188",
+        "art.195-A",
+        "art.197",
+        "art.199",
+        "art.226",
+        "art.248"
+      ],
+      "evidence_page": "https://legis.senado.leg.br/norma/569477",
+      "evidence_kind": "SENADO_HTML_METADATA",
+      "status": "HOLD_SOURCE_ATOMIZATION",
+      "atom_verified": false
+    },
+    {
+      "from": "BR-FED-LEI-12249-2010",
+      "to": "BR-FED-DL-9295-1946",
+      "source_locator": "art.76",
+      "target_units": [
+        "art.2",
+        "art.6",
+        "art.12",
+        "art.21",
+        "art.22",
+        "art.23",
+        "art.27"
+      ],
+      "evidence_page": "https://legis.senado.leg.br/norma/575891/publicacao/34618955",
+      "evidence_kind": "SENADO_HTML_PUBLISHED_TEXT",
+      "status": "HOLD_SOURCE_ATOMIZATION",
+      "atom_verified": false
+    },
+    {
+      "from": "BR-FED-LEI-12249-2010",
+      "to": "BR-FED-DL-9295-1946",
+      "source_locator": "art.77",
+      "target_units": [
+        "art.36-A"
+      ],
+      "evidence_page": "https://legis.senado.leg.br/norma/575891/publicacao/34618955",
+      "evidence_kind": "SENADO_HTML_PUBLISHED_TEXT",
+      "status": "HOLD_SOURCE_ATOMIZATION",
+      "atom_verified": false
+    }
+  ]
+}

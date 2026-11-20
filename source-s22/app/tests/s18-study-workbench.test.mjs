@@ -1,0 +1,37 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {WORKBENCH_CONFIG,WORKBENCH_IDS,validDomain,makeWorkbenchEntry,updateWorkbenchEntry,removeWorkbenchEntry,gateForSource,workbenchSummary,exportWorkbench} from '../src/tools/study-workbench.ts';
+const domain='cpc-visual';
+const draft={title:'CPC de estudo',fields:['Cenário fictício para estudar','Entendimento pessoal que precisa de confirmação','Dúvidas de referência'],source:''};
+const rec=makeWorkbenchEntry(1,domain,draft);
+const detail=(source='')=>({...draft,source});
+test('S18 domains correspond to 5 registered editorial workbenches',()=>assert.equal(WORKBENCH_IDS.length,5));
+for(const d of WORKBENCH_IDS){
+ test('S18 usable domain '+d,()=>{const x=makeWorkbenchEntry(1,d,draft);assert.equal(x.domain,d);assert.equal(x.provenance,'user-authored-unverified');assert.equal(WORKBENCH_CONFIG[d].fields.length,3)});
+}
+test('S18 provenance never claims official status',()=>{assert.equal(rec.provenance,'user-authored-unverified');assert.equal(Object.hasOwn(rec,'approved'),false);assert.equal(Object.hasOwn(rec,'correctAnswer'),false)});
+test('S18 missing citation is HOLD',()=>assert.equal(gateForSource('   '),'HOLD_SOURCE'));
+test('S18 supplied source is unverified',()=>assert.equal(gateForSource('CPC citado'),'USER_DECLARED_UNVERIFIED'));
+test('S18 case 2 fields required',()=>assert.throws(()=>makeWorkbenchEntry(2,domain,{...draft,fields:['','Campo amplo com texto','']}),/Campo 1/));
+test('S18 third field may be blank',()=>assert.equal(makeWorkbenchEntry(2,domain,{...draft,fields:['Campo completo 1','Campo completo 2','']}).fields[2],''));
+test('S18 one-char title blocked',()=>assert.throws(()=>makeWorkbenchEntry(2,domain,{...draft,title:'x'}),/Título/));
+test('S18 long title blocked',()=>assert.throws(()=>makeWorkbenchEntry(2,domain,{...draft,title:'x'.repeat(121)}),/Título/));
+test('S18 malformed fields blocked',()=>assert.throws(()=>makeWorkbenchEntry(2,domain,{...draft,fields:['a','b']}),/três/));
+test('S18 only domain slugs permitted',()=>assert.equal(validDomain('payroll-admin'),false));
+test('S18 fake domain fails closed',()=>assert.throws(()=>makeWorkbenchEntry(2,'payroll-admin',draft),/não registrado/));
+test('S18 duplicate id fails closed across domains',()=>assert.throws(()=>makeWorkbenchEntry(1,'auditoria-pratica',draft,[rec]),/duplicado/));
+test('S18 invalid number and decimals blocked',()=>{assert.throws(()=>makeWorkbenchEntry(NaN,domain,draft),/ID/);assert.throws(()=>makeWorkbenchEntry(1.5,domain,draft),/ID/)});
+test('S18 max 25 per domain enforced',()=>assert.throws(()=>makeWorkbenchEntry(26,domain,draft,Array.from({length:25},(_,i)=>({...rec,id:i+1}))),/25/));
+test('S18 max 100 across all domains enforced',()=>assert.throws(()=>makeWorkbenchEntry(101,domain,draft,Array.from({length:100},(_,i)=>({...rec,id:i+1,domain:WORKBENCH_IDS[i%5]}))),/100/));
+test('S18 updating does not change id, domain, or other records',()=>{const other=makeWorkbenchEntry(2,'pericia',draft,[rec]);const updated=updateWorkbenchEntry([rec,other],1,domain,{...draft,title:'Outra ficha de exemplo'});assert.equal(updated[0].title,'Outra ficha de exemplo');assert.deepEqual(updated[1],other)});
+test('S18 cross-domain editing is blocked',()=>assert.throws(()=>updateWorkbenchEntry([rec],1,'pericia',draft),/outro módulo/));
+test('S18 cross-domain deletion is blocked',()=>assert.throws(()=>removeWorkbenchEntry([rec],1,'pericia'),/outro módulo/));
+test('S18 removal targets only selected record',()=>assert.deepEqual(removeWorkbenchEntry([rec],1,domain),[]));
+test('S18 summaries never report approval',()=>assert.deepEqual(workbenchSummary([rec,makeWorkbenchEntry(2,domain,detail('Fonte escrita'))],domain),{total:2,declared:1,missing:1,verified:0}));
+test('S18 export excludes other modules and declares unverified',()=>{const other=makeWorkbenchEntry(2,'pericia',draft,[rec]);const payload=JSON.parse(exportWorkbench([rec,other],domain));assert.equal(payload.records.length,1);assert.equal(payload.verified,false);assert.equal(payload.records[0].sourceGate,'HOLD_SOURCE');assert.doesNotMatch(JSON.stringify(payload),/"approved":true/)});
+test('S18 export rejects forged provenance',()=>assert.throws(()=>exportWorkbench([{...rec,provenance:'official-approved'}],domain),/Proveniência/));
+test('S18 export rejects corrupt or duplicate IDs',()=>assert.throws(()=>exportWorkbench([rec,{...rec}],domain),/inválido/));
+test('S18 invalid source text rejected',()=>assert.throws(()=>makeWorkbenchEntry(2,domain,detail('a'.repeat(401))),/Fonte/));
+test('S18 protects original app and canonical exam boundaries',()=>{const main=readFileSync(new URL('../src/main.tsx',import.meta.url),'utf8');assert.match(main,/WORKBENCH_IDS/);assert.match(main,/setWorkbenchEntries/);assert.match(main,/StudyWorkbenches/);assert.doesNotMatch(main,/answerKey|grade_answer|fetch\(/)});
+test('S18 workbench UI renders user text as React values, never injected HTML',()=>{const code=readFileSync(new URL('../src/screens/StudyWorkbenches.tsx',import.meta.url),'utf8');assert.doesNotMatch(code,/dangerouslySetInnerHTML|innerHTML|localStorage|sessionStorage|fetch\(/);assert.match(code,/HOLD_SOURCE/);assert.match(code,/memory-only|memória/)});

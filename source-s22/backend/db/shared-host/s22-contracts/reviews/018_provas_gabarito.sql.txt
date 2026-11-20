@@ -1,0 +1,748 @@
+-- S22 REVIEW CANDIDATE ONLY: 018_provas_gabarito.sql
+-- ORIGINAL_SHA256=a1088083d3f0c8aa5d534c1e272ec85fc0c8a151832e4964e5ab939c6799f6a8
+-- CANONICAL_NAMESPACE_PROJECTION; NO PRODUCTION AUTHORIZATION
+-- =============================================================================
+-- 018 · PROVAS APLICADAS E GABARITO OFICIAL
+-- -----------------------------------------------------------------------------
+-- POR QUE ESTA MIGRATION EXISTE
+--
+-- O schema até aqui tratava o GABARITO como um atributo do item (uma coluna
+-- booleana) e a PROVA como um simulado (uma composição de itens). As duas
+-- coisas estão erradas para o acervo real:
+--
+-- 1. A prova aplicada NÃO é um simulado. O mesmo exame é aplicado em 4
+--    variantes paralelas (T01..T04) — 4 conjuntos de questões diferentes, 4
+--    gabaritos diferentes, na mesma data. Um simulado não tem forma, não tem
+--    gabarito oficial e não é "a prova de 2024.2".
+--
+-- 2. O gabarito oficial NÃO é um booleano. Ele tem CICLO DE VIDA
+--    (preliminar → definitivo), tem ANULAÇÃO (questão anulada não tem
+--    resposta) e tem PROCEDÊNCIA (de qual PDF oficial veio, com que
+--    método de extração). Um booleano não expressa nenhuma das três.
+--
+-- 3. A questão anulada não cabe no schema anterior: a regra de publicação
+--    exige EXATAMENTE UMA alternativa correta, e uma questão anulada não
+--    tem gabarito nenhum. Sem esta migration, o acervo real (34 questões
+--    anuladas) simplesmente não entraria.
+--
+-- A ESTRUTURA
+--
+--   canone_taxonomy.exam_edition   a RODADA (2025.1, 2026.2 …)
+--     └─ canone_taxonomy.exam_track   o EXAME dentro da rodada
+--          (suficiencia | eqt + especialidade: BCB, CVM, SUSEP, Previc, QTG,
+--           Perito) — é aqui que mora o número de questões, porque a
+--           Suficiência tem 50 e a EQT tem 25 na MESMA rodada.
+--          └─ canone_learning.exam_form   a VARIANTE da prova (T01, T02, T03, T04)
+--               └─ canone_learning.exam_form_item  a ordem das questões (posição → item)
+--
+--   canone_learning.answer_key     o GABARITO (preliminar | definitivo) + procedência
+--     └─ canone_learning.answer_key_entry  a resposta por posição (letra OU anulada)
+--
+-- O GABARITO É SEGREDO PARA O ASSINANTE (como canone_learning.item_option), e o
+-- VEREDITO sai do servidor. A diferença: canone_learning.grade_answer passa a
+-- distinguir 'correta' / 'errada' / 'anulada' — porque 'anulada' não é
+-- 'errada', e dizer ao candidato que ele errou uma questão que o CFC
+-- anulou é mentira.
+-- =============================================================================
+
+-- -----------------------------------------------------------------------------
+-- 1 · A RODADA GANHA ESTADO
+-- -----------------------------------------------------------------------------
+-- 'realizada' = a prova já foi aplicada (e então o acervo existe);
+-- 'agendada'  = a prova ainda vai acontecer.
+--
+-- application_date fica NULLABLE porque as rodadas PASSADAS do acervo ainda
+-- não têm data conferida na fonte. Um NULL explícito é honesto; uma data
+-- inventada não é. A regra que FICA é: quem está agendado tem data.
+ALTER TABLE canone_taxonomy.exam_edition
+  ALTER COLUMN application_date DROP NOT NULL;
+
+ALTER TABLE canone_taxonomy.exam_edition
+  ADD COLUMN status text NOT NULL DEFAULT 'agendada'
+    CHECK (status IN ('agendada','realizada')),
+  ADD COLUMN exam_kind text NOT NULL DEFAULT 'suficiencia'
+    CHECK (exam_kind IN ('suficiencia','qualificacao_tecnica')),
+  ADD COLUMN bank text CHECK (bank IN ('FGV','CRCSP','CONSULPLAN') OR bank IS NULL);
+
+ALTER TABLE canone_taxonomy.exam_edition
+  ADD CONSTRAINT ck_edition_agendada_tem_data
+    CHECK (status <> 'agendada' OR application_date IS NOT NULL);
+
+COMMENT ON COLUMN canone_taxonomy.exam_edition.status IS
+  'realizada = a prova já foi aplicada. agendada = ainda vai acontecer.';
+COMMENT ON COLUMN canone_taxonomy.exam_edition.bank IS
+  'Banca do exame. NULL enquanto não houver fonte (não se inventa banca).';
+
+-- 2026.1 (prova 24/05/2026) e 2026.2 (prova 27/09/2026) já passaram.
+UPDATE canone_taxonomy.exam_edition SET status = 'realizada' WHERE code IN ('2026.1','2026.2');
+
+-- -----------------------------------------------------------------------------
+-- 2 · O EXAME DENTRO DA RODADA (trilha + especialidade)
+-- -----------------------------------------------------------------------------
+-- A Suficiência e a EQT acontecem na MESMA rodada, com o mesmo número de
+-- rodada e com números de questões diferentes (50 e 25). Por isso a
+-- quantidade de questões mora na TRILHA, e não na rodada.
+CREATE TABLE canone_taxonomy.exam_track (
+  id                uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  exam_edition_id   uuid NOT NULL REFERENCES canone_taxonomy.exam_edition(id) ON DELETE CASCADE,
+  -- 'suficiencia' | 'eqt'
+  track_code        text NOT NULL CHECK (track_code IN ('suficiencia','eqt')),
+  -- Especialidade da EQT: BCB | CVM | SUSEP | PREVIC | QTG | PERITO.
+  -- NULL na Suficiência (que não tem especialidade).
+  specialty_code    text,
+  label             text NOT NULL,
+  -- O número de questões da trilha. É AQUI que 50 e 25 vivem.
+  question_count        int NOT NULL CHECK (question_count > 0),
+  options_per_question  int NOT NULL DEFAULT 4 CHECK (options_per_question BETWEEN 2 AND 5),
+  -- Critério de aprovação. NULL = ainda não apurado na fonte (não se
+  -- inventa nota de corte).
+  passing_score         int CHECK (passing_score IS NULL OR passing_score >= 0),
+  passing_percent       numeric(5,2),
+  created_at         timestamptz NOT NULL DEFAULT now(),
+  CONSTRAINT ck_exam_track_especialidade
+    CHECK ((track_code = 'eqt') = (specialty_code IS NOT NULL))
+);
+
+-- UNIQUE com NULL NÃO impede duplicata: no Postgres dois NULLs são
+-- distintos. A unicidade real é (rodada, trilha, especialidade '') — o
+-- COALESCE transforma o NULL da Suficiência em string vazia.
+CREATE UNIQUE INDEX ux_exam_track_identidade
+  ON canone_taxonomy.exam_track (exam_edition_id, track_code, COALESCE(specialty_code, ''));
+
+CREATE INDEX ix_exam_track_edition ON canone_taxonomy.exam_track (exam_edition_id);
+
+COMMENT ON TABLE canone_taxonomy.exam_track IS
+  'O exame dentro da rodada: Suficiência, ou Qualificação Técnica por especialidade.';
+
+-- -----------------------------------------------------------------------------
+-- 3 · A VARIANTE DA PROVA (T01..T04)
+-- -----------------------------------------------------------------------------
+-- O mesmo exame, aplicado em 4 variantes paralelas. Cada uma tem as suas
+-- questões e o seu gabarito.
+CREATE TABLE canone_learning.exam_form (
+  id             uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  exam_track_id  uuid NOT NULL REFERENCES canone_taxonomy.exam_track(id) ON DELETE CASCADE,
+  -- 'T01'..'T99'
+  form_code      text NOT NULL CHECK (form_code ~ '^T[0-9]{2}$'),
+  form_label     text NOT NULL,
+  -- PDF da prova aplicada (fonte primária). NULL enquanto não houver o
+  -- arquivo conferido.
+  source_id      uuid REFERENCES canone_editorial.source(id),
+  applied_at     date,
+  created_at     timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (exam_track_id, form_code)
+);
+
+COMMENT ON TABLE canone_learning.exam_form IS
+  'Variante aplicada de uma prova (T01..T04). O acervo real tem 4 por exame.';
+
+-- A ordem das questões é DADO, não derivação: na prova, a questão 37 é a
+-- questão 37, e o gabarito se refere a POSIÇÕES.
+CREATE TABLE canone_learning.exam_form_item (
+  exam_form_id uuid NOT NULL REFERENCES canone_learning.exam_form(id) ON DELETE CASCADE,
+  ordinal      int NOT NULL CHECK (ordinal > 0),
+  item_id      uuid NOT NULL REFERENCES canone_learning.item(id),
+  PRIMARY KEY (exam_form_id, ordinal),
+  UNIQUE (exam_form_id, item_id)
+);
+
+COMMENT ON TABLE canone_learning.exam_form_item IS
+  'Posição da questão na prova. O gabarito se refere a POSIÇÕES — é por isso que a ordem é dada.';
+
+-- -----------------------------------------------------------------------------
+-- 4 · O GABARITO, COM CICLO DE VIDA E PROCEDÊNCIA
+-- -----------------------------------------------------------------------------
+CREATE TABLE canone_learning.answer_key (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  exam_form_id  uuid NOT NULL REFERENCES canone_learning.exam_form(id) ON DELETE CASCADE,
+  -- 'preliminar' = o que saiu primeiro; 'definitivo' = o oficial.
+  status        text NOT NULL CHECK (status IN ('preliminar','definitivo')),
+  -- A fonte é OBRIGATÓRIA: gabarito sem PDF de origem é opinião.
+  source_id     uuid NOT NULL REFERENCES canone_editorial.source(id),
+  -- Trecho literal do gabarito que sustenta a extração.
+  source_quote  text,
+  published_at  date,
+  -- O definitivo substitui o preliminar.
+  supersedes_id uuid REFERENCES canone_learning.answer_key(id),
+  -- Procedência da extração: versão do parser, método, hash do arquivo.
+  extraction    jsonb NOT NULL DEFAULT '{}'::jsonb,
+  created_at    timestamptz NOT NULL DEFAULT now()
+);
+
+-- Um gabarito preliminar e um definitivo por variante. Nenhum segundo
+-- definitivo: quando o CFC corrige, ele CORRIGE, não acrescenta.
+CREATE UNIQUE INDEX ux_answer_key_preliminar
+  ON canone_learning.answer_key (exam_form_id) WHERE status = 'preliminar';
+CREATE UNIQUE INDEX ux_answer_key_definitivo
+  ON canone_learning.answer_key (exam_form_id) WHERE status = 'definitivo';
+
+COMMENT ON TABLE canone_learning.answer_key IS
+  'Gabarito oficial de uma variante de prova. Ciclo: preliminar → definitivo.';
+COMMENT ON COLUMN canone_learning.answer_key.extraction IS
+  'Procedência: {parser_version, method, sha256, warnings}. O que reproduz a extração.';
+
+-- A resposta por POSIÇÃO. Anulada não é "letra nenhuma": é um estado.
+CREATE TABLE canone_learning.answer_key_entry (
+  answer_key_id  uuid NOT NULL REFERENCES canone_learning.answer_key(id) ON DELETE CASCADE,
+  ordinal        int NOT NULL CHECK (ordinal > 0),
+  correct_option text CHECK (correct_option IN ('A','B','C','D','E')),
+  is_annulled    boolean NOT NULL DEFAULT false,
+  PRIMARY KEY (answer_key_id, ordinal),
+  CONSTRAINT ck_answer_key_entry_ou_ou
+    CHECK ((is_annulled AND correct_option IS NULL)
+        OR (NOT is_annulled AND correct_option IS NOT NULL))
+);
+
+COMMENT ON TABLE canone_learning.answer_key_entry IS
+  'Resposta por posição. is_annulled = questão anulada (ninguém acerta, ninguém erra).';
+
+-- -----------------------------------------------------------------------------
+-- 5 · O GABARITO VIGENTE (precedência)
+-- -----------------------------------------------------------------------------
+-- Qual gabarito manda para um item: o DEFINITIVO se existir, senão o
+-- preliminar. Esta é a única fonte de veredito do servidor.
+CREATE OR REPLACE FUNCTION canone_learning.vigente_answer_key(p_item_id uuid)
+RETURNS TABLE (
+  answer_key_id uuid, key_status text, ordinal int,
+  correct_option text, is_annulled boolean
+)
+LANGUAGE sql STABLE AS $$
+  SELECT ak.id, ak.status, e.ordinal, e.correct_option, e.is_annulled
+    FROM canone_learning.exam_form_item efi
+    JOIN canone_learning.exam_form ef  ON ef.id = efi.exam_form_id
+    JOIN canone_learning.answer_key ak ON ak.exam_form_id = ef.id
+    JOIN canone_learning.answer_key_entry e
+      ON e.answer_key_id = ak.id AND e.ordinal = efi.ordinal
+   WHERE efi.item_id = p_item_id
+   ORDER BY (ak.status = 'definitivo') DESC,
+            ak.published_at DESC NULLS LAST,
+            ak.created_at DESC
+   LIMIT 1
+$$;
+COMMENT ON FUNCTION canone_learning.vigente_answer_key(uuid) IS
+  'Gabarito vigente de um item: o definitivo, senão o preliminar. NULL se não houver.';
+
+-- -----------------------------------------------------------------------------
+-- 6 · PROJEÇÃO: O GABARITO ESCREVE A LETRA NO ITEM
+-- -----------------------------------------------------------------------------
+-- O gabarito oficial tem PRECEDÊNCIA sobre a letra que veio no payload.
+-- Por quê: o payload é o que o Cânone escreveu; o gabarito é o que o CFC
+-- publicou. Quando os dois divergem, quem está certo é o CFC — e a
+-- divergência tem que ser resolvida, não silenciada.
+CREATE OR REPLACE FUNCTION canone_learning.set_item_correct(p_item_id uuid, p_option text)
+RETURNS void
+LANGUAGE plpgsql AS $$
+BEGIN
+  IF p_option IS NULL THEN RETURN; END IF;
+  -- Duas instruções, nesta ordem: na primeira o trigger de "no máximo uma
+  -- correta" vê zero corretas; na segunda ele vê zero também. Numa
+  -- instrução só, o trigger contaria a alternativa antiga e a nova juntas.
+  UPDATE canone_learning.item_option SET is_correct = false
+   WHERE item_id = p_item_id AND is_correct;
+  UPDATE canone_learning.item_option SET is_correct = true
+   WHERE item_id = p_item_id AND ordinal = p_option;
+END $$;
+
+-- Reaplica o gabarito vigente a um item (usado quando o payload muda).
+CREATE OR REPLACE FUNCTION canone_learning.apply_answer_key(p_item_id uuid)
+RETURNS void
+LANGUAGE plpgsql AS $$
+DECLARE
+  v_entry record;
+BEGIN
+  SELECT * INTO v_entry FROM canone_learning.vigente_answer_key(p_item_id);
+  IF NOT FOUND THEN RETURN; END IF;
+
+  IF v_entry.is_annulled THEN
+    PERFORM canone_learning.clear_item_correct(p_item_id);
+    RETURN;
+  END IF;
+
+  PERFORM canone_learning.set_item_correct(p_item_id, v_entry.correct_option);
+END $$;
+
+-- QUESTÃO ANULADA NÃO TEM RESPOSTA. O CFC anulou porque a questão é
+-- defeituosa (ambígua, com negação dupla, com gabarito errado): manter
+-- uma "alternativa correta" seria affirmar que a questão tem resposta
+-- quando o órgão máximo da profissão disse que não tem.
+--
+-- E ANULAR UMA QUESTÃO JÁ PUBLICADA É RECUSADO: quem praticou aquela
+-- questão precisa ver a retração happen. Silenciar isso seria trocar a
+-- nota de um aluno sem ele saber.
+CREATE OR REPLACE FUNCTION canone_learning.clear_item_correct(p_item_id uuid)
+RETURNS void
+LANGUAGE plpgsql AS $$
+DECLARE
+  v_state text;
+BEGIN
+  SELECT ci.state INTO v_state
+    FROM canone_learning.item i
+    JOIN canone_editorial.content_item ci ON ci.id = i.content_item_id
+   WHERE i.id = p_item_id;
+
+  IF v_state = 'publicado' THEN
+    RAISE EXCEPTION
+      'A questão % está publicada: reverta a publicação antes de anular', p_item_id
+      USING ERRCODE = '23514';
+  END IF;
+
+  UPDATE canone_learning.item_option SET is_correct = false
+   WHERE item_id = p_item_id AND is_correct;
+END $$;
+
+-- -----------------------------------------------------------------------------
+-- 7 · VALIDAÇÃO DA ENTRADA DO GABARITO (imediata)
+-- -----------------------------------------------------------------------------
+-- Três recusas, todas as que a extração de gabarito pode errar:
+--   a) a posição não existe na prova;
+--   b) a prova não tem item nessa posição;
+--   c) a letra do gabarito não existe entre as alternativas da questão.
+-- A (c) é o detector de PROVA DESALINHADA — exatamente o defeito que
+-- corrompe um acervo inteiro quando o parser perde uma seção do PDF.
+CREATE OR REPLACE FUNCTION canone_learning.check_answer_key_entry() RETURNS trigger
+LANGUAGE plpgsql AS $$
+DECLARE
+  v_key      canone_learning.answer_key%ROWTYPE;
+  v_form_q   int;
+  v_item     uuid;
+  v_has      int;
+BEGIN
+  SELECT * INTO v_key FROM canone_learning.answer_key WHERE id = NEW.answer_key_id;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION 'Gabarito % inexistente', NEW.answer_key_id USING ERRCODE = '23503';
+  END IF;
+
+  SELECT t.question_count INTO v_form_q
+    FROM canone_learning.exam_form ef
+    JOIN canone_taxonomy.exam_track t ON t.id = ef.exam_track_id
+   WHERE ef.id = v_key.exam_form_id;
+
+  IF NEW.ordinal > v_form_q THEN
+    RAISE EXCEPTION 'Posição % não existe na prova (que tem % questões)',
+      NEW.ordinal, v_form_q USING ERRCODE = '23514';
+  END IF;
+
+  SELECT efi.item_id INTO v_item
+    FROM canone_learning.exam_form_item efi
+   WHERE efi.exam_form_id = v_key.exam_form_id
+     AND efi.ordinal = NEW.ordinal;
+  IF v_item IS NULL THEN
+    RAISE EXCEPTION 'A prova % não tem item na posição %',
+      v_key.exam_form_id, NEW.ordinal USING ERRCODE = '23514';
+  END IF;
+
+  IF NOT NEW.is_annulled THEN
+    SELECT count(*) INTO v_has
+      FROM canone_learning.item_option
+     WHERE item_id = v_item AND ordinal = NEW.correct_option;
+    IF v_has = 0 THEN
+      RAISE EXCEPTION
+        'Gabarito aponta para a alternativa % que não existe na questão da posição %',
+        NEW.correct_option, NEW.ordinal USING ERRCODE = '23514';
+    END IF;
+  END IF;
+
+  RETURN NEW;
+END $$;
+
+CREATE TRIGGER trg_check_answer_key_entry
+  BEFORE INSERT OR UPDATE ON canone_learning.answer_key_entry
+  FOR EACH ROW EXECUTE FUNCTION canone_learning.check_answer_key_entry();
+
+-- -----------------------------------------------------------------------------
+-- 8 · PROJEÇÃO DA ENTRADA NO ITEM
+-- -----------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION canone_learning.project_answer_key_entry() RETURNS trigger
+LANGUAGE plpgsql AS $$
+DECLARE
+  v_key  canone_learning.answer_key%ROWTYPE;
+  v_item uuid;
+BEGIN
+  SELECT * INTO v_key FROM canone_learning.answer_key WHERE id = NEW.answer_key_id;
+  SELECT efi.item_id INTO v_item
+    FROM canone_learning.exam_form_item efi
+   WHERE efi.exam_form_id = v_key.exam_form_id
+     AND efi.ordinal = NEW.ordinal;
+  IF v_item IS NULL THEN RETURN NULL; END IF;
+
+  -- Questão ANULADA não tem resposta: a letra projetada é removida.
+  IF NEW.is_annulled THEN
+    PERFORM canone_learning.clear_item_correct(v_item);
+    RETURN NULL;
+  END IF;
+
+  PERFORM canone_learning.set_item_correct(v_item, NEW.correct_option);
+  RETURN NULL;
+END $$;
+
+CREATE TRIGGER trg_project_answer_key_entry
+  AFTER INSERT OR UPDATE ON canone_learning.answer_key_entry
+  FOR EACH ROW EXECUTE FUNCTION canone_learning.project_answer_key_entry();
+
+-- -----------------------------------------------------------------------------
+-- 9 · O GABARITO DEFINITIVO TEM QUE ESTAR COMPLETO
+-- -----------------------------------------------------------------------------
+-- CONSTRAINT TRIGGER DEFERRABLE: a verificação acontece no COMMIT, quando
+-- as entradas já foram inseridas. Sem isso, a regra só valeria na entrada
+-- — e "regra que só vale na entrada" é regra morta.
+--
+-- Esta é a regra que impede o acervo com 39 posições erradas: se o parser
+-- perdeu uma seção do PDF, a contagem não bate e a transação INTEIRA cai.
+CREATE OR REPLACE FUNCTION canone_learning.assert_answer_key_complete(p_key_id uuid)
+RETURNS void
+LANGUAGE plpgsql AS $$
+DECLARE
+  v_status   text;
+  v_form_id  uuid;
+  v_expected int;
+  v_linked   int;
+  v_count    int;
+  v_min      int;
+  v_max      int;
+BEGIN
+  SELECT ak.status, ak.exam_form_id INTO v_status, v_form_id
+    FROM canone_learning.answer_key ak WHERE ak.id = p_key_id;
+  IF v_status IS DISTINCT FROM 'definitivo' THEN RETURN; END IF;
+
+  SELECT t.question_count INTO v_expected
+    FROM canone_learning.exam_form ef
+    JOIN canone_taxonomy.exam_track t ON t.id = ef.exam_track_id
+   WHERE ef.id = v_form_id;
+
+  -- REGRA A: a prova tem que estar INTEIRA. Um gabarito definitivo sobre
+  -- uma prova pela metade é o jeito mais elegante de perder questões em
+  -- silêncio — e a perda é justamente o que o acervo não pode ter.
+  SELECT count(*) INTO v_linked
+    FROM canone_learning.exam_form_item efi
+   WHERE efi.exam_form_id = v_form_id;
+
+  IF v_linked <> v_expected THEN
+    RAISE EXCEPTION
+      'A prova % tem % questões vinculadas de %; gabarito definitivo exige a prova completa',
+      v_form_id, v_linked, v_expected USING ERRCODE = '23514';
+  END IF;
+
+  -- REGRA B: o gabarito tem que cobrir TODAS as posições, sem buraco.
+  SELECT count(*), min(e.ordinal), max(e.ordinal)
+    INTO v_count, v_min, v_max
+    FROM canone_learning.answer_key_entry e
+   WHERE e.answer_key_id = p_key_id;
+
+  IF v_count <> v_expected OR v_min IS DISTINCT FROM 1 OR v_max IS DISTINCT FROM v_expected THEN
+    RAISE EXCEPTION
+      'Gabarito % tem % entradas (posições %..%); a prova tem % questões. Gabarito definitivo exige todas.',
+      p_key_id, v_count, coalesce(v_min, 0), coalesce(v_max, 0), v_expected
+      USING ERRCODE = '23514';
+  END IF;
+END $$;
+
+-- O arguments de CREATE TRIGGER são CONSTANTES DE STRING: não se pode
+-- passar NEW.id. A função de trigger lê a própria linha — por isso os
+-- wrappers abaixo, em vez de "EXECUTE FUNCTION f(NEW.id)" (que o Postgres
+-- rejeita com "syntax error at or near .").
+CREATE OR REPLACE FUNCTION canone_learning.trg_assert_answer_key_complete() RETURNS trigger
+LANGUAGE plpgsql AS $$
+BEGIN
+  PERFORM canone_learning.assert_answer_key_complete(NEW.id);
+  RETURN NULL;
+END $$;
+
+CREATE OR REPLACE FUNCTION canone_learning.trg_assert_answer_key_entry_complete() RETURNS trigger
+LANGUAGE plpgsql AS $$
+BEGIN
+  PERFORM canone_learning.assert_answer_key_complete(
+    COALESCE(NEW.answer_key_id, OLD.answer_key_id));
+  RETURN NULL;
+END $$;
+
+CREATE CONSTRAINT TRIGGER trg_answer_key_completo
+  AFTER INSERT OR UPDATE ON canone_learning.answer_key
+  DEFERRABLE INITIALLY DEFERRED
+  FOR EACH ROW EXECUTE FUNCTION canone_learning.trg_assert_answer_key_complete();
+
+CREATE CONSTRAINT TRIGGER trg_answer_key_entry_completo
+  AFTER INSERT OR UPDATE OR DELETE ON canone_learning.answer_key_entry
+  DEFERRABLE INITIALLY DEFERRED
+  FOR EACH ROW EXECUTE FUNCTION canone_learning.trg_assert_answer_key_entry_complete();
+
+-- -----------------------------------------------------------------------------
+-- 10 · O DEFINITIVO SUBSTITUI O PRELIMINAR DA MESMA PROVA
+-- -----------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION canone_learning.check_answer_key_lineage() RETURNS trigger
+LANGUAGE plpgsql AS $$
+DECLARE
+  v_prev canone_learning.answer_key%ROWTYPE;
+BEGIN
+  IF NEW.supersedes_id IS NULL THEN RETURN NEW; END IF;
+
+  SELECT * INTO v_prev FROM canone_learning.answer_key WHERE id = NEW.supersedes_id;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION 'Gabarito substituído % inexistente', NEW.supersedes_id
+      USING ERRCODE = '23503';
+  END IF;
+  IF v_prev.exam_form_id <> NEW.exam_form_id THEN
+    RAISE EXCEPTION 'Gabarito % não substitui um gabarito da MESMA prova', NEW.id
+      USING ERRCODE = '23514';
+  END IF;
+  IF v_prev.status <> 'preliminar' THEN
+    RAISE EXCEPTION 'Gabarito % substitui um % (só o preliminar é substituível)',
+      NEW.id, v_prev.status USING ERRCODE = '23514';
+  END IF;
+  RETURN NEW;
+END $$;
+
+CREATE TRIGGER trg_answer_key_lineage
+  BEFORE INSERT OR UPDATE OF supersedes_id ON canone_learning.answer_key
+  FOR EACH ROW EXECUTE FUNCTION canone_learning.check_answer_key_lineage();
+
+-- -----------------------------------------------------------------------------
+-- 11 · A TRILHA DA SUFICIÊNCIA TEM DE BATER COM A RODADA
+-- -----------------------------------------------------------------------------
+-- A rodada tem 50 questões e aprovação 25. A trilha da Suficência tem que
+-- dizer o mesmo — senão o mesmo exame tem dois números verdadeiros.
+CREATE OR REPLACE FUNCTION canone_learning.check_exam_track_numbers() RETURNS trigger
+LANGUAGE plpgsql AS $$
+DECLARE
+  v_ed_q     int;
+  v_ed_score int;
+BEGIN
+  IF NEW.track_code <> 'suficiencia' THEN RETURN NEW; END IF;
+
+  SELECT e.question_count, e.passing_score
+    INTO v_ed_q, v_ed_score
+    FROM canone_taxonomy.exam_edition e
+   WHERE e.id = NEW.exam_edition_id;
+
+  IF v_ed_q IS NOT NULL AND v_ed_q <> NEW.question_count THEN
+    RAISE EXCEPTION
+      'Trilha de Suficiência com % questões; a rodada % tem %',
+      NEW.question_count, NEW.exam_edition_id, v_ed_q USING ERRCODE = '23514';
+  END IF;
+  IF v_ed_score IS NOT NULL AND NEW.passing_score IS NOT NULL AND v_ed_score <> NEW.passing_score THEN
+    RAISE EXCEPTION
+      'Trilha de Suficência com aprovação %; a rodada % tem %',
+      NEW.passing_score, NEW.exam_edition_id, v_ed_score USING ERRCODE = '23514';
+  END IF;
+  RETURN NEW;
+END $$;
+
+CREATE TRIGGER trg_exam_track_numbers
+  BEFORE INSERT OR UPDATE ON canone_taxonomy.exam_track
+  FOR EACH ROW EXECUTE FUNCTION canone_learning.check_exam_track_numbers();
+
+-- -----------------------------------------------------------------------------
+-- 12 · A CORREÇÃO PASSA A DISTINGUIR ANULADA
+-- -----------------------------------------------------------------------------
+-- Antes: boolean. Agora: 'correta' | 'errada' | 'anulada'.
+-- Uma questão anulada pelo CFC NÃO é errada — o candidato não tem como
+-- errá-la. Devolver 'errada' seria mentir sobre o próprio exame.
+DROP FUNCTION IF EXISTS canone_learning.grade_answer(uuid, text);
+
+CREATE OR REPLACE FUNCTION canone_learning.grade_answer(p_item_id uuid, p_ordinal text)
+RETURNS text
+LANGUAGE plpgsql
+SECURITY DEFINER
+STABLE AS $$
+DECLARE
+  v_entry record;
+  v_ok    boolean;
+BEGIN
+  SELECT * INTO v_entry FROM canone_learning.vigente_answer_key(p_item_id);
+  IF FOUND THEN
+    IF v_entry.is_annulled THEN
+      RETURN 'anulada';
+    END IF;
+    RETURN CASE WHEN upper(p_ordinal) = v_entry.correct_option THEN 'correta' ELSE 'errada' END;
+  END IF;
+
+  -- Sem gabarito oficial: vale o gabarito do próprio item.
+  SELECT EXISTS (
+    SELECT 1 FROM canone_learning.item_option
+     WHERE item_id = p_item_id AND ordinal = upper(p_ordinal) AND is_correct
+  ) INTO v_ok;
+  RETURN CASE WHEN v_ok THEN 'correta' ELSE 'errada' END;
+END $$;
+COMMENT ON FUNCTION canone_learning.grade_answer(uuid, text) IS
+  'Corrige a resposta. Devolve o VEREDITO: correta | errada | anulada. O gabarito não sai do servidor.';
+
+-- -----------------------------------------------------------------------------
+-- 13 · O PAYLOAD NÃO VOLTA A SOBRESCREVER O GABARITO
+-- -----------------------------------------------------------------------------
+-- A projeção de canone_learning.* é reescrita a cada mudança de payload (o payload
+-- é canônico). Sem esta correção, editar o enunciado de uma questão de
+-- prova DEVOLVERIA a letra antiga do payload e o gabarito oficial
+-- silenciosamente deixaria de valer. O gabarito tem precedência — sempre.
+CREATE OR REPLACE FUNCTION canone_editorial.sync_learning_projection() RETURNS trigger
+LANGUAGE plpgsql AS $$
+DECLARE
+  v_content_item uuid;
+  v_item         uuid;
+  v_kind text;
+  v_payload jsonb;
+  v_opts  jsonb;
+  v_correct_count int;
+
+BEGIN
+  IF TG_OP = 'DELETE' THEN RETURN OLD; END IF;
+
+  v_content_item := NEW.content_item_id;
+  v_payload := NEW.payload;
+  v_kind := coalesce(v_payload->>'kind', 'questao');
+
+  IF v_kind NOT IN ('questao','flashcard','caso','simulado_item','calculo') THEN
+    RETURN NEW;  -- não é item de avaliação; nada a projetar
+  END IF;
+
+  INSERT INTO canone_learning.item (content_item_id, content_type_key, kind, difficulty, estimated_seconds)
+  VALUES (v_content_item, (SELECT ct.key FROM canone_editorial.content_type ct WHERE ct.id =
+                    (SELECT content_type_id FROM canone_editorial.content_item WHERE id = v_content_item)),
+          v_kind,
+          coalesce((v_payload->>'difficulty')::numeric, 2.00),
+          (v_payload->>'estimated_seconds')::int)
+  ON CONFLICT (content_item_id) DO UPDATE
+    SET kind = EXCLUDED.kind,
+        difficulty = EXCLUDED.difficulty,
+        estimated_seconds = EXCLUDED.estimated_seconds,
+        updated_at = now();
+
+  SELECT i.id INTO v_item
+    FROM canone_learning.item i
+   WHERE i.content_item_id = v_content_item;
+
+  DELETE FROM canone_learning.item_option WHERE item_id = v_item;
+
+  v_opts := v_payload->'options';
+  IF v_opts IS NOT NULL AND jsonb_typeof(v_opts) = 'array' THEN
+    INSERT INTO canone_learning.item_option (item_id, ordinal, body, is_correct, distractor_kind, ordinal_pos)
+    SELECT v_item,
+           upper(coalesce(opt.value->>'ordinal', chr((opt.n_ord - 1)::int + 65)::text)),
+           coalesce(opt.value->>'body',''),
+           coalesce((opt.value->>'correct')::boolean, false),
+           opt.value->>'distractor_kind',
+           opt.n_ord
+      FROM jsonb_array_elements(v_opts) WITH ORDINALITY AS opt(value, n_ord)
+     WHERE jsonb_typeof(opt.value) = 'object';
+
+    SELECT count(*) FILTER (WHERE is_correct) INTO v_correct_count
+      FROM canone_learning.item_option WHERE item_id = v_item;
+
+    IF v_correct_count > 1 THEN
+      RAISE EXCEPTION
+        'Payload do item % declara % alternativas corretas; o edital admite uma',
+        v_content_item, v_correct_count USING ERRCODE = '23514';
+    END IF;
+  END IF;
+
+  -- O GABARITO OFICIAL VENCE O PAYLOAD. A letra publicada no item é a que
+  -- o CFC imprimiu — não a que o redator deixou no enunciado.
+  PERFORM canone_learning.apply_answer_key(v_item);
+
+  RETURN NEW;
+END $$;
+
+-- -----------------------------------------------------------------------------
+-- 14 · RLS DAS TABELAS NOVAS
+-- -----------------------------------------------------------------------------
+-- A 014 liga RLS por varredura das tabelas EXISTENTES na hora em que roda.
+-- Tabela criada depois NÃO fica protegida — e "tabela nova sem RLS" é a
+-- falha mais cara que existe: ela vaza para o papel errado sem erro.
+ALTER TABLE canone_taxonomy.exam_track        ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_taxonomy.exam_track        FORCE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.exam_form         ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.exam_form         FORCE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.exam_form_item    ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.exam_form_item    FORCE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.answer_key        ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.answer_key        FORCE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.answer_key_entry  ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.answer_key_entry  FORCE ROW LEVEL SECURITY;
+
+-- A ESTRUTURA da prova é informação pública: quais exames existem, quantas
+-- questões têm, quantas variantes. O GABARITO não.
+CREATE POLICY pub_read_exam_track ON canone_taxonomy.exam_track FOR SELECT TO canone_public
+  USING (true);
+CREATE POLICY pub_read_exam_form ON canone_learning.exam_form FOR SELECT TO canone_public
+  USING (true);
+
+CREATE POLICY sub_read_exam_track ON canone_taxonomy.exam_track FOR SELECT TO canone_subscriber
+  USING (true);
+CREATE POLICY sub_read_exam_form ON canone_learning.exam_form FOR SELECT TO canone_subscriber
+  USING (true);
+CREATE POLICY sub_read_exam_form_item ON canone_learning.exam_form_item FOR SELECT TO canone_subscriber
+  USING (true);
+
+CREATE POLICY staff_read_exam_track ON canone_taxonomy.exam_track FOR SELECT TO canone_staff USING (true);
+CREATE POLICY staff_write_exam_track ON canone_taxonomy.exam_track FOR ALL TO canone_staff USING (true) WITH CHECK (true);
+CREATE POLICY staff_read_exam_form ON canone_learning.exam_form FOR SELECT TO canone_staff USING (true);
+CREATE POLICY staff_write_exam_form ON canone_learning.exam_form FOR ALL TO canone_staff USING (true) WITH CHECK (true);
+CREATE POLICY staff_read_exam_form_item ON canone_learning.exam_form_item FOR SELECT TO canone_staff USING (true);
+CREATE POLICY staff_write_exam_form_item ON canone_learning.exam_form_item FOR ALL TO canone_staff USING (true) WITH CHECK (true);
+-- O staff TRABALHA com gabarito: é quem confere a extração.
+CREATE POLICY staff_read_answer_key ON canone_learning.answer_key FOR SELECT TO canone_staff USING (true);
+CREATE POLICY staff_write_answer_key ON canone_learning.answer_key FOR ALL TO canone_staff USING (true) WITH CHECK (true);
+CREATE POLICY staff_read_answer_key_entry ON canone_learning.answer_key_entry FOR SELECT TO canone_staff USING (true);
+CREATE POLICY staff_write_answer_key_entry ON canone_learning.answer_key_entry FOR ALL TO canone_staff USING (true) WITH CHECK (true);
+
+CREATE POLICY admin_read_exam_track ON canone_taxonomy.exam_track FOR SELECT TO canone_admin USING (true);
+CREATE POLICY admin_write_exam_track ON canone_taxonomy.exam_track FOR ALL TO canone_admin USING (true) WITH CHECK (true);
+CREATE POLICY admin_read_exam_form ON canone_learning.exam_form FOR SELECT TO canone_admin USING (true);
+CREATE POLICY admin_write_exam_form ON canone_learning.exam_form FOR ALL TO canone_admin USING (true) WITH CHECK (true);
+CREATE POLICY admin_read_exam_form_item ON canone_learning.exam_form_item FOR SELECT TO canone_admin USING (true);
+CREATE POLICY admin_write_exam_form_item ON canone_learning.exam_form_item FOR ALL TO canone_admin USING (true) WITH CHECK (true);
+CREATE POLICY admin_read_answer_key ON canone_learning.answer_key FOR SELECT TO canone_admin USING (true);
+CREATE POLICY admin_write_answer_key ON canone_learning.answer_key FOR ALL TO canone_admin USING (true) WITH CHECK (true);
+CREATE POLICY admin_read_answer_key_entry ON canone_learning.answer_key_entry FOR SELECT TO canone_admin USING (true);
+CREATE POLICY admin_write_answer_key_entry ON canone_learning.answer_key_entry FOR ALL TO canone_admin USING (true) WITH CHECK (true);
+
+-- -----------------------------------------------------------------------------
+-- 15 · VISÃO DE GOVERNANÇA (admin)
+-- -----------------------------------------------------------------------------
+CREATE OR REPLACE VIEW canone_admin.v_exam_form_status AS
+SELECT ef.id                AS exam_form_id,
+       ef.form_code,
+       ef.form_label,
+       e.code               AS edition_code,
+       e.status             AS edition_status,
+       t.track_code,
+       t.specialty_code,
+       t.question_count,
+       (SELECT count(*) FROM canone_learning.exam_form_item efi WHERE efi.exam_form_id = ef.id) AS items_linked,
+       (SELECT ak.status FROM canone_learning.answer_key ak WHERE ak.exam_form_id = ef.id ORDER BY (ak.status='definitivo') DESC LIMIT 1) AS key_status,
+       (SELECT count(*) FROM canone_learning.answer_key_entry e2
+          JOIN canone_learning.answer_key ak2 ON ak2.id = e2.answer_key_id
+         WHERE ak2.exam_form_id = ef.id AND ak2.status = 'definitivo' AND e2.is_annulled) AS annulled,
+       (SELECT count(*) FROM canone_learning.answer_key_entry e3
+          JOIN canone_learning.answer_key ak3 ON ak3.id = e3.answer_key_id
+         WHERE ak3.exam_form_id = ef.id AND ak3.status = 'definitivo') AS keyed
+  FROM canone_learning.exam_form ef
+  JOIN canone_taxonomy.exam_track t ON t.id = ef.exam_track_id
+  JOIN canone_taxonomy.exam_edition e ON e.id = t.exam_edition_id;
+
+COMMENT ON VIEW canone_admin.v_exam_form_status IS
+  'Situação de cada variante de prova: questões vinculadas, gabarito vigente, anuladas.';
+
+-- -----------------------------------------------------------------------------
+-- 16 · PRIVILÉGIOS
+-- -----------------------------------------------------------------------------
+-- O GABARITO NÃO É PÚBLICO NEM DO ASSINANTE. canone_learning.grade_answer é a
+-- porta: o assinante manda a alternativa escolhida e recebe o veredito.
+GRANT SELECT ON canone_taxonomy.exam_track TO canone_public, canone_subscriber, canone_staff, canone_admin;
+GRANT SELECT ON canone_learning.exam_form TO canone_public, canone_subscriber, canone_staff, canone_admin;
+GRANT SELECT ON canone_learning.exam_form_item TO canone_subscriber, canone_staff, canone_admin;
+
+GRANT INSERT, UPDATE, DELETE ON
+  canone_taxonomy.exam_track, canone_learning.exam_form, canone_learning.exam_form_item,
+  canone_learning.answer_key, canone_learning.answer_key_entry
+  TO canone_staff, canone_admin;
+
+GRANT SELECT ON canone_learning.answer_key, canone_learning.answer_key_entry TO canone_staff, canone_admin;
+
+GRANT SELECT ON canone_admin.v_exam_form_status TO canone_staff, canone_admin;
+
+-- O GRANT da 017 morreu com o DROP da função. Sem isto, a correção volta
+-- a dar "permission denied" — e o teste que valida o veredito passa a
+-- testar a própria falta de privilégio.
+GRANT EXECUTE ON FUNCTION canone_learning.grade_answer(uuid, text)
+  TO canone_subscriber, canone_staff, canone_admin;
+GRANT EXECUTE ON FUNCTION canone_learning.vigente_answer_key(uuid)
+  TO canone_app, canone_staff, canone_admin;

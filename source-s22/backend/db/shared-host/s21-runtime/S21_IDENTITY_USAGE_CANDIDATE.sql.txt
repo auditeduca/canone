@@ -1,0 +1,8 @@
+-- CANDIDATE ONLY / HOLD_HUMAN_NO_GO / NOT A DEPLOYABLE MIGRATION
+-- The following two lines were tested against disposable PostgreSQL 17.12.
+-- NEVER run against shared Supabase without DBA review, role/ACL design and release gate.
+-- DO $guard$ BEGIN IF current_database() <> 'canone_s13_disposable'
+--   THEN RAISE EXCEPTION 'S21_DISPOSABLE_ONLY'; END IF; END $guard$;
+-- GRANT USAGE ON SCHEMA canone_identity TO canone_subscriber;
+-- This unblocks the synthetic subscriber A/B test, but not auth, SECURITY DEFINER,
+-- role mapping, SQL namespace reconciliation, or production release.

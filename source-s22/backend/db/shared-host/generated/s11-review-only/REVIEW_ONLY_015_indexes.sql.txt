@@ -1,0 +1,65 @@
+-- GENERATED FOR AUDIT ONLY; NEVER EXECUTE IN SHARED HOST OR MIGRATION RUNNER.
+-- Authority: backend/db/migrations/015_indexes.sql
+-- Original sha256: ad0f15f76752463541b84897cc35b758588c208676db2ae8f67bbaab91ad8bca
+-- S11 status: HOLD_HUMAN_NO_GO; QA subset 002..005 runs ONLY in disposable PGlite.
+-- Hazards: DEPENDENCY_GRAPH_NOT_HOMOLOGATED | DEPENDENCY_ON_GLOBAL_ROLE_EXTENSION_BOOTSTRAP
+
+-- Qualified schema name projection (procedural/dynamic bodies NOT rewritten).
+
+-- =============================================================================
+-- 015 · ÍNDICES
+-- -----------------------------------------------------------------------------
+-- Índices são decisões, não adivinhação. Cada um aqui responde a uma
+-- consulta que o produto faz DE FATO, e o comentário diz qual.
+-- ============================================================================
+
+-- Catálogo público: listagem de conteúdo por assunto, em ordem.
+CREATE INDEX ix_content_item_public_listing ON canone_editorial.content_item (subject_id, ordinal)
+  WHERE retired_at IS NULL AND state IN ('publicado');
+
+-- Busca textual no acervo (busca do app, filtro do admin).
+CREATE INDEX ix_content_item_search_trgm ON canone_editorial.content_item
+  USING gin (title gin_trgm_ops);
+
+-- Relação 'cita_norma' — a consulta mais importante do acervo:
+-- "quais itens citam CPC 26 (R2)?" (verificação, expiração, filtro).
+CREATE INDEX ix_relation_cita_norma ON canone_editorial.content_relation (from_item_id)
+  WHERE relation_type = 'cita_norma';
+
+-- Fila de moderação: prioridade primeiro.
+CREATE INDEX ix_moderation_priority ON canone_admin.moderation_queue (priority DESC, due_at NULLS LAST)
+  WHERE resolved_at IS NULL;
+
+-- Revisão do dia: o acesso mais quente do produto.
+CREATE INDEX ix_state_due_covering ON canone_learning.user_item_state (user_id, due_at)
+  INCLUDE (item_id, state, stability_days, fragile_streak)
+  WHERE due_at IS NOT NULL AND state <> 'nova';
+
+-- Eventos: consulta do histórico por item (gráfico de esquecimento).
+CREATE INDEX ix_event_item_time ON canone_learning.review_event (item_id, reviewed_at DESC);
+
+-- Auditoria: busca por entidade, por ator, por período.
+CREATE INDEX ix_audit_time ON canone_audit.audit_log (occurred_at DESC);
+CREATE INDEX ix_audit_hash ON canone_audit.audit_log (row_hash);
+
+-- Jobs pendentes: o worker faz polling constante aqui.
+CREATE INDEX ix_jobs_poll ON canone_ops.job_run (scheduled_at)
+  WHERE status = 'pendente';
+
+-- Webhooks para reenvio.
+CREATE INDEX ix_webhook_retry ON canone_ops.webhook_delivery (next_attempt_at)
+  WHERE status = 'pendente';
+
+-- Erros não resolvidos.
+CREATE INDEX ix_error_open ON canone_ops.error_event (last_seen_at DESC)
+  WHERE resolved_at IS NULL;
+
+-- Entitlements ativos: verificação de acesso no caminho quente.
+CREATE INDEX ix_entitlement_lookup ON canone_commerce.entitlement (user_id, feature_key)
+  WHERE revoked_at IS NULL;
+
+-- Consentimento: última versão por finalidade.
+CREATE INDEX ix_consent_current ON canone_identity.consent (user_id, purpose_key, purpose_version, collected_at DESC);
+
+-- CONCURRENTLY não pode rodar dentro de transaction; comentário para o runner.
+-- ANALYZE ao final para o planner ter dados de cardinalidade.

@@ -1,0 +1,49 @@
+-- CANONE S22 SECURITY HARDENING CANDIDATE — REVIEW ONLY / NOT FOR PRODUCTION.
+-- Only for PG17 isolated database canone_s13_disposable, local socket and S13 sentinel.
+-- Defense-in-depth candidate, NOT a substitute for authenticated API E2E / threat model.
+
+DO $s22_guard$ BEGIN
+ IF current_database() <> 'canone_s13_disposable'
+    OR inet_server_addr() IS NOT NULL
+    OR to_regclass('s13_sentinel.disposable_marker') IS NULL
+    OR (SELECT count(*) FROM s13_sentinel.disposable_marker WHERE marker = 's13-verified') <> 1
+ THEN RAISE EXCEPTION 'S22 DENIED: not disposable PG17 with trusted sentinel and local socket'; END IF;
+END $s22_guard$;
+
+BEGIN;
+-- Prevent SECURITY DEFINER functions from resolving objects through public or legacy schemas.
+-- Namespaces are explicit and owned by the independent Cânone project. pg_temp is last.
+DO $s22_fix_definers$
+DECLARE f record;
+BEGIN
+ FOR f IN SELECT p.oid::regprocedure AS signature
+            FROM pg_proc p
+            JOIN pg_namespace n ON n.oid = p.pronamespace
+           WHERE p.prosecdef AND n.nspname LIKE 'canone_%'
+ LOOP
+   EXECUTE format('ALTER FUNCTION %s SET search_path = pg_catalog, canone_identity, canone_editorial, canone_taxonomy, canone_norms, canone_learning, canone_commerce, canone_admin, canone_ops, canone_audit, canone_public, canone_subscriber, canone_evidence, canone_bridge, canone_control, pg_temp', f.signature);
+ END LOOP;
+END $s22_fix_definers$;
+
+-- The login role gets no blanket RLS policy on tables it never accesses.
+DROP POLICY IF EXISTS auth_full ON canone_identity.consent;
+DROP POLICY IF EXISTS auth_full ON canone_identity.consent_purpose;
+DROP POLICY IF EXISTS auth_full ON canone_identity.data_request;
+DROP POLICY IF EXISTS auth_full ON canone_identity.data_request_event;
+DROP POLICY IF EXISTS auth_full ON canone_identity.role;
+
+-- Align identity table privileges with the actual magic-link and session services:
+-- user_profile and user_role only receive INSERT from canone_auth.
+REVOKE SELECT, UPDATE ON canone_identity.user_profile FROM canone_auth;
+REVOKE SELECT, UPDATE ON canone_identity.user_role FROM canone_auth;
+
+-- Stop if actual role privileges failed to narrow (no silent partial approval).
+DO $s22_assert$
+BEGIN
+ IF has_table_privilege('canone_auth', 'canone_identity.user_profile', 'SELECT')
+    OR has_table_privilege('canone_auth', 'canone_identity.user_role', 'UPDATE')
+    OR NOT has_table_privilege('canone_auth', 'canone_identity.user_profile', 'INSERT')
+    OR NOT has_table_privilege('canone_auth', 'canone_identity.user_role', 'INSERT')
+ THEN RAISE EXCEPTION 'S22 deny: authentication privilege hardening failed'; END IF;
+END $s22_assert$;
+COMMIT;

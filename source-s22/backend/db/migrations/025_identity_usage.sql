@@ -1,0 +1,58 @@
+-- =============================================================================
+-- 025 · O ESQUEMA `identity` NÃO TINHA USAGE PARA NINGUÉM
+-- -----------------------------------------------------------------------------
+-- O ACHADO
+--
+-- A 017 concede privilégio de TABELA em `identity.user_profile`,
+-- `identity.consent` e `identity.data_request` ao assinante, ao staff e ao
+-- admin. E as policies do 014 existem (sub_own_profile, sub_insert_consent,
+-- sub_own_request...). Mas NENHUM papel tinha USAGE no SCHEMA `identity` —
+-- todos os outros dezessete... todos os outros schemas tinham.
+--
+-- E em Postgres, USAGE no schema é o que dá direito a enxergar as tabelas
+-- dentro dele. Sem ele, o privilégio de tabela não chega ao fim: a
+-- consulta morre em "permission denied for schema identity" — ANTES de a
+-- policy ser avaliada, antes do RLS, antes de qualquer coisa.
+--
+-- O QUE ISSO SIGNIFICAVA
+--
+-- O assinante não conseguia ler nem atualizar o PRÓPRIO PERFIL, não
+-- conseguia registrar CONSENTIMENTO (LGPD) e não conseguia abrir um
+-- PEDIDO DE DADOS. O admin não conseguia ler as contas. Tudo isso estava
+-- "concedido" na 017 e era inacessível.
+--
+-- A ASSINATURA DESTE ACHADO
+--
+-- Ele não apareceu em nenhum teste: os testes medem o que o BANCO recusa, e
+-- aqui o banco recusava (com a mensagem errada: a falha parecia de
+-- privilégio de tabela, não de schema). Um teste que só olha o erro não
+-- diz qual fronteira falhou. A verificação tem que ser POSITIVA — "o
+-- assinante lê o próprio perfil" — e não só "algo foi recusado".
+--
+-- A CORREÇÃO
+--
+-- USAGE no schema identity para os papéis de área. E a prova: o assinante
+-- lê o próprio perfil, não lê o do outro, e a RLS continua valendo.
+-- =============================================================================
+
+GRANT USAGE ON SCHEMA identity TO canone_public, canone_subscriber, canone_staff, canone_admin, canone_app;
+
+COMMENT ON SCHEMA identity IS
+  'Contas, consentimento e pedidos de dados (LGPD). USAGE no schema é o que dá direito de alcançar as tabelas dentro dele: sem ele, o privilégio de tabela não chega ao fim.';
+
+-- -----------------------------------------------------------------------------
+-- A PROVA: o alcance do schema é auditável por consulta
+-- -----------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION ops.schema_sem_usage(p_role text)
+RETURNS TABLE (schema_name text, tem_usage boolean)
+LANGUAGE sql STABLE AS $$
+  SELECT n.nspname,
+         has_schema_privilege(p_role, n.nspname, 'USAGE')
+    FROM pg_namespace n
+   WHERE n.nspname IN ('identity','editorial','taxonomy','norms','learning',
+                       'commerce','admin','ops','audit','public','subscriber')
+   ORDER BY 1
+$$;
+
+COMMENT ON FUNCTION ops.schema_sem_usage(text) IS
+  'Auditoria de alcance: para cada schema de domínio, o papel tem USAGE? Sem USAGE, o privilégio de tabela não chega ao fim e a consulta morre antes do RLS.';

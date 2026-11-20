@@ -1,0 +1,138 @@
+-- GENERATED REVIEW ONLY. DO NOT EXECUTE ON SHARED SUPABASE.
+-- Source 005_norms.sql sha256 a1926ea47776e642e9d10cd0cf9c8a8102d88c4d3d49af0f5580e95a4e75f75c
+-- Status HOLD_HUMAN_NO_GO, blocked hazards: MIGRATION_001_ROLES_EXTENSION_DEPENDENCY
+-- =============================================================================
+-- 005 · CORPO NORMATIVO
+-- -----------------------------------------------------------------------------
+-- CPC, NBC, ITP, MCASP — o texto que o producto ensina.
+--
+-- A QUESTÃO DE VERSÃO É O CENTRO DESTE SCHEMA
+-- "CPC 26" não é um documento. "CPC 26 (R2)" é. Uma resolução nova do CFC
+-- pode alterar o texto de uma norma que já estava no app. Se o banco
+-- guardasse só "CPC 26", uma alteração de norma seria invisível.
+--
+-- POR ISSO:
+--   · norm_version tem vigência (effective_from / effective_to)
+--   · a citação aponta para a VERSÃO, não para a norma
+--   · quando uma versão nova entra, os itens que citam a versão antiga
+--     entram em 'necessita_atualizacao' — por TRIGGER, não por varredura manual
+--
+-- É o mesmo mecanismo de expiração da verificação, aplicado ao texto legal.
+-- =============================================================================
+
+CREATE TABLE canone_norms.issuer (
+  id        uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  key       text NOT NULL UNIQUE,
+  name      text NOT NULL,
+  country   char(2) NOT NULL DEFAULT 'BR',
+  website   text,
+  -- Natureza do órgão: define se o texto é LEI, NORMA TÉCNICA ou REGULAMENTO.
+  kind      text NOT NULL CHECK (kind IN ('conselho','norma_tecnica','legislacao','banca'))
+);
+
+CREATE TABLE canone_norms.norm (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  issuer_id   uuid NOT NULL REFERENCES canone_norms.issuer(id),
+  -- Código estável: 'CPC 26', 'NBC TA 300', 'ITP 01'.
+  code        text NOT NULL,
+  title       text NOT NULL,
+  category    text,
+  -- Norma que esta altera (cadeia de vigência).
+  amends_norm_code text,
+  source_id   uuid REFERENCES canone_editorial.source(id),
+  created_at  timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (issuer_id, code)
+);
+COMMENT ON TABLE canone_norms.norm IS
+  'Norma como conceito (CPC 26). As VERSÕES que mudam ao longo do tempo ficam em norm_version.';
+
+CREATE TABLE canone_norms.norm_version (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  norm_id         uuid NOT NULL REFERENCES canone_norms.norm(id) ON DELETE CASCADE,
+  -- Rótulo da versão como o mercado escreve: 'CPC 26 (R2)'.
+  label           text NOT NULL,
+  revision_code   text,
+  effective_from  date NOT NULL,
+  effective_to    date,
+  -- Texto integral (quando digitalizado) e hash: a prova de que a versão
+  -- citada é a versão que existia.
+  content_sha256  char(64),
+  source_id       uuid REFERENCES canone_editorial.source(id),
+  notes           text,
+  created_at      timestamptz NOT NULL DEFAULT now(),
+  -- Só uma versão vigente por norma em cada instante.
+  CONSTRAINT ck_norm_version_vigencia CHECK (effective_to IS NULL OR effective_to > effective_from)
+);
+CREATE UNIQUE INDEX ux_norm_version_current
+  ON canone_norms.norm_version (norm_id) WHERE effective_to IS NULL;
+CREATE UNIQUE INDEX ux_norm_version_label
+  ON canone_norms.norm_version (norm_id, label);
+
+COMMENT ON INDEX canone_norms.ux_norm_version_current IS
+  'Uma única versão vigente por norma. A anterior fecha com effective_to.';
+
+CREATE TABLE canone_norms.norm_item (
+  id               uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  norm_version_id  uuid NOT NULL REFERENCES canone_norms.norm_version(id) ON DELETE CASCADE,
+  -- 'item 6', 'art. 4º', 'Anexo II'
+  locator          text NOT NULL,
+  heading          text,
+  body             text NOT NULL,
+  -- Estrutura de subtópicos (quando a norma é hierárquica).
+  parent_id        uuid REFERENCES canone_norms.norm_item(id),
+  ordinal          int NOT NULL DEFAULT 0,
+  -- Item que este revoga ou substitui (vigência encadeada).
+  supersedes_id    uuid REFERENCES canone_norms.norm_item(id),
+  created_at       timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (norm_version_id, locator)
+);
+CREATE INDEX ix_norm_item_parent ON canone_norms.norm_item (parent_id);
+CREATE INDEX ix_norm_item_search ON canone_norms.norm_item USING gin (to_tsvector('portuguese', body));
+
+COMMENT ON TABLE canone_norms.norm_item IS
+  'Trecho normativo endereçável. É aqui que a questão ancora: "CPC 26 (R2), item 6".';
+
+-- -----------------------------------------------------------------------------
+-- CITAÇÃO DE NORMA — a aresta que liga conteúdo a norma
+-- -----------------------------------------------------------------------------
+-- content_relation liga CONTENT_ITEM a CONTENT_ITEM. Uma citação de norma
+-- tem outro alvo: um norms.norm_item (art. 4º, item 6, Anexo II). Forçar
+-- essa citação em content_relation era impossível por FK — e o trigger que
+-- expira verificações quando a norma muda FAZIA JOIN com norm_item por um
+-- id que era content_item. O mecanismo central de integridade ("a norma
+-- mudou, a verificação caduca") NUNCA DISPAROU.
+--
+-- Esta é a aresta certa: guarda também o norm_id, para que "quando a norma
+-- X ganhar versão nova" seja uma consulta direta, sem atravessar o grafo.
+CREATE TABLE canone_editorial.content_norm_citation (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id uuid NOT NULL REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  norm_id         uuid NOT NULL REFERENCES canone_norms.norm(id) ON DELETE CASCADE,
+  norm_item_id    uuid REFERENCES canone_norms.norm_item(id) ON DELETE SET NULL,
+  -- Versão citada. É a que vale como prova no momento da citação.
+  norm_version_id uuid NOT NULL REFERENCES canone_norms.norm_version(id) ON DELETE CASCADE,
+  -- O trecho citado da norma (o mesmo que sustenta a verificação).
+  quote           text,
+  locator         text,
+  created_at      timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (content_item_id, norm_version_id, norm_item_id)
+);
+CREATE INDEX ix_norm_citation_norm ON canone_editorial.content_norm_citation (norm_id);
+CREATE INDEX ix_norm_citation_item ON canone_editorial.content_norm_citation (content_item_id);
+COMMENT ON TABLE canone_editorial.content_norm_citation IS
+  'Citações de norma. É o que permite saber, quando a norma ganha versão nova, quais conteúdos param de poder ser publicados como verificados.';
+
+-- Itens de conteúdo que NÃO são instâncias do metamodelo, mas entrada do
+-- corpus normativo: um "tipo" para as normas.
+INSERT INTO canone_editorial.content_type (key, label, family, description, requires_verification)
+VALUES ('norma', 'Norma técnica', 'referencia',
+        'Item do corpus normativo (CPC/NBC/ITP). Citado por questões e aulas.', true)
+ON CONFLICT (key) DO NOTHING;
+
+-- Tabelas de definição do metamodelo não devem aceitar conteúdo sem tipo
+-- válido. Este trigger genérico cobre qualquer content_type novo.
+-- NOTA: existia aqui uma função editorial.require_known_type() sem
+-- trigger attached. Ela era redundante — taxonomy.module.content_type_key e
+-- taxonomy.subject.content_type_key já têm FK para editorial.content_type(key).
+-- Foi removida: código morto que parece proteção induz o leitor a acreditar
+-- numa garantia que não existe.

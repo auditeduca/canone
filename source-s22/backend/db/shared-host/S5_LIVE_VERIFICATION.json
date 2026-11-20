@@ -1,0 +1,79 @@
+{
+  "milestone": "S5_SHARDED_SUPABASE_SHARED_HOST",
+  "date": "2026-11-14",
+  "project": {
+    "name": "Calculadoras-Smart",
+    "id": "pgsybzggewhinaniybiy",
+    "region": "sa-east-1",
+    "shared_physical_host": true
+  },
+  "migration": {
+    "supabase_name": "canone_shared_host_namespace_v1",
+    "supabase_version": "20261114171701",
+    "applied": true,
+    "success": true,
+    "sql_sha256": "5e6581ac0d11e7e8b6fc57d6e4ee92865ec4f38c4efd3efc60d46464c1dd1a69"
+  },
+  "before": {
+    "base_tables": 606,
+    "canone_schema_count": 0,
+    "contabilidade_cfc_tables": 11,
+    "public_tables": 49,
+    "external_structure_md5": "821508c68b4712d476b26d77e72e4993"
+  },
+  "after": {
+    "base_tables": 610,
+    "canone_schema_count": 14,
+    "control_base_tables": 4,
+    "contabilidade_cfc_tables": 11,
+    "public_tables": 49,
+    "external_structure_md5": "821508c68b4712d476b26d77e72e4993"
+  },
+  "access": {
+    "schema_usage_anon": 0,
+    "schema_usage_authenticated": 0,
+    "schema_usage_service_role": 0,
+    "control_tables_rls_enabled": 4,
+    "control_tables_rls_forced": 4,
+    "control_tables_select_privileges_anon": 0,
+    "control_tables_select_privileges_authenticated": 0,
+    "control_tables_select_privileges_service_role": 0,
+    "explicit_policies": 0,
+    "closed_by_default": true
+  },
+  "catalog": {
+    "original_migrations": 30,
+    "not_applied": 30,
+    "schema_mappings": 14,
+    "release_gates": 6,
+    "source_bindings_readonly_not_connected": 3
+  },
+  "supabase_advisor": {
+    "new_information_findings": 4,
+    "lint": "rls_enabled_no_policy",
+    "expected_due_to_private_no_policies": true,
+    "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy"
+  },
+  "portability": {
+    "readyToApply": 0,
+    "blockedToPort": 30,
+    "hazard_counts": {
+      "publicSchemaViews": 2,
+      "roleDDL": 3,
+      "extensionDDL": 1,
+      "privilegedFunction": 11,
+      "hardcodedSearchPath": 6,
+      "dynamicSQL": 6,
+      "existingGlobalSchemaChange": 0
+    }
+  },
+  "release": "HOLD_HUMAN_NO_GO",
+  "github_remote_published": false,
+  "backend_attached": false,
+  "protected_vercel_preview_unchanged": true,
+  "notes": [
+    "No original shared tables or schemas modified by S5 DDL.",
+    "External schema catalog fingerprint unchanged; not an assertion of full data checksum.",
+    "Schemas are logical separation only; compute, backup, auth, storage and quota remain shared."
+  ]
+}

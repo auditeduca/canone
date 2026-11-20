@@ -1,0 +1,104 @@
+{
+  "version": "canone.s7.sql-port-review.v1",
+  "project": "pgsybzggewhinaniybiy",
+  "originalAuthority": "backend/db/migrations/",
+  "portAuthority": "backend/db/shared-host/port-sql.mjs",
+  "count": 6,
+  "executableCount": 0,
+  "release": "HOLD_HUMAN_NO_GO",
+  "migrations": [
+    {
+      "file": "002_identity_lgpd.sql",
+      "sourceSha256": "fd1f0491a7e697d14ba80265825ca360069016e9d3e1437de110c2328c263623",
+      "portSha256": "bd508af0913a5d261e7403147d598c6618834ca096c70cf9cc26175f52a74a4c",
+      "hazards": [
+        "CITEXT_EXTENSION_UNAVAILABLE",
+        "MIGRATION_001_ROLES_EXTENSION_DEPENDENCY"
+      ],
+      "domainRefs": [
+        "canone_identity"
+      ],
+      "state": "HOLD_PORT_REVIEW",
+      "executeAllowed": false
+    },
+    {
+      "file": "003_metamodel.sql",
+      "sourceSha256": "9f8c972db65d8f59646fb5b4643c929047cd04e7a73dd5c788b68a6a535dc953",
+      "portSha256": "c36f58435a51e118189adaaf0d3fc88cc652a9b0e26360f252d5a157561dfde1",
+      "hazards": [
+        "MIGRATION_001_ROLES_EXTENSION_DEPENDENCY"
+      ],
+      "domainRefs": [
+        "canone_editorial",
+        "canone_identity"
+      ],
+      "state": "HOLD_PORT_REVIEW",
+      "executeAllowed": false
+    },
+    {
+      "file": "004_taxonomy_blueprint.sql",
+      "sourceSha256": "ceeb6cc129d5fe7c2ee6d8e7a126c349fa0d0a50f82732d8d5e32ad3d0dd0473",
+      "portSha256": "aa18050e325835ba9099d87f5943cb9ebce24675e8884f3f52d16bb161cb5890",
+      "hazards": [
+        "MIGRATION_001_ROLES_EXTENSION_DEPENDENCY"
+      ],
+      "domainRefs": [
+        "canone_editorial",
+        "canone_taxonomy"
+      ],
+      "state": "HOLD_PORT_REVIEW",
+      "executeAllowed": false
+    },
+    {
+      "file": "005_norms.sql",
+      "sourceSha256": "a1926ea47776e642e9d10cd0cf9c8a8102d88c4d3d49af0f5580e95a4e75f75c",
+      "portSha256": "4e5312ce67e2e7560aacf4ead529d5fdc83bc34e5afee5375222fa30ec3070a8",
+      "hazards": [
+        "MIGRATION_001_ROLES_EXTENSION_DEPENDENCY"
+      ],
+      "domainRefs": [
+        "canone_editorial",
+        "canone_norms"
+      ],
+      "state": "HOLD_PORT_REVIEW",
+      "executeAllowed": false
+    },
+    {
+      "file": "006_learning_items.sql",
+      "sourceSha256": "55417f64192b8b4e5081416c2b874f207bedaf011fd2670e38e1f37bc5c75031",
+      "portSha256": "4a7d11bf771ef63b8494baeb666c7cc3a1cab97ff4e1fc12b78d11967b586719",
+      "hazards": [
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "FUNCTION_SECURITY_REVIEW",
+        "MIGRATION_001_ROLES_EXTENSION_DEPENDENCY",
+        "PRIVILEGED_FUNCTION"
+      ],
+      "domainRefs": [
+        "canone_editorial",
+        "canone_learning",
+        "canone_taxonomy"
+      ],
+      "state": "HOLD_PORT_REVIEW",
+      "executeAllowed": false
+    },
+    {
+      "file": "007_learning_srs.sql",
+      "sourceSha256": "d9bb2e97b45b050b24304d89973b4ac284b62f6dff4952a94dd9f4d108e3c545",
+      "portSha256": "ede80196d6ab1b96ac8032b14d8a2179927b5ba2a2bc9e636beaaa60c3e7a85a",
+      "hazards": [
+        "DOLLAR_BODY_NOT_LEXICALLY_PORTED",
+        "DYNAMIC_SQL_REVIEW",
+        "FUNCTION_SECURITY_REVIEW",
+        "MIGRATION_001_ROLES_EXTENSION_DEPENDENCY"
+      ],
+      "domainRefs": [
+        "canone_editorial",
+        "canone_identity",
+        "canone_learning",
+        "canone_taxonomy"
+      ],
+      "state": "HOLD_PORT_REVIEW",
+      "executeAllowed": false
+    }
+  ]
+}

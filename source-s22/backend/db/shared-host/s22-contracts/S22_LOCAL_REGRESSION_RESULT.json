@@ -1,0 +1,57 @@
+{
+  "observed_utc": "2026-11-15T04:10:17.770162+00:00",
+  "status": "PASS",
+  "passed": 277,
+  "expected": 277,
+  "suites": [
+    {
+      "name": "frontend_s19",
+      "exit": 0,
+      "expected": 195,
+      "passed": 195,
+      "status": "PASS"
+    },
+    {
+      "name": "s11_portability",
+      "exit": 0,
+      "expected": 14,
+      "passed": 14,
+      "status": "PASS"
+    },
+    {
+      "name": "s12_candidates",
+      "exit": 0,
+      "expected": 14,
+      "passed": 14,
+      "status": "PASS"
+    },
+    {
+      "name": "s13_preflight",
+      "exit": 0,
+      "expected": 20,
+      "passed": 20,
+      "status": "PASS"
+    },
+    {
+      "name": "s20_context",
+      "exit": 0,
+      "expected": 10,
+      "passed": 10,
+      "status": "PASS"
+    },
+    {
+      "name": "s21_historical",
+      "exit": 0,
+      "expected": 8,
+      "passed": 8,
+      "status": "PASS"
+    },
+    {
+      "name": "s22_contracts",
+      "exit": 0,
+      "expected": 16,
+      "passed": 16,
+      "status": "PASS"
+    }
+  ]
+}

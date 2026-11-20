@@ -1,0 +1,102 @@
+name: Cânone - contratos, metamodelos e integridade (offline)
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - work/canone-conclusao-supabase-vercel
+      - 'feature/canone-*'
+      - 'work/canone-*'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  metadata-gates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout fonte revisada
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Verificar runtime Node
+        run: node --version
+      - name: Verificar catálogo único dos 26 módulos e motores compartilhados
+        run: node backend/contracts/product/generate.mjs --check
+      - name: S7 verificar portador SQL sem execução no Supabase
+        run: node backend/db/shared-host/port-sql.mjs --check
+      - name: S7 validar seis candidatos e bloqueios de migrações
+        run: node --test backend/db/shared-host/tests/*.test.mjs
+      - name: S11 conferir as 30 projeções SQL sem executar no Supabase
+        run: node backend/db/shared-host/s11-review-all.mjs
+      - name: S7 bloquear conteúdo normativo no bundle de demo e gabarito na UI compartilhada
+        run: node --test app/tests/canonical-learning-boundary.test.mjs
+      - name: Recusar motores concorrentes, IDs duplicados e propaganda não homologada
+        run: node --test backend/contracts/product/tests/*.test.mjs
+      - name: Comparar dicionário, grafo, metamodelo e crosswalk gerados
+        run: node backend/integrations/metadata-auto/generate.mjs --check
+      - name: Conferir linhagem fonte → átomo → afirmação → conteúdo/metamodelo
+        run: node backend/integrations/canonical-knowledge/generate.mjs --check
+      - name: Testar núcleo canônico normativo/editorial
+        run: node --test backend/integrations/canonical-knowledge/tests/*.test.mjs
+      - name: Testar preservação, recuperação de Storage, revisão e atomização literal
+        run: node --test backend/integrations/canonical-corpus/tests/*.test.mjs
+      - name: Validar fila de revisão legal por dispositivo (sem autopromoção)
+        run: node backend/integrations/senado-legislacao/article-queue.mjs --check
+      - name: Conferir V9 escopo oficial por dispositivo e alterações posteriores
+        run: node backend/integrations/senado-legislacao/source-backed-review.mjs --check
+      - name: Testar integração oficial Senado (offline, sem publicar fonte)
+        run: node --test backend/integrations/senado-legislacao/tests/*.test.mjs
+      - name: Provar recusas por inconsistência e autopromoção
+        run: node --test backend/integrations/metadata-auto/tests/*.test.mjs backend/tests/12-audit-educa-bridge.test.mjs
+      - name: Verificar ausência de arquivos sensíveis versionados
+        run: |
+          if git ls-files | grep -E '(^|/)(\.env(\..*)?|\.local-bridge/|node_modules/|\.vercel/)'; then
+            echo 'BLOCKED: arquivo sensível/gerado foi incluído no repositório'; exit 1
+          fi
+          echo 'PASS: sem arquivos sensíveis versionados'
+# O teste LIVE introspectivo requer secrets read-only e lockfile do sidecar.
+# Configurar o job em environment protegido após criar o repositório correto.
+# Não confundir este gate offline com aprovação de produção ou RLS do Postgres real.
+
+  # S9: a prova HTTP usa PostgreSQL/PGlite temporário; nenhum secret ou banco remoto.
+  backend-runtime-gates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do Cânone, sem persistir credenciais
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Runtime Node testado
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - name: Instalar dependências imutáveis do backend
+        working-directory: backend
+        run: npm ci
+      - name: Recusar dependências com severidade alta
+        working-directory: backend
+        run: npm audit --audit-level=high
+      - name: Compilar TypeScript e exercitar HTTP, RLS e assinatura contra PGlite
+        working-directory: backend
+        run: npm run test:s10
+      - name: S11 homologação estrutural isolada (002 a 005), SEM rede ou banco compartilhado
+        working-directory: backend
+        run: npm run shared-host:s11-qa
+      - name: Proibir alegação de homologação Supabase compartilhado
+        run: |
+          node backend/db/shared-host/port-sql.mjs --check
+          node backend/integrations/canonical-knowledge/generate.mjs --check
+  canonical-release-gate:
+    needs: [metadata-gates, backend-runtime-gates]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Recusar release se corpus normativo/editorial não está validado
+        run: node backend/integrations/canonical-knowledge/generate.mjs --check --strict-release
+# OBS: configurar checks obrigatórios e Vercel Deployment Checks no projeto real.
+# Sem isso um status CI vermelho não impede necessariamente o Vercel de publicar.

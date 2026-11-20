@@ -1,0 +1,610 @@
+{
+  "version": "S5",
+  "isolationTarget": "pgsybzggewhinaniybiy",
+  "checked": 30,
+  "readyToApply": 0,
+  "blockedToPort": 30,
+  "totals": {
+    "publicSchemaViews": 2,
+    "roleDDL": 3,
+    "extensionDDL": 1,
+    "privilegedFunction": 11,
+    "hardcodedSearchPath": 6,
+    "dynamicSQL": 6,
+    "existingGlobalSchemaChange": 0
+  },
+  "files": [
+    {
+      "file": "001_schemas_roles.sql",
+      "sha256": "7fc94c1549725619578b8d1599c4556b28195287f85f69dc1339876bcea66380",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "ops": 6,
+          "public": 1
+        },
+        "publicSchemaViews": false,
+        "roleDDL": true,
+        "extensionDDL": true,
+        "privilegedFunction": false,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": true,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "002_identity_lgpd.sql",
+      "sha256": "fd1f0491a7e697d14ba80265825ca360069016e9d3e1437de110c2328c263623",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "identity": 30,
+          "editorial": 1
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": false,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "003_metamodel.sql",
+      "sha256": "9f8c972db65d8f59646fb5b4643c929047cd04e7a73dd5c788b68a6a535dc953",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "identity": 7,
+          "editorial": 55
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": false,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "004_taxonomy_blueprint.sql",
+      "sha256": "ceeb6cc129d5fe7c2ee6d8e7a126c349fa0d0a50f82732d8d5e32ad3d0dd0473",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "editorial": 4,
+          "taxonomy": 22
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": false,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "005_norms.sql",
+      "sha256": "a1926ea47776e642e9d10cd0cf9c8a8102d88c4d3d49af0f5580e95a4e75f75c",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "editorial": 10,
+          "taxonomy": 2,
+          "norms": 20
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": false,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "006_learning_items.sql",
+      "sha256": "55417f64192b8b4e5081416c2b874f207bedaf011fd2670e38e1f37bc5c75031",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "editorial": 8,
+          "taxonomy": 2,
+          "learning": 29
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": true,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "007_learning_srs.sql",
+      "sha256": "d9bb2e97b45b050b24304d89973b4ac284b62f6dff4952a94dd9f4d108e3c545",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "identity": 10,
+          "editorial": 2,
+          "taxonomy": 7,
+          "learning": 35
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": false,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "008_commerce.sql",
+      "sha256": "b5abc75dde4e6183b2ff77232cd87686b37538e632a84b8ff885d117e7c80d60",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "identity": 4,
+          "commerce": 19
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": false,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "009_admin_governance.sql",
+      "sha256": "08b1e347fef09fba4b2a76ed8f86b5e330b942607e599cdef3952b74422825e8",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "identity": 10,
+          "editorial": 2,
+          "learning": 1,
+          "admin": 14,
+          "audit": 21
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": false,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "010_ops_platform.sql",
+      "sha256": "3d8c5eee7c68f9b6379742bd997071ea114c8e249805fa2869ecf2cfdbfbc336",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "identity": 4,
+          "ops": 23
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": false,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "011_triggers_integridade.sql",
+      "sha256": "5a054634c6255348d5a17942845cab44a6ed494e105af726e14b3c2f0f1040ec",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "identity": 3,
+          "editorial": 31,
+          "norms": 8,
+          "learning": 22,
+          "commerce": 2,
+          "admin": 8,
+          "ops": 6
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": false,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": true,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "012_srs_engine.sql",
+      "sha256": "aa5152379aecb2184b6976aa24231676770afe80bb38e6bb5bdba4769f066a55",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "learning": 42
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": false,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "013_views.sql",
+      "sha256": "2ff3c3099a1ed84b7b5f323e2e14658e33934387b3bcd56e4f1c01d344815af9",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "identity": 2,
+          "editorial": 13,
+          "taxonomy": 7,
+          "learning": 14,
+          "commerce": 2,
+          "admin": 7,
+          "ops": 3,
+          "audit": 1,
+          "subscriber": 7,
+          "public": 7
+        },
+        "publicSchemaViews": true,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": true,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "014_rls.sql",
+      "sha256": "0c573777de58467dca107992f4138e944142c977669854fa35636d035a4c255e",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "identity": 12,
+          "editorial": 14,
+          "taxonomy": 4,
+          "norms": 3,
+          "learning": 14,
+          "commerce": 5,
+          "admin": 9,
+          "ops": 31,
+          "audit": 2
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": true,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": true,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "015_indexes.sql",
+      "sha256": "ad0f15f76752463541b84897cc35b758588c208676db2ae8f67bbaab91ad8bca",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "identity": 1,
+          "editorial": 3,
+          "learning": 2,
+          "commerce": 1,
+          "admin": 1,
+          "ops": 3,
+          "audit": 2
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": false,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "016_seed_reference.sql",
+      "sha256": "d9424b0f09ab43ead5645c351ec5352123795e4e07a41ec7ca36047b607d5236",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "identity": 1,
+          "editorial": 6,
+          "taxonomy": 7,
+          "norms": 1,
+          "commerce": 3,
+          "admin": 1,
+          "ops": 2
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": false,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "017_privileges.sql",
+      "sha256": "fd65e114c8dfdcfb929e5591f628dd8dfba6a3e06ffca6cd5d806cc71a1a7d30",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "identity": 14,
+          "editorial": 38,
+          "taxonomy": 21,
+          "norms": 12,
+          "learning": 38,
+          "commerce": 12,
+          "admin": 29,
+          "ops": 13,
+          "audit": 4,
+          "subscriber": 5,
+          "public": 5
+        },
+        "publicSchemaViews": true,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": false,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "018_provas_gabarito.sql",
+      "sha256": "a1088083d3f0c8aa5d534c1e272ec85fc0c8a151832e4964e5ab939c6799f6a8",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "editorial": 6,
+          "taxonomy": 30,
+          "learning": 131,
+          "admin": 3
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": true,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "019_tentativa_ingestao.sql",
+      "sha256": "c01f383f23b2189e889e4a8bf919cd5d3bcc252c6828349764775de38fb44989",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "identity": 1,
+          "editorial": 12,
+          "taxonomy": 8,
+          "learning": 60,
+          "ops": 14
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": true,
+        "hardcodedSearchPath": true,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "020_tipo_conteudo_versao.sql",
+      "sha256": "bf7f90337133fefe7e4767e24eaaf5fcbc86dbf68ae1bef1de0d938459268223",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "editorial": 5,
+          "ops": 1
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": false,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "021_letra_derivada.sql",
+      "sha256": "f54fc8737efd8ad5d3a1010a7f87a2110a664e4cb932f026d76cca26323a7457",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "learning": 7
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": true,
+        "hardcodedSearchPath": true,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "022_prova_selada_letra_inteira.sql",
+      "sha256": "574ab76731ecc12e3a52570a47a4f515b9b46a9d9453dd924932ce783a292123",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "learning": 20
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": true,
+        "hardcodedSearchPath": true,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "023_tres_fechos_do_qa.sql",
+      "sha256": "6c980bc5f350f3732539c8df562a071d1c25c34e1a353bad22c5300a229ab5c4",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "editorial": 10,
+          "taxonomy": 8,
+          "learning": 20,
+          "ops": 8
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": true,
+        "hardcodedSearchPath": true,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "024_gabarito_imutavel_regua_fixa.sql",
+      "sha256": "f22d52a205deaf04b05a0c039ef9de2061143f05d958723455935c8007d23f44",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "taxonomy": 3,
+          "learning": 20
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": true,
+        "hardcodedSearchPath": true,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "025_identity_usage.sql",
+      "sha256": "7adf620c6a8f034fef6f3fbbdc0f46ad4b74dbf5791656feebb8a688269e9287",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "identity": 3,
+          "admin": 1,
+          "ops": 2
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": false,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "026_staff_le_gabarito_default_zero.sql",
+      "sha256": "bd0dbdc91f73ab5d2c483168a09c5905105cc2e121ce02c3f8f9f5bd3202cc9f",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "taxonomy": 5,
+          "learning": 20,
+          "admin": 1
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": true,
+        "hardcodedSearchPath": true,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "027_papel_de_sistema.sql",
+      "sha256": "e41567d42c136528918c1c3c45662e666697c93c5518f4793aae2e0bb772d6ff",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "learning": 3,
+          "ops": 2
+        },
+        "publicSchemaViews": false,
+        "roleDDL": true,
+        "extensionDDL": false,
+        "privilegedFunction": true,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": true,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "028_preco_comercial.sql",
+      "sha256": "ad022430bcec9e54a31441dfe790da92766e546a6b1600dcb10d0a2a6888222f",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "commerce": 8
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": false,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": false,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "029_papel_de_acesso.sql",
+      "sha256": "004fa9caa52b13e85eb53949f9c419e9aeaabc098157eadd24a4e080062355a4",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "identity": 10
+        },
+        "publicSchemaViews": false,
+        "roleDDL": true,
+        "extensionDDL": false,
+        "privilegedFunction": false,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": true,
+        "existingGlobalSchemaChange": false
+      }
+    },
+    {
+      "file": "030_porta_da_prova.sql",
+      "sha256": "144e11ea0c873bfa7f8f7b460a49f51fada2b5cd4d1f1d4424b51938fcaf2c0b",
+      "portStatus": "HOLD_PORT_AND_REVIEW",
+      "hazards": {
+        "schemaReferences": {
+          "editorial": 3,
+          "taxonomy": 6,
+          "learning": 9,
+          "subscriber": 10
+        },
+        "publicSchemaViews": false,
+        "roleDDL": false,
+        "extensionDDL": false,
+        "privilegedFunction": false,
+        "hardcodedSearchPath": false,
+        "dynamicSQL": true,
+        "existingGlobalSchemaChange": false
+      }
+    }
+  ]
+}
