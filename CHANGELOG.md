@@ -21,6 +21,10 @@ Gerado e testado reconciliador Python que classifica 182 declarações históric
 
 12 testes HTTP Node com fixture de Auth e banco simulados, assinatura de token efêmera, bloqueios de token falso/expirado, IDOR e assinatura revogada. Fixture guardada exclusivamente em `tests/` e sinalizada como sintética. O backend e o banco reais permanecem fora deste aceite; NS-03 fará integração PG17. [Relatório](docs/NS02_IDENTIDADE_SINTETICA_GATEWAY.md).
 
+### NS-03 — HTTP→PostgreSQL 17 real no CI, Auth sintético (sem mudança de versão)
+
+Nova suíte de 13 cenários de integração (14 incluindo teste-pai) no [CI #44689056599](https://github.com/auditeduca/canone/actions/runs/44689056599) e no commit técnico `bd6fe15`: entrada HTTP, usuário restrito em PG17 efêmero, autenticação simulada, revogação de benefício, rollback, sessão limpa após transação, gabarito apenas após o encerramento, isolamento entre alunos e SRS idempotente. Ambos os jobs passaram, incluindo 277/277 regressões S22. **Sem Auth gerenciado nem deploy**. [Relatório](docs/NS03_HTTP_PG17_E2E_LOCAL.md).
+
 ## [0.23.0-alpha.9] — 2026-11-20
 
 **Estado:** `AUTHENTICATED_GATEWAY_AND_ENTITLEMENT_PG17_CI_PASS / RELEASE_NO_GO`.

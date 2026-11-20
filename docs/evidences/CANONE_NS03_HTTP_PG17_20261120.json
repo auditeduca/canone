@@ -1,0 +1,61 @@
+{
+  "version": "0.23.0-alpha.9",
+  "task": "NS-03",
+  "date": "2026-11-20",
+  "repository": "auditeduca/canone",
+  "branch": "main",
+  "tested_commit": "bd6fe15a6a8a68d6f64e498a7f35bf6c5662937c",
+  "ci_run_id": 44689056599,
+  "ci_url": "https://github.com/auditeduca/canone/actions/runs/44689056599",
+  "workflow_conclusion": "success",
+  "ci_jobs": {
+    "checks-readonly": "success",
+    "pg17-alpha7-concurrency": "success"
+  },
+  "subject": "real HTTP to PG17 disposable with synthetic Auth",
+  "tests": {
+    "nested_subtests": 13,
+    "passed": 13,
+    "failed": 0,
+    "node_total_including_parent": 14,
+    "s22_legacy_passed": 277
+  },
+  "integration": {
+    "db": "PostgreSQL 17 in GitHub Actions disposable Docker service",
+    "driver": "pg 8.23.1 (historical source lockfile)",
+    "database_login": "canone_gateway_ci",
+    "login_superuser": false,
+    "auth": "synthetic JWT fixture; not Supabase Auth",
+    "role_per_transaction": "service_role",
+    "context_leak_after_rollback": false,
+    "checks": [
+      "invalid/missing token",
+      "active/cancelled subscription",
+      "user B denied user A attempt",
+      "no answer leak before finish",
+      "answer count on retry",
+      "negative SQL rollback",
+      "finish idempotence",
+      "reveal after finish",
+      "SRS duplicate receipt count one",
+      "instant admin grant revoke",
+      "connection role/claim restored",
+      "unprivileged key read denied"
+    ]
+  },
+  "artifacts": [
+    "tests/ns03_http_pg17.test.mjs",
+    "tests/pg17_ns03_http_real_pg.sh",
+    "docs/NS03_HTTP_PG17_E2E_LOCAL.md"
+  ],
+  "limitations": [
+    "No JWT from managed Supabase",
+    "No real payment webhook/production secret",
+    "No browser E2E or official licensed CFC content",
+    "No production security approval"
+  ],
+  "remote_supabase_writes": 0,
+  "new_branches": 0,
+  "production_gate": "NO_GO",
+  "next": "NS-04 frontend P0 desktop/mobile synthetic"
+}

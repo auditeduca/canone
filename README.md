@@ -89,6 +89,10 @@ O reconciliador [Python](tools/reconcile_s22_objects.py) e o [registro JSON comp
 
 [Fixture local de identidade](tests/fixtures/ns02-local-auth.mjs), [12 testes de HTTP](tests/ns02_local_identity_http.test.mjs) e [relatório](docs/NS02_IDENTIDADE_SINTETICA_GATEWAY.md) validam token forjado/expirado, restrições de assinatura, isolamento entre alunos, encerramento e SRS com dados fictícios. A fixture exige sinalização exclusiva de teste e **nunca chama Supabase real**; o executor SQL também é um dublê. Próximo: NS-03 com PostgreSQL 17 efêmero. Versão de produto permanece alpha.9.
 
+## NS-03 — integração HTTP→PostgreSQL 17 sem Supabase
+
+A jornada de prova percorre o [gateway](gateway/alpha9-core.mjs), o [servidor HTTP local](gateway/alpha9-server.mjs) e o **PostgreSQL 17 descartável**, com uma conta SQL restrita e autenticação sintética. Os [13 testes NS-03](tests/ns03_http_pg17.test.mjs), o [executor CI](tests/pg17_ns03_http_real_pg.sh) e o [relatório](docs/NS03_HTTP_PG17_E2E_LOCAL.md) foram aprovados no [GitHub Actions 44689056599](https://github.com/auditeduca/canone/actions/runs/44689056599). **Nenhuma escrita Supabase remota**; Supabase segue como F8, a última etapa.
+
 ## O que está versionado na main
 
 - **389 arquivos de código recuperados do S22**, no diretório [source-s22/](source-s22/), sem serem promovidos à raiz executável.

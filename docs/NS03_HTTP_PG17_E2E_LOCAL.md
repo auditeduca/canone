@@ -2,7 +2,7 @@
 
 **Data:** 20/11/2026  
 **Projeto:** Cânone · F2 pré-Supabase · execução somente `main`  
-**Status:** candidato a validação em GitHub Actions; não usar como selo operacional de produção.
+**Status:** **PASS NS-03 no CI** (13/13 cenários, PostgreSQL 17 real e Auth sintético); **NO_GO produção**.
 
 ## Objetivo e limite
 
@@ -43,6 +43,14 @@ Os scripts são `tests/ns03_http_pg17.test.mjs` e `tests/pg17_ns03_http_real_pg.
 - A fixture contém exclusivamente questões inventadas e não pode ser publicada como prova oficial do CFC.
 - O teste de duas requisições HTTP SRS ocorre com pool de uma conexão; a corrida real de **duas conexões** já foi exercitada separadamente na alpha.8. NS-03 confirma a integração HTTP→transação→banco.
 - Segurança de rede de produção, segredo de serviço, rate limit, revisão editorial e E2E no navegador permanecem pendentes. **Supabase exclusivo será instalado por último, na F8.**
+
+## Evidência confirmada — GitHub Actions 44689056599
+
+**Execução:** [run 44689056599](https://github.com/auditeduca/canone/actions/runs/44689056599), commit técnico [`bd6fe15`](https://github.com/auditeduca/canone/commit/bd6fe15a6a8a68d6f64e498a7f35bf6c5662937c). **Os dois jobs passaram**; no job PostgreSQL 17, os **13 subtestes** da NS-03 passaram, e o Node reportou **14/14 testes incluindo o teste-pai**, com zero falhas. Também permaneceram aprovadas as regressões S22 (277/277), a concorrência alpha.7/alpha.8 e a autorização alpha.9.
+
+Verificações em dados reais do PostgreSQL 17 descartável: proprietário A, isolamento B→A, assinatura real da fixture PostgreSQL ativa/cancelada e concessão revogada, contagens de respostas, finalização e gabarito posterior, idempotência de SRS e limpeza do papel/claim após commit e rollback. O login SQL de teste é `canone_gateway_ci` **não superusuário**. O token é **sintético**, não emitido pelo Supabase.
+
+**Conclusão:** NS-03 **PASS no escopo testado**. F2, frontend, Auth gerenciado, autorização de produção e revisão editorial ainda **não concluídos**.
 
 ## Próximo passo
 
