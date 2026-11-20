@@ -56,6 +56,11 @@ jobs:
               assert hashlib.sha256(b).hexdigest()==rec['sha256'], f'hash drift: {path}'
           print('389/389 source SHA-256 verified; excluded files remain on HOLD.')
           PY
+      - name: Validate 30-migration and 90-table Supabase canonical crosswalk
+        shell: bash
+        run: |
+          python3 tools/canone_supabase_crosswalk.py --root . --check
+          python3 -m unittest discover -s tests -p 'test_canone_crosswalk.py' -v
       - name: Recreate a synthetic fixture for omitted editorial sample IDs
         shell: bash
         run: |
