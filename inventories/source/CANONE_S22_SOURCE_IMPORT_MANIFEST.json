@@ -1,0 +1,1806 @@
+{
+  "source_repo_commit": "164fa4df8e99de29e35c41d35a25f6ee0b2c6462",
+  "source_version": "S22",
+  "release_gate": "NO_GO",
+  "transport_location": "source-s22/ (quarantine; not production root)",
+  "tracked_total": 476,
+  "included_total": 389,
+  "excluded_total": 87,
+  "included_files": {
+    ".github/workflows/canone-metadata-gate.yml": {
+      "sha256": "d3bd89441310a1ee034cd4b6103b64a54c926214a0af87b3fa0193bf9ed41a70",
+      "bytes": 5353
+    },
+    ".github/workflows/canone-release-preflight.yml": {
+      "sha256": "ee632941a2cb2c593f71a5735ca84c9804db3dab48e3c11bb046c3eabd848adb",
+      "bytes": 1383
+    },
+    ".gitignore": {
+      "sha256": "78d8c08adaac0c6ff7323f457131c077ab4f4c717c870026d06cfd99756983af",
+      "bytes": 403
+    },
+    "COMO_EXECUTAR_E_HOMOLOGAR.md": {
+      "sha256": "697200d1c8e4f68f86e5f68434c23318584696e24be05647b38a7fd76147ad80",
+      "bytes": 3087
+    },
+    "COMO_PUBLICAR_GITHUB_VERCEL_S2.md": {
+      "sha256": "8b5a35ed7f88c930eff63423553289931bc5844c23f91da28002a26e89c7eba1",
+      "bytes": 3111
+    },
+    "LEIA_PRIMEIRO.md": {
+      "sha256": "8a5e99aecb3241b3135b7e130fc44f06f749e7f7b82907ebb3cbe620507a21bc",
+      "bytes": 1740
+    },
+    "MANIFESTO_ENTREGA.json": {
+      "sha256": "8b888fee8cac14d7a3fa1dc58a5d44548bfb8b0e01ca7d9d9dd5328fb67b8d91",
+      "bytes": 1262
+    },
+    "MANIFESTO_RECONCILIACAO_IMUTAVEL.json": {
+      "sha256": "61159cf0f7abfcb87c51d9832984826086c17eb44d5641ff464d02f58556263b",
+      "bytes": 1337
+    },
+    "MANIFESTO_S2_SHA256.txt": {
+      "sha256": "6333e33f60702c046656fe9e264b6c01efefb9838fd6bb6eb074f7e7e458190b",
+      "bytes": 28577
+    },
+    "MANIFESTO_SHA256.txt": {
+      "sha256": "c711af326172f56cbd6f777aa62618491ff3e7ec1808051e51a83c30d318ade7",
+      "bytes": 25309
+    },
+    "README.md": {
+      "sha256": "d671a910e527a8d4e7a80aec20398c28df782dcf4564533e327baee916959298",
+      "bytes": 8610
+    },
+    "S15_LEIA_PRIMEIRO.md": {
+      "sha256": "f6393473972365dde8a32df038f96f5d3f580c006b4a764b0460bfb6098c1380",
+      "bytes": 2148
+    },
+    "S15_MARCO_PREVIEW_READY_2026-11-14.md": {
+      "sha256": "f26fa0a03f9f7922f9ad3da8d022f4aac8c43c0189bfe52ce88faf859888980f",
+      "bytes": 1796
+    },
+    "S16_MARCO_PREVIEW_READY_2026-11-14.md": {
+      "sha256": "0cc242f0d485f2f31df5593c827ec77d0dfb21e5030a3c5d2c3b6a42f1ca3bca",
+      "bytes": 3397
+    },
+    "S16_RELEASE_GATE_NO_GO.json": {
+      "sha256": "021efe97bb4a222f46c3805949cca6964c2c40b5a9c82767c86585ca5fd8de80",
+      "bytes": 519
+    },
+    "S17_MARCO_PREVIEW_READY_2026-11-14.md": {
+      "sha256": "6feeab9af5d7f264f67034cf8d1c32f8da182b2940608ad668d71a72c916568b",
+      "bytes": 3583
+    },
+    "S17_RELEASE_GATE_NO_GO.json": {
+      "sha256": "183f09990b5014486ea0a63319625a50d38cc9408e24d4c0dcabb9999275f9df",
+      "bytes": 931
+    },
+    "S18_MARCO_PREVIEW_READY_2026-11-14.md": {
+      "sha256": "d74b591cb0067a2627e9f0ea3795135895a69d4036b25ee15954447e8cac470f",
+      "bytes": 4215
+    },
+    "S22_LEIA_PRIMEIRO.md": {
+      "sha256": "c708e5562aeb661382a4717a65085298680789e70b9d9b85a8d10b0ff2ace600",
+      "bytes": 1264
+    },
+    "S7_INICIE_AQUI.md": {
+      "sha256": "40c9143f1a24993f6f1c96d6e1528d9fb802996dbd426241f861ae4a175bf74d",
+      "bytes": 1658
+    },
+    "S8_INICIE_AQUI.md": {
+      "sha256": "76201e02bf7eaf7462b88828e7aa638b6e629a5ed75fb6a196846b2d24d2e623",
+      "bytes": 749
+    },
+    "S9_INICIE_AQUI.md": {
+      "sha256": "6a1b79cf284a4d49ade2c7dc03ab6c9a21931ef72c9c532da931d0d244ebcb2c",
+      "bytes": 3057
+    },
+    "app/index.html": {
+      "sha256": "60bafbbb2875f169bbe01fac94aed88e9333ed8022c9021e95fde6b402f603e5",
+      "bytes": 844
+    },
+    "app/package-lock.json": {
+      "sha256": "9869d1b64d49ebc635fad5d84d8aa2f32ea803287faa3d2524f4d3edbb6a7704",
+      "bytes": 63755
+    },
+    "app/package.json": {
+      "sha256": "c85a1687c541d15be0eab08917b3c4c0092d2c6b0a255e6546a28cb5153284e5",
+      "bytes": 581
+    },
+    "app/public/fonts/README_ATIVOS_NAO_DISTRIBUIDOS.md": {
+      "sha256": "84dfa04ba87cceeea9aef5dd887f2aaed9cac031856c0b9d0f270401acb738f6",
+      "bytes": 484
+    },
+    "app/scripts/check-preview-security.mjs": {
+      "sha256": "e71a305fbbd1cc85d7972695677ee57641574808f161ad3ef3309e0a1dfe0026",
+      "bytes": 4534
+    },
+    "app/src/App.tsx": {
+      "sha256": "fe744f811a8624ca02036012d56d014879f8ad3ecc57030d85f1110c6fd0a5a6",
+      "bytes": 8953
+    },
+    "app/src/api/cliente.ts": {
+      "sha256": "c0e0cfa4d4d5329a98ac92aa815123f4425fea3d39c84f71145b55a5e791044e",
+      "bytes": 6287
+    },
+    "app/src/api/contrato-comander.ts": {
+      "sha256": "f651fe7a01494c11adf5ee7df3623985bad99ac859ab1aa7c8c1f6429674f581",
+      "bytes": 13569
+    },
+    "app/src/brand/base.css": {
+      "sha256": "5b823041fd04e3634d8eff73daa06e7d33028046eb89f87e6865e12d04ad5ec1",
+      "bytes": 5485
+    },
+    "app/src/brand/icons.tsx": {
+      "sha256": "c79b118eac34db73a01696e655139d8bb1831c1a4be3bf75d7442182b9f1967b",
+      "bytes": 5225
+    },
+    "app/src/brand/layout.css": {
+      "sha256": "faea3ec188da02eb0d7e85ce79130705884de1ff8065cf18331a93881f222d37",
+      "bytes": 9986
+    },
+    "app/src/brand/primitives.css": {
+      "sha256": "fcdb1d349bcad20a149dd0ce50100636ad13a6c8116e2589a35c4206cee7b1a6",
+      "bytes": 11230
+    },
+    "app/src/brand/tokens.css": {
+      "sha256": "e81f2c3838fd0e1fb5daf1213f706f9a8aade9a8cc5ff7a6b21f9d7591706aa8",
+      "bytes": 7543
+    },
+    "app/src/content/exame.ts": {
+      "sha256": "12ab6c7f118a80e788b1cbb7b9d5e8ce95d7a9d5fd30afc3f3050844b4411dd5",
+      "bytes": 8520
+    },
+    "app/src/content/faq.ts": {
+      "sha256": "a4d266199d15950642be28443b04f613ba796398e5affe6d0c11504f15a27ca1",
+      "bytes": 4890
+    },
+    "app/src/content/icones-internos.tsx": {
+      "sha256": "94e396ce9d24dbcb3a3faf514a8e8ccd58efd589b5d5f1ea9540bc13b9973155",
+      "bytes": 600
+    },
+    "app/src/content/modulos.ts": {
+      "sha256": "89377de9ac1564f9cc186e90266dbc0f9d2698dc29a62d85d60f1cd270323a32",
+      "bytes": 5830
+    },
+    "app/src/content/precos.ts": {
+      "sha256": "00b126df32ada4c33986ec815434a3c0331ac336539c813a3f5326494be5782a",
+      "bytes": 2065
+    },
+    "app/src/content/questoes.ts": {
+      "sha256": "099be7596bf79434c809196c9f4f611e48e4018152f29c6c5361c2bc3311cde0",
+      "bytes": 2396
+    },
+    "app/src/main.tsx": {
+      "sha256": "aab98d5d68f3b9be14b135343bf8e2a612b5c0ed1dee43946624b139bd2c035c",
+      "bytes": 4479
+    },
+    "app/src/screens/Comander.tsx": {
+      "sha256": "fc178189d067f4854816a461533fc4e999a5cdcad4709cbba8cba9f7554857d7",
+      "bytes": 20312
+    },
+    "app/src/screens/Entrar.tsx": {
+      "sha256": "dc3d198484e74d356fe2b105c1a3db58d6d9d6945da0cc29d6c481d204be7b37",
+      "bytes": 7688
+    },
+    "app/src/screens/FerramentasFinanceiras.tsx": {
+      "sha256": "a90c6ddcb544cce9aef756b55c8cf450222676a8a0d28514b002c900551413df",
+      "bytes": 7127
+    },
+    "app/src/screens/Integridade.tsx": {
+      "sha256": "f5753f1adbf9cf9b40a31c8c972c0d4d1252249eacb39c6e6fde801427a030c4",
+      "bytes": 13686
+    },
+    "app/src/screens/Jornada.tsx": {
+      "sha256": "25f5488e147e3839d0754c432bf2f3b0dcc76a990f1583596720e933d8100503",
+      "bytes": 4917
+    },
+    "app/src/screens/KnowledgeModules.tsx": {
+      "sha256": "ccb48fc4b2a53ff89db4ad67af56bf54cca5559543199dfebc0b1b7fee356fa7",
+      "bytes": 6854
+    },
+    "app/src/screens/LocalModules.tsx": {
+      "sha256": "3861da9326777592aaa6ca0232e04543328f0886441201dace2d9dbf4c9e13fb",
+      "bytes": 14902
+    },
+    "app/src/screens/PersonalPractice.tsx": {
+      "sha256": "f0a5764b5beee1bcaaf2e99f940f91c22bd83612aeca0af8ca166b0d5821e11b",
+      "bytes": 9877
+    },
+    "app/src/screens/PreviewLabs.tsx": {
+      "sha256": "765fb1d36521e0c2c28f323cd57a6f3bc0c468fb73d9e104307c14ae97219f45",
+      "bytes": 14072
+    },
+    "app/src/screens/Recursos.tsx": {
+      "sha256": "5893749950bf1cde232c68b5190fead07aedeed8850271faf8720be3eb3ebf42",
+      "bytes": 5802
+    },
+    "app/src/screens/StudyWorkbenches.tsx": {
+      "sha256": "f8aaf0b3c60b9e24ce56569bc000a70438639e25b10053c4cb65f33f52663d9e",
+      "bytes": 7634
+    },
+    "app/src/screens/comander.css": {
+      "sha256": "e2502f245d57ec572902060799df79ce9ee3c20dfbf60fa3b77780bbfe321e6e",
+      "bytes": 5956
+    },
+    "app/src/screens/concepts.tsx": {
+      "sha256": "1d0c49329171b71b2f11a963048ca5c5cf5e1b9932da79a7b09eb62ecef5ccd7",
+      "bytes": 21507
+    },
+    "app/src/screens/pages.tsx": {
+      "sha256": "616587d5b3d2cc032c0aa93a3ffe54b1e624069e4b1f697d50a6605e0847fe99",
+      "bytes": 29039
+    },
+    "app/src/screens/phoneScreens.tsx": {
+      "sha256": "97668c6e21448fec4d4d07939184b5c5952e2dca0cdcba222cb30cc7e8adfa4e",
+      "bytes": 20899
+    },
+    "app/src/tools/README_S18.md": {
+      "sha256": "044cb2642f6b86aa15d92aaaaeed6fdd07567df0d9099fa2ee62dbc4606e3472",
+      "bytes": 722
+    },
+    "app/src/tools/finance-math.ts": {
+      "sha256": "05da607c94c16fe39bb93f00315a8e1d14399dba206c15538f383b1956fa9735",
+      "bytes": 2736
+    },
+    "app/src/tools/local-learning.ts": {
+      "sha256": "edf66ee901fdd85cf74c1b5a112c29a17d8c170ae422d0f2eea8cbac34b86cd4",
+      "bytes": 1815
+    },
+    "app/src/tools/personal-knowledge.ts": {
+      "sha256": "ce40192b2c87aed0b57cca6d946bb5be2399df2027c76ddd1070e5a95eb5349e",
+      "bytes": 2969
+    },
+    "app/src/tools/personal-practice.ts": {
+      "sha256": "c45a3854c8c838870b938ade242eb898f87b12b72b7dac5273b1ee0594e69266",
+      "bytes": 5887
+    },
+    "app/src/tools/preview-labs.ts": {
+      "sha256": "62c7619b36b034fd81df01b978d95179d384faee7f51bf99ad85782dfaa018b5",
+      "bytes": 7063
+    },
+    "app/src/tools/study-workbench.ts": {
+      "sha256": "45e969266dcb7840d0c590893e8c2089fd70f9300aef93731517aaafc9e0168c",
+      "bytes": 6930
+    },
+    "app/src/tools/synthetic-ledger.ts": {
+      "sha256": "ccc461b3d5f33aba37107ba7f6ee62424943390785f1fed2280e43cb4c86cf04",
+      "bytes": 3308
+    },
+    "app/src/ui/Nav.tsx": {
+      "sha256": "310d835e4a653658fd99b0f3d520415731ea1f1742d2c7e821fc3121654cd073",
+      "bytes": 7583
+    },
+    "app/src/ui/learning/ExamQuestion.tsx": {
+      "sha256": "fb81c3d94c240d676e85fb8c5eb18e1a606da7bb8c7fc9c5c2bda2cb154a1119",
+      "bytes": 2748
+    },
+    "app/src/ui/learning/preview-session.ts": {
+      "sha256": "546fbd0d2bbd2b97733eef278cb1618ff5f81bdff2ec171b6aa1351b3cf94c7a",
+      "bytes": 2987
+    },
+    "app/src/ui/primitives.tsx": {
+      "sha256": "84f5099f35ad524cf1671498aca233816099c219fc4c1155f85ed3a58ac7ba77",
+      "bytes": 8153
+    },
+    "app/src/vite-env.d.ts": {
+      "sha256": "78e91e6407bfc80e012efa2602f3ee2a17cd571170a206d7c5656858c2e9ab25",
+      "bytes": 62
+    },
+    "app/tests/canonical-learning-boundary.test.mjs": {
+      "sha256": "d80d2da0f79e86b6eff3415e3fffd9c577d97b484ae52aac4ebdd0c8836d4792",
+      "bytes": 2553
+    },
+    "app/tests/check-preview-security.test.mjs": {
+      "sha256": "35531dbd03a86ad0082e1d879e1b327301be14892170a7e4fb08d5cba47f379e",
+      "bytes": 3723
+    },
+    "app/tests/financial-math-s14.test.mjs": {
+      "sha256": "9abbebc34c977ffd9f9e53e4de1e6f9307414e52dc7b8ffee05afec76735d712",
+      "bytes": 2456
+    },
+    "app/tests/preview-journey-s8.test.mjs": {
+      "sha256": "eacf302a6a7eb58cdc6eae5f4d480b87ff419b2b1ca342608539409f391ef95b",
+      "bytes": 3499
+    },
+    "app/tests/s15-boundaries.test.mjs": {
+      "sha256": "563d3484e78057a44704cbc56fbfb1dd6ccb70fda820c4bc54ae2feeec681ed8",
+      "bytes": 1597
+    },
+    "app/tests/s15-engines.test.mjs": {
+      "sha256": "bed3b85d7cbd3b413b2f7800e6fdfb53b7c0fe015f5326cb081bc3d2bb3b536b",
+      "bytes": 2989
+    },
+    "app/tests/s16-knowledge.test.mjs": {
+      "sha256": "8cdf8aaa7516da46fe9fb83880a8ea0f54eed84da23e40899a84c1e55ec26d26",
+      "bytes": 3821
+    },
+    "app/tests/s17-personal-practice.test.mjs": {
+      "sha256": "025829a6cbc5d547d714acbd06bb83a4ef085a5e12a112a268a99ed14289c69e",
+      "bytes": 6127
+    },
+    "app/tests/s18-study-workbench.test.mjs": {
+      "sha256": "6c64475a6f51987a9583dcf967ecf4bab68ef8ebc4fe46982188cf0fc1957ff3",
+      "bytes": 5279
+    },
+    "app/tests/s19-preview-labs.test.mjs": {
+      "sha256": "d507caed53e4b80ed393da03e0245b39cb1e5a0c9324b6baf9e193d76e4494b6",
+      "bytes": 7503
+    },
+    "app/tsconfig.json": {
+      "sha256": "53e05bcaa43b97c773368e4b08a84d82a8156f58bfe23e908714c578a7e1e5bc",
+      "bytes": 510
+    },
+    "app/vercel.json": {
+      "sha256": "ca08338de9e21fee97b9a65696b7c2c5d4446fea928235915b1025b7f8aedbc7",
+      "bytes": 909
+    },
+    "app/vite.config.ts": {
+      "sha256": "08dd2bee4cea362ca9ef3ff39d8409092f336f9c1cfc858eaf33e0186146f918",
+      "bytes": 217
+    },
+    "backend/README.md": {
+      "sha256": "0016f9e01591134556e256cac7af47b70e047ab70c425510281308de2d6a580e",
+      "bytes": 8839
+    },
+    "backend/contracts/product/catalog.v1.json": {
+      "sha256": "8d1fd1d2f29f2596e2cc7c9fe3aecf23b555ef2cc61ffe5bd27e5f539577754e",
+      "bytes": 16815
+    },
+    "backend/contracts/product/feature-template.v1.json": {
+      "sha256": "6560f4f781a375feed6f6895b3ed5064d3e9bd6c112e93492d5f4dd5c113a61a",
+      "bytes": 1757
+    },
+    "backend/contracts/product/generate.mjs": {
+      "sha256": "37600396eb160e696e08690d9a3b28906ccbc2d67371627a6e50817f95854a6b",
+      "bytes": 9619
+    },
+    "backend/contracts/product/tests/catalog.test.mjs": {
+      "sha256": "ec67e18ab2c9434985ae267c509f4d4f427d45d5139ca565d6b9a4015765329f",
+      "bytes": 5393
+    },
+    "backend/db/migrations/001_schemas_roles.sql": {
+      "sha256": "7fc94c1549725619578b8d1599c4556b28195287f85f69dc1339876bcea66380",
+      "bytes": 5115
+    },
+    "backend/db/migrations/002_identity_lgpd.sql": {
+      "sha256": "fd1f0491a7e697d14ba80265825ca360069016e9d3e1437de110c2328c263623",
+      "bytes": 8884
+    },
+    "backend/db/migrations/003_metamodel.sql": {
+      "sha256": "9f8c972db65d8f59646fb5b4643c929047cd04e7a73dd5c788b68a6a535dc953",
+      "bytes": 22823
+    },
+    "backend/db/migrations/004_taxonomy_blueprint.sql": {
+      "sha256": "ceeb6cc129d5fe7c2ee6d8e7a126c349fa0d0a50f82732d8d5e32ad3d0dd0473",
+      "bytes": 5793
+    },
+    "backend/db/migrations/005_norms.sql": {
+      "sha256": "a1926ea47776e642e9d10cd0cf9c8a8102d88c4d3d49af0f5580e95a4e75f75c",
+      "bytes": 6875
+    },
+    "backend/db/migrations/006_learning_items.sql": {
+      "sha256": "55417f64192b8b4e5081416c2b874f207bedaf011fd2670e38e1f37bc5c75031",
+      "bytes": 10569
+    },
+    "backend/db/migrations/007_learning_srs.sql": {
+      "sha256": "d9bb2e97b45b050b24304d89973b4ac284b62f6dff4952a94dd9f4d108e3c545",
+      "bytes": 12063
+    },
+    "backend/db/migrations/008_commerce.sql": {
+      "sha256": "b5abc75dde4e6183b2ff77232cd87686b37538e632a84b8ff885d117e7c80d60",
+      "bytes": 6369
+    },
+    "backend/db/migrations/009_admin_governance.sql": {
+      "sha256": "08b1e347fef09fba4b2a76ed8f86b5e330b942607e599cdef3952b74422825e8",
+      "bytes": 11569
+    },
+    "backend/db/migrations/010_ops_platform.sql": {
+      "sha256": "3d8c5eee7c68f9b6379742bd997071ea114c8e249805fa2869ecf2cfdbfbc336",
+      "bytes": 8745
+    },
+    "backend/db/migrations/011_triggers_integridade.sql": {
+      "sha256": "5a054634c6255348d5a17942845cab44a6ed494e105af726e14b3c2f0f1040ec",
+      "bytes": 18308
+    },
+    "backend/db/migrations/012_srs_engine.sql": {
+      "sha256": "aa5152379aecb2184b6976aa24231676770afe80bb38e6bb5bdba4769f066a55",
+      "bytes": 13305
+    },
+    "backend/db/migrations/013_views.sql": {
+      "sha256": "2ff3c3099a1ed84b7b5f323e2e14658e33934387b3bcd56e4f1c01d344815af9",
+      "bytes": 8382
+    },
+    "backend/db/migrations/014_rls.sql": {
+      "sha256": "0c573777de58467dca107992f4138e944142c977669854fa35636d035a4c255e",
+      "bytes": 11950
+    },
+    "backend/db/migrations/015_indexes.sql": {
+      "sha256": "ad0f15f76752463541b84897cc35b758588c208676db2ae8f67bbaab91ad8bca",
+      "bytes": 2677
+    },
+    "backend/db/migrations/016_seed_reference.sql": {
+      "sha256": "d9424b0f09ab43ead5645c351ec5352123795e4e07a41ec7ca36047b607d5236",
+      "bytes": 24566
+    },
+    "backend/db/migrations/017_privileges.sql": {
+      "sha256": "fd65e114c8dfdcfb929e5591f628dd8dfba6a3e06ffca6cd5d806cc71a1a7d30",
+      "bytes": 10031
+    },
+    "backend/db/migrations/018_provas_gabarito.sql": {
+      "sha256": "a1088083d3f0c8aa5d534c1e272ec85fc0c8a151832e4964e5ab939c6799f6a8",
+      "bytes": 34522
+    },
+    "backend/db/migrations/019_tentativa_ingestao.sql": {
+      "sha256": "c01f383f23b2189e889e4a8bf919cd5d3bcc252c6828349764775de38fb44989",
+      "bytes": 25457
+    },
+    "backend/db/migrations/020_tipo_conteudo_versao.sql": {
+      "sha256": "bf7f90337133fefe7e4767e24eaaf5fcbc86dbf68ae1bef1de0d938459268223",
+      "bytes": 1725
+    },
+    "backend/db/migrations/021_letra_derivada.sql": {
+      "sha256": "f54fc8737efd8ad5d3a1010a7f87a2110a664e4cb932f026d76cca26323a7457",
+      "bytes": 3683
+    },
+    "backend/db/migrations/022_prova_selada_letra_inteira.sql": {
+      "sha256": "574ab76731ecc12e3a52570a47a4f515b9b46a9d9453dd924932ce783a292123",
+      "bytes": 7934
+    },
+    "backend/db/migrations/023_tres_fechos_do_qa.sql": {
+      "sha256": "6c980bc5f350f3732539c8df562a071d1c25c34e1a353bad22c5300a229ab5c4",
+      "bytes": 19139
+    },
+    "backend/db/migrations/024_gabarito_imutavel_regua_fixa.sql": {
+      "sha256": "f22d52a205deaf04b05a0c039ef9de2061143f05d958723455935c8007d23f44",
+      "bytes": 7353
+    },
+    "backend/db/migrations/025_identity_usage.sql": {
+      "sha256": "7adf620c6a8f034fef6f3fbbdc0f46ad4b74dbf5791656feebb8a688269e9287",
+      "bytes": 3008
+    },
+    "backend/db/migrations/026_staff_le_gabarito_default_zero.sql": {
+      "sha256": "bd0dbdc91f73ab5d2c483168a09c5905105cc2e121ce02c3f8f9f5bd3202cc9f",
+      "bytes": 6620
+    },
+    "backend/db/migrations/027_papel_de_sistema.sql": {
+      "sha256": "e41567d42c136528918c1c3c45662e666697c93c5518f4793aae2e0bb772d6ff",
+      "bytes": 7195
+    },
+    "backend/db/migrations/028_preco_comercial.sql": {
+      "sha256": "ad022430bcec9e54a31441dfe790da92766e546a6b1600dcb10d0a2a6888222f",
+      "bytes": 2912
+    },
+    "backend/db/migrations/029_papel_de_acesso.sql": {
+      "sha256": "004fa9caa52b13e85eb53949f9c419e9aeaabc098157eadd24a4e080062355a4",
+      "bytes": 3359
+    },
+    "backend/db/migrations/030_porta_da_prova.sql": {
+      "sha256": "144e11ea0c873bfa7f8f7b460a49f51fada2b5cd4d1f1d4424b51938fcaf2c0b",
+      "bytes": 4679
+    },
+    "backend/db/shared-host/001_canone_shared_host_namespace_v1.sql": {
+      "sha256": "5e6581ac0d11e7e8b6fc57d6e4ee92865ec4f38c4efd3efc60d46464c1dd1a69",
+      "bytes": 20724
+    },
+    "backend/db/shared-host/README.md": {
+      "sha256": "dfe3b2fddb1b4e4ef26a2ce0cc4fa012085f4a398f35b92f9ed69c3f2b1b7407",
+      "bytes": 941
+    },
+    "backend/db/shared-host/README_S7.md": {
+      "sha256": "0e63868a22965909c0d4b00b382e3945ac1c4a5c4f2f0e0a31ded352bb71e1a5",
+      "bytes": 1950
+    },
+    "backend/db/shared-host/S5_LIVE_VERIFICATION.json": {
+      "sha256": "c47848f100097f9c8ce2636af6fa9bd5a828c705836bb1b5fe2c50eb0a00335f",
+      "bytes": 2466
+    },
+    "backend/db/shared-host/S5_NAMESPACE_MANIFEST.json": {
+      "sha256": "7865b318744420ee860ffe0728c56cedae097df65a43946990ca7b70c50db092",
+      "bytes": 6432
+    },
+    "backend/db/shared-host/S5_PORTABILITY_AUDIT.json": {
+      "sha256": "21349e5850139e83e2ceeed90073b814d20bec42d6af48d44e98739e97670afb",
+      "bytes": 17738
+    },
+    "backend/db/shared-host/VERIFICACAO_S5_READONLY.sql": {
+      "sha256": "bd944929b3f1dc5d99ea3c39ab52777cd7ac586c3b484b9e8393183943fb0c20",
+      "bytes": 2018
+    },
+    "backend/db/shared-host/generated/REVIEW_ONLY_002_identity_lgpd.sql": {
+      "sha256": "bd508af0913a5d261e7403147d598c6618834ca096c70cf9cc26175f52a74a4c",
+      "bytes": 9376
+    },
+    "backend/db/shared-host/generated/REVIEW_ONLY_003_metamodel.sql": {
+      "sha256": "c36f58435a51e118189adaaf0d3fc88cc652a9b0e26360f252d5a157561dfde1",
+      "bytes": 23504
+    },
+    "backend/db/shared-host/generated/REVIEW_ONLY_004_taxonomy_blueprint.sql": {
+      "sha256": "aa18050e325835ba9099d87f5943cb9ebce24675e8884f3f52d16bb161cb5890",
+      "bytes": 6231
+    },
+    "backend/db/shared-host/generated/REVIEW_ONLY_005_norms.sql": {
+      "sha256": "4e5312ce67e2e7560aacf4ead529d5fdc83bc34e5afee5375222fa30ec3070a8",
+      "bytes": 7307
+    },
+    "backend/db/shared-host/generated/REVIEW_ONLY_006_learning_items.sql": {
+      "sha256": "4a7d11bf771ef63b8494baeb666c7cc3a1cab97ff4e1fc12b78d11967b586719",
+      "bytes": 11164
+    },
+    "backend/db/shared-host/generated/REVIEW_ONLY_007_learning_srs.sql": {
+      "sha256": "ede80196d6ab1b96ac8032b14d8a2179927b5ba2a2bc9e636beaaa60c3e7a85a",
+      "bytes": 12767
+    },
+    "backend/db/shared-host/generated/port-review.generated.json": {
+      "sha256": "2ec845287341ec8a753a5e63a277db3d9b696343a246c6bd5f6409b58f7dfe32",
+      "bytes": 3343
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_001_schemas_roles.sql.txt": {
+      "sha256": "27cbabbb827c07ca1380a636563118209c33d9343030c95985978efe5f9ddf82",
+      "bytes": 5759
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_002_identity_lgpd.sql.txt": {
+      "sha256": "3f748abfa45671665b752d4759a5cf19e0298eac1cb1c7cca206d56630050084",
+      "bytes": 9598
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_003_metamodel.sql.txt": {
+      "sha256": "e6406724c2417475fdd48aa817c9c8788f9d28712724b22b50c9c6d7f43176c7",
+      "bytes": 23698
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_004_taxonomy_blueprint.sql.txt": {
+      "sha256": "8737e10caf2399b0284adcd8e5f801daeb03e0b787076cf8f70ac77e76971482",
+      "bytes": 6425
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_005_norms.sql.txt": {
+      "sha256": "285ac72596970d2b788a79728948e7b9c086c439c7c3a6319e337c9c0bb24a97",
+      "bytes": 7501
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_006_learning_items.sql.txt": {
+      "sha256": "2301017609a8fbace95ce22872aaf36f1c258bb62647fbd78034117ecaf3eca5",
+      "bytes": 11496
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_007_learning_srs.sql.txt": {
+      "sha256": "b601165fe3eb253e50b611f8de787398ca5bda99e78c6ecac2f6efd5d1a663c9",
+      "bytes": 13073
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_008_commerce.sql.txt": {
+      "sha256": "dd5231aa6caa68390ab108690ff85c16d971fe459a40c72d25cf1b44c537b56d",
+      "bytes": 7005
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_009_admin_governance.sql.txt": {
+      "sha256": "4b677726a0e456b3ba8490a34ee2209db45aa2b1a198670952fa9fe018e7f848",
+      "bytes": 12485
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_010_ops_platform.sql.txt": {
+      "sha256": "b6da75ecb400e1553bc2f620d944db8063ae64da814d8776e54519f9a72bcd75",
+      "bytes": 9413
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_011_triggers_integridade.sql.txt": {
+      "sha256": "f9b0c64cc6bf21c330ec6deb04c3f65a038abce564f35ea8aa9d3ddf75f33b40",
+      "bytes": 19116
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_012_srs_engine.sql.txt": {
+      "sha256": "4a9dcb85fa49d6772dd1166cce4385f4275489773c741d1aa6ae73b4407dd4e3",
+      "bytes": 14019
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_013_views.sql.txt": {
+      "sha256": "fef3cb178649948684c5c71c4402a9abd132b47b30f41e7fd22a551f0ad840a7",
+      "bytes": 9281
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_014_rls.sql.txt": {
+      "sha256": "4b7c4405fc5a1988d90079b485e116b1931e0032301e9e27492f3fa5d9e7c249",
+      "bytes": 13216
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_015_indexes.sql.txt": {
+      "sha256": "c9304e67e714291099500744477cd1d713a30917ec4e7ad8ca57809401127e5d",
+      "bytes": 3242
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_016_seed_reference.sql.txt": {
+      "sha256": "a4f932927d5e23ff35629f4274f728ee2a46463424c23bd23136b9af03e8e72c",
+      "bytes": 25187
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_017_privileges.sql.txt": {
+      "sha256": "e70c841fc10152f812fe56740247afcc0ba27fddd8cc3b7ce17d0bbed5368e54",
+      "bytes": 11826
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_018_provas_gabarito.sql.txt": {
+      "sha256": "0f7809baabc9e40f2f025a508909027d46ee5cfeb4114dbb49b8123131a127cb",
+      "bytes": 36082
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_019_tentativa_ingestao.sql.txt": {
+      "sha256": "2f2bf3c6606060e21cc6b6ad1adb8d86f42c8bcb23647aea97a34fb891ecfb08",
+      "bytes": 26517
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_020_tipo_conteudo_versao.sql.txt": {
+      "sha256": "ae7139ddaf33fa6ebc61a3015c700cfa067145590deb9b92d665464075d8a3cb",
+      "bytes": 2240
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_021_letra_derivada.sql.txt": {
+      "sha256": "4e2308f374b6f5c64383c10218e6aa1c21216c82005c0db7da9a94dbf4966b32",
+      "bytes": 4443
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_022_prova_selada_letra_inteira.sql.txt": {
+      "sha256": "6d30c9db4613a7fac1ea15ed56e3fb1102f004779c58e5de2122fc8e6f5637b5",
+      "bytes": 8741
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_023_tres_fechos_do_qa.sql.txt": {
+      "sha256": "a0c312b92c06b57860811195e4826445e90356f5e3a3ab52349e765703dda878",
+      "bytes": 19972
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_024_gabarito_imutavel_regua_fixa.sql.txt": {
+      "sha256": "c004caf5022dcdfd661a5a1b5fe820f2e592021e8cdf7131ec5378e95de4603f",
+      "bytes": 8211
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_025_identity_usage.sql.txt": {
+      "sha256": "ad0cfccf8a5ca4ebda26c972d8b742ece85d54a9379a5b4d482e5527184dca82",
+      "bytes": 3656
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_026_staff_le_gabarito_default_zero.sql.txt": {
+      "sha256": "cfb60bf8f5493b8c90633a5d24ac71709977082f4b61588d7ba424b2d54401c6",
+      "bytes": 7424
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_027_papel_de_sistema.sql.txt": {
+      "sha256": "8f4273fa8d985b7d2aa7f02dedde6b1d39e609a98c97c8516b957e1a8bf36ebc",
+      "bytes": 7831
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_028_preco_comercial.sql.txt": {
+      "sha256": "64593b95bc9039ed8385054b11c218c928df3030642b8dccb178db56da8f705f",
+      "bytes": 3443
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_029_papel_de_acesso.sql.txt": {
+      "sha256": "6c098bf079716cf99724254389eff40adca386fbb6976136b644b8b2e53024d6",
+      "bytes": 3953
+    },
+    "backend/db/shared-host/generated/s11-review-only/REVIEW_ONLY_030_porta_da_prova.sql.txt": {
+      "sha256": "5d7b20c06bdd40d4c1ca5edef0cdecfbc0596cd2849f232b73b543969b7a5ba1",
+      "bytes": 5463
+    },
+    "backend/db/shared-host/generated/s11-review-only/S11_FULL_PORTABILITY_AUDIT.json": {
+      "sha256": "dd24dea8bccd44d4082cdd630ae8ae05dcb35acafdb9c0aa5c073b4d01e39b4a",
+      "bytes": 21727
+    },
+    "backend/db/shared-host/port-sql.mjs": {
+      "sha256": "5ba3ad267311236b3e80c48b9b0156445fbecddcbc1d8c39de54a1e4d4cf778d",
+      "bytes": 7560
+    },
+    "backend/db/shared-host/portability-audit.mjs": {
+      "sha256": "863fcde9f91deaa03a6a260facf50ab3cc99f7d9898578016bc26a685a08d6e7",
+      "bytes": 1909
+    },
+    "backend/db/shared-host/s11-disposable-pglite-smoke.mjs": {
+      "sha256": "a25d24ad6242e106b946c36ca0f7846846be9299e3ee22ae1f37076e8f35b57b",
+      "bytes": 4913
+    },
+    "backend/db/shared-host/s11-review-all.mjs": {
+      "sha256": "2f6c98ad173bffc9b22b902d309ac94512a91059f98f5d4f24d7b6f15be19313",
+      "bytes": 5652
+    },
+    "backend/db/shared-host/s12-review/README_S12.md": {
+      "sha256": "f5f05f728ca54f17af1269c98334ba8f33072933eae5a90f717ce92ad81a51ea",
+      "bytes": 6136
+    },
+    "backend/db/shared-host/s12-review/S12_MANIFEST.json": {
+      "sha256": "c084b2129efc8a06713a4b90a01efd3444a25e8d9336b7d3cb06486bce03ab6a",
+      "bytes": 6306
+    },
+    "backend/db/shared-host/s12-review/S12_RELEASE_GATE_NO_GO.json": {
+      "sha256": "8f0c5b334ed44dbcb9cd1e896d54d72dbb0015d7757fb1e485d3d784da6f8d59",
+      "bytes": 1606
+    },
+    "backend/db/shared-host/s12-review/diffs/006_learning_items.sql.diff": {
+      "sha256": "02800baeb40e61cc9e70f110c43021539cb7086b713389a247acf980f6e58aca",
+      "bytes": 642
+    },
+    "backend/db/shared-host/s12-review/diffs/007_learning_srs.sql.diff": {
+      "sha256": "830d6690165d2b93805dadf028114b2d5c0e87c7f60decf3ddac33edd8b19603",
+      "bytes": 469
+    },
+    "backend/db/shared-host/s12-review/diffs/008_commerce.sql.diff": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "backend/db/shared-host/s12-review/diffs/009_admin_governance.sql.diff": {
+      "sha256": "86bc188cdf43eec0801abce2bc514ed123e1d02ecd7b5b2cdffdd26fced3c28e",
+      "bytes": 1605
+    },
+    "backend/db/shared-host/s12-review/diffs/010_ops_platform.sql.diff": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "backend/db/shared-host/s12-review/diffs/011_triggers_integridade.sql.diff": {
+      "sha256": "c99c21009adc0ca97ee8bec0a21f4b7a11abe70b49b9a5f6038ea9d9731b05ba",
+      "bytes": 12519
+    },
+    "backend/db/shared-host/s12-review/diffs/012_srs_engine.sql.diff": {
+      "sha256": "767615dd8ff181b0d5ad9dbd6fd25fea9310eff3e09e0a7416a3a175411a9dbf",
+      "bytes": 5963
+    },
+    "backend/db/shared-host/s12-review/diffs/013_views.sql.diff": {
+      "sha256": "0607d7a5418193454d0416c7f7259b91c7a21178f96443d17049913925c0b801",
+      "bytes": 951
+    },
+    "backend/db/shared-host/s12-review/diffs/014_rls.sql.diff": {
+      "sha256": "1980e271455848fb8a461153deec9bf0e1c11bc93ba37fee2a63eca2d41a2cc2",
+      "bytes": 4344
+    },
+    "backend/db/shared-host/s12-review/diffs/017_privileges.sql.diff": {
+      "sha256": "335a67f44b84a6ad170c45d6a1a956311695277b628915852a65490117667bec",
+      "bytes": 2918
+    },
+    "backend/db/shared-host/s12-review/reviews/S12_REVIEW_ONLY_006_learning_items.sql.txt": {
+      "sha256": "052401e2cb6bd80b2bc2fc57cb731fa36c90907bfa3ff316b6d56f76fbcb7a3c",
+      "bytes": 11392
+    },
+    "backend/db/shared-host/s12-review/reviews/S12_REVIEW_ONLY_007_learning_srs.sql.txt": {
+      "sha256": "4703c9c4ec495a626c1d32a04872ed6e336f349972a6b43b950d30012b6d6344",
+      "bytes": 12864
+    },
+    "backend/db/shared-host/s12-review/reviews/S12_REVIEW_ONLY_008_commerce.sql.txt": {
+      "sha256": "f8e15bfbcc28b0fab44756e62363ae98cae33eebefd7708faf7d6b76cbe6055e",
+      "bytes": 6949
+    },
+    "backend/db/shared-host/s12-review/reviews/S12_REVIEW_ONLY_009_admin_governance.sql.txt": {
+      "sha256": "aabefc07d40c6578b437d7176fcb1704f49020eacccb298321b2003105c7daed",
+      "bytes": 12454
+    },
+    "backend/db/shared-host/s12-review/reviews/S12_REVIEW_ONLY_010_ops_platform.sql.txt": {
+      "sha256": "daa84a489175d95b6bfe3c4607492a0161bdc2ce137585a487115562f1105b77",
+      "bytes": 9357
+    },
+    "backend/db/shared-host/s12-review/reviews/S12_REVIEW_ONLY_011_triggers_integridade.sql.txt": {
+      "sha256": "c6c4d99cfbf6d40149839f014ebb3554b9e2bad7ee469efdf8b55b926abacde6",
+      "bytes": 19299
+    },
+    "backend/db/shared-host/s12-review/reviews/S12_REVIEW_ONLY_012_srs_engine.sql.txt": {
+      "sha256": "e1ce9c99accc5bed36f6e79088eb37a06b684d86dc1f2707051b2dfe960fa494",
+      "bytes": 13999
+    },
+    "backend/db/shared-host/s12-review/reviews/S12_REVIEW_ONLY_013_views.sql.txt": {
+      "sha256": "28ed54145ae5093ce2ae382b3fcbee34f594c3a67abf823ba3af47ea03617990",
+      "bytes": 9304
+    },
+    "backend/db/shared-host/s12-review/reviews/S12_REVIEW_ONLY_014_rls.sql.txt": {
+      "sha256": "933c45bf8c003e54df377bc0e1433e7db20c571492561c2c65c62323d112712e",
+      "bytes": 13605
+    },
+    "backend/db/shared-host/s12-review/reviews/S12_REVIEW_ONLY_017_privileges.sql.txt": {
+      "sha256": "22185b9c9906f5dbb154d680d150193ae8d6ab86a97bb2fda430dec1b41eacb1",
+      "bytes": 11999
+    },
+    "backend/db/shared-host/s12-review/s12_generate_candidates.py": {
+      "sha256": "595ed66f924332a4e9589e6dbecfec61d94f65cce12a58c4813f1fe3e271c8ba",
+      "bytes": 15912
+    },
+    "backend/db/shared-host/s12-review/test_s12_candidates.py": {
+      "sha256": "f3be917eb974a4b2cf3e968697ca93c680171148a25b9bf596fface6de43c906",
+      "bytes": 6776
+    },
+    "backend/db/shared-host/s13-isolated/README.md": {
+      "sha256": "ece19cc55eea1f21acf27153cf8b55dce25960af1099452cce87486947f0e7f5",
+      "bytes": 2011
+    },
+    "backend/db/shared-host/s13-isolated/S13_RELEASE_GATE_NO_GO.json": {
+      "sha256": "ade1e00abdfbcf95aa019eeb1808d47c210e933ce520bf40c977f2d59f0c15ad",
+      "bytes": 2079
+    },
+    "backend/db/shared-host/s13-isolated/assertions.sql": {
+      "sha256": "a953b15d8d5b4652756696fde457a8cf75de3c3eb96b444425a160a5ec57d4cc",
+      "bytes": 2991
+    },
+    "backend/db/shared-host/s13-isolated/assertions_two_users.sql": {
+      "sha256": "b92dc0b77e5a42f237ac6450c5ff47d37fbee0d0345d0c4c3fce8c0c2a3a45e6",
+      "bytes": 2027
+    },
+    "backend/db/shared-host/s13-isolated/prepare.py": {
+      "sha256": "347daf580c54be58929bf0b57ede05c776ebe984e5f52d1b941e21f1a4adbea5",
+      "bytes": 5855
+    },
+    "backend/db/shared-host/s13-isolated/run_disposable.sh": {
+      "sha256": "499f06ac9462be860a829b8070cdeb39dff1cc7a3eaf85934c025f45f82d1374",
+      "bytes": 2898
+    },
+    "backend/db/shared-host/s13-isolated/test_s13_preflight.py": {
+      "sha256": "05a8c0b560edacfc58d1d836ac2dc23e383030e84c12e7db62470e5686f1aeca",
+      "bytes": 4136
+    },
+    "backend/db/shared-host/s20-evidence/README.md": {
+      "sha256": "6b7611aaf50bcc1f5880ae7c8cd7fbd166b4d35af1ccc360f1b7ec90cf6ffa13",
+      "bytes": 1460
+    },
+    "backend/db/shared-host/s20-evidence/REPLAY.md": {
+      "sha256": "dd7a44ab18d25f9823d30aae92a070339f5b40ee594567d2ddbe0577051d69e8",
+      "bytes": 1128
+    },
+    "backend/db/shared-host/s20-evidence/S20_PG18_FIXTURE.sql": {
+      "sha256": "25e92b5ee996b8687b225cbce7d71c5e037c24fb0aaf060bd89ce304cb927255",
+      "bytes": 3652
+    },
+    "backend/db/shared-host/s20-evidence/S20_RELEASE_GATE_NO_GO.json": {
+      "sha256": "8e937f25c4d02e7e8d597cee36bb264f53e3591249dabc3e243840a7e72c0d8c",
+      "bytes": 1133
+    },
+    "backend/db/shared-host/s21-runtime/.gitignore": {
+      "sha256": "862263fa1f46c20f0d1e4dac5ffcc75abd55c08211b2c3864c5f8764b9d87793",
+      "bytes": 19
+    },
+    "backend/db/shared-host/s21-runtime/README_S21.md": {
+      "sha256": "d1bd68f3f34cab3b80c06c235d04fef1ecae3e76c4ac5ce5127d96b63ed02377",
+      "bytes": 2688
+    },
+    "backend/db/shared-host/s21-runtime/RUNBOOK_ISOLATED_PG17.md": {
+      "sha256": "18ee1c4d908171ecfa47d97f6c4503b36e63c8c47994ce694e7476499f1520fe",
+      "bytes": 2390
+    },
+    "backend/db/shared-host/s21-runtime/S21_BACKEND_CONTRACT_AUDIT.json": {
+      "sha256": "30fac2f6f578171b906edf83b3ff7b7ed9ae6f564dd74b1fc43e541c30c2017c",
+      "bytes": 6448
+    },
+    "backend/db/shared-host/s21-runtime/S21_IDENTITY_USAGE_CANDIDATE.sql.txt": {
+      "sha256": "f0b55f70a27a63cb0f1db00cdaaaa46bf602b25a5b9e646a8dbe19f26fd8afd1",
+      "bytes": 589
+    },
+    "backend/db/shared-host/s21-runtime/S21_PG17_RESULT.json": {
+      "sha256": "b045587a7d19420778c0e4c90eedca6430bd4cf14748b2d36afe4be8bec29505",
+      "bytes": 3844
+    },
+    "backend/db/shared-host/s21-runtime/S21_RELATORIO.md": {
+      "sha256": "9c04b97b7a460d970788937ff660ca469d366ff0c3dd778877afb6b85f010ce9",
+      "bytes": 3975
+    },
+    "backend/db/shared-host/s21-runtime/S21_RELEASE_GATE_NO_GO.json": {
+      "sha256": "b19dd277ab6c5d954f4d3d43a05ba7e173f0d0cba504cd384e56b968344116ee",
+      "bytes": 353
+    },
+    "backend/db/shared-host/s21-runtime/audit_contracts.py": {
+      "sha256": "6d96ea0a89ef5e30a38c073b48d4216bd84ec082c7d010686dc0411bc83a0afd",
+      "bytes": 3769
+    },
+    "backend/db/shared-host/s21-runtime/test_s21_contracts.py": {
+      "sha256": "904f7eaff31641e677b9e433e07c195e3ab8bdf05761af956f0ce788e63e25a2",
+      "bytes": 1859
+    },
+    "backend/db/shared-host/s22-contracts/S22_HARDENING_CANDIDATE.sql.txt": {
+      "sha256": "1f25ad440a0dafd7dcabf8220af907c15367319a8f8f57bc1f7fd1c4afd1eabe",
+      "bytes": 2675
+    },
+    "backend/db/shared-host/s22-contracts/S22_LOCAL_REGRESSION_RESULT.json": {
+      "sha256": "a9b77591cd62a207fce65874fb2fa4c37037f394d2fb4f9eb4c20d20e938b9f7",
+      "bytes": 1014
+    },
+    "backend/db/shared-host/s22-contracts/S22_MANIFESTO_SHA256.json": {
+      "sha256": "2319e4c587c383fea60b125b75c685eb007c29c66b4f83344dd1e57bcb0be786",
+      "bytes": 5851
+    },
+    "backend/db/shared-host/s22-contracts/S22_REAL_PG17_RESULT.json": {
+      "sha256": "9d03cdf79465d16fa98b2c67c6e95c0d145a4faf1f5279f5222f19339274d3fb",
+      "bytes": 3301
+    },
+    "backend/db/shared-host/s22-contracts/S22_RELEASE_GATE_NO_GO.json": {
+      "sha256": "251b2518f2c26d310fd1d4b23f8a25547464bc47515382debcc82146fc8c9231",
+      "bytes": 891
+    },
+    "backend/db/shared-host/s22-contracts/create_disposable_tar.py": {
+      "sha256": "bea2a9a06d47f1fda830bc79fdb225a10007134321840f6bc92c4a36038f8170",
+      "bytes": 3260
+    },
+    "backend/db/shared-host/s22-contracts/review_overlay.py": {
+      "sha256": "eb3120ed111ffaad98a831a48522ede338f3d7d6313814fb394fa6b21cc93efa",
+      "bytes": 4039
+    },
+    "backend/db/shared-host/s22-contracts/reviews/018_provas_gabarito.sql.txt": {
+      "sha256": "53a90facffd2f5d8ce4f88121f6d6ff509c79914d84a0655e631ac880ca15f37",
+      "bytes": 35913
+    },
+    "backend/db/shared-host/s22-contracts/reviews/019_tentativa_ingestao.sql.txt": {
+      "sha256": "790fb10f4d3a35b45fcb8a3e46ac4a8bdce6d1f01d919c31551a1d5652205dd0",
+      "bytes": 26326
+    },
+    "backend/db/shared-host/s22-contracts/reviews/020_tipo_conteudo_versao.sql.txt": {
+      "sha256": "fefa49920dc177307a9c083de84af48373c1a4deca51ef0a084616c2ad618b7b",
+      "bytes": 1973
+    },
+    "backend/db/shared-host/s22-contracts/reviews/021_letra_derivada.sql.txt": {
+      "sha256": "8628100fe6ad4b43477237648972250cf866353d7560ba2676f384a76a0f6427",
+      "bytes": 3932
+    },
+    "backend/db/shared-host/s22-contracts/reviews/022_prova_selada_letra_inteira.sql.txt": {
+      "sha256": "0c1e6839cbf58e94e0ff1a50aaa4a365c28a3f585152a3851ac8819c58c2fc89",
+      "bytes": 8286
+    },
+    "backend/db/shared-host/s22-contracts/reviews/023_tres_fechos_do_qa.sql.txt": {
+      "sha256": "3a6f77bccadce4108fa9d77cc7069b9dc21423cf6fd23601d54a1ac5c841ab9a",
+      "bytes": 19664
+    },
+    "backend/db/shared-host/s22-contracts/reviews/024_gabarito_imutavel_regua_fixa.sql.txt": {
+      "sha256": "764d5ae93764e3105702d6a215ab4be4e86854d8d26ac98e7de18cec3436cb3a",
+      "bytes": 7728
+    },
+    "backend/db/shared-host/s22-contracts/reviews/025_identity_usage.sql.txt": {
+      "sha256": "012a499f3a8417f739c7487b6d1925cfbc0f8fb88d0243618605c547eed6ca5d",
+      "bytes": 3355
+    },
+    "backend/db/shared-host/s22-contracts/reviews/026_staff_le_gabarito_default_zero.sql.txt": {
+      "sha256": "32cbe2f5bcf3d3cc28a54701dd018a2ec9f0c66a6b7df0e3b2564148a6299fbb",
+      "bytes": 7018
+    },
+    "backend/db/shared-host/s22-contracts/reviews/027_papel_de_sistema.sql.txt": {
+      "sha256": "34f7953b3f64031965cb311521502cb37904109a45952b6799ed674fd09da93e",
+      "bytes": 7740
+    },
+    "backend/db/shared-host/s22-contracts/reviews/028_preco_comercial.sql.txt": {
+      "sha256": "f8b5b73d880c615761dc5ba1a80419cf1753c286489c18bdaf8743570574b2da",
+      "bytes": 3169
+    },
+    "backend/db/shared-host/s22-contracts/reviews/029_papel_de_acesso.sql.txt": {
+      "sha256": "9250e5106b04be8e3aab54b2682060fa5dd76016fc17436e3d8051c31d9bad16",
+      "bytes": 3644
+    },
+    "backend/db/shared-host/s22-contracts/reviews/030_porta_da_prova.sql.txt": {
+      "sha256": "2586adce5b374bb598cddcb5b9586bebad91c6cbbcbcd34a7499560057e6cf47",
+      "bytes": 5082
+    },
+    "backend/db/shared-host/s22-contracts/run_local_gates.py": {
+      "sha256": "ee51b49061576a75b4922103599bee6b29173e7cb352f74b53e5dab6ba325901",
+      "bytes": 2343
+    },
+    "backend/db/shared-host/s22-contracts/s22_release_gate.py": {
+      "sha256": "b157dae9298d7d06185ba519eea780d9b11509f9bd3e75bbde805953bbeb72d1",
+      "bytes": 1269
+    },
+    "backend/db/shared-host/s22-contracts/test_s22_contracts.py": {
+      "sha256": "b641be1b4a8008e99662681241674f1b63e23a38a4b044128695a1bb9caf2104",
+      "bytes": 4982
+    },
+    "backend/db/shared-host/s22_contracts_create.py": {
+      "sha256": "f04cdb6bf1ee1134482e72aaba7d6e54d54d2ecf3f8ed2abbcb3cd50eb5e0366",
+      "bytes": 4351
+    },
+    "backend/db/shared-host/tests/isolation-gate.test.mjs": {
+      "sha256": "774788a8021ac19699a9a30cc57ab31d5001b7a950aa1370595604fbb89df7e5",
+      "bytes": 2455
+    },
+    "backend/db/shared-host/tests/s11-portability.test.mjs": {
+      "sha256": "1f036b2a8231d3b1c2c706aebd4e146f995847ec8dabeff26c15cd2deab86590",
+      "bytes": 1697
+    },
+    "backend/db/shared-host/tests/sql-port.test.mjs": {
+      "sha256": "b985c4d4d0910f8a5c9e875ad4b4777c13e26347ddbfd9703edd1e20f18b1567",
+      "bytes": 3452
+    },
+    "backend/docs/01-arquitetura.md": {
+      "sha256": "67a8dd590981a2d40c828736eb0d655551a23394836f9f8eb794f74183a30502",
+      "bytes": 5207
+    },
+    "backend/docs/02-metamodelo.md": {
+      "sha256": "024edd31bfe9b162700f3bb4ad07b8a7162d23533e2894c17d4fea4dcef5cb51",
+      "bytes": 7145
+    },
+    "backend/docs/03-erd.md": {
+      "sha256": "4c2967839ec66f746ee9fbbd727f1ebbf8ad5c72e2d8e6cbeaaeba046afa3971",
+      "bytes": 2126
+    },
+    "backend/docs/03-erd.mmd": {
+      "sha256": "b1e68bbd77ade5c772b2afd798b434b4681ec68457864a53cd18c32708bd95a2",
+      "bytes": 23418
+    },
+    "backend/docs/04-areas-acesso.md": {
+      "sha256": "74fa60b6f6bd6ed5de29b681f25750a4b1f5e7705a0a47d2096307fe15ffccf4",
+      "bytes": 7420
+    },
+    "backend/docs/05-srs.md": {
+      "sha256": "98ee55b0e435043cbe973ad722924b68091282e1674014f4fbac6e4cabdfac61",
+      "bytes": 5897
+    },
+    "backend/docs/06-lgpd.md": {
+      "sha256": "4aa6c63f45ba1f55a0e056d5ec9d2b9a930c6c78b43a2e726b8648aa68fae20f",
+      "bytes": 5820
+    },
+    "backend/docs/07-integridade.md": {
+      "sha256": "d87ab8786263ab5708f5694ff1bdc19863053c58a6ed9e3d5ae2d52429bafa80",
+      "bytes": 19378
+    },
+    "backend/docs/08-conexao-backend.md": {
+      "sha256": "55067c6e63dfcde30bde361bbdd3cceba89828a3bb907574d1ec06acd7c14fd6",
+      "bytes": 7939
+    },
+    "backend/docs/09-provas-gabarito.md": {
+      "sha256": "ec769d941393d5536db154dbc64c1a21852367bea60613fd7b3384176564941b",
+      "bytes": 11304
+    },
+    "backend/docs/10-area-comander-governanca.md": {
+      "sha256": "95191f51a1ab59ce61a4597bcfc9e14a0588474f3468819a3cfd8c6f481e9146",
+      "bytes": 9003
+    },
+    "backend/docs/adr/0001-schemas-por-dominio.md": {
+      "sha256": "d23717a926ab8aa65cc5583e140569dfb2d825effc4c3a41b51763df7160dc1b",
+      "bytes": 1331
+    },
+    "backend/docs/adr/0002-payload-can├┤nico.md": {
+      "sha256": "2496bb328c91bd761c6af389a560ea93b77b44315b44af9e7aa0f945da0b35a5",
+      "bytes": 1612
+    },
+    "backend/docs/adr/0003-verificacao-como-entidade.md": {
+      "sha256": "a06d5eb4abe95d601ebbedbf39719e833b73e756eced1f973221faa57d05d5b3",
+      "bytes": 1869
+    },
+    "backend/docs/adr/0004-transicoes-como-dado.md": {
+      "sha256": "9dfa229a7b5204c869157d05de958cc78bddde55831f3e48b5b5bddcd75b782f",
+      "bytes": 1407
+    },
+    "backend/docs/adr/0005-banco-como-fronteira.md": {
+      "sha256": "d51a891c630a16a2fdc738c3132b827103fd4fafb15bb6dca96babc965a3e50d",
+      "bytes": 1751
+    },
+    "backend/docs/adr/0006-auditoria-encadeada.md": {
+      "sha256": "5380a4e562dc8b441b8258993a713f5c040fe12d5548a1ce4f03e0702c52aae2",
+      "bytes": 1687
+    },
+    "backend/docs/adr/0007-pglite-para-desenvolvimento-e-teste.md": {
+      "sha256": "5cb4e6e358d40accefc293d3eae3a3e0727323d82e9f42fafd79737c49e5c1b0",
+      "bytes": 1828
+    },
+    "backend/docs/adr/0008-fabrica-canonica-de-modulos.md": {
+      "sha256": "89f06bafa26d0219d5b01e2c8265e1f932089ec445c47d0a10c4e42531b655b0",
+      "bytes": 5493
+    },
+    "backend/docs/adr/0009-caderno-erros-derivado.md": {
+      "sha256": "0d10c90db576efa047cd396fa64f10d36710dd0a5a773440f211087b14cb26c3",
+      "bytes": 1385
+    },
+    "backend/docs/adr/0010-s11-portabilidade-revisao-30-migrations.md": {
+      "sha256": "d055d2dcdaa079797cd6044c5236032d638f1726c5a08ee9584888e3b188e4a8",
+      "bytes": 2060
+    },
+    "backend/integrations/audit-educa/README.md": {
+      "sha256": "07cdfc67b6c50b4d6a3d5f44ebed06d3f516a704d0db92d3895d316f4043a7c8",
+      "bytes": 3534
+    },
+    "backend/integrations/audit-educa/contract.v1.json": {
+      "sha256": "0269c9233395fb2bef43f0e0f9be72a6d0da68303473d50e55a21e2ac03e6e5d",
+      "bytes": 9797
+    },
+    "backend/integrations/audit-educa/export-readonly.mjs": {
+      "sha256": "f6dd6c9411e9ff697ae51432bd2fd23692d9be00d44135dc0975accfd438a262",
+      "bytes": 3507
+    },
+    "backend/integrations/audit-educa/intake-candidates.mjs": {
+      "sha256": "dac87ca2840120c7b97a436220f6ce59c2e698f6815d0c649ef34f834a4d4b4f",
+      "bytes": 4130
+    },
+    "backend/integrations/audit-educa/map-candidates.mjs": {
+      "sha256": "b18a5fb596d5eb78ade4db63e48c4fc817aa844ed0323f5280d79815c89524d8",
+      "bytes": 2743
+    },
+    "backend/integrations/audit-educa/reconcile-regulatory.mjs": {
+      "sha256": "5b2a89890ed346b799287352deac5e128ddf44cbe7e867ddf46df8f412159811",
+      "bytes": 1439
+    },
+    "backend/integrations/canonical-corpus/README.md": {
+      "sha256": "2164786ff72485a6abc78b546df06181a3a053304b319bb38ec256e2575e9fd2",
+      "bytes": 5670
+    },
+    "backend/integrations/canonical-corpus/STORAGE-RECOVERY-V5.md": {
+      "sha256": "b7b8c939699257b506c75ecfa0cce87f449dea88fa9fb1d6af24e4ca77b698d1",
+      "bytes": 8465
+    },
+    "backend/integrations/canonical-corpus/archive.mjs": {
+      "sha256": "d04a34903ded272a216d0d9398ef88bcb8a28135822cdde91d8c7be554d1a256",
+      "bytes": 7445
+    },
+    "backend/integrations/canonical-corpus/export-storage-index.mjs": {
+      "sha256": "bf233b70d2e4089ca48a5accf6f3bf092511f3e726b0d2e891db24ca97a389ca",
+      "bytes": 6248
+    },
+    "backend/integrations/canonical-corpus/metadata-reconciliation.v6.sql": {
+      "sha256": "37d31408adb1806467b7d0643cb8142ec70cb63e95192477a1ff98103f285206",
+      "bytes": 2640
+    },
+    "backend/integrations/canonical-corpus/pilot-gate.mjs": {
+      "sha256": "9d8ffadfc398f92eee397191e92b5f7e4062aa6e5ff9e3f2e709082bf4f250be",
+      "bytes": 4382
+    },
+    "backend/integrations/canonical-corpus/readiness-cli.mjs": {
+      "sha256": "35d6e659bbf3e11d92ff31b1b75fc45bbf6b6f88ae6e4f5eebc093576c6ceff5",
+      "bytes": 972
+    },
+    "backend/integrations/canonical-corpus/readiness.mjs": {
+      "sha256": "cb5d0743098a9d18e7cbbc1e63843ee47ea46a0884c971db5b38befe6846fd8d",
+      "bytes": 5707
+    },
+    "backend/integrations/canonical-corpus/recover-storage-triad.mjs": {
+      "sha256": "6680106ed15856c162416987d0d8fbe2b9deb058a4e794b96501a8b5ee5eb6f3",
+      "bytes": 3014
+    },
+    "backend/integrations/canonical-corpus/review-batches.mjs": {
+      "sha256": "db6fd1dfe19e11c597107bb5bc4d7fcd0a5334287c3ee55eb09aff0bdb1b52e8",
+      "bytes": 7600
+    },
+    "backend/integrations/canonical-corpus/storage-triad.mjs": {
+      "sha256": "546166d0a33b866eae4aa4cdb49d536927145a06b6843e69c84e7939b04dc9fa",
+      "bytes": 7748
+    },
+    "backend/integrations/canonical-corpus/tests/milestone-real-corpus.test.mjs": {
+      "sha256": "bf3008ef016e54e1cc6fc41e393e2bd86f111e8416a636c7dcb805f22faa1252",
+      "bytes": 7424
+    },
+    "backend/integrations/canonical-corpus/tests/pilot-gate.test.mjs": {
+      "sha256": "252273fe126e68b085b2575dcbda4a13c217d90c809cff6cbc726e2053f909c3",
+      "bytes": 6791
+    },
+    "backend/integrations/canonical-corpus/tests/review-batches.test.mjs": {
+      "sha256": "424da4a9aedbc54e028d3a3099ce83ca8bf07b1c14f33f702caa6b59dd8a8144",
+      "bytes": 4043
+    },
+    "backend/integrations/canonical-corpus/tests/storage-triad.test.mjs": {
+      "sha256": "7ca20d278312e86cc33c6d3146caa99d0a41a1630ed0e9d8e5726f6f0310d4e4",
+      "bytes": 7445
+    },
+    "backend/integrations/canonical-knowledge/README.md": {
+      "sha256": "ea3034c407ed07e886a9e8870e7047c2545e1bbcb37c66873d9b95b71d6fa90d",
+      "bytes": 5079
+    },
+    "backend/integrations/canonical-knowledge/contract.v1.json": {
+      "sha256": "fcad17814a4de7122ca8c2f7c143951d17ddf0a11f438d98bb6ac273474599a8",
+      "bytes": 2024
+    },
+    "backend/integrations/canonical-knowledge/ddl/001_evidence_first_staging_only.sql": {
+      "sha256": "d95af17924795ca167287dc9bcd4efba61a47bbbae1c7892141da90bf317a93e",
+      "bytes": 9696
+    },
+    "backend/integrations/canonical-knowledge/engine.mjs": {
+      "sha256": "5ba0d29f89a291723d1df3fc9f720df1344d5d20eaf177077c2619de07de9149",
+      "bytes": 17445
+    },
+    "backend/integrations/canonical-knowledge/generate.mjs": {
+      "sha256": "d8d01b81c8dd2a3bf5b562981dba2bd95b3d5597b76c5eaef93593ebfd5f66b5",
+      "bytes": 1602
+    },
+    "backend/integrations/canonical-knowledge/generated/canonical.contracts.generated.json": {
+      "sha256": "7db4f880cd2cbadc209f35dfd2c9f38f31ebea4e2ae5a0ffcb1356fdecb11cc6",
+      "bytes": 67
+    },
+    "backend/integrations/canonical-knowledge/generated/canonical.dictionary.generated.csv": {
+      "sha256": "465b4d87a9fa3f870be242f8d39c48f91e9d65e248cd78e95b20a1bb9ada0e9b",
+      "bytes": 117
+    },
+    "backend/integrations/canonical-knowledge/generated/canonical.fields.generated.csv": {
+      "sha256": "69690da9abf7b60b8a92d0cc4483835f693bc737e169c124f5065ba903f3032e",
+      "bytes": 94
+    },
+    "backend/integrations/canonical-knowledge/generated/canonical.graph.generated.json": {
+      "sha256": "b4ec17122a71f3fe516d4da6bbdadd8b84e733efb9e7a726f3ebcf0ac808c0a7",
+      "bytes": 513
+    },
+    "backend/integrations/canonical-knowledge/generated/canonical.integrity.generated.json": {
+      "sha256": "52b7b742a4526e2d24afee52c2cb8a38f6364aadd0af7c62c9c96bd970313d04",
+      "bytes": 391
+    },
+    "backend/integrations/canonical-knowledge/generated/canonical.lineage.generated.mmd": {
+      "sha256": "87131fb0e0e524e527b50293ef650706a19210c7706c2a49bb12185a95a0d506",
+      "bytes": 353
+    },
+    "backend/integrations/canonical-knowledge/generated/canonical.report.generated.md": {
+      "sha256": "1db2a4f7f7d3e3d14610ffecc9fe2504a1ff495dd19c7bf265dffb86d01be89f",
+      "bytes": 551
+    },
+    "backend/integrations/canonical-knowledge/generated/canonical.types.generated.d.ts": {
+      "sha256": "0d15a1af5a4a92db3857371398dcadafec2ddc809097c4a9e8d668329408800e",
+      "bytes": 239
+    },
+    "backend/integrations/canonical-knowledge/generated/canonical.vocabulary.generated.json": {
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    "backend/integrations/canonical-knowledge/graph.v1.json": {
+      "sha256": "238110c9a5ef46b2ce370db7159a6b436f6e1fb27bee842fe8f8b7c17d187b22",
+      "bytes": 285
+    },
+    "backend/integrations/canonical-knowledge/tests/evidence-graph.test.mjs": {
+      "sha256": "5b4fbb99ed6b12bea2266f4d56060e4112d4d17830cf05497496a734679b194f",
+      "bytes": 9372
+    },
+    "backend/integrations/metadata-auto/README.md": {
+      "sha256": "71b207397d7fe9ff6ef16e74631fd7486280d6110a7433703e9a3f73611245ed",
+      "bytes": 6064
+    },
+    "backend/integrations/metadata-auto/ddl/001_canone_bridge_isolated_only.sql": {
+      "sha256": "f90d64edf703223fb882323d80e3f3994a75e3a46adb6249e82716167741dc95",
+      "bytes": 5112
+    },
+    "backend/integrations/metadata-auto/engine.mjs": {
+      "sha256": "776a93c6e8c8339549b74071b98a7a6ec551f7107141342c3f90c8ab35a94781",
+      "bytes": 11794
+    },
+    "backend/integrations/metadata-auto/generate.mjs": {
+      "sha256": "87e17a7baa73a3a2584919da6987da4fa1fb1c7cc6215f85107693de0efd055f",
+      "bytes": 8338
+    },
+    "backend/integrations/metadata-auto/generated/crosswalk.generated.json": {
+      "sha256": "c1c2cc4e7cae7fb85403d9a638ca8fcbbed08b70d8a19ec256a3d3885897bb61",
+      "bytes": 4848
+    },
+    "backend/integrations/metadata-auto/generated/dicionario-dados.csv": {
+      "sha256": "c2f9fc718cd9687567af199faeb13e53b455efd68fc5ea24262e7e5c960f520c",
+      "bytes": 11889
+    },
+    "backend/integrations/metadata-auto/generated/dicionario-dados.md": {
+      "sha256": "b288e110b1284c9dec923162dc30de0b69aabc83a4aeff0fea63ae6e7dc10c0c",
+      "bytes": 8951
+    },
+    "backend/integrations/metadata-auto/generated/integracao-crosswalk.mmd": {
+      "sha256": "9a000f7b9cb67548c72a0a779d25e88c7d18f43f469ae0130dc00a5703f2e0e8",
+      "bytes": 1907
+    },
+    "backend/integrations/metadata-auto/generated/integrity-gate.generated.json": {
+      "sha256": "787dfe517cab0cc065c6afc9ebaa1edc789485fe4ff12a130ed474b2e7161df8",
+      "bytes": 622
+    },
+    "backend/integrations/metadata-auto/generated/mapa-crosswalk.md": {
+      "sha256": "ee5b11ddd18a050adde1a0fc9609ff51d96bd67237c732ee7e24949154de73bb",
+      "bytes": 8490
+    },
+    "backend/integrations/metadata-auto/generated/metadata.generated.json": {
+      "sha256": "afcff20b7fe8f16dca88a89211e5c68c7ed6345685ee6c54bd0c7ec51a5c2fc8",
+      "bytes": 42523
+    },
+    "backend/integrations/metadata-auto/generated/metadata.types.generated.d.ts": {
+      "sha256": "89b7bf9ad1baf59cf3f5d3f7666455882f79ce15a0813eb567a6a1265b93920a",
+      "bytes": 4269
+    },
+    "backend/integrations/metadata-auto/generated/metamodel.generated.json": {
+      "sha256": "9172bf4bb09eadd80c1ea8d638bee34a5137ecc531274bb7beb83a5888d49576",
+      "bytes": 105906
+    },
+    "backend/integrations/metadata-auto/generated/relacionamentos.mmd": {
+      "sha256": "a0ebe06a489197eedf92ee819d04e5240dfcb383c751fcd60b13c5d656f74818",
+      "bytes": 5883
+    },
+    "backend/integrations/metadata-auto/graph-gate.mjs": {
+      "sha256": "d7fbd160d127c9e2ba9b25c0c1c21c57b3bcb2fed6e4f8e2c586134471c16727",
+      "bytes": 7503
+    },
+    "backend/integrations/metadata-auto/package.json": {
+      "sha256": "3a3aee6074ee432eac4dbe998d67caca9dd6075259176a2a96e011f10b669391",
+      "bytes": 377
+    },
+    "backend/integrations/metadata-auto/tests/graph-gate.test.mjs": {
+      "sha256": "216e661d245a41188846771f17a726afb58fadf0478bc74f3167431651fe3db8",
+      "bytes": 4150
+    },
+    "backend/integrations/metadata-auto/tests/metadata-auto.test.mjs": {
+      "sha256": "0ed973d3d3f2cabbd6c1c5796169674125fabdd9a36a8d304df719a5b203d900",
+      "bytes": 5658
+    },
+    "backend/integrations/senado-legislacao/README.md": {
+      "sha256": "36a3ceb17ce06280e454e26da69df63931f4a983f0b1aadee655c2e827ca046b",
+      "bytes": 9846
+    },
+    "backend/integrations/senado-legislacao/article-queue.mjs": {
+      "sha256": "55dc913785945927c9b7a9172c2fe101e54ddb61723028a36a34d7109840eeb1",
+      "bytes": 2699
+    },
+    "backend/integrations/senado-legislacao/catalog.v1.json": {
+      "sha256": "325550f529c528e8cbf34c9298f5f6a9479837d0a2961dc1a4356537072d2366",
+      "bytes": 5106
+    },
+    "backend/integrations/senado-legislacao/client.mjs": {
+      "sha256": "4b8ef88f8e0d22757df485006b5a17ec55f7d64ba8f0f732290585fab88766a4",
+      "bytes": 12882
+    },
+    "backend/integrations/senado-legislacao/fetch-readonly.mjs": {
+      "sha256": "e9f0ef989b77de051dcd0f7cf01c43ba16b721912be97033056d3bcf967d2d32",
+      "bytes": 1001
+    },
+    "backend/integrations/senado-legislacao/generated/article-review-queue.csv": {
+      "sha256": "650a7f8520b7af2123fb4f3a83bab3cf79a84fde3cf56b67745fe899f8477d9e",
+      "bytes": 6181
+    },
+    "backend/integrations/senado-legislacao/generated/source-backed-report.json": {
+      "sha256": "ba9c827b0024d74a06ae261c31bd8c805de11d9ac2972d1e0ab8a1d03514a015",
+      "bytes": 621
+    },
+    "backend/integrations/senado-legislacao/generated/source-backed-review.csv": {
+      "sha256": "8e4da580fc1997426dc405266fa66f8d47ae3ac23d5c0b98df0ed862215cc477",
+      "bytes": 9174
+    },
+    "backend/integrations/senado-legislacao/source-backed-review.mjs": {
+      "sha256": "66d6264d3c9a2d283f3aecfd1b2116fe298ad69ac89b0639172e3e3cfb429651",
+      "bytes": 8187
+    },
+    "backend/integrations/senado-legislacao/source-observations.v1.json": {
+      "sha256": "23a7d93ab1c1beb0e184aa08ae7b0f860b58078554479e7490091c0777f5d2e4",
+      "bytes": 3013
+    },
+    "backend/integrations/senado-legislacao/tests/senado-bridge.test.mjs": {
+      "sha256": "f90316bbdb80106a45f6befb8d0819a431ba3130414f76ef9cdc9baaaee5080a",
+      "bytes": 6222
+    },
+    "backend/integrations/senado-legislacao/tests/senado-v8-articles.test.mjs": {
+      "sha256": "7d5bacb31d0653a7ace2f6b34489d0b6ac4b33aa54e2ee308f12909371d98526",
+      "bytes": 1261
+    },
+    "backend/integrations/senado-legislacao/tests/senado-v8-provenance.test.mjs": {
+      "sha256": "c86bbba292f6f639c89cb0641c28ce61a79c483ed0f6e0e8def1a8805150fe15",
+      "bytes": 6703
+    },
+    "backend/integrations/senado-legislacao/tests/senado-v9-source-anchors.test.mjs": {
+      "sha256": "d0e199c52bfd345bb416fce163e5e346d01473531d9c158167280ae90c5edd61",
+      "bytes": 4817
+    },
+    "backend/package-lock.json": {
+      "sha256": "354128294057579c3cecf69540c385282003f163f06c2b6af2ef550f05230ca1",
+      "bytes": 18987
+    },
+    "backend/package.json": {
+      "sha256": "6807766f7a8530c14af90e8daeef8231a493c5ba50a55dd1faabe68634ea5718",
+      "bytes": 3699
+    },
+    "backend/scripts/gerar-contrato-comander.mjs": {
+      "sha256": "d5e1b50175e0804d40a143a02fe925a94238de58f369ae9af7ea4eaf1c878481",
+      "bytes": 4897
+    },
+    "backend/scripts/gerar-erd.mjs": {
+      "sha256": "31c70adb59d090792752b6a75ab7f537385d613da82f985cebd1ab000a31ed41",
+      "bytes": 8733
+    },
+    "backend/scripts/gerar-precos.mjs": {
+      "sha256": "09845e18881e6d14e112d77f526c430ee7180d2374087ccda116ce53942e6af9",
+      "bytes": 6028
+    },
+    "backend/scripts/migrate.mjs": {
+      "sha256": "1671a64d66caf2d148307c54310aaf521b1eb45734872ca6f515da921111f7af",
+      "bytes": 6127
+    },
+    "backend/scripts/prova-comander-e2e.mjs": {
+      "sha256": "c8cfebd9d0414380eceea638e67ab9f02a3700b3b147453fd3899393c26a1276",
+      "bytes": 9167
+    },
+    "backend/scripts/prova-forma-acervo.mjs": {
+      "sha256": "62d423844f3f70133201fa0389eba7250d69060ac9ec2b7ed267837e6d0c0971",
+      "bytes": 11094
+    },
+    "backend/scripts/subir-comander.mjs": {
+      "sha256": "6660159b204d01467b2116c59943c6e813f902334e811d6716a197cd146be4e9",
+      "bytes": 3359
+    },
+    "backend/src/areas/admin/comander.ts": {
+      "sha256": "a6b182408604a3e3d687733a5047a1a509673e263841c71230c8267409a8f76c",
+      "bytes": 22439
+    },
+    "backend/src/areas/admin/estado.ts": {
+      "sha256": "e27ab3b146bcccfc92c30cb02ecae14cf5e4be7137ba2484ed4288d2ab7169db",
+      "bytes": 4436
+    },
+    "backend/src/areas/admin/suporte.ts": {
+      "sha256": "c451b64a07601a17d715950b040d7079c9bd498c4ebe7e48096ebe249626755c",
+      "bytes": 6417
+    },
+    "backend/src/areas/auth/conta.ts": {
+      "sha256": "282c7de6279064236096abfcb7cd81f7a2b06be62fe84e1fdb1a9df68ceee0d7",
+      "bytes": 7413
+    },
+    "backend/src/areas/public/catalogo.ts": {
+      "sha256": "31bd5798d0288b2e44a2a3f1174953f882c40928fa9e7acf4122ed08d606ef83",
+      "bytes": 4649
+    },
+    "backend/src/areas/subscriber/progresso.ts": {
+      "sha256": "297ae4b70d7458ce49029234814fa7f525c88902fa2b5d69e2d5e57a3c862e56",
+      "bytes": 4019
+    },
+    "backend/src/areas/subscriber/provas.ts": {
+      "sha256": "c46875e1e7fc31c1f3446f36bc4bdd438ee495d76c63aac9eb575491ec207ca3",
+      "bytes": 4749
+    },
+    "backend/src/config/env.ts": {
+      "sha256": "7eccb253cf36af5819856d24634eafe289d49437128a29926fad38b26c1ad559",
+      "bytes": 2284
+    },
+    "backend/src/config/secrets.ts": {
+      "sha256": "70dd0233cd354b24b2e75361f656f3e97d248bf00c2c06feeb600a3e85dea047",
+      "bytes": 3884
+    },
+    "backend/src/db/driver.ts": {
+      "sha256": "a2f3478e845994cf32058ca9f27e062337bec7df68fe1457bc0117792679469d",
+      "bytes": 1701
+    },
+    "backend/src/db/index.ts": {
+      "sha256": "3001f1c566768f7e8b6fcb596e1907234d376b60c73b4798a9b7d6e83bff1215",
+      "bytes": 1095
+    },
+    "backend/src/db/pg-driver.ts": {
+      "sha256": "35c0e8efacf3ab532a5f5cb0d13ce233204720c7b2f61c58934d12a30292270e",
+      "bytes": 4897
+    },
+    "backend/src/db/pglite-driver.ts": {
+      "sha256": "116a8d3295a3fd5f7eac4c64a39562ec4b577fb9c4c077eb77fb75f901837f46",
+      "bytes": 3688
+    },
+    "backend/src/db/rls-context.ts": {
+      "sha256": "161ac07c2fcac41b4689fe7a4cd35a4b86e73c5beb8660f6659d4ab43618d8f8",
+      "bytes": 3824
+    },
+    "backend/src/db/roles.ts": {
+      "sha256": "8b5f572daa2573aeafbf28dd39dff0d7d63b2ce3c6b6dbab4c6f8d6c011a9dab",
+      "bytes": 1538
+    },
+    "backend/src/http/api.ts": {
+      "sha256": "bf781f2ec730a4b40b0133d6daba46149c572019118053a26cf64a03a8942360",
+      "bytes": 10240
+    },
+    "backend/src/http/server.ts": {
+      "sha256": "32a1186e1153f85c15dc81d8d8e69cc4ba565d3931d658a1a27de5cc20b4a8b4",
+      "bytes": 11144
+    },
+    "backend/src/index.ts": {
+      "sha256": "900a2b23a36eac14434ed7a19ee53518b13fa70747d7ea740180c4f59cafbaa9",
+      "bytes": 9192
+    },
+    "backend/tests/01-integridade-editorial.test.mjs": {
+      "sha256": "55c6d8baceb16d224d395a4beb105b8f7f3528bf8039aff1af2c6e9e5db74e4d",
+      "bytes": 11462
+    },
+    "backend/tests/02-srs.test.mjs": {
+      "sha256": "cff1b10ae5d3cdb9b2ca14f4cfe8bfb434a53f791ef57e163d94d5c163489843",
+      "bytes": 9231
+    },
+    "backend/tests/03-visao-usuario.test.mjs": {
+      "sha256": "d5731966e382d698c005860ab3cb96423048c6812dd7dc5932e8b1af90d07359",
+      "bytes": 9089
+    },
+    "backend/tests/04-rls.test.mjs": {
+      "sha256": "deaada53474de40f2b130402a785c7d7ecffbb1bbf8605d183bb8cfcc3ec2df7",
+      "bytes": 11632
+    },
+    "backend/tests/05-normas.test.mjs": {
+      "sha256": "8f188bbe4e2754edb8b152cee66ae905592ef427c392dde16984b40e6c8c8252",
+      "bytes": 6962
+    },
+    "backend/tests/06-auditoria.test.mjs": {
+      "sha256": "c25d4b24f6376351224a98d5e2afa2dc09d297ab8c9e03578ea6e6ea7c70ed90",
+      "bytes": 5586
+    },
+    "backend/tests/07-contratos.test.mjs": {
+      "sha256": "4795120e91fb5eaee48a11b62092d1d74a512c22204d3a47b82a4087c6a72062",
+      "bytes": 6332
+    },
+    "backend/tests/08-camada-conexao.test.mjs": {
+      "sha256": "26b1250f95f572bbffcfa173e0dda3886015f755543af6856e56738654390b95",
+      "bytes": 7515
+    },
+    "backend/tests/09-provas-gabarito.test.mjs": {
+      "sha256": "d58ad82a6114d020a2417c8a9990b0bb1cea18661fa349649009426706ae77ff",
+      "bytes": 25396
+    },
+    "backend/tests/10-tentativa-ingestao.test.mjs": {
+      "sha256": "1f89d054252f04ae5004886b44c1f596e6999bdaa1a58d3312c0c1c892c809dd",
+      "bytes": 21493
+    },
+    "backend/tests/11-comander.test.mjs": {
+      "sha256": "a5ebe43333fce5272301a69c8e897010b38f5caf9faa3fa3fbad17178a9ec050",
+      "bytes": 16691
+    },
+    "backend/tests/12-audit-educa-bridge.test.mjs": {
+      "sha256": "394bd2514f64cad4c931f04017ce0d3bf8e31e4d287b5058befe343b8e319a0d",
+      "bytes": 8543
+    },
+    "backend/tests/12-sistema.test.mjs": {
+      "sha256": "2b2e311f3b2fed34ced8abd4f7745c7b8884b3db7f04aba2f7276750166f815c",
+      "bytes": 8901
+    },
+    "backend/tests/13-preco.test.mjs": {
+      "sha256": "3d1902512c691693b724b91a7656ce8a457757cc1f7489346fbe5d5418b99ed6",
+      "bytes": 4277
+    },
+    "backend/tests/14-acesso-api.test.mjs": {
+      "sha256": "1999c423e6f716f7ca263ddaa1693d7f39921732bd959c4f4590bfa84e191330",
+      "bytes": 18647
+    },
+    "backend/tests/15-s9-entitlement-portal.test.mjs": {
+      "sha256": "def8eac1c91d10d64db1f83d7aabb53b13e504aeb6d91a3f118eb1d330033151",
+      "bytes": 4182
+    },
+    "backend/tests/16-s9-account-revocation.test.mjs": {
+      "sha256": "f8fca25d8fbd6f0e2d88addbeae58329f7d241cb11cc3c2dab0f0ed6290479ab",
+      "bytes": 1896
+    },
+    "backend/tests/17-s10-caderno-erros.test.mjs": {
+      "sha256": "302601d85a89a41a20554b3fb8a96602920b0ca6945485eee4a44a407397a503",
+      "bytes": 3649
+    },
+    "backend/tests/18-s20-context-hardening.test.mjs": {
+      "sha256": "1ff428ce51c06cfd877a47c92fb3a84df03f47590eb76a9dfd8ab9f518663fcf",
+      "bytes": 5129
+    },
+    "backend/tests/helpers.mjs": {
+      "sha256": "aedb45aa5a9369b844d590093353d27dc43b17cc1050f507edfbec8f3c2d9fdf",
+      "bytes": 12785
+    },
+    "backend/tests/s22-pg17-api-run.mjs": {
+      "sha256": "fdb59f11a3dbd75f7cd604297d693001fa0bd1b4cca8cb03d7f3f2f45bb5780e",
+      "bytes": 3210
+    },
+    "backend/tsconfig.json": {
+      "sha256": "d44db2916500c22f04577995713b252b3260482c7e026e15860c1a9e7bf11141",
+      "bytes": 467
+    },
+    "docs/BRANCH_STATUS.md": {
+      "sha256": "de0f94c16f26311d0bc44b0c92544cfee552cf78b8f94c75abcbf74be0aab117",
+      "bytes": 474
+    },
+    "docs/CONFRONTO_SUPABASE_GITHUB_VERCEL.md": {
+      "sha256": "ca5151ca2e72be9fea90e256209c57f5750d293ce9513166381bcd7c52fefc48",
+      "bytes": 3711
+    },
+    "docs/generated/canone-aceite-26-modulos.csv": {
+      "sha256": "f4d2bea3ce30dfcea7929842899412a43c4b6733268d1e8307d27d495f062e66",
+      "bytes": 42832
+    },
+    "docs/generated/canone-modulos-capacidades.csv": {
+      "sha256": "6bafdd2aa7e89ab3b6c02c3b634a4791c4d69880e8822cbe7e60589cbc5f41f0",
+      "bytes": 2961
+    },
+    "docs/generated/canone-motores-reutilizaveis.md": {
+      "sha256": "54dac8ff18cc2bbba6e80728ce9dbd50c5fbfc2c52763caf6041daca294c2f93",
+      "bytes": 1929
+    },
+    "tools/empacotar_s3.py": {
+      "sha256": "bcb98545392d9b8b9d516116d8d3f4c7f12db827acacf440c41e98ed61e9ce69",
+      "bytes": 2635
+    },
+    "tools/preflight_implantacao.py": {
+      "sha256": "1fc03bd80c3e0ac87d91d970b7b4462d4fb2dd98263af2d001b1ec2fe6a98b75",
+      "bytes": 5267
+    },
+    "tools/test_preflight_implantacao.py": {
+      "sha256": "9ebafeea564f233b26b75162b85d1623bf3b1f9aa66c5de7aee953e20790cdf9",
+      "bytes": 1568
+    },
+    "tools/test_preview_s2.py": {
+      "sha256": "db44a32671b6b4dedeef242f94e7ad8bc2d2aec3c3048a0f83005ef760327ba6",
+      "bytes": 1276
+    },
+    "tools/verificar_pacote.py": {
+      "sha256": "ab2be82edca1fe6f8049dd228bb20fa673c18b98e12deee75850c6f84b4af960",
+      "bytes": 764
+    }
+  },
+  "excluded_files": {
+    "backend/db/shared-host/s12-review/evidence/s11_regression_node.log": "may contain source corpus, provenance snapshots or logs",
+    "backend/db/shared-host/s12-review/evidence/test_run.log": "may contain source corpus, provenance snapshots or logs",
+    "backend/integrations/canonical-corpus/source-registry.v1.json": "may contain source corpus, provenance snapshots or logs",
+    "backend/integrations/metadata-auto/snapshots/supabase-audit-educa-observed.v1.json": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/METADADOS_E_SENADO_CHECK_2026-11-14.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/PATCH_REPLAY_2026-11-14.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/RECONCILIACAO_V9_PREFLIGHT_BLOQUEADO_2026-11-14.json": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/RECONCILIACAO_V9_TESTES_INTEGRADOS_2026-11-14.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/RECONCILIACAO_V9_UNIT_TESTS_2026-11-14.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/RELEASE_GATE_BLOQUEADO_2026-11-14.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S12_VERCEL_PREVIEW_QA_2026-11-14.json": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S2_CANONICAL_CHECK_2026-11-14.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S2_IMPLANTACAO_REMOTA_EVIDENCIA.json": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S2_MANIFESTO_FRONTEND_SHA256.json": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S2_METADATA_CHECK_2026-11-14.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S2_RELEASE_GATE_HOLD_2026-11-14.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S2_TESTES_INTEGRADOS_138_2026-11-14.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S3_HTTP_SMOKE_2026-11-14.json": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S4_CHECK_PREVIEW_SECURITY_2026-11-14.json": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S4_PREVIEW_HTTP_BUILD_SECURITY_2026-11-14.json": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S4_RELEASE_PREFLIGHT_BLOQUEADO_2026-11-14.json": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S4_TESTES_INTEGRACOES_138_2026-11-14.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S4_TESTES_SEGURANCA_9_2026-11-14.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S7_HTTP_SUPABASE_OBSERVADO_2026-11-14.json": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S7_OFFLINE_178_TESTES_2026-11-14.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S7_PREVIEW_SECURITY_2026-11-14.json": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S7_RELEASE_NO_GO_2026-11-14.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S7_SQL_PORT_CHECK_2026-11-14.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S8_VERCEL_HTTP_2026-11-14.json": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/S9_VERCEL_QA_PGLITE_2026-11-14.json": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/SUITE_COMPLETA_TENTADA_152_2026-11-14.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/SUITE_INTEGRACOES_138_2026-11-14.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/s5/S5_CANONICAL_NO_DRIFT.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/s5/S5_METADATA_NO_DRIFT.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/s5/S5_PREVIEW_GUARD.json": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/s5/S5_STRICT_RELEASE_EXPECTED_HOLD.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/s5/S5_TESTES_INTEGRADOS.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/s5/S5_TESTES_ISOLAMENTO.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/s5/S5_TESTES_PREVIEW.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/s6/S6_CATALOGO_CHECK.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/s6/S6_KNOWLEDGE_CHECK.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/s6/S6_METADATA_CHECK.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/s6/S6_RELEASE_HOLD.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/s6/S6_SHA256_FONTE_E_PROJECOES.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/evidencias/s6/S6_SUITE_159.txt": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/ADITIVO_INTEGRACAO_AUDIT_EDUCA_2026-11-13.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/CANONE_26_MODULOS_2026-11-13.csv": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/CANONE_BACKLOG_PMO_2026-11-13.csv": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/CANONE_PLANO_CONCLUSAO_2026-11-13.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_CANONIZACAO_ACERVO_REAL_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_METADADOS_AUTOMATICOS_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_S10_CADERNO_ERROS_VERSIONAMENTO_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_S11_PORTABILIDADE_30_MIGRATIONS_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_S12_PREVIEW_PROTEGIDA_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_S13_HOMOLOGACAO_ISOLADA_HOLD_RUNTIME_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_S14_FINANCIAL_PREVIEW_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_S22_COMPATIBILIDADE_PG17_2026-11-15.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_S2_IMPLANTACAO_RECONCILIADA_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_S2_PREVIEW_RESTRITA_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_S3_HTTP_SEGURANCA_GIT_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_S4_VITE6_AUDITORIA_LOCKFILE_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_S5_SUPABASE_COMPARTILHADO_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_S6_FABRICA_CANONICA_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_S7_PORTABILIDADE_JORNADA_CANONICA_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_S8_JORNADA_INTERATIVA_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_S9_BACKEND_ENTITLEMENT_SEGURANCA_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_V5_RECUPERACAO_E_TRIAGEM_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_V6_PILOTO_E_GATES_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_V7_API_SENADO_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_V8_SENADO_PROVENIENCIA_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/MARCO_V9_RECONCILIACAO_SENADO_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/PENDENCIAS_CONSOLIDADAS_V9_2026-11-14.csv": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/PENDENCIAS_CONSOLIDADAS_V9_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/RECONCILIACAO_IMPLANTACAO_V9_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/RELATORIO_TESTES_PACOTE_V9.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/REVISAO_CANONICA_NORMATIVA_EDITORIAL_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/S2_BACKLOG_IMPLANTACAO_2026-11-14.csv": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/S3_OPERACAO_DE_ENTREGA_E_CONTINUIDADE.md": "historical evidentiary, generated snapshot, or planning data",
+    "docs/pmo/SEGURANCA_E_ESCOPO_DO_PACOTE_V9.md": "historical evidentiary, generated snapshot, or planning data",
+    "extras/CANONE_V9_COMO_APLICAR_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "extras/CANONE_V9_SENADO_2026-11-14.patch": "historical evidentiary, generated snapshot, or planning data",
+    "extras/editorial-review/README_S7.md": "historical evidentiary, generated snapshot, or planning data",
+    "extras/editorial-review/questoes-s6-pendente.ts": "historical evidentiary, generated snapshot, or planning data",
+    "release/s19/README_S19_PREVIEW_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data",
+    "release/s19/S19_RELEASE_GATE_NO_GO.json": "historical evidentiary, generated snapshot, or planning data",
+    "release/s20/S20_EVIDENCIAS.json": "historical evidentiary, generated snapshot, or planning data",
+    "release/s20/S20_RELATORIO_TECNICO_2026-11-14.md": "historical evidentiary, generated snapshot, or planning data"
+  },
+  "chunk_count": 29,
+  "chunks": [
+    {
+      "filename": "canone_source_chunk_001.json",
+      "entries": 23,
+      "bytes": 109045
+    },
+    {
+      "filename": "canone_source_chunk_002.json",
+      "entries": 8,
+      "bytes": 113175
+    },
+    {
+      "filename": "canone_source_chunk_003.json",
+      "entries": 15,
+      "bytes": 116923
+    },
+    {
+      "filename": "canone_source_chunk_004.json",
+      "entries": 9,
+      "bytes": 95095
+    },
+    {
+      "filename": "canone_source_chunk_005.json",
+      "entries": 18,
+      "bytes": 117291
+    },
+    {
+      "filename": "canone_source_chunk_006.json",
+      "entries": 18,
+      "bytes": 118235
+    },
+    {
+      "filename": "canone_source_chunk_007.json",
+      "entries": 11,
+      "bytes": 118152
+    },
+    {
+      "filename": "canone_source_chunk_008.json",
+      "entries": 8,
+      "bytes": 114150
+    },
+    {
+      "filename": "canone_source_chunk_009.json",
+      "entries": 15,
+      "bytes": 113071
+    },
+    {
+      "filename": "canone_source_chunk_010.json",
+      "entries": 10,
+      "bytes": 117014
+    },
+    {
+      "filename": "canone_source_chunk_011.json",
+      "entries": 10,
+      "bytes": 114169
+    },
+    {
+      "filename": "canone_source_chunk_012.json",
+      "entries": 5,
+      "bytes": 92151
+    },
+    {
+      "filename": "canone_source_chunk_013.json",
+      "entries": 12,
+      "bytes": 106588
+    },
+    {
+      "filename": "canone_source_chunk_014.json",
+      "entries": 20,
+      "bytes": 117005
+    },
+    {
+      "filename": "canone_source_chunk_015.json",
+      "entries": 9,
+      "bytes": 116959
+    },
+    {
+      "filename": "canone_source_chunk_016.json",
+      "entries": 29,
+      "bytes": 91558
+    },
+    {
+      "filename": "canone_source_chunk_017.json",
+      "entries": 8,
+      "bytes": 111087
+    },
+    {
+      "filename": "canone_source_chunk_018.json",
+      "entries": 19,
+      "bytes": 110201
+    },
+    {
+      "filename": "canone_source_chunk_019.json",
+      "entries": 22,
+      "bytes": 113916
+    },
+    {
+      "filename": "canone_source_chunk_020.json",
+      "entries": 28,
+      "bytes": 116887
+    },
+    {
+      "filename": "canone_source_chunk_021.json",
+      "entries": 11,
+      "bytes": 82413
+    },
+    {
+      "filename": "canone_source_chunk_022.json",
+      "entries": 2,
+      "bytes": 51894
+    },
+    {
+      "filename": "canone_source_chunk_023.json",
+      "entries": 1,
+      "bytes": 121145
+    },
+    {
+      "filename": "canone_source_chunk_024.json",
+      "entries": 19,
+      "bytes": 106847
+    },
+    {
+      "filename": "canone_source_chunk_025.json",
+      "entries": 12,
+      "bytes": 111502
+    },
+    {
+      "filename": "canone_source_chunk_026.json",
+      "entries": 18,
+      "bytes": 109566
+    },
+    {
+      "filename": "canone_source_chunk_027.json",
+      "entries": 9,
+      "bytes": 113700
+    },
+    {
+      "filename": "canone_source_chunk_028.json",
+      "entries": 14,
+      "bytes": 116870
+    },
+    {
+      "filename": "canone_source_chunk_029.json",
+      "entries": 6,
+      "bytes": 14571
+    }
+  ],
+  "external_data_merged": false,
+  "licensing_review": "HOLD_RIGHTS"
+}
