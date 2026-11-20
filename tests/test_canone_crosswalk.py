@@ -57,7 +57,21 @@ class TestCanonicalCrosswalk(unittest.TestCase):
         canonical=(ROOT/mod.OUT).read_text(encoding='utf-8')
         self.assertEqual(canonical,json.dumps(self.c,ensure_ascii=False,sort_keys=True,indent=2)+'\n')
         self.assertEqual((ROOT/'docs/CROSSWALK_PADRAO_SUPABASE_0_23_0_ALPHA2.md').read_text(encoding='utf-8'),mod.render_md(self.c))
-    def test_08_version_and_release_gate(self):
+    def test_08_ninety_table_crosswalk_and_three_managed_auth_replacements(self):
+        tables=self.c['table_crosswalk']
+        self.assertEqual(len(tables),90)
+        self.assertEqual(len(set(x['source_table'] for x in tables)),90)
+        self.assertEqual(sum(x['create_in_canonical_db'] for x in tables),87)
+        self.assertEqual(self.c['supabase_auth_managed_replacements'],3)
+        targets={x['source_table']:x for x in tables}
+        self.assertEqual(targets['identity.account']['target'],'auth.users')
+        self.assertFalse(targets['identity.session']['create_in_canonical_db'])
+        self.assertFalse(targets['identity.magic_link']['create_in_canonical_db'])
+        self.assertEqual(targets['learning.session']['target'],'canone_learning.session')
+    def test_09_replace_all_43_legacy_account_fks(self):
+        self.assertEqual(self.c['auth_user_fk_replacements'],43)
+        self.assertEqual(sum(x['auth_users_fk_replacements_required'] for x in self.c['migrations']),43)
+    def test_10_version_and_release_gate(self):
         self.assertEqual(self.c['version'],'0.23.0-alpha.2')
         self.assertEqual(self.c['production_gate'],'NO_GO')
         self.assertEqual(self.c['ci_contract'],'map-all-30, sha-all-30, no-write, test security boundaries')
