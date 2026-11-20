@@ -185,7 +185,7 @@ jobs:
   pg17-alpha7-concurrency:
     name: PostgreSQL 17 — concurrent audit and sealing (ephemeral)
     runs-on: ubuntu-24.04
-    timeout-minutes: 12
+    timeout-minutes: 18
     permissions:
       contents: read
     services:
@@ -237,6 +237,21 @@ jobs:
           CANONE_CI_PG17_CONTAINER: ${{ job.services.pg17.id }}
           CANONE_CI_PG17_PORT: ${{ job.services.pg17.ports[5432] }}
         run: bash tests/pg17_ns03_http_real_pg.sh
+
+      - name: Install pinned Chromium for REAL F3 browser + PG17
+        run: |
+          python3 -m venv /tmp/canone-f3-py
+          /tmp/canone-f3-py/bin/python -m pip install --disable-pip-version-check playwright==1.57.0
+          /tmp/canone-f3-py/bin/python -m playwright install --with-deps chromium
+      - name: Real F3 browser -> gateway -> PG17 (synthetic Auth and sample form)
+        env:
+          CANONE_CI_PG17_ONLY: "yes"
+          CANONE_SYNTHETIC_TEST_ONLY: "1"
+          CANONE_CI_PG17_CONTAINER: ${{ job.services.pg17.id }}
+          CANONE_CI_PG17_PORT: ${{ job.services.pg17.ports[5432] }}
+        run: |
+          npm ci --prefix source-s22/app --ignore-scripts --no-audit --no-fund
+          bash tests/pg17_f3_react_browser.sh
 
   ns04-browser-local:
     name: NS-04 Chromium desktop/mobile — local synthetic frontend (NO-GO)
