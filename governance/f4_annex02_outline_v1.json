@@ -1,0 +1,2503 @@
+{
+  "schema_version": "CANONE_F4_04_ANNEX_OUTLINE_V1",
+  "project": "auditeduca/canone",
+  "date": "2026-11-20",
+  "release_gate": "NO_GO",
+  "parent_sufficiency": "governance/f4_official_source_curriculum_v1.json",
+  "parent_eqt": "governance/f4_eqt_modalities_2026_2_v1.json",
+  "rights_registry": "governance/editorial_rights_registry_v1.json",
+  "granularity": "LETTER_GROUPS_SUFFICIENCY_AND_CANDIDATE_TOPIC_CLUSTERS_EQT_NOT_FULL_PARAGRAPH_ATOMIZATION",
+  "no_reproduction": "Short original metadata paraphrases only; no source paragraphs, licensed questions or official normative text.",
+  "sources": [
+    {
+      "edition": "CFC-SUF-2026.3",
+      "url": "https://conhecimento.fgv.br/sites/default/files/concursos/cfc-edital-2026.3-05.10.2026.pdf",
+      "annex": "II",
+      "pdf_pages": [
+        22,
+        30
+      ],
+      "norm_cutoff": "2026-09-14",
+      "cutoff_basis": "EXAM_MINUS_90_DAYS"
+    },
+    {
+      "edition": "EQT-2026.2",
+      "url": "https://conhecimento.fgv.br/sites/default/files/concursos/cfc-eqt-edital-2026.2-12.08.2026.pdf",
+      "annex": "II",
+      "pdf_pages": [
+        24,
+        33
+      ],
+      "publication_original": "2026-07-13",
+      "corrected_notice": "2026-08-12",
+      "cutoff_basis": "NOTICE_PUBLICATION_WITH_RETIFICATION_REVIEW_HOLD"
+    }
+  ],
+  "sufficiency": [
+    {
+      "section": 1,
+      "area_id": "CFC-A07",
+      "pdf_page_range": [
+        22,
+        23
+      ],
+      "source_locator": "ANEXO_II/1",
+      "normative_candidates": [
+        "NBC TG EC",
+        "NBC TG 03",
+        "NBC TG 16",
+        "NBC TG 27",
+        "NBC TG 36",
+        "NBC TG 47",
+        "NBC TG 48",
+        "Lei 6.404/1976"
+      ],
+      "extraction_level": "LETTER_GROUPS_NOT_PARAGRAPHS",
+      "source_label_anomaly": null,
+      "groups": [
+        {
+          "id": "F4-SUF26-3-01-01",
+          "source_label": "A",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/1/A#1",
+          "label_paraphrase": "Patrimônio e conceitos",
+          "source_pages": [
+            22,
+            23
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-02",
+          "source_label": "B",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/1/B#1",
+          "label_paraphrase": "Escrituração e contas",
+          "source_pages": [
+            22,
+            23
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-03",
+          "source_label": "C",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/1/C#1",
+          "label_paraphrase": "Mensuração e reconhecimento",
+          "source_pages": [
+            22,
+            23
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-04",
+          "source_label": "D",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/1/D#1",
+          "label_paraphrase": "Operações e tributos",
+          "source_pages": [
+            22,
+            23
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-05",
+          "source_label": "E",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/1/E#1",
+          "label_paraphrase": "Balanço",
+          "source_pages": [
+            22,
+            23
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-06",
+          "source_label": "F",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/1/F#1",
+          "label_paraphrase": "DRE e resultado abrangente",
+          "source_pages": [
+            22,
+            23
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-07",
+          "source_label": "G",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/1/G#1",
+          "label_paraphrase": "DMPL e DLPA",
+          "source_pages": [
+            22,
+            23
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-08",
+          "source_label": "H",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/1/H#1",
+          "label_paraphrase": "Fluxos de caixa",
+          "source_pages": [
+            22,
+            23
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-09",
+          "source_label": "I",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/1/I#1",
+          "label_paraphrase": "DVA",
+          "source_pages": [
+            22,
+            23
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-10",
+          "source_label": "J",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/1/J#1",
+          "label_paraphrase": "Notas explicativas",
+          "source_pages": [
+            22,
+            23
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-11",
+          "source_label": "K",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/1/K#1",
+          "label_paraphrase": "Consolidação",
+          "source_pages": [
+            22,
+            23
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-12",
+          "source_label": "L",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/1/L#1",
+          "label_paraphrase": "Legislação societária",
+          "source_pages": [
+            22,
+            23
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "section": 2,
+      "area_id": "CFC-A08",
+      "pdf_page_range": [
+        23,
+        23
+      ],
+      "source_locator": "ANEXO_II/2",
+      "normative_candidates": [
+        "NBC TG 16"
+      ],
+      "extraction_level": "LETTER_GROUPS_NOT_PARAGRAPHS",
+      "source_label_anomaly": null,
+      "groups": [
+        {
+          "id": "F4-SUF26-3-02-01",
+          "source_label": "A",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/2/A#1",
+          "label_paraphrase": "Conceitos de custos",
+          "source_pages": [
+            23,
+            23
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-02-02",
+          "source_label": "B",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/2/B#1",
+          "label_paraphrase": "Classificações",
+          "source_pages": [
+            23,
+            23
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-02-03",
+          "source_label": "C",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/2/C#1",
+          "label_paraphrase": "Apuração e rateio",
+          "source_pages": [
+            23,
+            23
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-02-04",
+          "source_label": "D",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/2/D#1",
+          "label_paraphrase": "Métodos de custeio",
+          "source_pages": [
+            23,
+            23
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-02-05",
+          "source_label": "E",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/2/E#1",
+          "label_paraphrase": "Sistemas de acumulação",
+          "source_pages": [
+            23,
+            23
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-02-06",
+          "source_label": "F",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/2/F#1",
+          "label_paraphrase": "Custo padrão e controle",
+          "source_pages": [
+            23,
+            23
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "section": 3,
+      "area_id": "CFC-A10",
+      "pdf_page_range": [
+        23,
+        25
+      ],
+      "source_locator": "ANEXO_II/3",
+      "normative_candidates": [
+        "NBC TSP EC",
+        "MCASP 11",
+        "Lei 4.320/1964",
+        "LC 101/2000"
+      ],
+      "extraction_level": "LETTER_GROUPS_NOT_PARAGRAPHS",
+      "source_label_anomaly": "DUPLICATE_M_N_PRESERVED",
+      "groups": [
+        {
+          "id": "F4-SUF26-3-03-01",
+          "source_label": "A",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/3/A#1",
+          "label_paraphrase": "Estrutura pública",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-02",
+          "source_label": "B",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/3/B#1",
+          "label_paraphrase": "Caixa",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-03",
+          "source_label": "C",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/3/C#1",
+          "label_paraphrase": "Estoques",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-04",
+          "source_label": "D",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/3/D#1",
+          "label_paraphrase": "Ativos biológicos",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-05",
+          "source_label": "E",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/3/E#1",
+          "label_paraphrase": "Propriedades de investimento",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-06",
+          "source_label": "F",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/3/F#1",
+          "label_paraphrase": "Participações societárias",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-07",
+          "source_label": "G",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/3/G#1",
+          "label_paraphrase": "Imobilizado e intangível",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-08",
+          "source_label": "H",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/3/H#1",
+          "label_paraphrase": "Receita sem contraprestação",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-09",
+          "source_label": "I",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/3/I#1",
+          "label_paraphrase": "Receita com contraprestação",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-10",
+          "source_label": "J",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/3/J#1",
+          "label_paraphrase": "Recuperabilidade",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-11",
+          "source_label": "K",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/3/K#1",
+          "label_paraphrase": "Provisões e contingências",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-12",
+          "source_label": "L",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/3/L#1",
+          "label_paraphrase": "Concessões",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-13",
+          "source_label": "M",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/3/M#1",
+          "label_paraphrase": "Mensuração",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-14",
+          "source_label": "N",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/3/N#1",
+          "label_paraphrase": "Arrendamentos",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-15",
+          "source_label": "M",
+          "source_occurrence": 2,
+          "source_locator": "ANEXO_II/3/M#2",
+          "label_paraphrase": "PCASP",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-16",
+          "source_label": "N",
+          "source_occurrence": 2,
+          "source_locator": "ANEXO_II/3/N#2",
+          "label_paraphrase": "Orçamento público",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-17",
+          "source_label": "O",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/3/O#1",
+          "label_paraphrase": "Patrimônio público",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-18",
+          "source_label": "P",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/3/P#1",
+          "label_paraphrase": "Operações específicas",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-19",
+          "source_label": "Q",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/3/Q#1",
+          "label_paraphrase": "Demonstrações públicas",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-03-20",
+          "source_label": "R",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/3/R#1",
+          "label_paraphrase": "Legislação e MCASP",
+          "source_pages": [
+            23,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "section": 4,
+      "area_id": "CFC-A09",
+      "pdf_page_range": [
+        25,
+        25
+      ],
+      "source_locator": "ANEXO_II/4",
+      "normative_candidates": [],
+      "extraction_level": "LETTER_GROUPS_NOT_PARAGRAPHS",
+      "source_label_anomaly": null,
+      "groups": [
+        {
+          "id": "F4-SUF26-3-04-01",
+          "source_label": "A",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/4/A#1",
+          "label_paraphrase": "Custos para decisões",
+          "source_pages": [
+            25,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-04-02",
+          "source_label": "B",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/4/B#1",
+          "label_paraphrase": "Controle de custos",
+          "source_pages": [
+            25,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-04-03",
+          "source_label": "C",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/4/C#1",
+          "label_paraphrase": "Indicadores financeiros",
+          "source_pages": [
+            25,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "section": 5,
+      "area_id": "CFC-A11",
+      "pdf_page_range": [
+        25,
+        25
+      ],
+      "source_locator": "ANEXO_II/5",
+      "normative_candidates": [],
+      "extraction_level": "LETTER_GROUPS_NOT_PARAGRAPHS",
+      "source_label_anomaly": null,
+      "groups": [
+        {
+          "id": "F4-SUF26-3-05-01",
+          "source_label": "A",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/5/A#1",
+          "label_paraphrase": "Papel do controller",
+          "source_pages": [
+            25,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-05-02",
+          "source_label": "B",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/5/B#1",
+          "label_paraphrase": "Planejamento e orçamento",
+          "source_pages": [
+            25,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-05-03",
+          "source_label": "C",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/5/C#1",
+          "label_paraphrase": "Governança decisória",
+          "source_pages": [
+            25,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-05-04",
+          "source_label": "D",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/5/D#1",
+          "label_paraphrase": "Gestão do desempenho",
+          "source_pages": [
+            25,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-05-05",
+          "source_label": "E",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/5/E#1",
+          "label_paraphrase": "Sistemas de informação",
+          "source_pages": [
+            25,
+            25
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "section": 6,
+      "area_id": "CFC-A03",
+      "pdf_page_range": [
+        25,
+        27
+      ],
+      "source_locator": "ANEXO_II/6",
+      "normative_candidates": [
+        "Lei 6.404/1976",
+        "Lei 5.172/1966",
+        "LC 214/2025"
+      ],
+      "extraction_level": "LETTER_GROUPS_NOT_PARAGRAPHS",
+      "source_label_anomaly": null,
+      "groups": [
+        {
+          "id": "F4-SUF26-3-06-01",
+          "source_label": "A",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/6/A#1",
+          "label_paraphrase": "Direito público e privado",
+          "source_pages": [
+            25,
+            27
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-06-02",
+          "source_label": "B",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/6/B#1",
+          "label_paraphrase": "Direito do trabalho",
+          "source_pages": [
+            25,
+            27
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-06-03",
+          "source_label": "C",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/6/C#1",
+          "label_paraphrase": "Direito societário",
+          "source_pages": [
+            25,
+            27
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-06-04",
+          "source_label": "D",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/6/D#1",
+          "label_paraphrase": "Tributação e reforma",
+          "source_pages": [
+            25,
+            27
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "section": 7,
+      "area_id": "CFC-A02",
+      "pdf_page_range": [
+        27,
+        27
+      ],
+      "source_locator": "ANEXO_II/7",
+      "normative_candidates": [],
+      "extraction_level": "LETTER_GROUPS_NOT_PARAGRAPHS",
+      "source_label_anomaly": null,
+      "groups": [
+        {
+          "id": "F4-SUF26-3-07-01",
+          "source_label": "A",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/7/A#1",
+          "label_paraphrase": "Juros e amortização",
+          "source_pages": [
+            27,
+            27
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-07-02",
+          "source_label": "B",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/7/B#1",
+          "label_paraphrase": "Índices e inflação",
+          "source_pages": [
+            27,
+            27
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-07-03",
+          "source_label": "C",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/7/C#1",
+          "label_paraphrase": "Avaliação de investimentos",
+          "source_pages": [
+            27,
+            27
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-07-04",
+          "source_label": "D",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/7/D#1",
+          "label_paraphrase": "Métodos estatísticos",
+          "source_pages": [
+            27,
+            27
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-07-05",
+          "source_label": "E",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/7/E#1",
+          "label_paraphrase": "Estatística aplicada",
+          "source_pages": [
+            27,
+            27
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "section": 8,
+      "area_id": "CFC-A05",
+      "pdf_page_range": [
+        27,
+        27
+      ],
+      "source_locator": "ANEXO_II/8",
+      "normative_candidates": [
+        "NBC TG EC"
+      ],
+      "extraction_level": "LETTER_GROUPS_NOT_PARAGRAPHS",
+      "source_label_anomaly": null,
+      "groups": [
+        {
+          "id": "F4-SUF26-3-08-01",
+          "source_label": "A",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/8/A#1",
+          "label_paraphrase": "Estrutura conceitual",
+          "source_pages": [
+            27,
+            27
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-08-02",
+          "source_label": "B",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/8/B#1",
+          "label_paraphrase": "Elementos de relatório",
+          "source_pages": [
+            27,
+            27
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "section": 9,
+      "area_id": "CFC-A04",
+      "pdf_page_range": [
+        27,
+        28
+      ],
+      "source_locator": "ANEXO_II/9",
+      "normative_candidates": [
+        "NBC PG 01",
+        "NBC PA 400",
+        "NBC PO 900",
+        "DL 9.295/1946"
+      ],
+      "extraction_level": "LETTER_GROUPS_NOT_PARAGRAPHS",
+      "source_label_anomaly": null,
+      "groups": [
+        {
+          "id": "F4-SUF26-3-09-01",
+          "source_label": "A",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/9/A#1",
+          "label_paraphrase": "Fundamentos éticos",
+          "source_pages": [
+            27,
+            28
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-09-02",
+          "source_label": "B",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/9/B#1",
+          "label_paraphrase": "Códigos profissionais",
+          "source_pages": [
+            27,
+            28
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-09-03",
+          "source_label": "C",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/9/C#1",
+          "label_paraphrase": "Organização profissional",
+          "source_pages": [
+            27,
+            28
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "section": 10,
+      "area_id": "CFC-A06",
+      "pdf_page_range": [
+        28,
+        28
+      ],
+      "source_locator": "ANEXO_II/10",
+      "normative_candidates": [
+        "NBC TDS 01",
+        "NBC TDS 02",
+        "Resolução CFC 1.328/2011"
+      ],
+      "extraction_level": "LETTER_GROUPS_NOT_PARAGRAPHS",
+      "source_label_anomaly": null,
+      "groups": [
+        {
+          "id": "F4-SUF26-3-10-01",
+          "source_label": "A",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/10/A#1",
+          "label_paraphrase": "Estrutura das NBC",
+          "source_pages": [
+            28,
+            28
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-10-02",
+          "source_label": "B",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/10/B#1",
+          "label_paraphrase": "Famílias NBC e CFC",
+          "source_pages": [
+            28,
+            28
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-10-03",
+          "source_label": "C",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/10/C#1",
+          "label_paraphrase": "Sustentabilidade e clima",
+          "source_pages": [
+            28,
+            28
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "section": 11,
+      "area_id": "CFC-A12",
+      "pdf_page_range": [
+        28,
+        30
+      ],
+      "source_locator": "ANEXO_II/11",
+      "normative_candidates": [
+        "NBC TA 200",
+        "NBC TA 240",
+        "NBC TA 260",
+        "NBC TA 300",
+        "NBC TA 315",
+        "NBC TA 520",
+        "NBC TA 700",
+        "NBC TA 705",
+        "NBC TA 706",
+        "NBC TAS 5000"
+      ],
+      "extraction_level": "LETTER_GROUPS_NOT_PARAGRAPHS",
+      "source_label_anomaly": null,
+      "groups": [
+        {
+          "id": "F4-SUF26-3-11-01",
+          "source_label": "A",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/11/A#1",
+          "label_paraphrase": "Fundamentos da auditoria",
+          "source_pages": [
+            28,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-02",
+          "source_label": "B",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/11/B#1",
+          "label_paraphrase": "Estrutura de asseguração",
+          "source_pages": [
+            28,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-03",
+          "source_label": "C",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/11/C#1",
+          "label_paraphrase": "Ceticismo e objetivos",
+          "source_pages": [
+            28,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-04",
+          "source_label": "D",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/11/D#1",
+          "label_paraphrase": "Fraude",
+          "source_pages": [
+            28,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-05",
+          "source_label": "E",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/11/E#1",
+          "label_paraphrase": "Planejamento",
+          "source_pages": [
+            28,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-06",
+          "source_label": "F",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/11/F#1",
+          "label_paraphrase": "Avaliação de riscos",
+          "source_pages": [
+            28,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-07",
+          "source_label": "G",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/11/G#1",
+          "label_paraphrase": "Procedimentos analíticos",
+          "source_pages": [
+            28,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-08",
+          "source_label": "H",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/11/H#1",
+          "label_paraphrase": "Formação da opinião",
+          "source_pages": [
+            28,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-09",
+          "source_label": "I",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/11/I#1",
+          "label_paraphrase": "Opinião modificada",
+          "source_pages": [
+            28,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-10",
+          "source_label": "J",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/11/J#1",
+          "label_paraphrase": "Ênfase e outros assuntos",
+          "source_pages": [
+            28,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-11-11",
+          "source_label": "K",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/11/K#1",
+          "label_paraphrase": "Outras normas auditoria",
+          "source_pages": [
+            28,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "section": 12,
+      "area_id": "CFC-A13",
+      "pdf_page_range": [
+        30,
+        30
+      ],
+      "source_locator": "ANEXO_II/12",
+      "normative_candidates": [
+        "NBC PP 01",
+        "NBC TP 01",
+        "ITP 01"
+      ],
+      "extraction_level": "LETTER_GROUPS_NOT_PARAGRAPHS",
+      "source_label_anomaly": null,
+      "groups": [
+        {
+          "id": "F4-SUF26-3-12-01",
+          "source_label": "A",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/12/A#1",
+          "label_paraphrase": "Conceitos de perícia",
+          "source_pages": [
+            30,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-12-02",
+          "source_label": "B",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/12/B#1",
+          "label_paraphrase": "Diligências e laudos",
+          "source_pages": [
+            30,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-12-03",
+          "source_label": "C",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/12/C#1",
+          "label_paraphrase": "Atuação do perito",
+          "source_pages": [
+            30,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-12-04",
+          "source_label": "D",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/12/D#1",
+          "label_paraphrase": "Litígios e cálculos",
+          "source_pages": [
+            30,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-12-05",
+          "source_label": "E",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/12/E#1",
+          "label_paraphrase": "Normas de perícia",
+          "source_pages": [
+            30,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "section": 13,
+      "area_id": "CFC-A01",
+      "pdf_page_range": [
+        30,
+        30
+      ],
+      "source_locator": "ANEXO_II/13",
+      "normative_candidates": [
+        "DL 6.583/2008"
+      ],
+      "extraction_level": "LETTER_GROUPS_NOT_PARAGRAPHS",
+      "source_label_anomaly": null,
+      "groups": [
+        {
+          "id": "F4-SUF26-3-13-01",
+          "source_label": "A",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/13/A#1",
+          "label_paraphrase": "Fundamentos de português",
+          "source_pages": [
+            30,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-13-02",
+          "source_label": "B",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/13/B#1",
+          "label_paraphrase": "Comunicação e leitura",
+          "source_pages": [
+            30,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-13-03",
+          "source_label": "C",
+          "source_occurrence": 1,
+          "source_locator": "ANEXO_II/13/C#1",
+          "label_paraphrase": "Ortografia oficial",
+          "source_pages": [
+            30,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "REFERENCE_ONLY",
+          "approved_lessons": 0,
+          "approved_questions": 0
+        }
+      ]
+    }
+  ],
+  "eqt_outline": [
+    {
+      "track_id": "CFC-EQT-QTG",
+      "annex_section": "I",
+      "source_pages": [
+        24,
+        26
+      ],
+      "extraction_level": "CANDIDATE_CLUSTERS_NOT_ALL_NORM_CLAUSES",
+      "candidate_norms": [
+        "NBC PG 01",
+        "NBC PA 01",
+        "NBC TA 200",
+        "NBC TA 240"
+      ],
+      "clusters": [
+        {
+          "id": "F4-EQT26-2-I-01",
+          "source_locator": "ANEXO_II/I",
+          "topic_paraphrase": "Ética e profissão",
+          "source_pages": [
+            24,
+            26
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-I-02",
+          "source_locator": "ANEXO_II/I",
+          "topic_paraphrase": "Gestão da qualidade",
+          "source_pages": [
+            24,
+            26
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-I-03",
+          "source_locator": "ANEXO_II/I",
+          "topic_paraphrase": "Auditoria independente",
+          "source_pages": [
+            24,
+            26
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-I-04",
+          "source_locator": "ANEXO_II/I",
+          "topic_paraphrase": "Revisão e asseguração",
+          "source_pages": [
+            24,
+            26
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-I-05",
+          "source_locator": "ANEXO_II/I",
+          "topic_paraphrase": "Relatórios e normas societárias",
+          "source_pages": [
+            24,
+            26
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "track_id": "CFC-EQT-CVM",
+      "annex_section": "II",
+      "source_pages": [
+        26,
+        27
+      ],
+      "extraction_level": "CANDIDATE_CLUSTERS_NOT_ALL_NORM_CLAUSES",
+      "candidate_norms": [
+        "NBC PA 400",
+        "NBC TA 701",
+        "Lei 6.404/1976"
+      ],
+      "clusters": [
+        {
+          "id": "F4-EQT26-2-II-01",
+          "source_locator": "ANEXO_II/II",
+          "topic_paraphrase": "Ética e independência",
+          "source_pages": [
+            26,
+            27
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-II-02",
+          "source_locator": "ANEXO_II/II",
+          "topic_paraphrase": "Mercado de capitais",
+          "source_pages": [
+            26,
+            27
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-II-03",
+          "source_locator": "ANEXO_II/II",
+          "topic_paraphrase": "ITR e informações periódicas",
+          "source_pages": [
+            26,
+            27
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-II-04",
+          "source_locator": "ANEXO_II/II",
+          "topic_paraphrase": "Auditoria societária",
+          "source_pages": [
+            26,
+            27
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-II-05",
+          "source_locator": "ANEXO_II/II",
+          "topic_paraphrase": "Relatórios e comunicações",
+          "source_pages": [
+            26,
+            27
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "track_id": "CFC-EQT-BCB",
+      "annex_section": "III",
+      "source_pages": [
+        27,
+        28
+      ],
+      "extraction_level": "CANDIDATE_CLUSTERS_NOT_ALL_NORM_CLAUSES",
+      "candidate_norms": [
+        "COSIF",
+        "Resolução CMN 4.910/2021"
+      ],
+      "clusters": [
+        {
+          "id": "F4-EQT26-2-III-01",
+          "source_locator": "ANEXO_II/III",
+          "topic_paraphrase": "Normas bancárias",
+          "source_pages": [
+            27,
+            28
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-III-02",
+          "source_locator": "ANEXO_II/III",
+          "topic_paraphrase": "Ética",
+          "source_pages": [
+            27,
+            28
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-III-03",
+          "source_locator": "ANEXO_II/III",
+          "topic_paraphrase": "Requisitos prudenciais",
+          "source_pages": [
+            27,
+            28
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-III-04",
+          "source_locator": "ANEXO_II/III",
+          "topic_paraphrase": "COSIF",
+          "source_pages": [
+            27,
+            28
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-III-05",
+          "source_locator": "ANEXO_II/III",
+          "topic_paraphrase": "Relatórios de auditoria financeira",
+          "source_pages": [
+            27,
+            28
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "track_id": "CFC-EQT-SUSEP",
+      "annex_section": "IV",
+      "source_pages": [
+        28,
+        30
+      ],
+      "extraction_level": "CANDIDATE_CLUSTERS_NOT_ALL_NORM_CLAUSES",
+      "candidate_norms": [
+        "NBC PA 400"
+      ],
+      "clusters": [
+        {
+          "id": "F4-EQT26-2-IV-01",
+          "source_locator": "ANEXO_II/IV",
+          "topic_paraphrase": "Ética e independência",
+          "source_pages": [
+            28,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-IV-02",
+          "source_locator": "ANEXO_II/IV",
+          "topic_paraphrase": "Regulação securitária",
+          "source_pages": [
+            28,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-IV-03",
+          "source_locator": "ANEXO_II/IV",
+          "topic_paraphrase": "Provisões técnicas",
+          "source_pages": [
+            28,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-IV-04",
+          "source_locator": "ANEXO_II/IV",
+          "topic_paraphrase": "Demonstrações de seguradoras",
+          "source_pages": [
+            28,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-IV-05",
+          "source_locator": "ANEXO_II/IV",
+          "topic_paraphrase": "Auditoria de seguradoras",
+          "source_pages": [
+            28,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "track_id": "CFC-EQT-PREVIC",
+      "annex_section": "V",
+      "source_pages": [
+        29,
+        30
+      ],
+      "extraction_level": "CANDIDATE_CLUSTERS_NOT_ALL_NORM_CLAUSES",
+      "candidate_norms": [
+        "LC 108/2001",
+        "LC 109/2001"
+      ],
+      "clusters": [
+        {
+          "id": "F4-EQT26-2-V-01",
+          "source_locator": "ANEXO_II/V",
+          "topic_paraphrase": "Ética e independência",
+          "source_pages": [
+            29,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-V-02",
+          "source_locator": "ANEXO_II/V",
+          "topic_paraphrase": "Previdência complementar",
+          "source_pages": [
+            29,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-V-03",
+          "source_locator": "ANEXO_II/V",
+          "topic_paraphrase": "Planos de benefícios",
+          "source_pages": [
+            29,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-V-04",
+          "source_locator": "ANEXO_II/V",
+          "topic_paraphrase": "Contabilidade EFPC",
+          "source_pages": [
+            29,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-V-05",
+          "source_locator": "ANEXO_II/V",
+          "topic_paraphrase": "Auditoria de EFPC",
+          "source_pages": [
+            29,
+            30
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "track_id": "CFC-EQT-PER",
+      "annex_section": "VI",
+      "source_pages": [
+        30,
+        33
+      ],
+      "extraction_level": "CANDIDATE_CLUSTERS_NOT_ALL_NORM_CLAUSES",
+      "candidate_norms": [
+        "NBC PP 01",
+        "NBC PP 02",
+        "NBC TP 01",
+        "ITP 01"
+      ],
+      "clusters": [
+        {
+          "id": "F4-EQT26-2-VI-01",
+          "source_locator": "ANEXO_II/VI",
+          "topic_paraphrase": "Legislação profissional",
+          "source_pages": [
+            30,
+            33
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-VI-02",
+          "source_locator": "ANEXO_II/VI",
+          "topic_paraphrase": "Ética da perícia",
+          "source_pages": [
+            30,
+            33
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-VI-03",
+          "source_locator": "ANEXO_II/VI",
+          "topic_paraphrase": "Normas de perícia",
+          "source_pages": [
+            30,
+            33
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-VI-04",
+          "source_locator": "ANEXO_II/VI",
+          "topic_paraphrase": "Apuração de haveres",
+          "source_pages": [
+            30,
+            33
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-EQT26-2-VI-05",
+          "source_locator": "ANEXO_II/VI",
+          "topic_paraphrase": "Contabilidade aplicada",
+          "source_pages": [
+            30,
+            33
+          ],
+          "editorial_status": "HOLD_SUBTOPIC_REVIEW",
+          "normative_status": "HOLD_VERSION_AND_EFFECTIVENESS",
+          "rights_status": "HOLD_RIGHTS",
+          "approved_questions": 0
+        }
+      ]
+    }
+  ],
+  "normative_candidates": [
+    {
+      "code": "COSIF",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "DL 6.583/2008",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "DL 9.295/1946",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "ITP 01",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "LC 101/2000",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "LC 108/2001",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "LC 109/2001",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "LC 214/2025",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "Lei 4.320/1964",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "Lei 5.172/1966",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "Lei 6.404/1976",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "MCASP 11",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC PA 01",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC PA 400",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC PG 01",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC PO 900",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC PP 01",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC PP 02",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TA 200",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TA 240",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TA 260",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TA 300",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TA 315",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TA 520",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TA 700",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TA 701",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TA 705",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TA 706",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TAS 5000",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TDS 01",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TDS 02",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TG 03",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TG 16",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TG 27",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TG 36",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TG 47",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TG 48",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TG EC",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TP 01",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "NBC TSP EC",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "Resolução CFC 1.328/2011",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    },
+    {
+      "code": "Resolução CMN 4.910/2021",
+      "version_at_sufficiency_2026_3_cutoff": "HOLD",
+      "version_at_eqt_2026_2_publication": "HOLD",
+      "primary_full_text_url": null,
+      "document_sha256": null,
+      "publication_permission": "NOT_ESTABLISHED",
+      "effective_date": null,
+      "tracking_status": "CANDIDATE_REFERENCE_ONLY"
+    }
+  ],
+  "declared_metrics": {
+    "sufficiency_sections": 13,
+    "sufficiency_lettered_groups": 82,
+    "eqt_modality_sections": 6,
+    "eqt_candidate_topic_clusters": 30,
+    "candidate_norm_ids": 42,
+    "duplicate_source_letters_in_public": [
+      "M",
+      "N"
+    ],
+    "verified_norm_versions": 0,
+    "approved_deep_paragraph_subtopics": 0,
+    "approved_lessons": 0,
+    "approved_questions": 0
+  }
+}
