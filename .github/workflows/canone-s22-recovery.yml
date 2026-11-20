@@ -70,6 +70,16 @@ jobs:
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: S22 offline-only 277 regression tests (synthetic excluded-source fixture)
         run: python3 source-s22/backend/db/shared-host/s22-contracts/run_local_gates.py
+      - name: Show bounded offline failure diagnostics
+        if: failure()
+        shell: bash
+        run: |
+          for f in source-s22/backend/db/shared-host/s22-contracts/*.log; do
+            if [ -f "$f" ]; then
+              echo "=== ${f##*/} ==="
+              tail -n 65 "$f" | sed -E 's/(token|password|secret|credential|api[_-]?key)([[:space:]]*[:=][[:space:]]*)[^[:space:]]+/\\1\\2[REDACTED]/Ig'
+            fi
+          done
       - name: Assert production release gate still returns NO-GO exit 41
         shell: bash
         run: |
