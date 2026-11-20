@@ -98,6 +98,10 @@ jobs:
         run: |
           python3 tools/reconcile_s22_objects.py --root . --check
           python3 -m unittest discover -s tests -p 'test_ns01_object_reconciliation.py' -v
+      - name: F1 NS01 every SQL declaration closure queue and original source blob integrity
+        run: |
+          python3 tools/ns01_closure_queue.py
+          python3 -m unittest discover -s tests -p 'test_ns01_closure_queue.py' -v
       - name: NS-02 local synthetic identity — real HTTP path, forged JWT and cross-user negatives
         shell: bash
         env:
