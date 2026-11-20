@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "project": "Cânone",
+  "milestone": "F4-04_A_B_C",
+  "date": "2026-11-20",
+  "validated_sha": "99fc0732263273c769f1d114ddcf4e4a939a05ed",
+  "ci_run": 44777051352,
+  "ci_url": "https://github.com/auditeduca/canone/actions/runs/44777051352",
+  "jobs": {
+    "offline": "success",
+    "historical_react": "success",
+    "chromium": "success",
+    "postgresql17_ephemeral": "success"
+  },
+  "structural_sufficiency": {
+    "areas": 13,
+    "groups": 82,
+    "duplicate_source_labels_preserved": [
+      "M",
+      "N"
+    ]
+  },
+  "structural_eqt": {
+    "modalities": 6,
+    "candidate_clusters": 30
+  },
+  "learning_objective_pilot": {
+    "areas": 2,
+    "groups": 18,
+    "group_denominator": 82,
+    "original_objectives": 63,
+    "reviewed": 0
+  },
+  "norms": {
+    "candidate_codes": 42,
+    "official_2026_revision_notices_screened": 3,
+    "impacted_codes": 6,
+    "verified_versions_at_exam_cutoff": 0
+  },
+  "editorial": {
+    "approved_lessons": 0,
+    "approved_questions": 0,
+    "licensed_external_content": 0
+  },
+  "unmet": [
+    "64 sufficiency groups need detailed objectives",
+    "EQT 6 modalities need fine subtopics",
+    "Normative text versions and dates by edition",
+    "Editorial and legal human signoff",
+    "Accessibility/security full approval",
+    "Production identity and database F8"
+  ],
+  "guardrails": [
+    "main-only",
+    "no Supabase remote writes",
+    "preserved historical source hashes",
+    "no official exam questions copied",
+    "production NO_GO"
+  ],
+  "production_gate": "NO_GO"
+}
