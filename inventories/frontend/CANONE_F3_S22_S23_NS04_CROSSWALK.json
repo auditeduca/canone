@@ -1,0 +1,427 @@
+{
+  "schema": 1,
+  "date": "2026-11-20",
+  "repo": "auditeduca/canone",
+  "source_commit": "0e07b308ab44fc06397a1c188fe7cfc8ce0207b4",
+  "production_gate": "NO_GO",
+  "metrics": {
+    "module_ids": 26,
+    "candidates": 19,
+    "catalog_only": 7,
+    "confirmed_specialized_routes": 0
+  },
+  "source_blobs": [
+    {
+      "path": "planning/s23/S23_MODULOS_26.csv",
+      "sha1": "7ec8047db627ecaa1b6e4fbc4fdf10e41bf88074"
+    },
+    {
+      "path": "planning/s23/S23_FASEAMENTO_26.csv",
+      "sha1": "20508a38a44074784c33513b15bdf8014c5626b9"
+    },
+    {
+      "path": "source-s22/app/src/content/modulos.ts",
+      "sha1": "1ca0a146ad5772f6d2357ffb668f2df7d8fe4da3"
+    },
+    {
+      "path": "source-s22/app/src/screens/LocalModules.tsx",
+      "sha1": "3f808348c640d88e1483409ded27f975d41d84d3"
+    },
+    {
+      "path": "source-s22/app/src/screens/KnowledgeModules.tsx",
+      "sha1": "8c5314597dc906bad6aec39b2e7ab3e458365615"
+    },
+    {
+      "path": "source-s22/app/src/screens/PersonalPractice.tsx",
+      "sha1": "dd34e3db3cfa6484b9d6fe0d1b3340d15104cac3"
+    },
+    {
+      "path": "source-s22/app/src/screens/PreviewLabs.tsx",
+      "sha1": "b55c2cfdaba7d58bad9e512244d5b9c4b08e38e6"
+    },
+    {
+      "path": "source-s22/app/src/screens/StudyWorkbenches.tsx",
+      "sha1": "413099509f54bd65a85ca8a3907b11ac1d2c62b3"
+    },
+    {
+      "path": "source-s22/app/src/App.tsx",
+      "sha1": "1ab9812149dc84a170c208eae7270aa6d68475c1"
+    },
+    {
+      "path": "source-s22/app/src/screens/pages.tsx",
+      "sha1": "74b5ed631e9f477bbacde109b742903ee415292b"
+    },
+    {
+      "path": "source-s22/app/src/screens/Jornada.tsx",
+      "sha1": "5202b15bae271322ddfc7a23eb4b6e5e486a0c15"
+    },
+    {
+      "path": "source-s22/app/src/ui/learning/ExamQuestion.tsx",
+      "sha1": "5bfc00440d52a25f10917aacc88ab168a2278282"
+    },
+    {
+      "path": "source-s22/backend/src/areas/public/catalogo.ts",
+      "sha1": "c6d8895baea948495f69a12ed8e6f11804d02f57"
+    },
+    {
+      "path": "gateway/alpha9-core.mjs",
+      "sha1": "fc163a80619fc0d29a83027cb34ed4a042d94371"
+    },
+    {
+      "path": "frontend/student/model.mjs",
+      "sha1": "4003d9af791f45d6c9690885b5d15bc850c5c969"
+    }
+  ],
+  "modules": [
+    {
+      "number": 1,
+      "id": "simulados",
+      "name": "Simulados",
+      "priority": "P0",
+      "release": "NÚCLEO V1",
+      "source_goal": "Simulado oficial com tempo, questões e relatório",
+      "legacy_route": "#/modulo/simulados",
+      "unmounted_candidates": [
+        "source-s22/app/src/screens/PersonalPractice.tsx"
+      ],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": true
+    },
+    {
+      "number": 2,
+      "id": "flashcards",
+      "name": "Flashcards",
+      "priority": "P0",
+      "release": "NÚCLEO V1",
+      "source_goal": "Revisão de conceitos já preparados e aprovados",
+      "legacy_route": "#/modulo/flashcards",
+      "unmounted_candidates": [
+        "source-s22/app/src/screens/LocalModules.tsx"
+      ],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 3,
+      "id": "mapas-mentais",
+      "name": "Mapas Mentais",
+      "priority": "P1",
+      "release": "AMPLIAÇÃO V1.1",
+      "source_goal": "Mapa pronto por disciplina; anotações opcionais",
+      "legacy_route": "#/modulo/mapas-mentais",
+      "unmounted_candidates": [
+        "source-s22/app/src/screens/KnowledgeModules.tsx"
+      ],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 4,
+      "id": "contabilidade-ilustrada",
+      "name": "Contabilidade Ilustrada",
+      "priority": "P1",
+      "release": "AMPLIAÇÃO V1.1",
+      "source_goal": "Exemplos interativos de lançamentos prontos",
+      "legacy_route": "#/modulo/contabilidade-ilustrada",
+      "unmounted_candidates": [],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 5,
+      "id": "guia-de-bolso",
+      "name": "Guia de Bolso",
+      "priority": "P1",
+      "release": "NÚCLEO V1",
+      "source_goal": "Consulta rápida de tópicos e referências oficiais",
+      "legacy_route": "#/modulo/guia-de-bolso",
+      "unmounted_candidates": [
+        "source-s22/app/src/screens/KnowledgeModules.tsx"
+      ],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 6,
+      "id": "plano-de-estudos",
+      "name": "Plano de Estudos",
+      "priority": "P0",
+      "release": "NÚCLEO V1",
+      "source_goal": "Plano recomendado + agenda + alteração simples",
+      "legacy_route": "#/modulo/plano-de-estudos",
+      "unmounted_candidates": [
+        "source-s22/app/src/screens/LocalModules.tsx"
+      ],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 7,
+      "id": "laboratorio",
+      "name": "Laboratório Contábil",
+      "priority": "P1",
+      "release": "EXPLORAÇÃO V2",
+      "source_goal": "Simulador de tarefa contábil com dados sintéticos",
+      "legacy_route": "#/modulo/laboratorio",
+      "unmounted_candidates": [
+        "source-s22/app/src/screens/LocalModules.tsx"
+      ],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 8,
+      "id": "calculadoras",
+      "name": "Calculadoras Contábeis",
+      "priority": "P1",
+      "release": "AMPLIAÇÃO V1.1",
+      "source_goal": "Cálculos e exemplos; fórmulas e limitações",
+      "legacy_route": "#/modulo/calculadoras",
+      "unmounted_candidates": [],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 9,
+      "id": "cpc-visual",
+      "name": "CPC Visual",
+      "priority": "P1",
+      "release": "AMPLIAÇÃO V1.1",
+      "source_goal": "Navegação por CPC e exemplos com versão da fonte",
+      "legacy_route": "#/modulo/cpc-visual",
+      "unmounted_candidates": [],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 10,
+      "id": "dre-interativa",
+      "name": "DRE Interativa",
+      "priority": "P1",
+      "release": "AMPLIAÇÃO V1.1",
+      "source_goal": "Exploração interativa de DRE sintética",
+      "legacy_route": "#/modulo/dre-interativa",
+      "unmounted_candidates": [
+        "source-s22/app/src/screens/LocalModules.tsx"
+      ],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 11,
+      "id": "balanco-3d",
+      "name": "Balanço Patrimonial 3D",
+      "priority": "P2",
+      "release": "EXPLORAÇÃO V2",
+      "source_goal": "Balanço interativo legível em 2D; 3D opcional",
+      "legacy_route": "#/modulo/balanco-3d",
+      "unmounted_candidates": [
+        "source-s22/app/src/screens/LocalModules.tsx"
+      ],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 12,
+      "id": "diario-e-razao",
+      "name": "Diário e Razão",
+      "priority": "P1",
+      "release": "AMPLIAÇÃO V1.1",
+      "source_goal": "Diário/Razão guiado com feedback por lançamento",
+      "legacy_route": "#/modulo/diario-e-razao",
+      "unmounted_candidates": [
+        "source-s22/app/src/screens/LocalModules.tsx"
+      ],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 13,
+      "id": "auditoria-pratica",
+      "name": "Auditoria na Prática",
+      "priority": "P1",
+      "release": "AMPLIAÇÃO V1.1",
+      "source_goal": "Caso prático guiado com papéis e evidências",
+      "legacy_route": "#/modulo/auditoria-pratica",
+      "unmounted_candidates": [],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 14,
+      "id": "pericia",
+      "name": "Perícia Contábil",
+      "priority": "P2",
+      "release": "AMPLIAÇÃO V1.1",
+      "source_goal": "Cenário didático de perícia; sem laudo oficial",
+      "legacy_route": "#/modulo/pericia",
+      "unmounted_candidates": [],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 15,
+      "id": "contabilidade-publica",
+      "name": "Contabilidade Pública",
+      "priority": "P1",
+      "release": "EXPLORAÇÃO V2",
+      "source_goal": "Caso guiado de contas públicas e classificação",
+      "legacy_route": "#/modulo/contabilidade-publica",
+      "unmounted_candidates": [],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 16,
+      "id": "matematica",
+      "name": "Matemática Financeira",
+      "priority": "P1",
+      "release": "AMPLIAÇÃO V1.1",
+      "source_goal": "Cálculo financeiro e prática com questões",
+      "legacy_route": "#/modulo/matematica",
+      "unmounted_candidates": [],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 17,
+      "id": "duelo",
+      "name": "Duelo de Questões",
+      "priority": "P2",
+      "release": "EXPLORAÇÃO V2",
+      "source_goal": "Desafio entre alunos com regras publicadas",
+      "legacy_route": "#/modulo/duelo",
+      "unmounted_candidates": [
+        "source-s22/app/src/screens/PreviewLabs.tsx"
+      ],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 18,
+      "id": "simulado-adaptativo",
+      "name": "Simulado Adaptativo",
+      "priority": "P2",
+      "release": "EXPLORAÇÃO V2",
+      "source_goal": "Prática adaptativa auditável por lacunas reais",
+      "legacy_route": "#/modulo/simulado-adaptativo",
+      "unmounted_candidates": [
+        "source-s22/app/src/screens/PreviewLabs.tsx"
+      ],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 19,
+      "id": "reposicao",
+      "name": "Banco de Dados de Questões",
+      "priority": "P0",
+      "release": "NÚCLEO V1",
+      "source_goal": "Catálogo de questões aprovadas, filtros e favoritos",
+      "legacy_route": "#/modulo/reposicao",
+      "unmounted_candidates": [
+        "source-s22/app/src/screens/PersonalPractice.tsx"
+      ],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 20,
+      "id": "glossario",
+      "name": "Glossário Contábil",
+      "priority": "P1",
+      "release": "NÚCLEO V1",
+      "source_goal": "Dicionário com fonte, exemplos e conceitos relacionados",
+      "legacy_route": "#/modulo/glossario",
+      "unmounted_candidates": [
+        "source-s22/app/src/screens/KnowledgeModules.tsx"
+      ],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 21,
+      "id": "podcast",
+      "name": "Podcast de Revisão",
+      "priority": "P2",
+      "release": "AMPLIAÇÃO V1.1",
+      "source_goal": "Áudio preparado e transcrição por aula",
+      "legacy_route": "#/modulo/podcast",
+      "unmounted_candidates": [
+        "source-s22/app/src/screens/PreviewLabs.tsx"
+      ],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 22,
+      "id": "videodulas",
+      "name": "Vídeoaulas Interativas",
+      "priority": "P2",
+      "release": "AMPLIAÇÃO V1.1",
+      "source_goal": "Vídeo publicado, legendas, progresso por minuto",
+      "legacy_route": "#/modulo/videodulas",
+      "unmounted_candidates": [
+        "source-s22/app/src/screens/PreviewLabs.tsx"
+      ],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 23,
+      "id": "casos",
+      "name": "Casos Práticos",
+      "priority": "P1",
+      "release": "EXPLORAÇÃO V2",
+      "source_goal": "Casos profissionais e resolução guiada",
+      "legacy_route": "#/modulo/casos",
+      "unmounted_candidates": [
+        "source-s22/app/src/screens/KnowledgeModules.tsx"
+      ],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    },
+    {
+      "number": 24,
+      "id": "caderno-erros",
+      "name": "Caderno de Erros",
+      "priority": "P0",
+      "release": "NÚCLEO V1",
+      "source_goal": "Erros próprios de questões homologadas, com revisão",
+      "legacy_route": "#/modulo/caderno-erros",
+      "unmounted_candidates": [
+        "source-s22/app/src/screens/LocalModules.tsx"
+      ],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": true
+    },
+    {
+      "number": 25,
+      "id": "dashboard",
+      "name": "Dashboard de Aprovação",
+      "priority": "P0",
+      "release": "NÚCLEO V1",
+      "source_goal": "KPIs verdadeiros de progresso e aprendizagem",
+      "legacy_route": "#/modulo/dashboard",
+      "unmounted_candidates": [
+        "source-s22/app/src/screens/LocalModules.tsx"
+      ],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": true
+    },
+    {
+      "number": 26,
+      "id": "offline",
+      "name": "Cânone Offline",
+      "priority": "P1",
+      "release": "AMPLIAÇÃO V1.1",
+      "source_goal": "Biblioteca offline selecionada e sincronização controlada",
+      "legacy_route": "#/modulo/offline",
+      "unmounted_candidates": [
+        "source-s22/app/src/screens/PreviewLabs.tsx"
+      ],
+      "legacy_specialized_mounted": false,
+      "ns04_demo_only": false
+    }
+  ]
+}

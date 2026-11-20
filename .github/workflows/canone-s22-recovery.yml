@@ -106,6 +106,10 @@ jobs:
       - name: NS-04 student controller — synthetic UI state and same-origin gateway contract
         shell: bash
         run: node --test tests/ns04_student_frontend.test.mjs
+      - name: F3 validate historical frontend crosswalk and source integrity
+        run: |
+          python3 tools/verify_f3_reconciliation.py
+          python3 -m unittest discover -s tests -p 'test_f3_reconciliation.py' -v
       - name: Recreate a synthetic fixture for omitted editorial sample IDs
         shell: bash
         run: |
@@ -252,3 +256,43 @@ jobs:
       - name: Browser P0 flow, early-key negative, mobile 390px and keyboard
         shell: bash
         run: /tmp/canone-ns04-py/bin/python tests/ns04_student_browser.py
+
+  s22-react-baseline:
+    name: F3-REC-02 React S22 historical build/test (NO-GO)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 16
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout without persisted credentials
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Node 22
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Install historical lockfile without lifecycle scripts
+        working-directory: source-s22/app
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Compile historical React app
+        working-directory: source-s22/app
+        run: npm run build
+      - name: Recreate excluded identifiers for synthetic boundary regression
+        run: |
+          mkdir -p source-s22/extras/editorial-review
+          cat > source-s22/extras/editorial-review/questoes-s6-pendente.ts <<'EOF_FIXTURE'
+          // Synthetic identifiers; no original editorial material.
+          export const idsQuarentena = ['CFC-STRUCT-001','CG-003'] as const;
+          EOF_FIXTURE
+      - name: Run historical app tests
+        working-directory: source-s22/app
+        run: node --experimental-strip-types --test tests/*.test.mjs
+      - name: Assert NO-GO on production
+        if: always()
+        run: |
+          set +e
+          python3 source-s22/backend/db/shared-host/s22-contracts/s22_release_gate.py --strict
+          code=$?
+          test "$code" -eq 41 || exit 1
