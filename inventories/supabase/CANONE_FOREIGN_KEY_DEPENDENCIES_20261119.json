@@ -1,0 +1,375 @@
+{
+  "snapshot_date": "2026-11-19",
+  "scope": "foreign keys on 81 candidate relations, read-only, metadata",
+  "foreign_keys": [
+    {
+      "from_schema": "account_palm",
+      "from_table": "atomization_eval_sample_v1",
+      "to_schema": "account_palm",
+      "to_table": "normalized_units_v1",
+      "fk_name": "atomization_eval_sample_v1_normalized_unit_id_fkey",
+      "fk_definition": "FOREIGN KEY (normalized_unit_id) REFERENCES account_palm.normalized_units_v1(normalized_unit_id)",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "account_palm",
+      "from_table": "atomization_eval_sample_v1",
+      "to_schema": "account_palm",
+      "to_table": "normative_assertion_candidates_v1",
+      "fk_name": "atomization_eval_sample_v1_assertion_candidate_id_fkey",
+      "fk_definition": "FOREIGN KEY (assertion_candidate_id) REFERENCES account_palm.normative_assertion_candidates_v1(assertion_candidate_id)",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "account_palm",
+      "from_table": "atomization_fragment_quality_v1",
+      "to_schema": "account_palm",
+      "to_table": "normalized_units_v1",
+      "fk_name": "atomization_fragment_quality_v1_normalized_unit_id_fkey",
+      "fk_definition": "FOREIGN KEY (normalized_unit_id) REFERENCES account_palm.normalized_units_v1(normalized_unit_id)",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "account_palm",
+      "from_table": "atomization_gold_draft_proposals_v1",
+      "to_schema": "account_palm",
+      "to_table": "atomization_eval_sample_v1",
+      "fk_name": "atomization_gold_draft_proposals_v1_sample_id_fkey",
+      "fk_definition": "FOREIGN KEY (sample_id) REFERENCES account_palm.atomization_eval_sample_v1(sample_id)",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "account_palm",
+      "from_table": "atomization_gold_replacements_v1",
+      "to_schema": "account_palm",
+      "to_table": "atomization_eval_sample_v1",
+      "fk_name": "atomization_gold_replacements_v1_replaced_sample_id_fkey",
+      "fk_definition": "FOREIGN KEY (replaced_sample_id) REFERENCES account_palm.atomization_eval_sample_v1(sample_id)",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "account_palm",
+      "from_table": "atomization_gold_replacements_v1",
+      "to_schema": "account_palm",
+      "to_table": "normalized_units_v1",
+      "fk_name": "atomization_gold_replacements_v1_normalized_unit_id_fkey",
+      "fk_definition": "FOREIGN KEY (normalized_unit_id) REFERENCES account_palm.normalized_units_v1(normalized_unit_id)",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "account_palm",
+      "from_table": "atomization_gold_replacements_v1",
+      "to_schema": "account_palm",
+      "to_table": "normative_assertion_candidates_v1",
+      "fk_name": "atomization_gold_replacements_v1_assertion_candidate_id_fkey",
+      "fk_definition": "FOREIGN KEY (assertion_candidate_id) REFERENCES account_palm.normative_assertion_candidates_v1(assertion_candidate_id)",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "account_palm",
+      "from_table": "atomization_gold_review_batch_v1",
+      "to_schema": "account_palm",
+      "to_table": "atomization_eval_sample_v1",
+      "fk_name": "atomization_gold_review_batch_v1_sample_id_fkey",
+      "fk_definition": "FOREIGN KEY (sample_id) REFERENCES account_palm.atomization_eval_sample_v1(sample_id)",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "account_palm",
+      "from_table": "dou_content_validation_v1",
+      "to_schema": "account_palm",
+      "to_table": "dou_validation_runs_v1",
+      "fk_name": "dou_content_validation_v1_run_id_fkey",
+      "fk_definition": "FOREIGN KEY (run_id) REFERENCES account_palm.dou_validation_runs_v1(run_id)",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "account_palm",
+      "from_table": "dou_discovery_candidates_v1",
+      "to_schema": "account_palm",
+      "to_table": "dou_discovery_requests_v1",
+      "fk_name": "dou_discovery_candidates_v1_request_id_fkey",
+      "fk_definition": "FOREIGN KEY (request_id) REFERENCES account_palm.dou_discovery_requests_v1(request_id)",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "account_palm",
+      "from_table": "normalized_units_v1",
+      "to_schema": "account_palm",
+      "to_table": "normalization_runs_v1",
+      "fk_name": "normalized_units_v1_run_id_fkey",
+      "fk_definition": "FOREIGN KEY (run_id) REFERENCES account_palm.normalization_runs_v1(run_id)",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "account_palm",
+      "from_table": "normative_assertion_candidates_v1",
+      "to_schema": "account_palm",
+      "to_table": "normalized_units_v1",
+      "fk_name": "normative_assertion_candidates_v1_normalized_unit_id_fkey",
+      "fk_definition": "FOREIGN KEY (normalized_unit_id) REFERENCES account_palm.normalized_units_v1(normalized_unit_id)",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "account_palm",
+      "from_table": "normative_claim_candidates_v1",
+      "to_schema": "account_palm",
+      "to_table": "normalized_units_v1",
+      "fk_name": "normative_claim_candidates_v1_normalized_unit_id_fkey",
+      "fk_definition": "FOREIGN KEY (normalized_unit_id) REFERENCES account_palm.normalized_units_v1(normalized_unit_id)",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "account_palm",
+      "from_table": "normative_claim_candidates_v1",
+      "to_schema": "account_palm",
+      "to_table": "normative_assertion_candidates_v1",
+      "fk_name": "normative_claim_candidates_v1_assertion_candidate_id_fkey",
+      "fk_definition": "FOREIGN KEY (assertion_candidate_id) REFERENCES account_palm.normative_assertion_candidates_v1(assertion_candidate_id)",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "account_palm",
+      "from_table": "normative_temporal_evidence_v1",
+      "to_schema": "account_palm",
+      "to_table": "normative_temporal_type_registry_v1",
+      "fk_name": "normative_temporal_evidence_v1_temporal_type_fkey",
+      "fk_definition": "FOREIGN KEY (temporal_type) REFERENCES account_palm.normative_temporal_type_registry_v1(temporal_type)",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "cko_governance",
+      "from_table": "artifact_normative_bindings",
+      "to_schema": "cko_governance",
+      "to_table": "controlled_artifacts",
+      "fk_name": "artifact_normative_bindings_artifact_id_fkey",
+      "fk_definition": "FOREIGN KEY (artifact_id) REFERENCES cko_governance.controlled_artifacts(artifact_id) ON DELETE CASCADE",
+      "target_outside_inventory": true
+    },
+    {
+      "from_schema": "cko_governance",
+      "from_table": "artifact_normative_bindings",
+      "to_schema": "cko_governance",
+      "to_table": "object_versions",
+      "fk_name": "artifact_normative_bindings_artifact_version_ref_fkey",
+      "fk_definition": "FOREIGN KEY (artifact_version_ref) REFERENCES cko_governance.object_versions(object_version_id)",
+      "target_outside_inventory": true
+    },
+    {
+      "from_schema": "cko_governance",
+      "from_table": "field_normative_bindings",
+      "to_schema": "cko_governance",
+      "to_table": "field_catalog",
+      "fk_name": "field_normative_bindings_field_id_fkey",
+      "fk_definition": "FOREIGN KEY (field_id) REFERENCES cko_governance.field_catalog(field_id) ON DELETE RESTRICT",
+      "target_outside_inventory": true
+    },
+    {
+      "from_schema": "cko_governance",
+      "from_table": "field_normative_bindings",
+      "to_schema": "cko_governance",
+      "to_table": "normative_reference_catalog",
+      "fk_name": "field_normative_bindings_normative_ref_fkey",
+      "fk_definition": "FOREIGN KEY (normative_ref) REFERENCES cko_governance.normative_reference_catalog(normative_ref) ON DELETE RESTRICT",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "cko_governance",
+      "from_table": "normative_document_extractions",
+      "to_schema": "cko_governance",
+      "to_table": "normative_reference_catalog",
+      "fk_name": "normative_document_extractions_normative_ref_fkey",
+      "fk_definition": "FOREIGN KEY (normative_ref) REFERENCES cko_governance.normative_reference_catalog(normative_ref) ON DELETE RESTRICT",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "contabilidade_cfc",
+      "from_table": "audit_normative_scope_v1",
+      "to_schema": "public",
+      "to_table": "regulatory_instruments",
+      "fk_name": "audit_normative_scope_v1_instrument_id_fkey",
+      "fk_definition": "FOREIGN KEY (instrument_id) REFERENCES regulatory_instruments(instrument_id)",
+      "target_outside_inventory": true
+    },
+    {
+      "from_schema": "contabilidade_cfc",
+      "from_table": "audit_normative_segment_drafts_v1",
+      "to_schema": "account_palm",
+      "to_table": "normalized_units_v1",
+      "fk_name": "audit_normative_segment_drafts_v1_parent_unit_id_fkey",
+      "fk_definition": "FOREIGN KEY (parent_unit_id) REFERENCES account_palm.normalized_units_v1(normalized_unit_id)",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "contabilidade_cfc",
+      "from_table": "audit_normative_segment_parent_qa_v1",
+      "to_schema": "account_palm",
+      "to_table": "normalized_units_v1",
+      "fk_name": "audit_normative_segment_parent_qa_v1_parent_unit_id_fkey",
+      "fk_definition": "FOREIGN KEY (parent_unit_id) REFERENCES account_palm.normalized_units_v1(normalized_unit_id)",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "contabilidade_cfc",
+      "from_table": "questions",
+      "to_schema": "contabilidade_cfc",
+      "to_table": "sources",
+      "fk_name": "questions_source_id_fkey",
+      "fk_definition": "FOREIGN KEY (source_id) REFERENCES contabilidade_cfc.sources(source_id)",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "public",
+      "from_table": "cfc_internal_normative_chunks",
+      "to_schema": "public",
+      "to_table": "regulatory_instruments",
+      "fk_name": "cfc_internal_normative_chunks_instrument_id_fkey",
+      "fk_definition": "FOREIGN KEY (instrument_id) REFERENCES regulatory_instruments(instrument_id) ON DELETE RESTRICT",
+      "target_outside_inventory": true
+    },
+    {
+      "from_schema": "public",
+      "from_table": "cfc_internal_normative_extractions",
+      "to_schema": "public",
+      "to_table": "regulatory_instruments",
+      "fk_name": "cfc_internal_normative_extractions_instrument_id_fkey",
+      "fk_definition": "FOREIGN KEY (instrument_id) REFERENCES regulatory_instruments(instrument_id) ON DELETE RESTRICT",
+      "target_outside_inventory": true
+    },
+    {
+      "from_schema": "public",
+      "from_table": "exam_answer_keys",
+      "to_schema": "public",
+      "to_table": "exam_questions",
+      "fk_name": "exam_answer_keys_question_id_fkey",
+      "fk_definition": "FOREIGN KEY (question_id) REFERENCES exam_questions(id) ON DELETE CASCADE",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "public",
+      "from_table": "exam_answer_keys",
+      "to_schema": "public",
+      "to_table": "exam_source_items",
+      "fk_name": "exam_answer_keys_source_item_id_fkey",
+      "fk_definition": "FOREIGN KEY (source_item_id) REFERENCES exam_source_items(id) ON DELETE RESTRICT",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "public",
+      "from_table": "exam_documents",
+      "to_schema": "public",
+      "to_table": "exam_source_items",
+      "fk_name": "exam_documents_source_item_id_fkey",
+      "fk_definition": "FOREIGN KEY (source_item_id) REFERENCES exam_source_items(id) ON DELETE RESTRICT",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "public",
+      "from_table": "exam_documents",
+      "to_schema": "public",
+      "to_table": "exams",
+      "fk_name": "exam_documents_exam_id_fkey",
+      "fk_definition": "FOREIGN KEY (exam_id) REFERENCES exams(id) ON DELETE CASCADE",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "public",
+      "from_table": "exam_processing_checkpoints",
+      "to_schema": "public",
+      "to_table": "exam_ingest_runs",
+      "fk_name": "exam_processing_checkpoints_ingest_run_id_fkey",
+      "fk_definition": "FOREIGN KEY (ingest_run_id) REFERENCES exam_ingest_runs(id) ON DELETE CASCADE",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "public",
+      "from_table": "exam_question_options",
+      "to_schema": "public",
+      "to_table": "exam_questions",
+      "fk_name": "exam_question_options_question_id_fkey",
+      "fk_definition": "FOREIGN KEY (question_id) REFERENCES exam_questions(id) ON DELETE CASCADE",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "public",
+      "from_table": "exam_questions",
+      "to_schema": "public",
+      "to_table": "exams",
+      "fk_name": "exam_questions_exam_id_fkey",
+      "fk_definition": "FOREIGN KEY (exam_id) REFERENCES exams(id) ON DELETE CASCADE",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "public",
+      "from_table": "exam_remediation_tasks",
+      "to_schema": "public",
+      "to_table": "exam_ingest_runs",
+      "fk_name": "exam_remediation_tasks_ingest_run_id_fkey",
+      "fk_definition": "FOREIGN KEY (ingest_run_id) REFERENCES exam_ingest_runs(id) ON DELETE CASCADE",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "public",
+      "from_table": "exam_remediation_tasks",
+      "to_schema": "public",
+      "to_table": "exam_source_items",
+      "fk_name": "exam_remediation_tasks_source_item_id_fkey",
+      "fk_definition": "FOREIGN KEY (source_item_id) REFERENCES exam_source_items(id) ON DELETE CASCADE",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "public",
+      "from_table": "exam_remediation_tasks",
+      "to_schema": "public",
+      "to_table": "exam_validation_findings",
+      "fk_name": "exam_remediation_tasks_finding_id_fkey",
+      "fk_definition": "FOREIGN KEY (finding_id) REFERENCES exam_validation_findings(id) ON DELETE CASCADE",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "public",
+      "from_table": "exam_source_classifications",
+      "to_schema": "public",
+      "to_table": "exam_source_items",
+      "fk_name": "exam_source_classifications_source_item_id_fkey",
+      "fk_definition": "FOREIGN KEY (source_item_id) REFERENCES exam_source_items(id) ON DELETE CASCADE",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "public",
+      "from_table": "exam_source_content",
+      "to_schema": "public",
+      "to_table": "exam_source_items",
+      "fk_name": "exam_source_content_source_item_id_fkey",
+      "fk_definition": "FOREIGN KEY (source_item_id) REFERENCES exam_source_items(id) ON DELETE CASCADE",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "public",
+      "from_table": "exam_source_items",
+      "to_schema": "public",
+      "to_table": "exam_ingest_runs",
+      "fk_name": "exam_source_items_ingest_run_id_fkey",
+      "fk_definition": "FOREIGN KEY (ingest_run_id) REFERENCES exam_ingest_runs(id) ON DELETE SET NULL",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "public",
+      "from_table": "exam_validation_findings",
+      "to_schema": "public",
+      "to_table": "exam_ingest_runs",
+      "fk_name": "exam_validation_findings_ingest_run_id_fkey",
+      "fk_definition": "FOREIGN KEY (ingest_run_id) REFERENCES exam_ingest_runs(id) ON DELETE CASCADE",
+      "target_outside_inventory": false
+    },
+    {
+      "from_schema": "public",
+      "from_table": "exam_validation_findings",
+      "to_schema": "public",
+      "to_table": "exam_source_items",
+      "fk_name": "exam_validation_findings_source_item_id_fkey",
+      "fk_definition": "FOREIGN KEY (source_item_id) REFERENCES exam_source_items(id) ON DELETE CASCADE",
+      "target_outside_inventory": false
+    }
+  ]
+}
