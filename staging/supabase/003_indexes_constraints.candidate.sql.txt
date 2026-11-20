@@ -1,0 +1,289 @@
+-- CÂNONE S22 to Supabase: 67 indexes and 12 structural ALTER statements
+-- GENERATED REVIEW CANDIDATE ONLY; no public grants, no migrations or deployment.
+-- Requires 001 pilot and 002 converted domain table definitions first.
+-- One pg_trgm dependent index deliberately deferred; three redundant/auth indexes skipped.
+BEGIN;
+SET LOCAL search_path = pg_catalog;
+DO $canone_index_guard$ BEGIN IF to_regclass('canone_control.migration_catalog') IS NOT NULL THEN RAISE EXCEPTION 'REFUSE_SHARED_CANONE_SOURCE'; END IF; IF to_regclass('canone_learning.exam_attempt') IS NULL OR to_regclass('auth.users') IS NULL THEN RAISE EXCEPTION 'REQUIRE_S22_CANONICAL_TABLES'; END IF; END $canone_index_guard$;
+
+-- Source structural ALTER: 003_metamodel.sql:94
+ALTER TABLE canone_editorial.field_definition
+  ADD CONSTRAINT fk_field_definition_enumeration
+  FOREIGN KEY (enumeration_key) REFERENCES canone_editorial.enumeration(key);
+
+-- Source structural ALTER: 003_metamodel.sql:213
+ALTER TABLE canone_editorial.content_item
+  ADD CONSTRAINT fk_content_item_current_version
+  FOREIGN KEY (current_version_id) REFERENCES canone_editorial.content_item_version(id)
+  DEFERRABLE INITIALLY DEFERRED;
+
+-- Source structural ALTER: 018_provas_gabarito.sql:1
+ALTER TABLE canone_taxonomy.exam_edition
+  ALTER COLUMN application_date DROP NOT NULL;
+
+-- Source structural ALTER: 018_provas_gabarito.sql:55
+ALTER TABLE canone_taxonomy.exam_edition
+  ADD COLUMN status text NOT NULL DEFAULT 'agendada'
+    CHECK (status IN ('agendada','realizada')),
+  ADD COLUMN exam_kind text NOT NULL DEFAULT 'suficiencia'
+    CHECK (exam_kind IN ('suficiencia','qualificacao_tecnica')),
+  ADD COLUMN bank text CHECK (bank IN ('FGV','CRCSP','CONSULPLAN') OR bank IS NULL);
+
+-- Source structural ALTER: 018_provas_gabarito.sql:62
+ALTER TABLE canone_taxonomy.exam_edition
+  ADD CONSTRAINT ck_edition_agendada_tem_data
+    CHECK (status <> 'agendada' OR application_date IS NOT NULL);
+
+-- Source structural ALTER: 019_tentativa_ingestao.sql:1
+ALTER TABLE canone_taxonomy.exam_edition ALTER COLUMN question_count DROP NOT NULL;
+
+-- Source structural ALTER: 019_tentativa_ingestao.sql:35
+ALTER TABLE canone_taxonomy.exam_edition ALTER COLUMN passing_score DROP NOT NULL;
+
+-- Source structural ALTER: 026_staff_le_gabarito_default_zero.sql:136
+ALTER TABLE canone_taxonomy.exam_edition ALTER COLUMN question_count DROP DEFAULT;
+
+-- Source structural ALTER: 026_staff_le_gabarito_default_zero.sql:141
+ALTER TABLE canone_taxonomy.exam_edition ALTER COLUMN passing_score DROP DEFAULT;
+
+-- Source structural ALTER: 028_preco_comercial.sql:1
+ALTER TABLE canone_commerce.plan ADD COLUMN IF NOT EXISTS price_source text;
+
+-- Source structural ALTER: 028_preco_comercial.sql:31
+ALTER TABLE canone_commerce.plan DROP CONSTRAINT IF EXISTS commerce_plan_price_cents_check;
+
+-- Source structural ALTER: 028_preco_comercial.sql:36
+ALTER TABLE canone_commerce.plan ADD CONSTRAINT commerce_plan_price_cents_check
+  CHECK (price_cents IS NULL OR price_cents > 0);
+
+-- Source index: 002_identity_lgpd.sql:130
+CREATE INDEX ix_data_request_open ON canone_identity.data_request (status, deadline_at)
+  WHERE status IN ('aberto','em_analise');
+
+-- Source index: 003_metamodel.sql:196
+CREATE INDEX ix_content_item_state ON canone_editorial.content_item (state) WHERE retired_at IS NULL;
+
+-- Source index: 003_metamodel.sql:197
+CREATE INDEX ix_content_item_subject ON canone_editorial.content_item (subject_id, ordinal);
+
+-- Source index: 003_metamodel.sql:198
+CREATE INDEX ix_content_item_search ON canone_editorial.content_item USING gin (search_tsv);
+
+-- Source index: 003_metamodel.sql:246
+CREATE INDEX ix_content_relation_to ON canone_editorial.content_relation (to_item_id, relation_type);
+
+-- Source index: 003_metamodel.sql:247
+CREATE INDEX ix_content_relation_from ON canone_editorial.content_relation (from_item_id, relation_type);
+
+-- Source index: 003_metamodel.sql:264
+CREATE INDEX ix_content_revision_item ON canone_editorial.content_revision (content_item_id, created_at DESC);
+
+-- Source index: 003_metamodel.sql:325
+CREATE UNIQUE INDEX ux_verification_active
+  ON canone_editorial.verification (content_item_id)
+  WHERE state IN ('nao_verificada','em_revisao','verificada','expirada','necessita_atualizacao');
+
+-- Source index: 004_taxonomy_blueprint.sql:102
+CREATE INDEX ix_item_placement_edition ON canone_taxonomy.item_placement (exam_edition_id, subject_id);
+
+-- Source index: 005_norms.sql:62
+CREATE UNIQUE INDEX ux_norm_version_current
+  ON canone_norms.norm_version (norm_id) WHERE effective_to IS NULL;
+
+-- Source index: 005_norms.sql:64
+CREATE UNIQUE INDEX ux_norm_version_label
+  ON canone_norms.norm_version (norm_id, label);
+
+-- Source index: 005_norms.sql:85
+CREATE INDEX ix_norm_item_parent ON canone_norms.norm_item (parent_id);
+
+-- Source index: 005_norms.sql:86
+CREATE INDEX ix_norm_item_search ON canone_norms.norm_item USING gin (to_tsvector('portuguese', body));
+
+-- Source index: 005_norms.sql:116
+CREATE INDEX ix_norm_citation_norm ON canone_editorial.content_norm_citation (norm_id);
+
+-- Source index: 005_norms.sql:117
+CREATE INDEX ix_norm_citation_item ON canone_editorial.content_norm_citation (content_item_id);
+
+-- Source index: 006_learning_items.sql:49
+CREATE INDEX ix_learning_item_kind ON canone_learning.item (kind, difficulty);
+
+-- Source index: 006_learning_items.sql:50
+CREATE INDEX ix_learning_item_rate ON canone_learning.item (correct_rate) WHERE answer_count >= 20;
+
+-- Source index: 006_learning_items.sql:67
+CREATE INDEX ix_item_option_correct ON canone_learning.item_option (item_id) WHERE is_correct;
+
+-- Source index: 006_learning_items.sql:120
+CREATE INDEX ix_item_subject_subject ON canone_learning.item_subject (subject_id, item_id);
+
+-- Source index: 006_learning_items.sql:183
+CREATE INDEX ix_mind_map_node_parent ON canone_learning.mind_map_node (parent_id);
+
+-- Source index: 007_learning_srs.sql:53
+CREATE INDEX ix_session_user_started ON canone_learning.session (user_id, started_at DESC);
+
+-- Source index: 007_learning_srs.sql:54
+CREATE INDEX ix_session_open ON canone_learning.session (user_id) WHERE ended_at IS NULL;
+
+-- Source index: 007_learning_srs.sql:85
+CREATE INDEX ix_review_event_user_item ON canone_learning.review_event (user_id, item_id, reviewed_at DESC);
+
+-- Source index: 007_learning_srs.sql:86
+CREATE INDEX ix_review_event_session ON canone_learning.review_event (session_id);
+
+-- Source index: 007_learning_srs.sql:87
+CREATE INDEX ix_review_event_user_time ON canone_learning.review_event (user_id, reviewed_at DESC);
+
+-- Source index: 007_learning_srs.sql:132
+CREATE INDEX ix_user_item_due ON canone_learning.user_item_state (user_id, due_at)
+  WHERE due_at IS NOT NULL;
+
+-- Source index: 007_learning_srs.sql:134
+CREATE INDEX ix_user_item_fragile ON canone_learning.user_item_state (user_id)
+  WHERE is_fragile;
+
+-- Source index: 007_learning_srs.sql:136
+CREATE INDEX ix_user_item_new ON canone_learning.user_item_state (user_id)
+  WHERE state = 'nova';
+
+-- Source index: 007_learning_srs.sql:187
+CREATE INDEX ix_note_user ON canone_learning.note (user_id, updated_at DESC);
+
+-- Source index: 007_learning_srs.sql:202
+CREATE INDEX ix_offline_pack_user ON canone_learning.offline_pack (user_id) WHERE revoked_at IS NULL;
+
+-- Source index: 007_learning_srs.sql:223
+CREATE INDEX ix_study_plan_user ON canone_learning.study_plan (user_id, generated_at DESC);
+
+-- Source index: 008_commerce.sql:60
+CREATE INDEX ix_subscription_user ON canone_commerce.subscription (user_id, status);
+
+-- Source index: 008_commerce.sql:61
+CREATE INDEX ix_subscription_provider_ref ON canone_commerce.subscription (provider, provider_ref)
+  WHERE provider_ref IS NOT NULL;
+
+-- Source index: 008_commerce.sql:63
+CREATE UNIQUE INDEX ux_subscription_active
+  ON canone_commerce.subscription (user_id)
+  WHERE status IN ('pendente','ativa','past_due');
+
+-- Source index: 008_commerce.sql:86
+CREATE INDEX ix_payment_user ON canone_commerce.payment (user_id, created_at DESC);
+
+-- Source index: 008_commerce.sql:105
+CREATE INDEX ix_invoice_user ON canone_commerce.invoice (user_id, issued_at DESC);
+
+-- Source index: 008_commerce.sql:121
+CREATE INDEX ix_entitlement_user_feature ON canone_commerce.entitlement (user_id, feature_key)
+  WHERE revoked_at IS NULL;
+
+-- Source index: 009_admin_governance.sql:53
+CREATE INDEX ix_audit_log_actor ON canone_audit.audit_log (actor_id, occurred_at DESC);
+
+-- Source index: 009_admin_governance.sql:54
+CREATE INDEX ix_audit_log_entity ON canone_audit.audit_log (entity_type, entity_id, occurred_at DESC);
+
+-- Source index: 009_admin_governance.sql:55
+CREATE INDEX ix_audit_log_action ON canone_audit.audit_log (action, occurred_at DESC);
+
+-- Source index: 009_admin_governance.sql:56
+CREATE INDEX ix_audit_log_subject ON canone_audit.audit_log (subject_user_id, occurred_at DESC)
+  WHERE subject_user_id IS NOT NULL;
+
+-- Source index: 009_admin_governance.sql:58
+CREATE UNIQUE INDEX ux_audit_log_seq ON canone_audit.audit_log (seq);
+
+-- Source index: 009_admin_governance.sql:172
+CREATE INDEX ix_grant_active ON canone_admin.support_access_grant (staff_user_id)
+  WHERE revoked_at IS NULL;
+
+-- Source index: 009_admin_governance.sql:177
+CREATE INDEX ix_grant_subject ON canone_admin.support_access_grant (subject_user_id, granted_at DESC);
+
+-- Source index: 009_admin_governance.sql:192
+CREATE INDEX ix_support_access_log_grant ON canone_admin.support_access_log (grant_id, occurred_at DESC);
+
+-- Source index: 009_admin_governance.sql:211
+CREATE INDEX ix_moderation_open ON canone_admin.moderation_queue (priority DESC, opened_at)
+  WHERE resolved_at IS NULL;
+
+-- Source index: 010_ops_platform.sql:72
+CREATE INDEX ix_api_key_prefix ON canone_ops.api_key (prefix);
+
+-- Source index: 010_ops_platform.sql:102
+CREATE INDEX ix_webhook_delivery_retry ON canone_ops.webhook_delivery (status, next_attempt_at)
+  WHERE status = 'pendente';
+
+-- Source index: 010_ops_platform.sql:126
+CREATE INDEX ix_job_run_pending ON canone_ops.job_run (scheduled_at)
+  WHERE status IN ('pendente','executando');
+
+-- Source index: 010_ops_platform.sql:158
+CREATE INDEX ix_notification_user ON canone_ops.notification (user_id, created_at DESC);
+
+-- Source index: 015_indexes.sql:1
+CREATE INDEX ix_content_item_public_listing ON canone_editorial.content_item (subject_id, ordinal)
+  WHERE retired_at IS NULL AND state IN ('publicado');
+
+-- Source index: 015_indexes.sql:14
+CREATE INDEX ix_relation_cita_norma ON canone_editorial.content_relation (from_item_id)
+  WHERE relation_type = 'cita_norma';
+
+-- Source index: 015_indexes.sql:19
+CREATE INDEX ix_moderation_priority ON canone_admin.moderation_queue (priority DESC, due_at NULLS LAST)
+  WHERE resolved_at IS NULL;
+
+-- Source index: 015_indexes.sql:23
+CREATE INDEX ix_state_due_covering ON canone_learning.user_item_state (user_id, due_at)
+  INCLUDE (item_id, state, stability_days, fragile_streak)
+  WHERE due_at IS NOT NULL AND state <> 'nova';
+
+-- Source index: 015_indexes.sql:28
+CREATE INDEX ix_event_item_time ON canone_learning.review_event (item_id, reviewed_at DESC);
+
+-- Source index: 015_indexes.sql:31
+CREATE INDEX ix_audit_time ON canone_audit.audit_log (occurred_at DESC);
+
+-- Source index: 015_indexes.sql:34
+CREATE INDEX ix_audit_hash ON canone_audit.audit_log (row_hash);
+
+-- Source index: 015_indexes.sql:35
+CREATE INDEX ix_jobs_poll ON canone_ops.job_run (scheduled_at)
+  WHERE status = 'pendente';
+
+-- Source index: 015_indexes.sql:39
+CREATE INDEX ix_webhook_retry ON canone_ops.webhook_delivery (next_attempt_at)
+  WHERE status = 'pendente';
+
+-- Source index: 015_indexes.sql:43
+CREATE INDEX ix_error_open ON canone_ops.error_event (last_seen_at DESC)
+  WHERE resolved_at IS NULL;
+
+-- Source index: 015_indexes.sql:47
+CREATE INDEX ix_entitlement_lookup ON canone_commerce.entitlement (user_id, feature_key)
+  WHERE revoked_at IS NULL;
+
+-- Source index: 015_indexes.sql:51
+CREATE INDEX ix_consent_current ON canone_identity.consent (user_id, purpose_key, purpose_version, collected_at DESC);
+
+-- Source index: 018_provas_gabarito.sql:101
+CREATE UNIQUE INDEX ux_exam_track_identidade
+  ON canone_taxonomy.exam_track (exam_edition_id, track_code, COALESCE(specialty_code, ''));
+
+-- Source index: 018_provas_gabarito.sql:107
+CREATE INDEX ix_exam_track_edition ON canone_taxonomy.exam_track (exam_edition_id);
+
+-- Source index: 018_provas_gabarito.sql:167
+CREATE UNIQUE INDEX ux_answer_key_preliminar
+  ON canone_learning.answer_key (exam_form_id) WHERE status = 'preliminar';
+
+-- Source index: 018_provas_gabarito.sql:172
+CREATE UNIQUE INDEX ux_answer_key_definitivo
+  ON canone_learning.answer_key (exam_form_id) WHERE status = 'definitivo';
+
+-- Source index: 019_tentativa_ingestao.sql:62
+CREATE INDEX ix_exam_attempt_user ON canone_learning.exam_attempt (user_id, started_at DESC);
+
+COMMIT;

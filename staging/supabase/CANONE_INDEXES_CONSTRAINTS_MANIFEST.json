@@ -1,0 +1,591 @@
+{
+  "already_enforced_rls_alter_skipped": 16,
+  "app_release": "NO_GO",
+  "generated_entries": [
+    {
+      "line": 130,
+      "object": "ix_data_request_open",
+      "source": "002_identity_lgpd.sql",
+      "target": "canone_identity.data_request",
+      "type": "INDEX"
+    },
+    {
+      "line": 94,
+      "object": "canone_editorial.field_definition",
+      "source": "003_metamodel.sql",
+      "type": "ALTER_TABLE"
+    },
+    {
+      "line": 196,
+      "object": "ix_content_item_state",
+      "source": "003_metamodel.sql",
+      "target": "canone_editorial.content_item",
+      "type": "INDEX"
+    },
+    {
+      "line": 197,
+      "object": "ix_content_item_subject",
+      "source": "003_metamodel.sql",
+      "target": "canone_editorial.content_item",
+      "type": "INDEX"
+    },
+    {
+      "line": 198,
+      "object": "ix_content_item_search",
+      "source": "003_metamodel.sql",
+      "target": "canone_editorial.content_item",
+      "type": "INDEX"
+    },
+    {
+      "line": 213,
+      "object": "canone_editorial.content_item",
+      "source": "003_metamodel.sql",
+      "type": "ALTER_TABLE"
+    },
+    {
+      "line": 246,
+      "object": "ix_content_relation_to",
+      "source": "003_metamodel.sql",
+      "target": "canone_editorial.content_relation",
+      "type": "INDEX"
+    },
+    {
+      "line": 247,
+      "object": "ix_content_relation_from",
+      "source": "003_metamodel.sql",
+      "target": "canone_editorial.content_relation",
+      "type": "INDEX"
+    },
+    {
+      "line": 264,
+      "object": "ix_content_revision_item",
+      "source": "003_metamodel.sql",
+      "target": "canone_editorial.content_revision",
+      "type": "INDEX"
+    },
+    {
+      "line": 325,
+      "object": "ux_verification_active",
+      "source": "003_metamodel.sql",
+      "target": "canone_editorial.verification",
+      "type": "INDEX"
+    },
+    {
+      "line": 102,
+      "object": "ix_item_placement_edition",
+      "source": "004_taxonomy_blueprint.sql",
+      "target": "canone_taxonomy.item_placement",
+      "type": "INDEX"
+    },
+    {
+      "line": 62,
+      "object": "ux_norm_version_current",
+      "source": "005_norms.sql",
+      "target": "canone_norms.norm_version",
+      "type": "INDEX"
+    },
+    {
+      "line": 64,
+      "object": "ux_norm_version_label",
+      "source": "005_norms.sql",
+      "target": "canone_norms.norm_version",
+      "type": "INDEX"
+    },
+    {
+      "line": 85,
+      "object": "ix_norm_item_parent",
+      "source": "005_norms.sql",
+      "target": "canone_norms.norm_item",
+      "type": "INDEX"
+    },
+    {
+      "line": 86,
+      "object": "ix_norm_item_search",
+      "source": "005_norms.sql",
+      "target": "canone_norms.norm_item",
+      "type": "INDEX"
+    },
+    {
+      "line": 116,
+      "object": "ix_norm_citation_norm",
+      "source": "005_norms.sql",
+      "target": "canone_editorial.content_norm_citation",
+      "type": "INDEX"
+    },
+    {
+      "line": 117,
+      "object": "ix_norm_citation_item",
+      "source": "005_norms.sql",
+      "target": "canone_editorial.content_norm_citation",
+      "type": "INDEX"
+    },
+    {
+      "line": 49,
+      "object": "ix_learning_item_kind",
+      "source": "006_learning_items.sql",
+      "target": "canone_learning.item",
+      "type": "INDEX"
+    },
+    {
+      "line": 50,
+      "object": "ix_learning_item_rate",
+      "source": "006_learning_items.sql",
+      "target": "canone_learning.item",
+      "type": "INDEX"
+    },
+    {
+      "line": 67,
+      "object": "ix_item_option_correct",
+      "source": "006_learning_items.sql",
+      "target": "canone_learning.item_option",
+      "type": "INDEX"
+    },
+    {
+      "line": 120,
+      "object": "ix_item_subject_subject",
+      "source": "006_learning_items.sql",
+      "target": "canone_learning.item_subject",
+      "type": "INDEX"
+    },
+    {
+      "line": 183,
+      "object": "ix_mind_map_node_parent",
+      "source": "006_learning_items.sql",
+      "target": "canone_learning.mind_map_node",
+      "type": "INDEX"
+    },
+    {
+      "line": 53,
+      "object": "ix_session_user_started",
+      "source": "007_learning_srs.sql",
+      "target": "canone_learning.session",
+      "type": "INDEX"
+    },
+    {
+      "line": 54,
+      "object": "ix_session_open",
+      "source": "007_learning_srs.sql",
+      "target": "canone_learning.session",
+      "type": "INDEX"
+    },
+    {
+      "line": 85,
+      "object": "ix_review_event_user_item",
+      "source": "007_learning_srs.sql",
+      "target": "canone_learning.review_event",
+      "type": "INDEX"
+    },
+    {
+      "line": 86,
+      "object": "ix_review_event_session",
+      "source": "007_learning_srs.sql",
+      "target": "canone_learning.review_event",
+      "type": "INDEX"
+    },
+    {
+      "line": 87,
+      "object": "ix_review_event_user_time",
+      "source": "007_learning_srs.sql",
+      "target": "canone_learning.review_event",
+      "type": "INDEX"
+    },
+    {
+      "line": 132,
+      "object": "ix_user_item_due",
+      "source": "007_learning_srs.sql",
+      "target": "canone_learning.user_item_state",
+      "type": "INDEX"
+    },
+    {
+      "line": 134,
+      "object": "ix_user_item_fragile",
+      "source": "007_learning_srs.sql",
+      "target": "canone_learning.user_item_state",
+      "type": "INDEX"
+    },
+    {
+      "line": 136,
+      "object": "ix_user_item_new",
+      "source": "007_learning_srs.sql",
+      "target": "canone_learning.user_item_state",
+      "type": "INDEX"
+    },
+    {
+      "line": 187,
+      "object": "ix_note_user",
+      "source": "007_learning_srs.sql",
+      "target": "canone_learning.note",
+      "type": "INDEX"
+    },
+    {
+      "line": 202,
+      "object": "ix_offline_pack_user",
+      "source": "007_learning_srs.sql",
+      "target": "canone_learning.offline_pack",
+      "type": "INDEX"
+    },
+    {
+      "line": 223,
+      "object": "ix_study_plan_user",
+      "source": "007_learning_srs.sql",
+      "target": "canone_learning.study_plan",
+      "type": "INDEX"
+    },
+    {
+      "line": 60,
+      "object": "ix_subscription_user",
+      "source": "008_commerce.sql",
+      "target": "canone_commerce.subscription",
+      "type": "INDEX"
+    },
+    {
+      "line": 61,
+      "object": "ix_subscription_provider_ref",
+      "source": "008_commerce.sql",
+      "target": "canone_commerce.subscription",
+      "type": "INDEX"
+    },
+    {
+      "line": 63,
+      "object": "ux_subscription_active",
+      "source": "008_commerce.sql",
+      "target": "canone_commerce.subscription",
+      "type": "INDEX"
+    },
+    {
+      "line": 86,
+      "object": "ix_payment_user",
+      "source": "008_commerce.sql",
+      "target": "canone_commerce.payment",
+      "type": "INDEX"
+    },
+    {
+      "line": 105,
+      "object": "ix_invoice_user",
+      "source": "008_commerce.sql",
+      "target": "canone_commerce.invoice",
+      "type": "INDEX"
+    },
+    {
+      "line": 121,
+      "object": "ix_entitlement_user_feature",
+      "source": "008_commerce.sql",
+      "target": "canone_commerce.entitlement",
+      "type": "INDEX"
+    },
+    {
+      "line": 53,
+      "object": "ix_audit_log_actor",
+      "source": "009_admin_governance.sql",
+      "target": "canone_audit.audit_log",
+      "type": "INDEX"
+    },
+    {
+      "line": 54,
+      "object": "ix_audit_log_entity",
+      "source": "009_admin_governance.sql",
+      "target": "canone_audit.audit_log",
+      "type": "INDEX"
+    },
+    {
+      "line": 55,
+      "object": "ix_audit_log_action",
+      "source": "009_admin_governance.sql",
+      "target": "canone_audit.audit_log",
+      "type": "INDEX"
+    },
+    {
+      "line": 56,
+      "object": "ix_audit_log_subject",
+      "source": "009_admin_governance.sql",
+      "target": "canone_audit.audit_log",
+      "type": "INDEX"
+    },
+    {
+      "line": 58,
+      "object": "ux_audit_log_seq",
+      "source": "009_admin_governance.sql",
+      "target": "canone_audit.audit_log",
+      "type": "INDEX"
+    },
+    {
+      "line": 172,
+      "object": "ix_grant_active",
+      "source": "009_admin_governance.sql",
+      "target": "canone_admin.support_access_grant",
+      "type": "INDEX"
+    },
+    {
+      "line": 177,
+      "object": "ix_grant_subject",
+      "source": "009_admin_governance.sql",
+      "target": "canone_admin.support_access_grant",
+      "type": "INDEX"
+    },
+    {
+      "line": 192,
+      "object": "ix_support_access_log_grant",
+      "source": "009_admin_governance.sql",
+      "target": "canone_admin.support_access_log",
+      "type": "INDEX"
+    },
+    {
+      "line": 211,
+      "object": "ix_moderation_open",
+      "source": "009_admin_governance.sql",
+      "target": "canone_admin.moderation_queue",
+      "type": "INDEX"
+    },
+    {
+      "line": 72,
+      "object": "ix_api_key_prefix",
+      "source": "010_ops_platform.sql",
+      "target": "canone_ops.api_key",
+      "type": "INDEX"
+    },
+    {
+      "line": 102,
+      "object": "ix_webhook_delivery_retry",
+      "source": "010_ops_platform.sql",
+      "target": "canone_ops.webhook_delivery",
+      "type": "INDEX"
+    },
+    {
+      "line": 126,
+      "object": "ix_job_run_pending",
+      "source": "010_ops_platform.sql",
+      "target": "canone_ops.job_run",
+      "type": "INDEX"
+    },
+    {
+      "line": 158,
+      "object": "ix_notification_user",
+      "source": "010_ops_platform.sql",
+      "target": "canone_ops.notification",
+      "type": "INDEX"
+    },
+    {
+      "line": 1,
+      "object": "ix_content_item_public_listing",
+      "source": "015_indexes.sql",
+      "target": "canone_editorial.content_item",
+      "type": "INDEX"
+    },
+    {
+      "line": 14,
+      "object": "ix_relation_cita_norma",
+      "source": "015_indexes.sql",
+      "target": "canone_editorial.content_relation",
+      "type": "INDEX"
+    },
+    {
+      "line": 19,
+      "object": "ix_moderation_priority",
+      "source": "015_indexes.sql",
+      "target": "canone_admin.moderation_queue",
+      "type": "INDEX"
+    },
+    {
+      "line": 23,
+      "object": "ix_state_due_covering",
+      "source": "015_indexes.sql",
+      "target": "canone_learning.user_item_state",
+      "type": "INDEX"
+    },
+    {
+      "line": 28,
+      "object": "ix_event_item_time",
+      "source": "015_indexes.sql",
+      "target": "canone_learning.review_event",
+      "type": "INDEX"
+    },
+    {
+      "line": 31,
+      "object": "ix_audit_time",
+      "source": "015_indexes.sql",
+      "target": "canone_audit.audit_log",
+      "type": "INDEX"
+    },
+    {
+      "line": 34,
+      "object": "ix_audit_hash",
+      "source": "015_indexes.sql",
+      "target": "canone_audit.audit_log",
+      "type": "INDEX"
+    },
+    {
+      "line": 35,
+      "object": "ix_jobs_poll",
+      "source": "015_indexes.sql",
+      "target": "canone_ops.job_run",
+      "type": "INDEX"
+    },
+    {
+      "line": 39,
+      "object": "ix_webhook_retry",
+      "source": "015_indexes.sql",
+      "target": "canone_ops.webhook_delivery",
+      "type": "INDEX"
+    },
+    {
+      "line": 43,
+      "object": "ix_error_open",
+      "source": "015_indexes.sql",
+      "target": "canone_ops.error_event",
+      "type": "INDEX"
+    },
+    {
+      "line": 47,
+      "object": "ix_entitlement_lookup",
+      "source": "015_indexes.sql",
+      "target": "canone_commerce.entitlement",
+      "type": "INDEX"
+    },
+    {
+      "line": 51,
+      "object": "ix_consent_current",
+      "source": "015_indexes.sql",
+      "target": "canone_identity.consent",
+      "type": "INDEX"
+    },
+    {
+      "line": 1,
+      "object": "canone_taxonomy.exam_edition",
+      "source": "018_provas_gabarito.sql",
+      "type": "ALTER_TABLE"
+    },
+    {
+      "line": 55,
+      "object": "canone_taxonomy.exam_edition",
+      "source": "018_provas_gabarito.sql",
+      "type": "ALTER_TABLE"
+    },
+    {
+      "line": 62,
+      "object": "canone_taxonomy.exam_edition",
+      "source": "018_provas_gabarito.sql",
+      "type": "ALTER_TABLE"
+    },
+    {
+      "line": 101,
+      "object": "ux_exam_track_identidade",
+      "source": "018_provas_gabarito.sql",
+      "target": "canone_taxonomy.exam_track",
+      "type": "INDEX"
+    },
+    {
+      "line": 107,
+      "object": "ix_exam_track_edition",
+      "source": "018_provas_gabarito.sql",
+      "target": "canone_taxonomy.exam_track",
+      "type": "INDEX"
+    },
+    {
+      "line": 167,
+      "object": "ux_answer_key_preliminar",
+      "source": "018_provas_gabarito.sql",
+      "target": "canone_learning.answer_key",
+      "type": "INDEX"
+    },
+    {
+      "line": 172,
+      "object": "ux_answer_key_definitivo",
+      "source": "018_provas_gabarito.sql",
+      "target": "canone_learning.answer_key",
+      "type": "INDEX"
+    },
+    {
+      "line": 1,
+      "object": "canone_taxonomy.exam_edition",
+      "source": "019_tentativa_ingestao.sql",
+      "type": "ALTER_TABLE"
+    },
+    {
+      "line": 35,
+      "object": "canone_taxonomy.exam_edition",
+      "source": "019_tentativa_ingestao.sql",
+      "type": "ALTER_TABLE"
+    },
+    {
+      "line": 62,
+      "object": "ix_exam_attempt_user",
+      "source": "019_tentativa_ingestao.sql",
+      "target": "canone_learning.exam_attempt",
+      "type": "INDEX"
+    },
+    {
+      "line": 136,
+      "object": "canone_taxonomy.exam_edition",
+      "source": "026_staff_le_gabarito_default_zero.sql",
+      "type": "ALTER_TABLE"
+    },
+    {
+      "line": 141,
+      "object": "canone_taxonomy.exam_edition",
+      "source": "026_staff_le_gabarito_default_zero.sql",
+      "type": "ALTER_TABLE"
+    },
+    {
+      "line": 1,
+      "object": "canone_commerce.plan",
+      "source": "028_preco_comercial.sql",
+      "type": "ALTER_TABLE"
+    },
+    {
+      "line": 31,
+      "object": "canone_commerce.plan",
+      "source": "028_preco_comercial.sql",
+      "type": "ALTER_TABLE"
+    },
+    {
+      "line": 36,
+      "object": "canone_commerce.plan",
+      "source": "028_preco_comercial.sql",
+      "type": "ALTER_TABLE"
+    }
+  ],
+  "index_generated": 67,
+  "index_skipped": [
+    {
+      "details": "001 pilot already creates ix_canone_user_role_active",
+      "index": "ix_user_role_active",
+      "line": 77,
+      "reason": "PILOT_EQUIVALENT",
+      "source": "002_identity_lgpd.sql"
+    },
+    {
+      "details": "001 pilot already creates ix_canone_consent_user",
+      "index": "ix_consent_user",
+      "line": 110,
+      "reason": "PILOT_EQUIVALENT",
+      "source": "002_identity_lgpd.sql"
+    },
+    {
+      "details": "Authentication sessions belong to Supabase Auth",
+      "index": "ix_session_user",
+      "line": 156,
+      "reason": "MANAGED_AUTH",
+      "source": "002_identity_lgpd.sql"
+    },
+    {
+      "details": "pg_trgm gin_trgm_ops requires separately attested extension installation",
+      "index": "ix_content_item_search_trgm",
+      "line": 10,
+      "reason": "EXTENSION_PREREQUISITE",
+      "source": "015_indexes.sql"
+    }
+  ],
+  "notes": [
+    "Structurally converted indexes/ALTER TABLE are candidate only; triggers, functions, views and policies remain separate",
+    "GIN trigram index requires supported pg_trgm extension in isolated PG17; never silently replace operator class",
+    "Domain and Auth data remain inaccessible to browsers without explicit reviewed policies"
+  ],
+  "source_db_writes": false,
+  "source_indexes": 71,
+  "source_migration_hashes_verified": true,
+  "source_migrations": 30,
+  "sql_sha256": "f000b2a5022e64f22a1e373ff467073b72241067fb7f2c328c5d5b69debd5013",
+  "status": "CANDIDATE_INDEXES_AND_CONSTRAINTS_NOT_FULL_MIGRATION",
+  "structural_alter_generated": 12,
+  "version": "0.23.0-alpha.4"
+}

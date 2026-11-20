@@ -24,11 +24,21 @@ O piloto de identidade também adiciona duas tabelas novas (`private_profile`, `
 5. Cria namespaces Cânone próprios e inclui verificações contra execução no Supabase compartilhado (`canone_control.migration_catalog`) e pré-requisitos `auth.users`/piloto.
 6. Aplica **RLS habilitada e forçada** e revoga `PUBLIC`, `anon` e `authenticated` para as 82 tabelas. **Não cria políticas, grants, funções de privilégio ou interfaces públicas.** Esta estratégia é deliberadamente *deny by default* para prevenir exposição de gabaritos e dados de alunos.
 
+## Conversão adicional: índices e `ALTER TABLE`
+
+O programa `tools/convert_canone_constraints.py` usa os mesmos 30 SHA-256 originais e gera `staging/supabase/003_indexes_constraints.candidate.sql.txt` com **67 índices** e **12 alterações estruturais** (`ADD COLUMN`, `DROP DEFAULT`, `DROP NOT NULL`, FKs tardias e constraints). O manifesto `CANONE_INDEXES_CONSTRAINTS_MANIFEST.json` identifica exatamente o caminho e a ação de cada objeto.
+
+Dos **71 índices de origem**, quatro não são recriados neste lote: um sobre a sessão de login aposentada, dois equivalentes aos índices já criados pelo piloto de identidade e um GIN trigram dependente de `pg_trgm`. **Nenhum operador trigram foi substituído por algo semanticamente diferente**. As **16 alterações de RLS** do legado não são duplicadas porque as 89 tabelas já nascem com RLS+FORCE.
+
+Esses índices e alterações são aplicados *apenas* no teste in-memory após as 82 novas tabelas e o piloto de 7 tabelas. Não criam acesso ao usuário final. Os artefatos continuam como candidatos `.sql.txt`, sem comando de publicação.
+
 ## Verificação e reprodutibilidade
 
 ```bash
 python3 tools/convert_canone_schema.py --root . --check
 python3 -m unittest discover -s tests -p 'test_canone_domain_conversion.py' -v
+python3 tools/convert_canone_constraints.py --root . --check
+python3 -m unittest discover -s tests -p 'test_canone_indexes_constraints.py' -v
 node tests/canone_domain_tables_pglite.mjs
 ```
 
@@ -38,7 +48,7 @@ Para recalcular após futuras mudanças no S22 ou crosswalk: executar `--write` 
 
 ## Trabalho ainda necessário para concluir o banco (sem bloquear esta conversão)
 
-O extrator gera **somente `CREATE TABLE`**. Cerca de **454 instruções não `CREATE TABLE`** foram catalogadas por migration (heurística que inclui DDL, comentários, funções, grants, seeds, triggers e índices; **não é contagem de requisitos pendentes únicos**). Converter nas próximas etapas:
+O primeiro extrator gera **somente `CREATE TABLE`**; o segundo cobre 67 índices e 12 alterações estruturais, preservando as exceções documentadas. Cerca de **454 instruções não `CREATE TABLE`** foram catalogadas por migration (heurística que inclui DDL, comentários, funções, grants, seeds, triggers e índices; **não é contagem de requisitos pendentes únicos**). Converter nas próximas etapas:
 
 - **ALTER TABLE / FKs tardias / índices:** preservar dependências e desempenho, gerar diffs estruturais e ensaiar PG17.
 - **Views:** converter com `security_invoker=true`, sem vazar chave/gabarito. Nenhuma view publicada até auditoria.

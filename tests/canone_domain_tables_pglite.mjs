@@ -12,6 +12,8 @@ const require=createRequire(resolve(ROOT,'source-s22/backend/package.json'));
 const {PGlite}=await import(pathToFileURL(require.resolve('@electric-sql/pglite')));
 const sql=readFileSync(resolve(ROOT,'staging/supabase/002_domain_tables_82.candidate.sql.txt'),'utf8');
 const pilot=readFileSync(resolve(ROOT,'staging/supabase/001_identity_and_source_bridge.candidate.sql.txt'),'utf8');
+const indexesSql=readFileSync(resolve(ROOT,'staging/supabase/003_indexes_constraints.candidate.sql.txt'),'utf8');
+const indexesManifest=JSON.parse(readFileSync(resolve(ROOT,'staging/supabase/CANONE_INDEXES_CONSTRAINTS_MANIFEST.json'),'utf8'));
 const manifest=JSON.parse(readFileSync(resolve(ROOT,'staging/supabase/CANONE_DOMAIN_TABLES_CONVERSION_MANIFEST.json'),'utf8'));
 const A='11111111-1111-4111-8111-111111111111';
 const B='22222222-2222-4222-8222-222222222222';
@@ -26,7 +28,8 @@ try{
       $$SELECT NULLIF(current_setting('request.jwt.claim.sub',true),'')::uuid$$;
     INSERT INTO auth.users(id) VALUES ('${A}'), ('${B}');`);
   await db.exec(pilot);
-  await db.exec(sql);
+  try { await db.exec(sql); } catch(e) { throw Error('DOMAIN_DDL_SQL: '+e.message+' position='+e.position); }
+  try { await db.exec(indexesSql); } catch(e) {const pos=+(e.position??0);throw Error('INDEXES_ALTER_SQL: '+e.message+' position='+pos+' near='+indexesSql.slice(Math.max(0,pos-100),pos+140));}
   const objects=await db.query(`SELECT n.nspname AS schema_name,c.relname AS table_name, c.relrowsecurity AS rls,
       c.relforcerowsecurity AS force_rls FROM pg_class c JOIN pg_namespace n ON c.relnamespace=n.oid
       WHERE n.nspname LIKE 'canone_%' AND c.relkind='r';`);
@@ -35,6 +38,11 @@ try{
   for(const record of manifest.generated.filter(r=>r.strategy==='generated_candidate')){
     const [schema_name,table_name]=record.target.split('.');
     check(objects.rows.some(x=>x.schema_name===schema_name&&x.table_name===table_name),'Missing '+record.target);
+  }
+  const actualIndexes=await db.query(`SELECT n.nspname AS schema_name, c.relname AS index_name FROM pg_class c JOIN pg_namespace n ON c.relnamespace=n.oid WHERE n.nspname LIKE 'canone_%' AND c.relkind='i'`);
+  for(const r of indexesManifest.generated_entries.filter(x=>x.type==='INDEX')){
+    const schema_name=r.target.split('.')[0];
+    check(actualIndexes.rows.some(x=>x.schema_name===schema_name && x.index_name===r.object),'missing converted index '+r.object);
   }
   const authConstraints=await db.query(`SELECT count(*)::integer n FROM pg_constraint co JOIN pg_class c ON c.oid=co.confrelid
     JOIN pg_namespace n ON n.oid=c.relnamespace WHERE co.contype='f' AND n.nspname='auth' AND c.relname='users';`);
@@ -54,5 +62,5 @@ try{
   await denies(`SELECT * FROM canone_learning.answer_key`);
   await denies(`UPDATE canone_admin.feature_flag SET is_enabled = true`);
   await db.exec('RESET ROLE;');
-  console.log('PASS_CANONE_82_TABLES_PGLITE',JSON.stringify({tables:objects.rows.length,generated:82,pilot:7,rls_forced:89,auth_fk_min:38,checks,policies:3,production_gate:'NO_GO',engine:'PGlite in-memory'}));
+  console.log('PASS_CANONE_82_TABLES_PGLITE',JSON.stringify({tables:objects.rows.length,generated:82,pilot:7,rls_forced:89,auth_fk_min:38,checks,indexes:67,structural_alter:12,policies:3,production_gate:'NO_GO',engine:'PGlite in-memory'}));
 }finally{await db.close()}
