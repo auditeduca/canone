@@ -1,0 +1,14 @@
+<PARSED TEXT FOR SHEET: 1 / 1 TABS
+TAB NAME: S23_GATES_CFC.csv>index,ID,Gate,Prioridade,Aceite específico,Estado esperado
+0,CFC-G01,Fontes oficiais e edital por edição,P0,Matriz de conteúdos vinculada a edital/versão/autoridade,HOLD até fonte verificada
+1,CFC-G02,Licenças e questões,P0,Todos os enunciados/gabaritos publicáveis possuem direitos e aprovação,HOLD até direitos e gabaritos
+2,CFC-G03,Jornada real do aluno,P0,Escolher prova→aula→questão→feedback→revisão,E2E mobile e desktop
+3,CFC-G04,Autenticação e isolamento,P0,"Contas, RLS, roles, revogação, sessões, privacidade",PG17 e API adversarial
+4,CFC-G05,Progresso e favoritos sincronizados,P0,Mesmo histórico em dispositivos; sem perda e conflitos ocultos,Teste multi-device
+5,CFC-G06,Prova e cronômetro íntegros,P0,"Tempo/nota/attempt no backend, idempotência e logs",Teste concurrência e fraudes
+6,CFC-G07,Acessibilidade e responsividade,P0,"Zoom, teclado, leitor, breakpoints e reduced motion",Testes reais + WCAG
+7,CFC-G08,Publicação editorial e rollback,P0,Aprovar versão→publicar→retirar→notificar impacto,Governança e auditoria
+8,CFC-G09,PWA/offline real,V1.1,Cache com direitos e tratamento de conflitos,"Teste físico, modo avião"
+9,CFC-G10,EQT por modalidade,V1.1,"Ementa, edital, questões e especialistas por modalidade",Gate isolado de cada trilha
+10,CFC-G11,Outros canais,V1.1+,"Mesma fonte, direitos por mídia, analytics opt-in",Qualidade por canal
+11,CFC-G12,Ecossistema profissional,Futuro,Contratos versionados + integração segura sem duplicidade,Demanda comprovada
