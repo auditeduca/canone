@@ -57,6 +57,8 @@ try:
     return {
       start,early:await post('reveal',owner,{attemptId:attempt}),
       other:await post('answer',peer,{attemptId:attempt,ordinal:1,option:'A'}),
+      otherResume:await post('resume',peer,{attemptId:attempt}),
+      missingPlanRead:await post('history',unlicensed,{}),
       denied:await post('start',unlicensed,{formId:'00000000-0000-4000-8000-000000000004'})
     };
   }""",{"peer":jwt["peer"],"unlicensed":jwt["unlicensed"]})
@@ -64,6 +66,8 @@ try:
   assert negatives["early"]["status"]!=200,negatives
   assert "correct_option" not in json.dumps(negatives["early"])
   assert negatives["other"]["status"]==403,negatives
+  assert negatives["otherResume"]["status"]==404,negatives
+  assert negatives["missingPlanRead"]["status"]==403,negatives
   assert negatives["denied"]["status"]==403,negatives
   page.get_by_role("button",name="A Opção A sintética").click()
   page.get_by_role("button",name="Registrar resposta").click()
@@ -72,8 +76,10 @@ try:
   page.reload(wait_until="networkidle")
   page.get_by_role("button",name="Carregar formulário de teste").click()
   page.get_by_role("button",name="Consultar histórico").click()
-  expect(page.get_by_role("button",name="Retomar tentativa")).to_be_visible()
-  page.get_by_role("button",name="Retomar tentativa").click()
+  progress_row=page.get_by_text("1/2 respostas").locator("..").locator("..")
+  resume_button=progress_row.get_by_role("button",name="Retomar tentativa")
+  expect(resume_button).to_be_visible()
+  resume_button.click()
   expect(page.get_by_text("Questão fictícia contábil dois")).to_be_visible()
   assert "Gabarito retornado pelo servidor:" not in page.locator("main").inner_text()
   page.get_by_role("button",name="B Opção B sintética").click()
