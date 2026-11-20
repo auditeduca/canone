@@ -42,6 +42,9 @@ export function makeSupabaseAuthVerifier({ url, publishableKey, fetchImpl = fetc
   };
 }
 const actionSchema = Object.freeze({
+  '/api/v1/exam/catalog': {method:'exam_catalog',keys:[],args:()=>[]},
+  '/api/v1/exam/history': {method:'exam_history',keys:[],args:()=>[]},
+  '/api/v1/exam/resume': {method:'exam_resume',keys:['attemptId'],args:b=>[b.attemptId]},
   '/api/v1/exam/start': { method: 'exam_start', keys: ['formId'], args: b => [b.formId] },
   '/api/v1/exam/answer': { method: 'exam_answer', keys: ['attemptId', 'ordinal', 'option'], args: b => [b.attemptId, b.ordinal, b.option] },
   '/api/v1/exam/finish': { method: 'exam_finish', keys: ['attemptId'], args: b => [b.attemptId] },
@@ -49,6 +52,9 @@ const actionSchema = Object.freeze({
   '/api/v1/exam/review': { method: 'exam_to_srs', keys: ['attemptId', 'ordinal'], args: b => [b.attemptId, b.ordinal] },
 });
 export const SQL = Object.freeze({
+  exam_catalog:'SELECT * FROM canone_ops.exam_catalog()',
+  exam_history:'SELECT * FROM canone_ops.exam_history()',
+  exam_resume:'SELECT * FROM canone_ops.exam_resume($1::uuid)',
   exam_start: 'SELECT canone_ops.exam_start($1::uuid) AS id',
   exam_answer: 'SELECT canone_ops.exam_answer($1::uuid,$2::integer,$3::text)',
   exam_finish: 'SELECT * FROM canone_ops.exam_finish($1::uuid)',
@@ -121,6 +127,11 @@ export function makePgExecutor({ pool }) {
       if (authz.rows?.[0]?.allowed !== true) throw new GatewayError(403, 'FEATURE_NOT_AUTHORIZED');
       const result = await client.query(SQL[method], args);
       await client.query('COMMIT'); begun = false;
+      if (method === 'exam_catalog' || method === 'exam_history') return {rows:result.rows ?? []};
+      if (method === 'exam_resume') {
+        if (!result.rows?.[0]) throw new GatewayError(404,'OBJECT_NOT_FOUND');
+        return result.rows[0];
+      }
       if (method === 'exam_answer') return { accepted: true };
       if (method === 'exam_reveal') return { rows: result.rows ?? [] };
       if (method === 'exam_finish') return result.rows?.[0] ?? null;
