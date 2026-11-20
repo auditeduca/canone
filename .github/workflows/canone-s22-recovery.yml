@@ -65,6 +65,9 @@ jobs:
            */
           export const idsQuarentena = ['CFC-STRUCT-001', 'CG-003'] as const;
           SYNTHETIC_FIXTURE
+      - name: Install locked backend test dependencies without lifecycle scripts
+        working-directory: source-s22/backend
+        run: npm ci --ignore-scripts --no-audit --no-fund
       - name: S22 offline-only 277 regression tests (synthetic excluded-source fixture)
         run: python3 source-s22/backend/db/shared-host/s22-contracts/run_local_gates.py
       - name: Assert production release gate still returns NO-GO exit 41
