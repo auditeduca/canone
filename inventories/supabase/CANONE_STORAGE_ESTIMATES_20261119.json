@@ -1,0 +1,43 @@
+{
+  "snapshot_date": "2026-11-19",
+  "project": "pgsybzggewhinaniybiy",
+  "metric_note": "pg_stat_all_tables.n_live_tup is an estimate, not exact row count; pg_total_relation_size includes table+indexes+TOAST, not export file bytes; no row data copied.",
+  "sources": [
+    {
+      "schema": "account_palm",
+      "tables": 18,
+      "estimated_rows": 25241,
+      "total_relation_bytes": 205479936,
+      "over_10mb": 3
+    },
+    {
+      "schema": "canone_control",
+      "tables": 4,
+      "estimated_rows": 53,
+      "total_relation_bytes": 163840,
+      "over_10mb": 0
+    },
+    {
+      "schema": "cko_governance",
+      "tables": 6,
+      "estimated_rows": 0,
+      "total_relation_bytes": 15876096,
+      "over_10mb": 0
+    },
+    {
+      "schema": "contabilidade_cfc",
+      "tables": 11,
+      "estimated_rows": 529,
+      "total_relation_bytes": 2482176,
+      "over_10mb": 0
+    },
+    {
+      "schema": "public",
+      "tables": 15,
+      "estimated_rows": 0,
+      "total_relation_bytes": 10256384,
+      "over_10mb": 0
+    }
+  ],
+  "rights": "Native 4 tables fully extracted as 53 control rows; 50 shared tables remain candidate metadata only. No wholesale export authorized until classification and dedicated target."
+}
