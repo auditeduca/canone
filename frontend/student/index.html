@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Cânone | Área do aluno — demonstração local</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo principal</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Navegação do aluno">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">C</span><span>CÂNONE<small>Ambiente do aluno</small></span></div>
+    <nav class="nav" aria-label="Seções">
+      <button type="button" data-nav="home" aria-current="page">◫ <span>Visão geral</span></button>
+      <button type="button" data-nav="exam">▤ <span>Simulado CFC</span></button>
+      <button type="button" data-nav="review">◎ <span>Revisão SRS</span></button>
+    </nav>
+    <p class="sidebar-foot">Versão 0.23.0-alpha.9<br>NS-04 · protótipo local</p>
+  </aside>
+  <div class="main-wrap">
+    <header class="topbar">
+      <span class="breadcrumbs">Área do aluno <span aria-hidden="true">/</span> Jornada CFC</span>
+      <span class="test-pill"><span class="dot" aria-hidden="true"></span> Conteúdo sintético · NO-GO</span>
+    </header>
+    <main id="main" tabindex="-1">
+      <section id="home" data-section="home" aria-labelledby="home-title">
+        <p class="eyebrow">SEU ESPAÇO DE ESTUDOS</p>
+        <h1 id="home-title">Uma jornada de aprendizado, passo a passo.</h1>
+        <p class="lead">Experimente o fluxo de provas e revisões com questões fictícias, sem dados pessoais, pagamentos ou conexão ao Supabase.</p>
+        <div class="metric-grid" aria-label="Resumo da sessão local">
+          <article class="metric"><span>Questões respondidas</span><strong id="metric-answered">0/2</strong><small>Nesta sessão</small></article>
+          <article class="metric"><span>Acertos</span><strong id="metric-score">—</strong><small>Visível após correção</small></article>
+          <article class="metric"><span>Itens na revisão</span><strong id="metric-reviews">0</strong><small>Somente nesta sessão</small></article>
+        </div>
+        <div class="section-heading"><div><p class="eyebrow">CATÁLOGO</p><h2>Seu próximo simulado</h2></div><span class="soft-tag">Demonstração</span></div>
+        <article class="course">
+          <div class="course-icon" aria-hidden="true">▥</div>
+          <div class="course-body"><p class="eyebrow">CFC · AMOSTRA</p><h3>Fundamentos de contabilidade</h3><p>2 questões inéditas e sintéticas, correção posterior e revisão espaçada na sessão local.</p>
+            <div class="course-meta"><span>◷ Sem limite de tempo</span><span>☷ 2 questões</span><span>◎ Revisão SRS</span></div>
+          </div>
+          <button class="primary" id="start-from-home" type="button">Iniciar simulado <span aria-hidden="true">→</span></button>
+        </article>
+      </section>
+      <section id="exam" data-section="exam" aria-labelledby="exam-title" hidden>
+        <p class="eyebrow">SIMULADO · DEMONSTRAÇÃO</p>
+        <h1 id="exam-title">Fundamentos de contabilidade</h1>
+        <p class="lead">As respostas são gravadas na sessão. O gabarito só aparece após concluir a tentativa.</p>
+        <div class="exam-panel">
+          <div class="exam-progress"><span id="exam-step">Aguardando início</span><span id="exam-count">0 de 2</span></div>
+          <div class="progress-track" role="progressbar" aria-label="Progresso do simulado" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0" id="exam-progress"><div id="progress-fill"></div></div>
+          <div id="question-area"><p>Inicie uma tentativa para responder às questões.</p></div>
+          <div class="actions"><button type="button" class="secondary" id="back-home">Voltar ao início</button><button type="button" class="primary" id="answer-button" hidden>Salvar resposta</button><button type="button" class="primary" id="finish-button" hidden>Concluir tentativa</button><button type="button" class="primary" id="reveal-button" hidden>Ver correção</button></div>
+        </div>
+      </section>
+      <section id="review" data-section="review" aria-labelledby="review-title" hidden>
+        <p class="eyebrow">APÓS A CORREÇÃO</p>
+        <h1 id="review-title">Sua revisão</h1>
+        <p class="lead">Revise os itens corrigidos. Os recibos SRS demonstrados aqui não persistem após recarregar.</p>
+        <div class="exam-panel" id="review-content"><p>Conclua e corrija o simulado antes de registrar revisões.</p></div>
+      </section>
+      <p class="notice"><strong>Limites:</strong> protótipo executável somente em localhost com <code>?demo=1</code>. Gabaritos estão no código da fixture e não provam sigilo de produção. Sem autenticação real, banco de dados, dados oficiais ou persistência de progresso.</p>
+    </main>
+    <footer class="footer">Cânone · NS-04 · Pré-visualização de interface sem deploy</footer>
+  </div>
+</div>
+<div id="toast" role="status" aria-live="polite" aria-atomic="true" class="toast" hidden></div>
+</body>
+</html>

@@ -103,6 +103,9 @@ jobs:
         env:
           CANONE_SYNTHETIC_TEST_ONLY: "1"
         run: node --test tests/ns02_local_identity_http.test.mjs
+      - name: NS-04 student controller — synthetic UI state and same-origin gateway contract
+        shell: bash
+        run: node --test tests/ns04_student_frontend.test.mjs
       - name: Recreate a synthetic fixture for omitted editorial sample IDs
         shell: bash
         run: |
@@ -228,3 +231,24 @@ jobs:
           CANONE_CI_PG17_CONTAINER: ${{ job.services.pg17.id }}
           CANONE_CI_PG17_PORT: ${{ job.services.pg17.ports[5432] }}
         run: bash tests/pg17_ns03_http_real_pg.sh
+
+  ns04-browser-local:
+    name: NS-04 Chromium desktop/mobile — local synthetic frontend (NO-GO)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 14
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout without stored credentials
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Install isolated Playwright Python runner (pinned)
+        shell: bash
+        run: |
+          python3 -m venv /tmp/canone-ns04-py
+          /tmp/canone-ns04-py/bin/python -m pip install --disable-pip-version-check playwright==1.57.0
+          /tmp/canone-ns04-py/bin/python -m playwright install --with-deps chromium
+      - name: Browser P0 flow, early-key negative, mobile 390px and keyboard
+        shell: bash
+        run: /tmp/canone-ns04-py/bin/python tests/ns04_student_browser.py
