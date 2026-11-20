@@ -1,0 +1,1083 @@
+{
+  "schema_version": "CANONE_F4_04B_OBJECTIVES_PILOT_V1",
+  "project": "auditeduca/canone",
+  "edition": "CFC-SUF-2026.3",
+  "created_on": "2026-11-20",
+  "release_gate": "NO_GO",
+  "parent_path": "governance/f4_annex02_outline_v1.json",
+  "parent_git_blob_sha": "cdab56d953c5639a42bdc4ac2d71838362a856dd",
+  "source_url": "https://conhecimento.fgv.br/sites/default/files/concursos/cfc-edital-2026.3-05.10.2026.pdf",
+  "scope": "TWO_AREAS_18_GROUPS_PILOT",
+  "rights": "REFERENCE_ONLY",
+  "no_official_text_copied": true,
+  "limit": "Competency candidates, not full paragraph-by-paragraph syllabus certification.",
+  "metrics": {
+    "pilot_areas": 2,
+    "pilot_groups": 18,
+    "parent_group_total": 82,
+    "candidate_objectives": 63,
+    "editorial_approved": 0,
+    "normative_verified": 0,
+    "lessons_approved": 0,
+    "questions_approved": 0,
+    "publication_permissions": 0
+  },
+  "groups": [
+    {
+      "parent_group_id": "F4-SUF26-3-01-01",
+      "area_id": "CFC-A07",
+      "source_locator": "ANEXO_II/1/A#1",
+      "source_pdf_page_index": 22,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG EC",
+        "NBC TG 03",
+        "NBC TG 16",
+        "NBC TG 27",
+        "NBC TG 36",
+        "NBC TG 47",
+        "NBC TG 48",
+        "Lei 6.404/1976"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-01-01-OBJ01",
+          "original_learning_objective": "Definir o propósito da informação contábil e seus usuários",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/1/A#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-01-OBJ02",
+          "original_learning_objective": "Distinguir ativo, passivo e patrimônio líquido",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/1/A#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-01-OBJ03",
+          "original_learning_objective": "Analisar os efeitos de aportes de capital e resultados",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/1/A#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-01-OBJ04",
+          "original_learning_objective": "Interpretar efeitos simultâneos de transações patrimoniais",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/1/A#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-01-02",
+      "area_id": "CFC-A07",
+      "source_locator": "ANEXO_II/1/B#1",
+      "source_pdf_page_index": 22,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG EC",
+        "NBC TG 03",
+        "NBC TG 16",
+        "NBC TG 27",
+        "NBC TG 36",
+        "NBC TG 47",
+        "NBC TG 48",
+        "Lei 6.404/1976"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-01-02-OBJ01",
+          "original_learning_objective": "Distinguir contas sintéticas, analíticas, patrimoniais e retificadoras",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/1/B#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-02-OBJ02",
+          "original_learning_objective": "Elaborar lançamentos por débito e crédito",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/1/B#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-02-OBJ03",
+          "original_learning_objective": "Preparar um balancete sintético a partir do razão",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/1/B#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-02-OBJ04",
+          "original_learning_objective": "Identificar inconsistências em diário, razão e plano de contas",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/1/B#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-01-03",
+      "area_id": "CFC-A07",
+      "source_locator": "ANEXO_II/1/C#1",
+      "source_pdf_page_index": 22,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG EC",
+        "NBC TG 03",
+        "NBC TG 16",
+        "NBC TG 27",
+        "NBC TG 36",
+        "NBC TG 47",
+        "NBC TG 48",
+        "Lei 6.404/1976"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-01-03-OBJ01",
+          "original_learning_objective": "Diferenciar reconhecimento e mensuração",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/1/C#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-03-OBJ02",
+          "original_learning_objective": "Comparar custo histórico, valor presente e valor justo",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/1/C#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-03-OBJ03",
+          "original_learning_objective": "Explicar depreciação, amortização e exaustão",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/1/C#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-03-OBJ04",
+          "original_learning_objective": "Analisar provisões e contingências em cenários incertos",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/1/C#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-03-OBJ05",
+          "original_learning_objective": "Investigar efeitos de câmbio e equivalência patrimonial",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/1/C#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-01-04",
+      "area_id": "CFC-A07",
+      "source_locator": "ANEXO_II/1/D#1",
+      "source_pdf_page_index": 22,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG EC",
+        "NBC TG 03",
+        "NBC TG 16",
+        "NBC TG 27",
+        "NBC TG 36",
+        "NBC TG 47",
+        "NBC TG 48",
+        "Lei 6.404/1976"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-01-04-OBJ01",
+          "original_learning_objective": "Classificar compras, vendas e adiantamentos em registros contábeis",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/1/D#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-04-OBJ02",
+          "original_learning_objective": "Analisar efeitos de estoques e ativos imobilizados",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/1/D#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-04-OBJ03",
+          "original_learning_objective": "Relacionar receitas e despesas ao resultado",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/1/D#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-04-OBJ04",
+          "original_learning_objective": "Analisar impactos de tributos e folha de pagamento",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/1/D#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-04-OBJ05",
+          "original_learning_objective": "Discutir impactos patrimoniais de intangíveis e combinações de negócios",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/1/D#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-01-05",
+      "area_id": "CFC-A07",
+      "source_locator": "ANEXO_II/1/E#1",
+      "source_pdf_page_index": 22,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG EC",
+        "NBC TG 03",
+        "NBC TG 16",
+        "NBC TG 27",
+        "NBC TG 36",
+        "NBC TG 47",
+        "NBC TG 48",
+        "Lei 6.404/1976"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-01-05-OBJ01",
+          "original_learning_objective": "Separar ativo e passivo entre circulante e não circulante",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/1/E#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-05-OBJ02",
+          "original_learning_objective": "Preparar balanço patrimonial sintético",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/1/E#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-05-OBJ03",
+          "original_learning_objective": "Explicar alterações de indicadores causadas por reclassificações",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/1/E#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-01-06",
+      "area_id": "CFC-A07",
+      "source_locator": "ANEXO_II/1/F#1",
+      "source_pdf_page_index": 22,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG EC",
+        "NBC TG 03",
+        "NBC TG 16",
+        "NBC TG 27",
+        "NBC TG 36",
+        "NBC TG 47",
+        "NBC TG 48",
+        "Lei 6.404/1976"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-01-06-OBJ01",
+          "original_learning_objective": "Explicar a finalidade da demonstração do resultado e do resultado abrangente",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/1/F#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-06-OBJ02",
+          "original_learning_objective": "Organizar rubricas de resultado em caso fictício",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/1/F#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-06-OBJ03",
+          "original_learning_objective": "Distinguir resultado do período e outros resultados abrangentes",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/1/F#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-01-07",
+      "area_id": "CFC-A07",
+      "source_locator": "ANEXO_II/1/G#1",
+      "source_pdf_page_index": 22,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG EC",
+        "NBC TG 03",
+        "NBC TG 16",
+        "NBC TG 27",
+        "NBC TG 36",
+        "NBC TG 47",
+        "NBC TG 48",
+        "Lei 6.404/1976"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-01-07-OBJ01",
+          "original_learning_objective": "Diferenciar DMPL e demonstração dos lucros acumulados",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/1/G#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-07-OBJ02",
+          "original_learning_objective": "Conciliar mutações patrimoniais com saldo inicial e final",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/1/G#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-07-OBJ03",
+          "original_learning_objective": "Investigar diferenças entre lucro e mutações patrimoniais",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/1/G#1",
+          "source_pdf_page_index": 22,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-01-08",
+      "area_id": "CFC-A07",
+      "source_locator": "ANEXO_II/1/H#1",
+      "source_pdf_page_index": 23,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG EC",
+        "NBC TG 03",
+        "NBC TG 16",
+        "NBC TG 27",
+        "NBC TG 36",
+        "NBC TG 47",
+        "NBC TG 48",
+        "Lei 6.404/1976"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-01-08-OBJ01",
+          "original_learning_objective": "Classificar fluxos de caixa por atividade",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/1/H#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-08-OBJ02",
+          "original_learning_objective": "Preparar fluxo pelo método direto com dados sintéticos",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/1/H#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-08-OBJ03",
+          "original_learning_objective": "Reconciliar lucro e caixa pelo método indireto",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/1/H#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-08-OBJ04",
+          "original_learning_objective": "Investigar discrepâncias entre geração de caixa e resultado",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/1/H#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-01-09",
+      "area_id": "CFC-A07",
+      "source_locator": "ANEXO_II/1/I#1",
+      "source_pdf_page_index": 23,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG EC",
+        "NBC TG 03",
+        "NBC TG 16",
+        "NBC TG 27",
+        "NBC TG 36",
+        "NBC TG 47",
+        "NBC TG 48",
+        "Lei 6.404/1976"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-01-09-OBJ01",
+          "original_learning_objective": "Identificar o propósito da demonstração do valor adicionado",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/1/I#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-09-OBJ02",
+          "original_learning_objective": "Separar riqueza gerada e riqueza distribuída",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/1/I#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-09-OBJ03",
+          "original_learning_objective": "Conferir coerência de totais da distribuição do valor adicionado",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/1/I#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-01-10",
+      "area_id": "CFC-A07",
+      "source_locator": "ANEXO_II/1/J#1",
+      "source_pdf_page_index": 23,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG EC",
+        "NBC TG 03",
+        "NBC TG 16",
+        "NBC TG 27",
+        "NBC TG 36",
+        "NBC TG 47",
+        "NBC TG 48",
+        "Lei 6.404/1976"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-01-10-OBJ01",
+          "original_learning_objective": "Identificar a função das notas explicativas",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/1/J#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-10-OBJ02",
+          "original_learning_objective": "Relacionar incertezas e políticas contábeis a divulgações",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/1/J#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-10-OBJ03",
+          "original_learning_objective": "Detectar omissões relevantes em notas hipotéticas",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/1/J#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-01-11",
+      "area_id": "CFC-A07",
+      "source_locator": "ANEXO_II/1/K#1",
+      "source_pdf_page_index": 23,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG EC",
+        "NBC TG 03",
+        "NBC TG 16",
+        "NBC TG 27",
+        "NBC TG 36",
+        "NBC TG 47",
+        "NBC TG 48",
+        "Lei 6.404/1976"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-01-11-OBJ01",
+          "original_learning_objective": "Distinguir demonstrações individuais de consolidadas",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/1/K#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-11-OBJ02",
+          "original_learning_objective": "Eliminar saldos e operações entre empresas do grupo",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/1/K#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-11-OBJ03",
+          "original_learning_objective": "Calcular participação de não controladores em exemplo didático",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/1/K#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-11-OBJ04",
+          "original_learning_objective": "Reconciliar resultados não realizados após consolidação",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/1/K#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-01-12",
+      "area_id": "CFC-A07",
+      "source_locator": "ANEXO_II/1/L#1",
+      "source_pdf_page_index": 23,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG EC",
+        "NBC TG 03",
+        "NBC TG 16",
+        "NBC TG 27",
+        "NBC TG 36",
+        "NBC TG 47",
+        "NBC TG 48",
+        "Lei 6.404/1976"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-01-12-OBJ01",
+          "original_learning_objective": "Localizar a relação dos tópicos contábeis com NBC TG e lei societária",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/1/L#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-12-OBJ02",
+          "original_learning_objective": "Planejar a pesquisa de norma aplicável sem presumir vigência",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/1/L#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-01-12-OBJ03",
+          "original_learning_objective": "Documentar lacunas de fonte, versão e eficácia normativa",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/1/L#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-02-01",
+      "area_id": "CFC-A08",
+      "source_locator": "ANEXO_II/2/A#1",
+      "source_pdf_page_index": 23,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG 16"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-02-01-OBJ01",
+          "original_learning_objective": "Distinguir gasto, custo, despesa, investimento e perda",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/2/A#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-02-01-OBJ02",
+          "original_learning_objective": "Classificar gastos de processo produtivo hipotético",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/2/A#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-02-01-OBJ03",
+          "original_learning_objective": "Justificar classificação de custos compartilhados e situações atípicas",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/2/A#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-02-02",
+      "area_id": "CFC-A08",
+      "source_locator": "ANEXO_II/2/B#1",
+      "source_pdf_page_index": 23,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG 16"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-02-02-OBJ01",
+          "original_learning_objective": "Distinguir custos fixos, variáveis, diretos e indiretos",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/2/B#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-02-02-OBJ02",
+          "original_learning_objective": "Classificar custos por controlabilidade e objeto de custeio",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/2/B#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-02-02-OBJ03",
+          "original_learning_objective": "Comparar classificação conforme contexto e centro de análise",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/2/B#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-02-03",
+      "area_id": "CFC-A08",
+      "source_locator": "ANEXO_II/2/C#1",
+      "source_pdf_page_index": 23,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG 16"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-02-03-OBJ01",
+          "original_learning_objective": "Identificar materiais, mão de obra e custos indiretos",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/2/C#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-02-03-OBJ02",
+          "original_learning_objective": "Distribuir custos por departamentos e centros em exemplo",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/2/C#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-02-03-OBJ03",
+          "original_learning_objective": "Apurar custo de produtos em elaboração com equivalentes",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/2/C#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-02-03-OBJ04",
+          "original_learning_objective": "Comparar efeitos de critérios de rateio sobre o custo final",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/2/C#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-02-04",
+      "area_id": "CFC-A08",
+      "source_locator": "ANEXO_II/2/D#1",
+      "source_pdf_page_index": 23,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG 16"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-02-04-OBJ01",
+          "original_learning_objective": "Distinguir métodos de custeio por absorção, variável, ABC e pleno",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/2/D#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-02-04-OBJ02",
+          "original_learning_objective": "Apurar custo de produtos por métodos distintos em exemplo",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/2/D#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-02-04-OBJ03",
+          "original_learning_objective": "Avaliar impacto dos métodos nas margens e decisões",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/2/D#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-02-05",
+      "area_id": "CFC-A08",
+      "source_locator": "ANEXO_II/2/E#1",
+      "source_pdf_page_index": 23,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG 16"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-02-05-OBJ01",
+          "original_learning_objective": "Diferenciar custeio por ordem e por processo",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/2/E#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-02-05-OBJ02",
+          "original_learning_objective": "Organizar ficha de custo por encomenda fictícia",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/2/E#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-02-05-OBJ03",
+          "original_learning_objective": "Justificar sistema de acumulação adequado ao processo",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/2/E#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    },
+    {
+      "parent_group_id": "F4-SUF26-3-02-06",
+      "area_id": "CFC-A08",
+      "source_locator": "ANEXO_II/2/F#1",
+      "source_pdf_page_index": 23,
+      "state": "CANDIDATE_OBJECTIVES_UNREVIEWED",
+      "normative_candidates": [
+        "NBC TG 16"
+      ],
+      "objectives": [
+        {
+          "id": "F4-SUF26-3-02-06-OBJ01",
+          "original_learning_objective": "Identificar custos reais, estimados, projetados e padrões",
+          "level": "BASICO",
+          "source_locator": "ANEXO_II/2/F#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-02-06-OBJ02",
+          "original_learning_objective": "Calcular desvios de padrões físicos e financeiros",
+          "level": "INTERMEDIARIO",
+          "source_locator": "ANEXO_II/2/F#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        },
+        {
+          "id": "F4-SUF26-3-02-06-OBJ03",
+          "original_learning_objective": "Analisar causas de variação de eficiência e preço",
+          "level": "AVANCADO",
+          "source_locator": "ANEXO_II/2/F#1",
+          "source_pdf_page_index": 23,
+          "editorial_review": "HOLD_EXPERT",
+          "normative_review": "HOLD_EFFECTIVE_VERSION",
+          "rights_review": "REFERENCE_ONLY",
+          "approved_lesson": false,
+          "approved_questions": 0
+        }
+      ]
+    }
+  ]
+}
