@@ -1,0 +1,7 @@
+# F3-REC-06 — entrega de questões sem gabarito (CI sintético)
+
+A interface React S22 já possuía catálogo, histórico e recuperação via alpha.10. A nova operação `/api/v1/exam/questions` é isolada em `gateway/alpha11-core.mjs`, preservando íntegros `alpha9-core.mjs`, `alpha10-core.mjs` e as dez migrations candidatas 001–010.
+
+O SQL `tests/sql/f3_rec06_question_delivery_ephemeral.sql` **não é migration de produção**. Ele insere apenas duas questões originais inventadas na modelagem S22 já existente: `content_item`, `content_item_version`, `item_option`, `verification` e `source`. Exige `verification.state=verificada`, verificação vigente, fonte rastreável com marcador de licença **exclusivamente sintética de CI**, texto/alternativas completos e forma com gabarito definitivo. A função privada `canone_ops.exam_questions(formId)` é **deny-all** se houver um único item sem autorização e só pode ser executada pelo `service_role`. A projeção inclui exclusivamente ID da prova, ordinal, enunciado e alternativas públicas; não retorna `answer_key`, `correct_option`, `is_correct` ou `verdict`.
+
+A licença fictícia de CI **não equivale a autorização de qualquer material externo**. Para conteúdo real, F4 deverá definir schema de direitos, proveniência, texto autoral/licenciado e aprovação humana. Até então, produção `NO_GO`. O serviço de Auth continua sintético e as verificações correm somente em PG17 efêmero.
