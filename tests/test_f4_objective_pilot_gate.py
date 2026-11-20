@@ -33,7 +33,7 @@ class ObjectivesPilot(unittest.TestCase):
   self.fail(lambda d:d["groups"][0]["objectives"][0].update(original_learning_objective="x"*300),
     "OBJECTIVE_NOT_ORIGINAL")
  def test_no_repeated_difficulty(self):
-  self.fail(lambda d:d["groups"][0]["objectives"][0].update(level="INTERMEDIARIO"),
+  self.fail(lambda d:d["groups"][0]["objectives"][3].update(level="INTERMEDIARIO"),
     "MISSING_LEVEL_PROGRESSION")
  def test_no_objective_count_inflation(self):
   self.fail(lambda d:d["metrics"].update(candidate_objectives=999),"METRICS_OR_FALSE")
