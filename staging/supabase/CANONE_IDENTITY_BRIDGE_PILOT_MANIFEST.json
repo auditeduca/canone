@@ -1,0 +1,29 @@
+{
+  "auth_managed_legacy_tables_recreated": 0,
+  "candidate_kind": "dedicated_supabase_identity_bridge",
+  "client_policy_count": 3,
+  "created_tables": [
+    "canone_identity.user_profile",
+    "canone_identity.private_profile",
+    "canone_identity.role",
+    "canone_identity.user_role",
+    "canone_identity.consent_purpose",
+    "canone_identity.consent",
+    "canone_bridge.source_binding"
+  ],
+  "engine_test": "not_attested_by_static_check",
+  "gate": "NO_GO",
+  "phase": "candidate_review_no_remote_execution",
+  "scope_limitations": [
+    "only initial identity/provenance subset, not complete 87 domain tables",
+    "Supabase Auth mock needed for offline PostgreSQL smoke tests",
+    "no migration committed to supabase/migrations until destination environment validated",
+    "private roles and consent have no client write path yet"
+  ],
+  "shared_source_changes": false,
+  "source_migrations_modified": 0,
+  "source_migrations_verified": 30,
+  "source_sql_sha256": "344bd98ca06c79328a9051fecb083d0c5b94052fadb59c2a6620b029ed01528d",
+  "table_count": 7,
+  "version": "0.23.0-alpha.3"
+}
