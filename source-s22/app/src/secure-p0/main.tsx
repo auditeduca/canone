@@ -5,4 +5,5 @@ import '../brand/tokens.css';
 import '../brand/base.css';
 import '../brand/primitives.css';
 import '../brand/layout.css';
+import './p0-mobile.css';
 createRoot(document.getElementById('root')!).render(<StrictMode><JornadaServidor/></StrictMode>);

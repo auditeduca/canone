@@ -1,0 +1,11 @@
+/* P0-only; no changes to the preserved S22 design system or routes.
+   On narrow screens the S22 sticky public navbar blocked pointer taps in history. */
+@media (max-width: 720px) {
+  html:has(#conteudo) { scroll-behavior: auto; }
+  body:has(#conteudo) .nav { position: relative; top: auto; }
+  main#conteudo { padding-top: 36px; }
+  section[aria-label="Histórico persistido"] button {
+    scroll-margin-block: 96px 56px;
+    touch-action: manipulation;
+  }
+}
