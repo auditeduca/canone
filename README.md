@@ -1,6 +1,6 @@
 # Cânone — preparação para exames de Contabilidade
 
-**Código e planejamento do Cânone na única branch de trabalho `main`.** Versão: **[0.23.0-alpha.8](CHANGELOG.md)** · Estado: **NO-GO produção** · 20/11/2026.
+**Código e planejamento do Cânone na única branch de trabalho `main`.** Versão: **[0.23.0-alpha.9](CHANGELOG.md)** · Estado: **NO-GO produção** · 20/11/2026.
 
 > Este repositório contém uma **recuperação técnica histórica S22** e a **diretriz de produto S23 v0.3**, não um serviço pronto para produção, venda ou homologação.
 
@@ -69,6 +69,15 @@ A conversão agora é **gerada automaticamente em Python**, testada em **Postgre
 - [CI alpha.8](https://github.com/auditeduca/canone/actions/runs/44680388780) **PASS**: 12 testes Python, 32 verificações PGlite e três verificações de segurança/concorrência no PostgreSQL 17 (resposta após fechamento, dois pedidos SRS simultâneos e permissão negada ao navegador). Regressões S22: 277/277.
 - Serviço interno apenas: `service_role` sem exposição ao cliente; `auth.uid()` deve vir de um backend que realmente verifica o JWT. **Não houve deploy em Supabase.**
 - A correção usa gabarito definitivo e posição da variante; a nota de corte/resultado de aprovação fica sem cálculo até haver regra oficial aplicável e direitos editoriais. `NO_GO` produção.
+
+## Gateway Auth + assinatura — marco v0.23.0-alpha.9
+
+O primeiro backend de confiança para as funções privadas de prova já está versionado em `main`, sem deploy:
+
+- [Cinco rotas e executor PostgreSQL](gateway/alpha9-core.mjs), [servidor loopback](gateway/alpha9-server.mjs), [gate SQL 010](staging/supabase/010_private_feature_gate.candidate.sql.txt), [manifesto](staging/supabase/CANONE_ALPHA9_GATEWAY_MANIFEST.json), [testes Node](tests/alpha9-gateway.test.mjs), [testes PG17](tests/pg17_alpha9_entitlement.sh) e [documentação](docs/ALPHA9_GATEWAY_AUTH_ENTITLEMENT.md).
+- [GitHub Actions 44682865475](https://github.com/auditeduca/canone/actions/runs/44682865475) **PASS**: 13 testes Node, autorização negativa/positiva em PostgreSQL 17, verificação de 9 lotes anteriores e regressões históricas preservadas.
+- **Identidade** validada por Supabase Auth `/auth/v1/user` a cada chamada; o banco recebe somente o sujeito retornado. **Acesso** depende de assinatura ativa e recurso habilitado ou concessão válida.
+- **Sem publicação:** apenas testes sintéticos; não existe projeto Supabase exclusivo acessível, nem credenciais/JWT de produção, nem direito editorial homologado. `NO_GO` continua apenas para promoção operacional.
 
 ## O que está versionado na main
 

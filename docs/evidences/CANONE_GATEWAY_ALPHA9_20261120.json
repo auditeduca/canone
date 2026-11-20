@@ -1,0 +1,69 @@
+{
+  "version": "0.23.0-alpha.9",
+  "date": "2026-11-20",
+  "repository": "auditeduca/canone",
+  "branch": "main",
+  "tested_commit": "916bede1de481b77223a01f6f20ee210909fdfb1",
+  "workflow": {
+    "id": 44682865475,
+    "url": "https://github.com/auditeduca/canone/actions/runs/44682865475",
+    "conclusion": "success",
+    "offline": "success",
+    "pg17": "success"
+  },
+  "code": {
+    "routes": 5,
+    "methods": [
+      "exam_start",
+      "exam_answer",
+      "exam_finish",
+      "exam_reveal",
+      "exam_to_srs"
+    ],
+    "trust_boundary": "Supabase Auth /auth/v1/user -> verified UUID -> transaction-local claim",
+    "feature_key": "cfc.exam"
+  },
+  "controls": [
+    "Bearer JWT format and Auth network verification",
+    "source DB project hard reject",
+    "exact project URL/DB host/TLS",
+    "whitelisted SQL method names",
+    "SQL placeholders",
+    "transaction rollback on error",
+    "service_role only",
+    "subscription paid window and feature gate",
+    "stale source=assinatura grants ignored",
+    "own identity DB binding enforced"
+  ],
+  "tests": {
+    "node_pass": 13,
+    "node_total": 13,
+    "python_manifest": "PASS",
+    "pg17": {
+      "no_entitlement": "DENY",
+      "subject_impersonation": "DENY",
+      "pending": "DENY",
+      "trial": "DENY",
+      "active_subscription": "ALLOW",
+      "expired": "DENY",
+      "cancelled": "DENY",
+      "stale_subscription_entitlement": "DENY",
+      "active_admin_grant": "ALLOW",
+      "revoked_admin_grant": "DENY",
+      "browser_direct_execute": "DENY"
+    },
+    "legacy_s22_passed": 277
+  },
+  "limitations": [
+    "No real Supabase-managed JWT tested",
+    "No dedicated Supabase project yet",
+    "No deployed/authenticated API with production secrets",
+    "No verified payment webhook",
+    "No session revocation policy, abuse rate limits or end-to-end browser test",
+    "No content licensing or official cut-score authorization"
+  ],
+  "remote_database_writes": 0,
+  "new_branches": 0,
+  "production_deployments": 0,
+  "production_gate": "NO_GO"
+}

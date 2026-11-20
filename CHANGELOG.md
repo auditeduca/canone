@@ -9,6 +9,22 @@ Formato de versão: **MAJOR.MINOR.PATCH[-PRERELEASE]**, em que:
 - `-rc.N`: candidata a aprovação, sujeita a revisão independente;
 - estável: somente quando todos os gates forem `GO`.
 
+## [0.23.0-alpha.9] — 2026-11-20
+
+**Estado:** `AUTHENTICATED_GATEWAY_AND_ENTITLEMENT_PG17_CI_PASS / RELEASE_NO_GO`.
+
+### Backend de autenticação e autorização
+- Criado [gateway privado](gateway/alpha9-core.mjs) em Node.js com **cinco rotas** para iniciar, responder, concluir, revelar e revisar prova; contrato estrito Bearer/JSON, sem `userId` fornecido pelo cliente.
+- Validada identidade pelo endpoint **Supabase Auth `GET /auth/v1/user`** no projeto fixado por configuração e HTTPS. Em caso de token inválido, ausência de identidade, usuário anônimo ou falha do servidor, acesso negado. O código **não usa `user_metadata` ou JWT decodificado como fonte de autorização**.
+- [Executor PostgreSQL](gateway/alpha9-core.mjs) com transação delimitada, `SET LOCAL ROLE service_role`, `request.jwt.claim.sub` definido apenas a partir do ID retornado pelo Auth, checagem de benefício em **toda requisição**, SQL parametrizado com whitelist de operações e rollback em erro.
+- Candidato [SQL 010](staging/supabase/010_private_feature_gate.candidate.sql.txt) define `canone_ops.can_use_feature`, `SECURITY DEFINER` sem `EXECUTE` no navegador; acesso somente com **assinatura ativa/período válido, plano ativo + feature** ou concessão temporária não revogada. Trial, cancelamento, assinatura expirada, pendente e entitlement `source='assinatura'` obsoleto não autorizam por si.
+- [Entrypoint de desenvolvimento](gateway/alpha9-server.mjs) vinculado a loopback, recusa o Supabase compartilhado, exige correspondência URL Auth/host PostgreSQL e TLS verificado. **Não foi implantado**.
+- Manifesto SHA-256 inclui **6 artefatos novos** e valida dependência do SQL 009. Código histórico preservado.
+- [Actions 44682865475](https://github.com/auditeduca/canone/actions/runs/44682865475) **PASS nos dois jobs**: **13/13 testes Node**, verificador do manifesto PASS, PG17 com negação padrão, impersonação recusada, assinatura ativa liberada, pendente/trial/expirada/cancelada negadas, concessão administrativa válida/revogada e EXECUTE negado ao navegador; regressões históricas **277/277** mantidas.
+
+### Limites explícitos
+O Auth e o PG foram testados **independentemente com identidades sintéticas**: não há JWT real emitido pelo projeto exclusivo nem E2E integrado. Ainda não existem webhook de pagamentos homologado, rate limiting/WAF, gestão de credenciais e certificado, revogação forte de sessão, gateway público protegido e acervo editorial licenciado. Não houve escrita no Supabase conectado nem deploy em produção. SQL `010` permanece `.candidate.sql.txt`; `NO_GO` operacional.
+
 ## [0.23.0-alpha.8] — 2026-11-20
 
 **Estado:** `PRIVATE_EXAM_ATTEMPT_AND_SRS_PG17_CI_PASS / RELEASE_NO_GO`.
