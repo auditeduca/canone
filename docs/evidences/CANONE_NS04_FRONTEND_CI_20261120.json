@@ -1,0 +1,34 @@
+{
+  "id": "NS-04",
+  "date": "2026-11-20",
+  "scope": "local synthetic student frontend; no Supabase, no remote DB",
+  "ci_run_id": 44692128299,
+  "ci_url": "https://github.com/auditeduca/canone/actions/runs/44692128299",
+  "source_commit": "24e6e8ae936ceac233fd1a1ab7f6d83391c099a3",
+  "workflow_jobs": {
+    "offline_regression": "success",
+    "ephemeral_pg17": "success",
+    "chromium_desktop_mobile": "success"
+  },
+  "student_node_tests": 7,
+  "features": [
+    "catalog preview",
+    "answer",
+    "finish",
+    "reveal after finish",
+    "local SRS",
+    "session metrics",
+    "mobile 390px",
+    "keyboard skip link"
+  ],
+  "limitations": [
+    "synthetic client key inspectable; not secure",
+    "no browser to real gateway/PG17",
+    "no Auth managed session",
+    "no persistent history or authorized catalog",
+    "not a deploy or production release"
+  ],
+  "gate": "NO_GO",
+  "supabase_phase": "F8",
+  "result": "PASS_FIRST_SLICE_ONLY"
+}

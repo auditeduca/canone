@@ -29,3 +29,12 @@ duas questões **originais/sintéticas** implementam a amostra. Sem chamadas ao 
 - `tests/ns04_student_browser.py`: navegação completa no Chromium, largura 390px, teclado, ausência de gabarito antes de encerrar e revisão local.
 - Próximos itens NS-04: endpoint de catálogo/conteúdo autorizado sem gabarito; sessão Auth local segura, E2E **browser → gateway → PG17**, persistência de histórico/progresso, estados de erro/rate limit, WCAG 2.2 AA auditável e testes de concorrência de navegação.
 - Supabase exclusivo permanece em F8. `0.23.0-alpha.9` e gate `NO_GO` inalterados.
+
+## CI confirmado — 20/11/2026
+
+- Commit de implementação: [e7dc0044](https://github.com/auditeduca/canone/commit/e7dc0044100951fa252c3f0358d15ce55fd1692f).
+- Correção de progresso e sincronismo E2E: [24e6e8ae](https://github.com/auditeduca/canone/commit/24e6e8ae936ceac233fd1a1ab7f6d83391c099a3).
+- [GitHub Actions #44692128299](https://github.com/auditeduca/canone/actions/runs/44692128299): **3/3 jobs SUCCESS** (regressão offline, PG17 efêmero, Chromium desktop/mobile local).
+- **7 testes Node NS-04 aprovados**; o teste de navegador percorreu o formulário, confirmou a indisponibilidade do botão de gabarito antes de concluir, salvou revisões e verificou viewport móvel 390px e skip link por teclado.
+- CI anterior [#44691925544](https://github.com/auditeduca/canone/actions/runs/44691925544) falhou em contador de resposta final; causa corrigida pelo commit acima. Evidência negativa preservada.
+- Aprovação **restrita à demonstração local**. Browser→PG17, Supabase Auth real, catálogo/licenças, histórico de aluno e implantação permanecem sem aceite.
