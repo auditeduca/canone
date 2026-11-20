@@ -52,7 +52,20 @@ jobs:
               assert hashlib.sha256(b).hexdigest()==rec['sha256'], f'hash drift: {path}'
           print('389/389 source SHA-256 verified; excluded files remain on HOLD.')
           PY
-      - name: S22 offline-only 277 regression tests
+      - name: Recreate a synthetic fixture for omitted editorial sample IDs
+        shell: bash
+        run: |
+          # The original 13 KB editorial question bank remains quarantined outside public Git.
+          # This ephemeral fixture validates the frontend boundary, NOT normative content.
+          mkdir -p source-s22/extras/editorial-review
+          cat > source-s22/extras/editorial-review/questoes-s6-pendente.ts <<'SYNTHETIC_FIXTURE'
+          /**
+           * SYNTHETIC / HOLD_RIGHTS: only identifiers for a security boundary test.
+           * No original statement, answer key, normative text, or editorial right is conveyed.
+           */
+          export const idsQuarentena = ['CFC-STRUCT-001', 'CG-003'] as const;
+          SYNTHETIC_FIXTURE
+      - name: S22 offline-only 277 regression tests (synthetic excluded-source fixture)
         run: python3 source-s22/backend/db/shared-host/s22-contracts/run_local_gates.py
       - name: Assert production release gate still returns NO-GO exit 41
         shell: bash
