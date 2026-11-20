@@ -1,10 +1,21 @@
 """S22 React / S23 product crosswalk: no silent drift or unproven functional claims."""
-import csv,hashlib,json,re
+import csv,hashlib,io,json,re
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 PATH=ROOT/"inventories/frontend/CANONE_F3_S22_S23_NS04_CROSSWALK.json"
 def blob(content):
     return hashlib.sha1(b"blob "+str(len(content)).encode()+b"\0"+content).hexdigest()
+def read_s23_rows(path):
+    """Accept canonical CSV or the source-import wrapper, preserving the underlying file unchanged."""
+    text=path.read_text(encoding="utf-8-sig")
+    if text.startswith("<PARSED TEXT FOR SHEET:"):
+        marker=">index,"
+        offset=text.find(marker)
+        if offset<0:
+            raise ValueError("UNKNOWN_S23_FORMAT")
+        text=text[offset+1:]
+    return list(csv.DictReader(io.StringIO(text)))
+
 def check(data=None,root=ROOT):
     if data is None: data=json.loads((root/"inventories/frontend/CANONE_F3_S22_S23_NS04_CROSSWALK.json").read_text())
     errors=[]
@@ -14,10 +25,8 @@ def check(data=None,root=ROOT):
     if len(ids)!=26 or len(set(ids))!=26: errors.append("COUNT_OR_DUPLICATES")
     catalog=(root/"source-s22/app/src/content/modulos.ts").read_text()
     legacy_ids=set(re.findall(r'\{\s*n:\s*\d+,\s*id:\s*"([^"]+)",\s*nome:',catalog))
-    with (root/"planning/s23/S23_MODULOS_26.csv").open(encoding="utf-8-sig",newline="") as f:
-        planned={r["ID canônico"]:r for r in csv.DictReader(f)}
-    with (root/"planning/s23/S23_FASEAMENTO_26.csv").open(encoding="utf-8-sig",newline="") as f:
-        phased={r["Slug legado"]:r for r in csv.DictReader(f)}
+    planned={r["ID canônico"]:r for r in read_s23_rows(root/"planning/s23/S23_MODULOS_26.csv")}
+    phased={r["Slug legado"]:r for r in read_s23_rows(root/"planning/s23/S23_FASEAMENTO_26.csv")}
     if set(ids)!=legacy_ids or set(ids)!=set(planned) or set(ids)!=set(phased): errors.append("CROSSWALK_MISMATCH")
     for item in items:
         uid=item["id"]
