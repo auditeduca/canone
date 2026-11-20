@@ -1,48 +1,52 @@
-# Cânone — Plataforma de Contabilidade e Conhecimento Normativo
+# Cânone — preparação para exames de Contabilidade
 
-## Atualização de recuperação S22/S23 (19/11/2026)
+**Código e planejamento do Cânone na única branch de trabalho `main`.** Versão: **[0.23.0-alpha.1](CHANGELOG.md)** · Estado: **NO-GO produção** · 19/11/2026.
 
-**Fonte S22 recuperada e verificada por hash:** app ZIP com 477 entradas e bundle Git no commit `164fa4df8e99de29e35c41d35a25f6ee0b2c6462`. A diretriz de produto mais recente é **S23 v0.3 — Exame de Suficiência/EQT do CFC**. Encontradas **81 relações candidatas no Supabase (54 tabelas, 27 views)**, sendo 4 tabelas nativas de controle e 50 compartilhadas. Consulte o [relatório multifonte S22/S23](docs/CONSOLIDACAO_MULTIFONTE_S22_S23_SUPABASE_20261119.md). **Código ainda não importado neste GitHub público; produção NO-GO.**
+> Este repositório contém uma **recuperação técnica histórica S22** e a **diretriz de produto S23 v0.3**, não um serviço pronto para produção, venda ou homologação.
 
+## Escopo canônico
 
-> **Estado:** implantação em preparação · **gate de produção: NO-GO** · corte de consolidação: 2026-11-19.
+Plataforma educacional web/app para **Exame de Suficiência do CFC (P0)**, depois modalidades do **EQT**. Os 26 módulos são experiências sobre motores compartilhados (questões, tentativas, revisão, progresso, evidência e identidade), não 26 sistemas independentes. ERP, escritório real e automações profissionais ficam fora da V1.
 
-Este repositório é o destino independente do **Cânone Contabilidade**: arquitetura, motor de avaliações, módulos educacionais e de consulta, conteúdo normativo rastreável, testes, governança e infraestrutura. Não confundir com a plataforma *Calculadoras de Enfermagem / CKO / NCOS*, que é um ecossistema distinto.
+O Cânone é separado do ecossistema *Calculadoras de Enfermagem / CKO / NCOS*.
 
-## Situação inicial verificada
+## O que está versionado na main
 
-- Repositório `auditeduca/canone` criado em 19/11/2026 como destino canônico de versionamento; **nenhum código-fonte legado foi migrado ou homologado por esta inicialização**.
-- Preview Vercel separado: `canone-contabilidade-preview`; o último deployment consultado estava `READY`, o que **não equivale a homologação funcional ou produção**.
-- No Supabase compartilhado `Calculadoras-Smart`, foram identificados **14 schemas `canone_*` reservados**, mas somente **4 tabelas de controle** em `canone_control`; todas com RLS habilitada e nenhuma policy. O catálogo de controle registra **30 migrations `NOT_APPLIED`**, backend/autorização pendente e publicação `NO_GO`.
-- Relatos de ensaios anteriores (ambiente isolado): **16/30 migrations** e **261/261 testes de regressão** no checkpoint S21. Esses números são **históricos e não verificados neste repositório**.
-- Objetivo funcional conhecido: motor central e **26 módulos**. A cobertura funcional, a conformidade normativa e os direitos de fontes ainda precisam ser auditados por módulo.
+- **389 arquivos de código recuperados do S22**, no diretório [source-s22/](source-s22/), sem serem promovidos à raiz executável.
+- **30 migrations SQL originais**, mantidas sob `source-s22/backend/db/migrations/`; **não executadas no Supabase**.
+- [Manifesto SHA-256](inventories/source/CANONE_S22_SOURCE_IMPORT_MANIFEST.json), incluindo 87 arquivos retidos fora do repositório sob revisão de origem/direitos.
+- [Planejamento S23](planning/s23/) de exames CFC, fases, módulos e gates.
+- Inventários [Supabase](inventories/supabase/) e [Drive/Biblioteca](inventories/sources/); dados compartilhados não foram importados.
+- CI de integridade/regressão em [GitHub Actions](.github/workflows/canone-s22-recovery.yml), **sem deploy, sem conexão com bancos e com gate NO-GO**.
 
-## Programa de integração e conclusão
+**Evidência CI:** [execução de 19/11/2026](https://github.com/auditeduca/canone/actions/runs/44663305666) — 389/389 hashes, 277/277 testes locais, bloqueio de produção (exit 41) confirmado. Esses testes não substituem PostgreSQL isolado, browser E2E, testes de conteúdo normativo ou revisão de segurança.
 
-Consulte [Programa Mestre S22–S26](docs/PROGRAMA_MESTRE_S22_S26.md) e [Registro de Evidências e Bloqueios](docs/REGISTRO_EVIDENCIAS_BLOQUEIOS.md) para acompanhar a execução.
+## Versionamento
 
-1. **S22 — Inventário e reconciliação:** localizar artefatos S21, confirmar origem/sha/licença, trazer somente conteúdo comprovado para branches de integração; mapear lacunas e duplicidades.
-2. **S23 — Banco e migrations:** corrigir SQL genérico, padronizar schemas próprios, ownership, grants, RLS, identidade e isolamento; executar em PostgreSQL descartável antes de qualquer staging.
-3. **S24 — Backend e motor:** autenticação/autorização comprovadas, motor de avaliações, trilha de auditoria e contratos testados.
-4. **S25 — 26 módulos e normativos:** matriz de cobertura + testes E2E, fontes oficiais verificadas, licenças e aprovações independentes.
-5. **S26 — Release:** CI integral, backup/restauração/rollback, hardening, preview homologado e autorização expressa para produção.
+- **Apenas `main` para os novos trabalhos** — nenhuma nova branch.
+- Arquivos canônicos: [VERSION](VERSION), [CHANGELOG.md](CHANGELOG.md), [Política de versionamento](docs/VERSIONAMENTO_MAIN.md).
+- Cada modificação recebe commit com motivo, testes e bloqueios registrados.
+- Pré-versões (`alpha`/`beta`/`rc`) são snapshots de engenharia. **Não** equivalem a tags, releases públicos ou autorização de produção.
+- A PR histórica [#2](https://github.com/auditeduca/canone/pull/2) foi integrada; sua branch antiga permanece apenas como referência histórica, não como área de trabalho.
 
-## Regras de promoção
+## Próximo trabalho
 
-- **Nunca** declarar GO com base apenas em build verde, testes isolados ou URL READY.
-- **Não** aplicar migrations remotas, publicar em produção, ativar pagamentos ou alterar privilégios sem verificação independente.
-- Segredos e dados reais não podem ser commitados; fixtures sintéticas apenas.
-- Toda entrega deve ter commit/SHA, arquivos alterados, teste reproduzível, fonte/evidência e decisão `PASS | HOLD | FAIL`.
-- Normativos: preferir fonte oficial primária; se não estiver disponível ou os direitos não permitirem, manter `HOLD_SOURCE` ou `HOLD_RIGHTS` por item.
+1. Revisar os 87 arquivos excluídos e direitos/licenças; não publicar materiais CFC/Senado sem fonte oficial e autorização.
+2. Validar 30 migrations e segurança (RLS, grants, roles, SECURITY DEFINER, autenticação) em PostgreSQL descartável; depois staging individual do Cânone.
+3. Selecionar por finalidade e direitos as 54 tabelas/27 views candidatas do Supabase compartilhado; **não copiar banco inteiro nem dados de enfermagem**.
+4. Concluir uma jornada real do aluno CFC (aula → questão licenciada → tentativa → feedback → revisão → progresso persistido), desktop/mobile.
+5. Homologar acessibilidade, segurança, fontes, conteúdo e governança; obter aprovação expressa antes de produção.
 
-## Ambientes
+Documentação: [Consolidação multifonte](docs/CONSOLIDACAO_MULTIFONTE_S22_S23_SUPABASE_20261119.md), [Programa Mestre S22–S26](docs/PROGRAMA_MESTRE_S22_S26.md), [Plano Supabase exclusivo](docs/PLANO_MIGRACAO_CANONE_SUPABASE_EXCLUSIVO.md), [Evidências e bloqueios](docs/REGISTRO_EVIDENCIAS_BLOQUEIOS.md).
 
-| Ambiente | Finalidade | Estado |
-| --- | --- | --- |
-| GitHub `auditeduca/canone` | Fonte independente e controle de mudança | Inicialização |
-| Vercel `canone-contabilidade-preview` | UI de demonstração | Preview READY; não homologado |
-| PostgreSQL isolado | Teste de migrations e regressão | Evidência S21 a recuperar |
-| Supabase `Calculadoras-Smart` / `canone_*` | Reserva de namespace e catálogo de gates | Sem migrations de domínio; NO-GO |
-| Produção | Operação real | Não autorizada |
+## Estado dos ambientes
 
-_Registro inicial: 2026-11-19. A criação deste README não certifica a migração do projeto._
+| Ambiente | Status |
+| --- | --- |
+| GitHub `auditeduca/canone` | `main` com recuperação S22 e planejamento S23 |
+| Vercel `canone-contabilidade-preview` | Preview ilustrativo, não homologado; sem ligação Git confirmada no projeto acessível |
+| Supabase compartilhado `Calculadoras-Smart` | 14 schemas reservados, apenas 4 tabelas nativas de controle; sem migrations de domínio aplicadas |
+| Supabase exclusivo do Cânone | A criar pelo proprietário |
+| Produção/comercial | **NO-GO** |
+
+Não inserir credenciais, dados pessoais, gabaritos não homologados ou obras protegidas neste repositório público.
