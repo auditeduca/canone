@@ -61,10 +61,13 @@
       "target": "canone_identity.role grants and trusted JWT app_metadata"
     }
   ],
+  "auth_user_fk_replacements": 43,
+  "canonical_app_tables_to_project": 87,
   "changes_to_shared_supabase": false,
   "ci_contract": "map-all-30, sha-all-30, no-write, test security boundaries",
   "migrations": [
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "ops",
@@ -89,6 +92,7 @@
       "workstream": "platform_bootstrap"
     },
     {
+      "auth_users_fk_replacements_required": 7,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "editorial",
@@ -113,6 +117,7 @@
       "workstream": "supabase_auth_bridge"
     },
     {
+      "auth_users_fk_replacements_required": 7,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "editorial",
@@ -137,6 +142,7 @@
       "workstream": "domain_ddl"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "editorial",
@@ -161,6 +167,7 @@
       "workstream": "domain_ddl"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "editorial",
@@ -187,6 +194,7 @@
       "workstream": "domain_ddl"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "editorial",
@@ -213,6 +221,7 @@
       "workstream": "learning_ddl"
     },
     {
+      "auth_users_fk_replacements_required": 10,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "editorial",
@@ -241,6 +250,7 @@
       "workstream": "learning_ddl"
     },
     {
+      "auth_users_fk_replacements_required": 4,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "commerce",
@@ -265,6 +275,7 @@
       "workstream": "commerce_feature_off"
     },
     {
+      "auth_users_fk_replacements_required": 10,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "admin",
@@ -295,6 +306,7 @@
       "workstream": "governance_ddl"
     },
     {
+      "auth_users_fk_replacements_required": 4,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "identity",
@@ -319,6 +331,7 @@
       "workstream": "platform_runtime"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "admin",
@@ -353,6 +366,7 @@
       "workstream": "trigger_review"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "learning"
@@ -375,6 +389,7 @@
       "workstream": "learning_runtime"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "admin",
@@ -415,6 +430,7 @@
       "workstream": "view_invoker"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "admin",
@@ -453,6 +469,7 @@
       "workstream": "rls_policy"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "admin",
@@ -487,6 +504,7 @@
       "workstream": "indexes"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "admin",
@@ -521,6 +539,7 @@
       "workstream": "reference_seed"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "admin",
@@ -563,6 +582,7 @@
       "workstream": "least_privilege_grants"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "admin",
@@ -591,6 +611,7 @@
       "workstream": "exam_question_key"
     },
     {
+      "auth_users_fk_replacements_required": 1,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "editorial",
@@ -621,6 +642,7 @@
       "workstream": "attempt_backend"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "editorial",
@@ -645,6 +667,7 @@
       "workstream": "content_versioning"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "learning"
@@ -667,6 +690,7 @@
       "workstream": "answer_derivation"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "learning"
@@ -689,6 +713,7 @@
       "workstream": "exam_seal"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "editorial",
@@ -717,6 +742,7 @@
       "workstream": "editorial_review"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "learning",
@@ -741,6 +767,7 @@
       "workstream": "immutable_key"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "admin",
@@ -767,6 +794,7 @@
       "workstream": "identity_grants"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "admin",
@@ -793,6 +821,7 @@
       "workstream": "staff_key_access"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "learning",
@@ -817,6 +846,7 @@
       "workstream": "definer_owner"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "commerce"
@@ -839,6 +869,7 @@
       "workstream": "commerce_feature_off"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "identity"
@@ -861,6 +892,7 @@
       "workstream": "supabase_auth_bridge"
     },
     {
+      "auth_users_fk_replacements_required": 0,
       "deployment_state": "NOT_APPLIED",
       "legacy_schemas_referenced": [
         "editorial",
@@ -1041,6 +1073,640 @@
     "git_source": "source-s22",
     "historical_commit": "164fa4df8e99de29e35c41d35a25f6ee0b2c6462"
   },
+  "source_tables_count": 90,
+  "supabase_auth_managed_replacements": 3,
+  "table_crosswalk": [
+    {
+      "create_in_canonical_db": false,
+      "source_migration": "002_identity_lgpd.sql",
+      "source_table": "identity.account",
+      "strategy": "managed_supabase_auth",
+      "target": "auth.users"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "002_identity_lgpd.sql",
+      "source_table": "identity.user_profile",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_identity.user_profile"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "002_identity_lgpd.sql",
+      "source_table": "identity.role",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_identity.role"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "002_identity_lgpd.sql",
+      "source_table": "identity.user_role",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_identity.user_role"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "002_identity_lgpd.sql",
+      "source_table": "identity.consent_purpose",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_identity.consent_purpose"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "002_identity_lgpd.sql",
+      "source_table": "identity.consent",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_identity.consent"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "002_identity_lgpd.sql",
+      "source_table": "identity.data_request",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_identity.data_request"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "002_identity_lgpd.sql",
+      "source_table": "identity.data_request_event",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_identity.data_request_event"
+    },
+    {
+      "create_in_canonical_db": false,
+      "source_migration": "002_identity_lgpd.sql",
+      "source_table": "identity.session",
+      "strategy": "managed_supabase_auth",
+      "target": "Supabase Auth sessions API"
+    },
+    {
+      "create_in_canonical_db": false,
+      "source_migration": "002_identity_lgpd.sql",
+      "source_table": "identity.magic_link",
+      "strategy": "managed_supabase_auth",
+      "target": "Supabase Auth OTP API"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "003_metamodel.sql",
+      "source_table": "editorial.content_type",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_editorial.content_type"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "003_metamodel.sql",
+      "source_table": "editorial.content_type_version",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_editorial.content_type_version"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "003_metamodel.sql",
+      "source_table": "editorial.field_definition",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_editorial.field_definition"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "003_metamodel.sql",
+      "source_table": "editorial.enumeration",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_editorial.enumeration"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "003_metamodel.sql",
+      "source_table": "editorial.enumeration_value",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_editorial.enumeration_value"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "003_metamodel.sql",
+      "source_table": "editorial.state_definition",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_editorial.state_definition"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "003_metamodel.sql",
+      "source_table": "editorial.state_transition",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_editorial.state_transition"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "003_metamodel.sql",
+      "source_table": "editorial.content_item",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_editorial.content_item"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "003_metamodel.sql",
+      "source_table": "editorial.content_item_version",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_editorial.content_item_version"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "003_metamodel.sql",
+      "source_table": "editorial.content_relation_type",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_editorial.content_relation_type"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "003_metamodel.sql",
+      "source_table": "editorial.content_relation",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_editorial.content_relation"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "003_metamodel.sql",
+      "source_table": "editorial.content_revision",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_editorial.content_revision"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "003_metamodel.sql",
+      "source_table": "editorial.source",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_editorial.source"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "003_metamodel.sql",
+      "source_table": "editorial.verification",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_editorial.verification"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "004_taxonomy_blueprint.sql",
+      "source_table": "taxonomy.knowledge_area",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_taxonomy.knowledge_area"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "004_taxonomy_blueprint.sql",
+      "source_table": "taxonomy.subject",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_taxonomy.subject"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "004_taxonomy_blueprint.sql",
+      "source_table": "taxonomy.subtopic",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_taxonomy.subtopic"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "004_taxonomy_blueprint.sql",
+      "source_table": "taxonomy.exam_edition",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_taxonomy.exam_edition"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "004_taxonomy_blueprint.sql",
+      "source_table": "taxonomy.blueprint",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_taxonomy.blueprint"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "004_taxonomy_blueprint.sql",
+      "source_table": "taxonomy.item_placement",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_taxonomy.item_placement"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "004_taxonomy_blueprint.sql",
+      "source_table": "taxonomy.module",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_taxonomy.module"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "004_taxonomy_blueprint.sql",
+      "source_table": "taxonomy.module_subject",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_taxonomy.module_subject"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "005_norms.sql",
+      "source_table": "norms.issuer",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_norms.issuer"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "005_norms.sql",
+      "source_table": "norms.norm",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_norms.norm"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "005_norms.sql",
+      "source_table": "norms.norm_version",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_norms.norm_version"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "005_norms.sql",
+      "source_table": "norms.norm_item",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_norms.norm_item"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "005_norms.sql",
+      "source_table": "editorial.content_norm_citation",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_editorial.content_norm_citation"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "006_learning_items.sql",
+      "source_table": "learning.item",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.item"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "006_learning_items.sql",
+      "source_table": "learning.item_option",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.item_option"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "006_learning_items.sql",
+      "source_table": "learning.explanation",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.explanation"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "006_learning_items.sql",
+      "source_table": "learning.item_subject",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.item_subject"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "006_learning_items.sql",
+      "source_table": "learning.study_block",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.study_block"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "006_learning_items.sql",
+      "source_table": "learning.mock_exam",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.mock_exam"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "006_learning_items.sql",
+      "source_table": "learning.mock_exam_item",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.mock_exam_item"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "006_learning_items.sql",
+      "source_table": "learning.mind_map",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.mind_map"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "006_learning_items.sql",
+      "source_table": "learning.mind_map_node",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.mind_map_node"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "006_learning_items.sql",
+      "source_table": "learning.pocket_entry",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.pocket_entry"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "006_learning_items.sql",
+      "source_table": "learning.case_step",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.case_step"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "007_learning_srs.sql",
+      "source_table": "learning.session",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.session"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "007_learning_srs.sql",
+      "source_table": "learning.review_event",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.review_event"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "007_learning_srs.sql",
+      "source_table": "learning.user_item_state",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.user_item_state"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "007_learning_srs.sql",
+      "source_table": "learning.mastery",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.mastery"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "007_learning_srs.sql",
+      "source_table": "learning.favorite",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.favorite"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "007_learning_srs.sql",
+      "source_table": "learning.note",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.note"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "007_learning_srs.sql",
+      "source_table": "learning.offline_pack",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.offline_pack"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "007_learning_srs.sql",
+      "source_table": "learning.study_plan",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.study_plan"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "007_learning_srs.sql",
+      "source_table": "learning.duel",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.duel"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "008_commerce.sql",
+      "source_table": "commerce.plan",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_commerce.plan"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "008_commerce.sql",
+      "source_table": "commerce.plan_feature",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_commerce.plan_feature"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "008_commerce.sql",
+      "source_table": "commerce.subscription",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_commerce.subscription"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "008_commerce.sql",
+      "source_table": "commerce.payment",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_commerce.payment"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "008_commerce.sql",
+      "source_table": "commerce.invoice",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_commerce.invoice"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "008_commerce.sql",
+      "source_table": "commerce.entitlement",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_commerce.entitlement"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "008_commerce.sql",
+      "source_table": "commerce.coupon",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_commerce.coupon"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "009_admin_governance.sql",
+      "source_table": "audit.audit_log",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_audit.audit_log"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "009_admin_governance.sql",
+      "source_table": "admin.support_access_grant",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_admin.support_access_grant"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "009_admin_governance.sql",
+      "source_table": "admin.support_access_log",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_admin.support_access_log"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "009_admin_governance.sql",
+      "source_table": "admin.moderation_queue",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_admin.moderation_queue"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "009_admin_governance.sql",
+      "source_table": "admin.content_report",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_admin.content_report"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "009_admin_governance.sql",
+      "source_table": "admin.user_note",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_admin.user_note"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "009_admin_governance.sql",
+      "source_table": "admin.feature_flag",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_admin.feature_flag"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "010_ops_platform.sql",
+      "source_table": "ops.setting",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_ops.setting"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "010_ops_platform.sql",
+      "source_table": "ops.integration",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_ops.integration"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "010_ops_platform.sql",
+      "source_table": "ops.api_key",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_ops.api_key"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "010_ops_platform.sql",
+      "source_table": "ops.webhook",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_ops.webhook"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "010_ops_platform.sql",
+      "source_table": "ops.webhook_delivery",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_ops.webhook_delivery"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "010_ops_platform.sql",
+      "source_table": "ops.job_run",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_ops.job_run"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "010_ops_platform.sql",
+      "source_table": "ops.notification_template",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_ops.notification_template"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "010_ops_platform.sql",
+      "source_table": "ops.notification",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_ops.notification"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "010_ops_platform.sql",
+      "source_table": "ops.notification_delivery",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_ops.notification_delivery"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "010_ops_platform.sql",
+      "source_table": "ops.error_event",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_ops.error_event"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "010_ops_platform.sql",
+      "source_table": "ops.metric_daily",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_ops.metric_daily"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "010_ops_platform.sql",
+      "source_table": "ops.migration_log",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_ops.migration_log"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "018_provas_gabarito.sql",
+      "source_table": "taxonomy.exam_track",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_taxonomy.exam_track"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "018_provas_gabarito.sql",
+      "source_table": "learning.exam_form",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.exam_form"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "018_provas_gabarito.sql",
+      "source_table": "learning.exam_form_item",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.exam_form_item"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "018_provas_gabarito.sql",
+      "source_table": "learning.answer_key",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.answer_key"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "018_provas_gabarito.sql",
+      "source_table": "learning.answer_key_entry",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.answer_key_entry"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "019_tentativa_ingestao.sql",
+      "source_table": "learning.exam_attempt",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.exam_attempt"
+    },
+    {
+      "create_in_canonical_db": true,
+      "source_migration": "019_tentativa_ingestao.sql",
+      "source_table": "learning.exam_attempt_answer",
+      "strategy": "app_owned_schema_projection",
+      "target": "canone_learning.exam_attempt_answer"
+    }
+  ],
   "target_platform": "Supabase managed Auth + PostgreSQL 17, separate Cânone project",
   "target_schemas_count": 14,
   "transform_rules": [
