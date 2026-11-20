@@ -1,0 +1,335 @@
+{
+  "scope": "metadata-only, foreign key constraints touching 54 selected candidate tables; original shared DB read-only",
+  "count": 41,
+  "cross_schema": 3,
+  "foreign_keys": [
+    {
+      "source_schema": "account_palm",
+      "source_table": "atomization_eval_sample_v1",
+      "target_schema": "account_palm",
+      "target_table": "normalized_units_v1",
+      "constraint_name": "atomization_eval_sample_v1_normalized_unit_id_fkey",
+      "constraint_definition": "FOREIGN KEY (normalized_unit_id) REFERENCES account_palm.normalized_units_v1(normalized_unit_id)"
+    },
+    {
+      "source_schema": "account_palm",
+      "source_table": "atomization_eval_sample_v1",
+      "target_schema": "account_palm",
+      "target_table": "normative_assertion_candidates_v1",
+      "constraint_name": "atomization_eval_sample_v1_assertion_candidate_id_fkey",
+      "constraint_definition": "FOREIGN KEY (assertion_candidate_id) REFERENCES account_palm.normative_assertion_candidates_v1(assertion_candidate_id)"
+    },
+    {
+      "source_schema": "account_palm",
+      "source_table": "atomization_fragment_quality_v1",
+      "target_schema": "account_palm",
+      "target_table": "normalized_units_v1",
+      "constraint_name": "atomization_fragment_quality_v1_normalized_unit_id_fkey",
+      "constraint_definition": "FOREIGN KEY (normalized_unit_id) REFERENCES account_palm.normalized_units_v1(normalized_unit_id)"
+    },
+    {
+      "source_schema": "account_palm",
+      "source_table": "atomization_gold_draft_proposals_v1",
+      "target_schema": "account_palm",
+      "target_table": "atomization_eval_sample_v1",
+      "constraint_name": "atomization_gold_draft_proposals_v1_sample_id_fkey",
+      "constraint_definition": "FOREIGN KEY (sample_id) REFERENCES account_palm.atomization_eval_sample_v1(sample_id)"
+    },
+    {
+      "source_schema": "account_palm",
+      "source_table": "atomization_gold_replacements_v1",
+      "target_schema": "account_palm",
+      "target_table": "atomization_eval_sample_v1",
+      "constraint_name": "atomization_gold_replacements_v1_replaced_sample_id_fkey",
+      "constraint_definition": "FOREIGN KEY (replaced_sample_id) REFERENCES account_palm.atomization_eval_sample_v1(sample_id)"
+    },
+    {
+      "source_schema": "account_palm",
+      "source_table": "atomization_gold_replacements_v1",
+      "target_schema": "account_palm",
+      "target_table": "normalized_units_v1",
+      "constraint_name": "atomization_gold_replacements_v1_normalized_unit_id_fkey",
+      "constraint_definition": "FOREIGN KEY (normalized_unit_id) REFERENCES account_palm.normalized_units_v1(normalized_unit_id)"
+    },
+    {
+      "source_schema": "account_palm",
+      "source_table": "atomization_gold_replacements_v1",
+      "target_schema": "account_palm",
+      "target_table": "normative_assertion_candidates_v1",
+      "constraint_name": "atomization_gold_replacements_v1_assertion_candidate_id_fkey",
+      "constraint_definition": "FOREIGN KEY (assertion_candidate_id) REFERENCES account_palm.normative_assertion_candidates_v1(assertion_candidate_id)"
+    },
+    {
+      "source_schema": "account_palm",
+      "source_table": "atomization_gold_review_batch_v1",
+      "target_schema": "account_palm",
+      "target_table": "atomization_eval_sample_v1",
+      "constraint_name": "atomization_gold_review_batch_v1_sample_id_fkey",
+      "constraint_definition": "FOREIGN KEY (sample_id) REFERENCES account_palm.atomization_eval_sample_v1(sample_id)"
+    },
+    {
+      "source_schema": "account_palm",
+      "source_table": "dou_content_validation_v1",
+      "target_schema": "account_palm",
+      "target_table": "dou_validation_runs_v1",
+      "constraint_name": "dou_content_validation_v1_run_id_fkey",
+      "constraint_definition": "FOREIGN KEY (run_id) REFERENCES account_palm.dou_validation_runs_v1(run_id)"
+    },
+    {
+      "source_schema": "account_palm",
+      "source_table": "dou_discovery_candidates_v1",
+      "target_schema": "account_palm",
+      "target_table": "dou_discovery_requests_v1",
+      "constraint_name": "dou_discovery_candidates_v1_request_id_fkey",
+      "constraint_definition": "FOREIGN KEY (request_id) REFERENCES account_palm.dou_discovery_requests_v1(request_id)"
+    },
+    {
+      "source_schema": "account_palm",
+      "source_table": "normalized_units_v1",
+      "target_schema": "account_palm",
+      "target_table": "normalization_runs_v1",
+      "constraint_name": "normalized_units_v1_run_id_fkey",
+      "constraint_definition": "FOREIGN KEY (run_id) REFERENCES account_palm.normalization_runs_v1(run_id)"
+    },
+    {
+      "source_schema": "account_palm",
+      "source_table": "normative_assertion_candidates_v1",
+      "target_schema": "account_palm",
+      "target_table": "normalized_units_v1",
+      "constraint_name": "normative_assertion_candidates_v1_normalized_unit_id_fkey",
+      "constraint_definition": "FOREIGN KEY (normalized_unit_id) REFERENCES account_palm.normalized_units_v1(normalized_unit_id)"
+    },
+    {
+      "source_schema": "account_palm",
+      "source_table": "normative_claim_candidates_v1",
+      "target_schema": "account_palm",
+      "target_table": "normalized_units_v1",
+      "constraint_name": "normative_claim_candidates_v1_normalized_unit_id_fkey",
+      "constraint_definition": "FOREIGN KEY (normalized_unit_id) REFERENCES account_palm.normalized_units_v1(normalized_unit_id)"
+    },
+    {
+      "source_schema": "account_palm",
+      "source_table": "normative_claim_candidates_v1",
+      "target_schema": "account_palm",
+      "target_table": "normative_assertion_candidates_v1",
+      "constraint_name": "normative_claim_candidates_v1_assertion_candidate_id_fkey",
+      "constraint_definition": "FOREIGN KEY (assertion_candidate_id) REFERENCES account_palm.normative_assertion_candidates_v1(assertion_candidate_id)"
+    },
+    {
+      "source_schema": "account_palm",
+      "source_table": "normative_temporal_evidence_v1",
+      "target_schema": "account_palm",
+      "target_table": "normative_temporal_type_registry_v1",
+      "constraint_name": "normative_temporal_evidence_v1_temporal_type_fkey",
+      "constraint_definition": "FOREIGN KEY (temporal_type) REFERENCES account_palm.normative_temporal_type_registry_v1(temporal_type)"
+    },
+    {
+      "source_schema": "cko_governance",
+      "source_table": "artifact_normative_bindings",
+      "target_schema": "cko_governance",
+      "target_table": "controlled_artifacts",
+      "constraint_name": "artifact_normative_bindings_artifact_id_fkey",
+      "constraint_definition": "FOREIGN KEY (artifact_id) REFERENCES cko_governance.controlled_artifacts(artifact_id) ON DELETE CASCADE"
+    },
+    {
+      "source_schema": "cko_governance",
+      "source_table": "artifact_normative_bindings",
+      "target_schema": "cko_governance",
+      "target_table": "object_versions",
+      "constraint_name": "artifact_normative_bindings_artifact_version_ref_fkey",
+      "constraint_definition": "FOREIGN KEY (artifact_version_ref) REFERENCES cko_governance.object_versions(object_version_id)"
+    },
+    {
+      "source_schema": "cko_governance",
+      "source_table": "field_normative_bindings",
+      "target_schema": "cko_governance",
+      "target_table": "field_catalog",
+      "constraint_name": "field_normative_bindings_field_id_fkey",
+      "constraint_definition": "FOREIGN KEY (field_id) REFERENCES cko_governance.field_catalog(field_id) ON DELETE RESTRICT"
+    },
+    {
+      "source_schema": "cko_governance",
+      "source_table": "field_normative_bindings",
+      "target_schema": "cko_governance",
+      "target_table": "normative_reference_catalog",
+      "constraint_name": "field_normative_bindings_normative_ref_fkey",
+      "constraint_definition": "FOREIGN KEY (normative_ref) REFERENCES cko_governance.normative_reference_catalog(normative_ref) ON DELETE RESTRICT"
+    },
+    {
+      "source_schema": "cko_governance",
+      "source_table": "normative_document_extractions",
+      "target_schema": "cko_governance",
+      "target_table": "normative_reference_catalog",
+      "constraint_name": "normative_document_extractions_normative_ref_fkey",
+      "constraint_definition": "FOREIGN KEY (normative_ref) REFERENCES cko_governance.normative_reference_catalog(normative_ref) ON DELETE RESTRICT"
+    },
+    {
+      "source_schema": "contabilidade_cfc",
+      "source_table": "audit_normative_scope_v1",
+      "target_schema": "public",
+      "target_table": "regulatory_instruments",
+      "constraint_name": "audit_normative_scope_v1_instrument_id_fkey",
+      "constraint_definition": "FOREIGN KEY (instrument_id) REFERENCES regulatory_instruments(instrument_id)"
+    },
+    {
+      "source_schema": "contabilidade_cfc",
+      "source_table": "audit_normative_segment_drafts_v1",
+      "target_schema": "account_palm",
+      "target_table": "normalized_units_v1",
+      "constraint_name": "audit_normative_segment_drafts_v1_parent_unit_id_fkey",
+      "constraint_definition": "FOREIGN KEY (parent_unit_id) REFERENCES account_palm.normalized_units_v1(normalized_unit_id)"
+    },
+    {
+      "source_schema": "contabilidade_cfc",
+      "source_table": "audit_normative_segment_parent_qa_v1",
+      "target_schema": "account_palm",
+      "target_table": "normalized_units_v1",
+      "constraint_name": "audit_normative_segment_parent_qa_v1_parent_unit_id_fkey",
+      "constraint_definition": "FOREIGN KEY (parent_unit_id) REFERENCES account_palm.normalized_units_v1(normalized_unit_id)"
+    },
+    {
+      "source_schema": "contabilidade_cfc",
+      "source_table": "questions",
+      "target_schema": "contabilidade_cfc",
+      "target_table": "sources",
+      "constraint_name": "questions_source_id_fkey",
+      "constraint_definition": "FOREIGN KEY (source_id) REFERENCES contabilidade_cfc.sources(source_id)"
+    },
+    {
+      "source_schema": "public",
+      "source_table": "cfc_internal_normative_chunks",
+      "target_schema": "public",
+      "target_table": "regulatory_instruments",
+      "constraint_name": "cfc_internal_normative_chunks_instrument_id_fkey",
+      "constraint_definition": "FOREIGN KEY (instrument_id) REFERENCES regulatory_instruments(instrument_id) ON DELETE RESTRICT"
+    },
+    {
+      "source_schema": "public",
+      "source_table": "cfc_internal_normative_extractions",
+      "target_schema": "public",
+      "target_table": "regulatory_instruments",
+      "constraint_name": "cfc_internal_normative_extractions_instrument_id_fkey",
+      "constraint_definition": "FOREIGN KEY (instrument_id) REFERENCES regulatory_instruments(instrument_id) ON DELETE RESTRICT"
+    },
+    {
+      "source_schema": "public",
+      "source_table": "exam_answer_keys",
+      "target_schema": "public",
+      "target_table": "exam_questions",
+      "constraint_name": "exam_answer_keys_question_id_fkey",
+      "constraint_definition": "FOREIGN KEY (question_id) REFERENCES exam_questions(id) ON DELETE CASCADE"
+    },
+    {
+      "source_schema": "public",
+      "source_table": "exam_answer_keys",
+      "target_schema": "public",
+      "target_table": "exam_source_items",
+      "constraint_name": "exam_answer_keys_source_item_id_fkey",
+      "constraint_definition": "FOREIGN KEY (source_item_id) REFERENCES exam_source_items(id) ON DELETE RESTRICT"
+    },
+    {
+      "source_schema": "public",
+      "source_table": "exam_documents",
+      "target_schema": "public",
+      "target_table": "exam_source_items",
+      "constraint_name": "exam_documents_source_item_id_fkey",
+      "constraint_definition": "FOREIGN KEY (source_item_id) REFERENCES exam_source_items(id) ON DELETE RESTRICT"
+    },
+    {
+      "source_schema": "public",
+      "source_table": "exam_documents",
+      "target_schema": "public",
+      "target_table": "exams",
+      "constraint_name": "exam_documents_exam_id_fkey",
+      "constraint_definition": "FOREIGN KEY (exam_id) REFERENCES exams(id) ON DELETE CASCADE"
+    },
+    {
+      "source_schema": "public",
+      "source_table": "exam_processing_checkpoints",
+      "target_schema": "public",
+      "target_table": "exam_ingest_runs",
+      "constraint_name": "exam_processing_checkpoints_ingest_run_id_fkey",
+      "constraint_definition": "FOREIGN KEY (ingest_run_id) REFERENCES exam_ingest_runs(id) ON DELETE CASCADE"
+    },
+    {
+      "source_schema": "public",
+      "source_table": "exam_question_options",
+      "target_schema": "public",
+      "target_table": "exam_questions",
+      "constraint_name": "exam_question_options_question_id_fkey",
+      "constraint_definition": "FOREIGN KEY (question_id) REFERENCES exam_questions(id) ON DELETE CASCADE"
+    },
+    {
+      "source_schema": "public",
+      "source_table": "exam_questions",
+      "target_schema": "public",
+      "target_table": "exams",
+      "constraint_name": "exam_questions_exam_id_fkey",
+      "constraint_definition": "FOREIGN KEY (exam_id) REFERENCES exams(id) ON DELETE CASCADE"
+    },
+    {
+      "source_schema": "public",
+      "source_table": "exam_remediation_tasks",
+      "target_schema": "public",
+      "target_table": "exam_ingest_runs",
+      "constraint_name": "exam_remediation_tasks_ingest_run_id_fkey",
+      "constraint_definition": "FOREIGN KEY (ingest_run_id) REFERENCES exam_ingest_runs(id) ON DELETE CASCADE"
+    },
+    {
+      "source_schema": "public",
+      "source_table": "exam_remediation_tasks",
+      "target_schema": "public",
+      "target_table": "exam_source_items",
+      "constraint_name": "exam_remediation_tasks_source_item_id_fkey",
+      "constraint_definition": "FOREIGN KEY (source_item_id) REFERENCES exam_source_items(id) ON DELETE CASCADE"
+    },
+    {
+      "source_schema": "public",
+      "source_table": "exam_remediation_tasks",
+      "target_schema": "public",
+      "target_table": "exam_validation_findings",
+      "constraint_name": "exam_remediation_tasks_finding_id_fkey",
+      "constraint_definition": "FOREIGN KEY (finding_id) REFERENCES exam_validation_findings(id) ON DELETE CASCADE"
+    },
+    {
+      "source_schema": "public",
+      "source_table": "exam_source_classifications",
+      "target_schema": "public",
+      "target_table": "exam_source_items",
+      "constraint_name": "exam_source_classifications_source_item_id_fkey",
+      "constraint_definition": "FOREIGN KEY (source_item_id) REFERENCES exam_source_items(id) ON DELETE CASCADE"
+    },
+    {
+      "source_schema": "public",
+      "source_table": "exam_source_content",
+      "target_schema": "public",
+      "target_table": "exam_source_items",
+      "constraint_name": "exam_source_content_source_item_id_fkey",
+      "constraint_definition": "FOREIGN KEY (source_item_id) REFERENCES exam_source_items(id) ON DELETE CASCADE"
+    },
+    {
+      "source_schema": "public",
+      "source_table": "exam_source_items",
+      "target_schema": "public",
+      "target_table": "exam_ingest_runs",
+      "constraint_name": "exam_source_items_ingest_run_id_fkey",
+      "constraint_definition": "FOREIGN KEY (ingest_run_id) REFERENCES exam_ingest_runs(id) ON DELETE SET NULL"
+    },
+    {
+      "source_schema": "public",
+      "source_table": "exam_validation_findings",
+      "target_schema": "public",
+      "target_table": "exam_ingest_runs",
+      "constraint_name": "exam_validation_findings_ingest_run_id_fkey",
+      "constraint_definition": "FOREIGN KEY (ingest_run_id) REFERENCES exam_ingest_runs(id) ON DELETE CASCADE"
+    },
+    {
+      "source_schema": "public",
+      "source_table": "exam_validation_findings",
+      "target_schema": "public",
+      "target_table": "exam_source_items",
+      "constraint_name": "exam_validation_findings_source_item_id_fkey",
+      "constraint_definition": "FOREIGN KEY (source_item_id) REFERENCES exam_source_items(id) ON DELETE CASCADE"
+    }
+  ]
+}
