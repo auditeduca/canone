@@ -106,6 +106,8 @@ jobs:
       - name: NS-04 student controller — synthetic UI state and same-origin gateway contract
         shell: bash
         run: node --test tests/ns04_student_frontend.test.mjs
+      - name: F3 React API contract security tests (no network database)
+        run: node --experimental-strip-types --test tests/f3_react_gateway_contract.test.mjs
       - name: F3 validate historical frontend crosswalk and source integrity
         run: |
           python3 tools/verify_f3_reconciliation.py
@@ -286,6 +288,9 @@ jobs:
           // Synthetic identifiers; no original editorial material.
           export const idsQuarentena = ['CFC-STRUCT-001','CG-003'] as const;
           EOF_FIXTURE
+      - name: Build the additional P0 React gateway integration entry
+        working-directory: source-s22/app
+        run: ./node_modules/.bin/vite build --config vite.p0.config.ts
       - name: Run historical app tests
         working-directory: source-s22/app
         run: node --experimental-strip-types --test tests/*.test.mjs
