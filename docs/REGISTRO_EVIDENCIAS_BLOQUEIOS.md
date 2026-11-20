@@ -1,3 +1,5 @@
+> **ATUALIZAÇÃO 19/11/2026 — FONTE RECUPERADA:** S22 app e bundle encontrados na Biblioteca; hashes conferidos e commit `164fa4df8e99de29e35c41d35a25f6ee0b2c6462` validado por clone local. A hipótese de ausência física da fonte (B-001) foi **resolvida como descoberta**, mas sua **importação no GitHub e auditoria de segurança/licença** continuam pendentes. Migrations candidatas S22 30/30 e testes históricos 277/277 PASS não equivalem a aplicação no Supabase nem GO. S23 v0.3 prioriza CFC. Nova evidência e inventário em [Consolidação multifonte](CONSOLIDACAO_MULTIFONTE_S22_S23_SUPABASE_20261119.md). Demais entradas abaixo refletem o corte inicial e são preservadas como histórico.
+
 # Registro de evidências, premissas e bloqueios
 **Corte de consulta:** 2026-11-19 · **Versão:** 0.1.0 · **Estado:** READ_ONLY_INSPECTION
 
