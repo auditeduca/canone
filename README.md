@@ -86,7 +86,7 @@ O primeiro backend de confiança para as funções privadas de prova já está v
 - [Manifesto SHA-256](inventories/source/CANONE_S22_SOURCE_IMPORT_MANIFEST.json), incluindo 87 arquivos retidos fora do repositório sob revisão de origem/direitos.
 - [Planejamento S23](planning/s23/) de exames CFC, fases, módulos e gates.
 - Inventários [Supabase](inventories/supabase/) e [Drive/Biblioteca](inventories/sources/); dados compartilhados não foram importados.
-- CI de integridade/regressão em [GitHub Actions](.github/workflows/canone-s22-recovery.yml), **sem deploy, sem conexão com bancos e com gate NO-GO**.
+- CI de integridade/regressão em [GitHub Actions](.github/workflows/canone-s22-recovery.yml), **sem deploy, com PostgreSQL 17 descartável no CI, sem conexão com Supabase remoto e com gate NO-GO**.
 
 **Evidência CI:** [execução de 19/11/2026](https://github.com/auditeduca/canone/actions/runs/44663305666) — 389/389 hashes, 277/277 testes locais, bloqueio de produção (exit 41) confirmado. Esses testes não substituem PostgreSQL isolado, browser E2E, testes de conteúdo normativo ou revisão de segurança.
 
@@ -98,15 +98,18 @@ O primeiro backend de confiança para as funções privadas de prova já está v
 - Pré-versões (`alpha`/`beta`/`rc`) são snapshots de engenharia. **Não** equivalem a tags, releases públicos ou autorização de produção.
 - A PR histórica [#2](https://github.com/auditeduca/canone/pull/2) foi integrada; sua branch antiga permanece apenas como referência histórica, não como área de trabalho.
 
-## Próximo trabalho
+## Próximo trabalho — Supabase por último (decisão 20/11/2026)
 
-1. Revisar os 87 arquivos excluídos e direitos/licenças; não publicar materiais CFC/Senado sem fonte oficial e autorização.
-2. Validar 30 migrations e segurança (RLS, grants, roles, SECURITY DEFINER, autenticação) em PostgreSQL descartável; depois staging individual do Cânone.
-3. Selecionar por finalidade e direitos as 54 tabelas/27 views candidatas do Supabase compartilhado; **não copiar banco inteiro nem dados de enfermagem**.
-4. Concluir uma jornada real do aluno CFC (aula → questão licenciada → tentativa → feedback → revisão → progresso persistido), desktop/mobile.
-5. Homologar acessibilidade, segurança, fontes, conteúdo e governança; obter aprovação expressa antes de produção.
+**O projeto Supabase exclusivo fica para a etapa final F8.** Antes disso, executar F1–F7 em PostgreSQL 17 descartável e CI, sem conexão/escrita no banco compartilhado:
 
-Documentação: [Consolidação multifonte](docs/CONSOLIDACAO_MULTIFONTE_S22_S23_SUPABASE_20261119.md), [Programa Mestre S22–S26](docs/PROGRAMA_MESTRE_S22_S26.md), [Plano Supabase exclusivo](docs/PLANO_MIGRACAO_CANONE_SUPABASE_EXCLUSIVO.md), [Evidências e bloqueios](docs/REGISTRO_EVIDENCIAS_BLOQUEIOS.md).
+1. Completar funções/triggers/views, RLS e paridade dos SQL S22→Cânone.
+2. Integrar backend privado, testes E2E de prova e revisão SRS, com identidade local sintética controlada.
+3. Implementar frontend web/mobile e jornada P0 realista de aluno com dados sintéticos.
+4. Fechar conteúdo CFC/EQT, licenças, administração/assinaturas simuladas e evidências.
+5. Validar segurança, acessibilidade, desempenho, regressões, backups/rollback e pacote de implantação.
+6. **Por último:** criar staging Supabase **exclusivo**, executar migrations homologadas, validar Auth/JWT real, E2E e solicitar GO/NO_GO.
+
+Critérios, microtarefas e rastreabilidade: **[Plano de conclusão — Supabase por último](docs/PLANO_CONCLUSAO_SUPABASE_ULTIMO.md)**, [Programa Mestre](docs/PROGRAMA_MESTRE_S22_S26.md), [Evidências e bloqueios](docs/REGISTRO_EVIDENCIAS_BLOQUEIOS.md).
 
 ## Estado dos ambientes
 

@@ -9,6 +9,10 @@ Formato de versão: **MAJOR.MINOR.PATCH[-PRERELEASE]**, em que:
 - `-rc.N`: candidata a aprovação, sujeita a revisão independente;
 - estável: somente quando todos os gates forem `GO`.
 
+### Decisão de sequência registrada em 20/11/2026
+
+O proprietário decidiu **adiar Supabase exclusivo até a etapa final F8**, após desenvolvimento/QA do banco, backend, frontend, conteúdo, assinaturas simuladas, segurança e pacote de implantação (F1–F7). Trata-se de alteração documental da ordem de execução, **sem release funcional novo**. Veja [plano Supabase por último](docs/PLANO_CONCLUSAO_SUPABASE_ULTIMO.md).
+
 ## [0.23.0-alpha.9] — 2026-11-20
 
 **Estado:** `AUTHENTICATED_GATEWAY_AND_ENTITLEMENT_PG17_CI_PASS / RELEASE_NO_GO`.
