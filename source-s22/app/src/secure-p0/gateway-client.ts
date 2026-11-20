@@ -7,8 +7,9 @@ export type PublicOption={code:string;text:string};
 export type PublicQuestion={ordinal:number;stem:string;options:PublicOption[]};
 export type PublicForm={id:string;questions:PublicQuestion[]};
 export type LocalRuntime={getToken:()=>Promise<string>;getForm:()=>Promise<unknown>};
-type Route='start'|'answer'|'finish'|'reveal'|'review';
+type Route='start'|'answer'|'finish'|'reveal'|'review'|'catalog'|'history'|'resume';
 const ROUTES:Record<Route,string>={
+  catalog:'/api/v1/exam/catalog',history:'/api/v1/exam/history',resume:'/api/v1/exam/resume',
   start:'/api/v1/exam/start',answer:'/api/v1/exam/answer',
   finish:'/api/v1/exam/finish',reveal:'/api/v1/exam/reveal',review:'/api/v1/exam/review'
 };
@@ -88,4 +89,67 @@ export function parseReveal(value:unknown,form:PublicForm):{ordinal:number;corre
     used.add(Number(entry.ordinal));
     return {ordinal:Number(entry.ordinal),correct_option:entry.correct_option};
   });
+}
+
+export type CatalogRow={form_id:string;form_label:string;question_count:number};
+export type HistoryRow={attempt_id:string;form_id:string;status:string;started_at:string;
+  finished_at:string|null;answered_count:number;correct_count:number|null;question_count:number};
+export type ResumeRow={attempt_id:string;form_id:string;status:'em_andamento'|'concluida';
+  answers:Array<{ordinal:number;option:string}>};
+const integer=(x:unknown):number=>{
+  const n=typeof x==='string'&&/^[0-9]+$/.test(x)?Number(x):x;
+  if(typeof n!=='number'||!Number.isSafeInteger(n)||n<0||n>1000)throw invalid('INVALID_READ_CONTRACT');
+  return n;
+};
+export function parseCatalog(value:unknown):CatalogRow[]{
+  if(!record(value)||!keys(value,['rows'])||!Array.isArray(value.rows)||value.rows.length>20)
+    throw invalid('INVALID_READ_CONTRACT');
+  return value.rows.map((r:unknown)=>{
+    if(!record(r)||!keys(r,['form_id','form_label','question_count'])||!isUuid(r.form_id)||
+        typeof r.form_label!=='string'||!r.form_label.trim())throw invalid('INVALID_READ_CONTRACT');
+    const count=integer(r.question_count);
+    if(count<1)throw invalid('INVALID_READ_CONTRACT');
+    return {form_id:r.form_id,form_label:r.form_label,question_count:count};
+  });
+}
+export function parseHistory(value:unknown):HistoryRow[]{
+  if(!record(value)||!keys(value,['rows'])||!Array.isArray(value.rows)||value.rows.length>20)
+    throw invalid('INVALID_READ_CONTRACT');
+  return value.rows.map((r:unknown)=>{
+    if(!record(r)||!keys(r,['attempt_id','form_id','status','started_at','finished_at',
+      'answered_count','correct_count','question_count'])||
+      !isUuid(r.attempt_id)||!isUuid(r.form_id)||
+      !['em_andamento','concluida','abandonada'].includes(String(r.status))||
+      typeof r.started_at!=='string'||r.started_at.length>64||
+      (r.finished_at!==null&&typeof r.finished_at!=='string')||
+      (r.correct_count!==null&&typeof r.correct_count!=='number'))
+      throw invalid('INVALID_READ_CONTRACT');
+    const answered=integer(r.answered_count),count=integer(r.question_count);
+    if(answered>count||(r.status!=='concluida'&&r.correct_count!==null))
+      throw invalid('INVALID_READ_CONTRACT');
+    const correct=r.correct_count===null?null:integer(r.correct_count);
+    return {attempt_id:r.attempt_id,form_id:r.form_id,status:r.status,
+      started_at:r.started_at,finished_at:r.finished_at,
+      answered_count:answered,correct_count:correct,question_count:count};
+  });
+}
+export function parseResume(value:unknown,form:PublicForm):ResumeRow{
+  if(!record(value)||!keys(value,['attempt_id','form_id','status','started_at','finished_at',
+     'answered_count','question_count','answers'])||
+    !isUuid(value.attempt_id)||value.form_id!==form.id||
+    !['em_andamento','concluida'].includes(String(value.status))||
+    !Array.isArray(value.answers)||value.answers.length>form.questions.length||
+    integer(value.question_count)!==form.questions.length||
+    integer(value.answered_count)!==value.answers.length)
+    throw invalid('INVALID_RESUME_CONTRACT');
+  const used=new Set<number>();
+  const answers=value.answers.map((a:unknown)=>{
+    if(!record(a)||!keys(a,['ordinal','option'])||typeof a.ordinal!=='number'||
+      !Number.isInteger(a.ordinal)||typeof a.option!=='string'||
+      used.has(a.ordinal)||!form.questions.some(q=>q.ordinal===a.ordinal&&
+        q.options.some(o=>o.code===a.option)))throw invalid('INVALID_RESUME_CONTRACT');
+    used.add(a.ordinal);
+    return {ordinal:a.ordinal,option:a.option};
+  });
+  return {attempt_id:value.attempt_id,form_id:form.id,status:value.status as ResumeRow['status'],answers};
 }

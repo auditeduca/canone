@@ -1,8 +1,9 @@
 import {useState,type ReactNode} from 'react';
 import {ExamQuestion,ExamProgress} from '../ui/learning/ExamQuestion';
 import {Nav,Footer,Disclaimer} from '../ui/Nav';
-import {localTestRuntime,parsePublicForm,parseReveal,postGateway,isUuid,
-  type PublicForm,type LocalRuntime} from './gateway-client';
+import {StudentHistory} from './StudentHistory';
+import {localTestRuntime,parsePublicForm,parseCatalog,parseReveal,postGateway,isUuid,
+  type PublicForm,type LocalRuntime,type ResumeRow} from './gateway-client';
 
 type Stage='locked'|'ready'|'active'|'finished'|'revealed';
 type KeyRow={ordinal:number;correct_option:string};
@@ -15,7 +16,9 @@ const MESSAGES:Record<string,string>={
   INVALID_QUESTION_CONTRACT:'Questões incompatíveis. Nenhuma tentativa foi aberta.',
   INVALID_OPTIONS:'Alternativas incompatíveis. Nenhuma tentativa foi aberta.',
   GATEWAY_UNAVAILABLE:'Não foi possível contactar o gateway.',
-  INVALID_REVEAL_CONTRACT:'Correção incompleta ou incompatível.'
+  INVALID_REVEAL_CONTRACT:'Correção incompleta ou incompatível.',
+  INVALID_READ_CONTRACT:'Contrato de leitura rejeitado.',
+  FORM_NOT_IN_CATALOG:'Este formulário não está disponível no catálogo autorizado.'
 };
 export function JornadaServidor(){
   const [runtime]=useState<LocalRuntime|null>(()=>localTestRuntime(window));
@@ -43,6 +46,9 @@ export function JornadaServidor(){
     if(!runtime)return;
     await run(async()=>{
       const result=parsePublicForm(await runtime.getForm());
+      const catalog=parseCatalog(await postGateway('catalog',{},runtime));
+      if(!catalog.some(r=>r.form_id===result.id&&r.question_count===result.questions.length))
+        throw Object.assign(new Error('FORM_NOT_IN_CATALOG'),{code:'FORM_NOT_IN_CATALOG'});
       setForm(result);setStage('ready');setMessage('Formulário sintético disponibilizado em memória.');setSelected(null);
     });
   }
@@ -53,6 +59,15 @@ export function JornadaServidor(){
       if(!result||typeof result!=='object'||!('id' in result)||!isUuid(result.id))throw Object.assign(new Error('INVALID_ATTEMPT'),{code:'INVALID_ATTEMPT'});
       setAttempt(result.id);setStage('active');setMessage('Tentativa aberta pelo gateway.');
     });
+  }
+  function restore(data:ResumeRow){
+    setAttempt(data.attempt_id);
+    setAnswers(Object.fromEntries(data.answers.map(x=>[x.ordinal,x.option])));
+    setSelected(null);setRevealed([]);setReviews([]);
+    setStage(data.status==='concluida'?'finished':'active');
+    setMessage(data.status==='concluida'?
+      'Tentativa concluída recuperada. Solicite o gabarito ao servidor.':
+      'Tentativa em andamento recuperada do PostgreSQL.');
   }
   async function answer(){
     if(!pending||!selected||!attempt||!runtime||stage!=='active')return;
@@ -154,6 +169,7 @@ export function JornadaServidor(){
       <div aria-live="polite" role="status" className="xs" style={{marginBottom:18}}>{message}</div>
       {error&&<p role="alert" className="disclaimer" style={{marginBottom:18}}>{error}</p>}
       {panel}
+      {runtime&&form&&<StudentHistory runtime={runtime} form={form} onResume={restore}/>}
       <div style={{marginTop:32}}><Disclaimer variant="box"/></div>
     </main>
     <Footer/>
