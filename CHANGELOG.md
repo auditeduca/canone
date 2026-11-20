@@ -17,6 +17,10 @@ O proprietário decidiu **adiar Supabase exclusivo até a etapa final F8**, apó
 
 Gerado e testado reconciliador Python que classifica 182 declarações históricas por fonte, linha, hash, risco e presença dos objetos nos 10 candidatos SQL. **12 testes locais** incluem negativos de adulteração e drift; integração CI obrigatória. As pendências F1 ficam visíveis e Supabase continua por último (F8). [Matriz](inventories/s22/CANONE_NS01_OBJECT_RECONCILIATION.json) · [Relatório](docs/NS01_INVENTARIO_FUNCOES_TRIGGERS_VIEWS_POLICIES.md).
 
+### NS-02 — contrato HTTP com identidade sintética (sem nova release)
+
+12 testes HTTP Node com fixture de Auth e banco simulados, assinatura de token efêmera, bloqueios de token falso/expirado, IDOR e assinatura revogada. Fixture guardada exclusivamente em `tests/` e sinalizada como sintética. O backend e o banco reais permanecem fora deste aceite; NS-03 fará integração PG17. [Relatório](docs/NS02_IDENTIDADE_SINTETICA_GATEWAY.md).
+
 ## [0.23.0-alpha.9] — 2026-11-20
 
 **Estado:** `AUTHENTICATED_GATEWAY_AND_ENTITLEMENT_PG17_CI_PASS / RELEASE_NO_GO`.

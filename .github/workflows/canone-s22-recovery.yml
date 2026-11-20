@@ -98,6 +98,11 @@ jobs:
         run: |
           python3 tools/reconcile_s22_objects.py --root . --check
           python3 -m unittest discover -s tests -p 'test_ns01_object_reconciliation.py' -v
+      - name: NS-02 local synthetic identity — real HTTP path, forged JWT and cross-user negatives
+        shell: bash
+        env:
+          CANONE_SYNTHETIC_TEST_ONLY: "1"
+        run: node --test tests/ns02_local_identity_http.test.mjs
       - name: Recreate a synthetic fixture for omitted editorial sample IDs
         shell: bash
         run: |

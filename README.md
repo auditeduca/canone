@@ -85,6 +85,10 @@ O reconciliador [Python](tools/reconcile_s22_objects.py) e o [registro JSON comp
 
 **PASS do inventário, não da paridade funcional:** 40 declarações de função sem porte, 17 triggers, 2 views e 67 políticas legadas dependem de trabalho/revisão. Nenhum Supabase foi modificado: ele permanece como etapa F8, a última integração.
 
+## NS-02 — contrato HTTP do gateway com Auth simulado
+
+[Fixture local de identidade](tests/fixtures/ns02-local-auth.mjs), [12 testes de HTTP](tests/ns02_local_identity_http.test.mjs) e [relatório](docs/NS02_IDENTIDADE_SINTETICA_GATEWAY.md) validam token forjado/expirado, restrições de assinatura, isolamento entre alunos, encerramento e SRS com dados fictícios. A fixture exige sinalização exclusiva de teste e **nunca chama Supabase real**; o executor SQL também é um dublê. Próximo: NS-03 com PostgreSQL 17 efêmero. Versão de produto permanece alpha.9.
+
 ## O que está versionado na main
 
 - **389 arquivos de código recuperados do S22**, no diretório [source-s22/](source-s22/), sem serem promovidos à raiz executável.
