@@ -17,7 +17,7 @@ db "INSERT INTO canone_commerce.entitlement(user_id,feature_key,source,expires_a
  VALUES ('33333333-3333-4333-8333-333333333333','cfc.exam','admin',now()+interval '2 day'),
  ('44444444-4444-4444-8444-444444444444','cfc.exam','admin',now()+interval '2 day');" >/dev/null
 # 011 is a candidate applied ONLY to the ephemeral container after alpha9.
-docker exec -i "$CANONE_CI_PG17_CONTAINER" psql -X -q -U postgres -d canone_alpha7_ci -v ON_ERROR_STOP=1 < staging/supabase/011_private_student_reads.candidate.sql.txt
+docker exec -i "$CANONE_CI_PG17_CONTAINER" psql -X -q -U postgres -d canone_alpha7_ci -v ON_ERROR_STOP=1 < tests/sql/f3_rec05_private_reads_ephemeral.sql
 # Browser roles must never execute owner-scoped read functions.
 if db "SET ROLE authenticated; SELECT * FROM canone_ops.exam_history();" >/tmp/canone-f3-reader-denial 2>&1; then
   echo EXPOSED_HISTORY_TO_BROWSER;exit 1

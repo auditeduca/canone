@@ -1,4 +1,4 @@
--- Cânone F3-REC-05: CANDIDATE ONLY. Apply exclusively in ephemeral PG17 CI after 010.
+-- Cânone F3-REC-05: TEST-ONLY SQL. Apply exclusively in ephemeral PG17 CI after canonical candidate 010.
 -- Reuses source S22 learning.exam_attempt, exam_form, exam_form_item and answer tables.
 -- Never deploy directly or grant SELECT to browsers. Approved license/content still HOLD.
 BEGIN;

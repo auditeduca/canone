@@ -2,7 +2,7 @@
 
 **20/11/2026 — escrita local e CI obrigatório — NO_GO.**
 
-A origem S22 já possui tabelas `exam_form`, `exam_form_item`, `exam_attempt`, `exam_attempt_answer` e serviço de `progresso`. Sem criar tabelas, a candidata `staging/supabase/011_private_student_reads.candidate.sql.txt` acrescenta três funções de consulta somente-leitura e privadas, com `SECURITY DEFINER`, busca em contexto `auth.uid()`, verificação de benefício `cfc.exam`, `REVOKE` para browser e `GRANT EXECUTE` exclusivo a `service_role` no gateway. **A migrations não é aplicável a projetos gerenciados sem F8.**
+A origem S22 já possui tabelas `exam_form`, `exam_form_item`, `exam_attempt`, `exam_attempt_answer` e serviço de `progresso`. Sem criar tabelas, a candidata `tests/sql/f3_rec05_private_reads_ephemeral.sql` acrescenta três funções de consulta somente-leitura e privadas, com `SECURITY DEFINER`, busca em contexto `auth.uid()`, verificação de benefício `cfc.exam`, `REVOKE` para browser e `GRANT EXECUTE` exclusivo a `service_role` no gateway. **Este SQL de teste não é migration aplicável a projetos gerenciados sem F8.**
 
 - `POST /api/v1/exam/catalog {}`: somente ID/rótulo/quantidade de versões com edição realizada e gabarito definitivo. **Não transporta enunciado, alternativas ou chave.** Metadados ainda não liberam uso de conteúdo não homologado.
 - `POST /api/v1/exam/history {}`: até 20 tentativas do aluno, status, datas, respostas e contagem de corretas **somente após conclusão**.
