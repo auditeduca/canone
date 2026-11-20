@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "project": "Cânone",
+  "date": "2026-11-20",
+  "milestone": "F3-REC-04",
+  "validated_sha": "8017645e2063cbcb5488d836918d50bf2518b5bf",
+  "ci_run": 44699825988,
+  "ci_url": "https://github.com/auditeduca/canone/actions/runs/44699825988",
+  "jobs": {
+    "offline": "success",
+    "react_s22": "success",
+    "chromium_ns04_and_react_stub": "success",
+    "postgresql17_real_browser": "success"
+  },
+  "actual_verified_paths": [
+    "Chromium",
+    "React S22 reused UI",
+    "local Vite same-origin reverse proxy",
+    "Node HTTP gateway",
+    "PostgreSQL 17 ephemeral"
+  ],
+  "identity": "synthetic HMAC test only",
+  "questions": "synthetic no answer key in frontend",
+  "results": {
+    "four_of_four_jobs": "PASS",
+    "real_browser_to_pg17": "PASS",
+    "idor_denied": "PASS",
+    "no_entitlement_denied": "PASS",
+    "early_key_denied": "PASS",
+    "srs_db_receipt": "PASS"
+  },
+  "not_covered": [
+    "Supabase Auth real",
+    "approved editorial questions and normative licenses",
+    "authenticated content/catalog endpoints",
+    "multi-device persistence/recovery",
+    "deploy and production security signoff"
+  ],
+  "gate": "NO_GO"
+}

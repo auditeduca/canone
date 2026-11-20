@@ -40,7 +40,7 @@ Só então:
 | **NS-01** | Inventariar funções/triggers restantes e dois motivos de view não portada, cruzando a origem S22 com os candidatos 001–010 | Matriz gerada automaticamente por Python, sem objetos silenciosamente omitidos — **PASS inventário 182/182**, F1 segue em execução; [matriz de objetos](../inventories/s22/CANONE_NS01_OBJECT_RECONCILIATION.json), [relatório](NS01_INVENTARIO_FUNCOES_TRIGGERS_VIEWS_POLICIES.md) |
 | **NS-02** | Criar fixture de identidade local que reproduza entradas seguras do gateway, mantendo separação explícita entre mock e Auth gerenciado | **PASS contrato HTTP sintético 12/12**: token forjado/expirado, usuário B, assinatura revogada e gabarito antecipado; [provas e limites](NS02_IDENTIDADE_SINTETICA_GATEWAY.md) |
 | **NS-03** | Unir gateway, PG17 e jornada de prova em testes de integração REST | **PASS 13/13** — HTTP→PG17 descartável, Auth sintético, RBAC, assinatura, tentativa, feedback posterior e SRS; [CI](https://github.com/auditeduca/canone/actions/runs/44689056599) e [relatório](NS03_HTTP_PG17_E2E_LOCAL.md) |
-| **NS-04** | Frontend P0 local com catálogo sintético, prova, correção e revisão | **PASS primeira fatia (Chromium + Node) no [CI #44692128299](https://github.com/auditeduca/canone/actions/runs/44692128299)**; **F3 não concluída**: falta browser→gateway→PG17, catálogo autorizado e persistência |
+| **NS-04** | Frontend P0 local com catálogo sintético, prova, correção e revisão | **PASS primeira fatia (Chromium + Node) no [CI #44692128299](https://github.com/auditeduca/canone/actions/runs/44692128299)**; **F3 não concluída**: browser→gateway→PG17 **PASS F3-REC-04 com Auth sintético e questões inventadas**; falta catálogo autorizado, recuperação/histórico e identidade gerenciada |
 | **NS-05** | Fechar o inventário de fontes oficiais/licenciamento e as limitações de amostra | Fonte, vigência e licença em cada item de demonstração/produção |
 
 ## Critérios de reporte e continuidade
@@ -55,3 +55,8 @@ Só então:
 - [Marco alpha.8 — serviço de provas e SRS, CI](https://github.com/auditeduca/canone/actions/runs/44680711933)
 - [Marco alpha.9 — Auth/gateway e benefício, CI](https://github.com/auditeduca/canone/actions/runs/44683142037)
 - [Arquivos candidatos SQL](../staging/supabase/) · [Geradores Python](../tools/) · [Testes](../tests/)
+
+
+## F3-REC-04 — alcance real (20/11/2026)
+
+[CI #44699825988](https://github.com/auditeduca/canone/actions/runs/44699825988) executou a nova página React reaproveitando `ExamQuestion` do histórico via HTTP gateway e PostgreSQL 17 real descartável, incluindo negativas de IDOR, ausência de autorização e gabarito prematuro. **O critério técnico de integração local passou; não é F3 liberada nem Auth Supabase.** Próxima F3-REC-05: catálogo sem chave, recuperação de sessão/histórico multi-dispositivo, controles editoriais e WCAG.
