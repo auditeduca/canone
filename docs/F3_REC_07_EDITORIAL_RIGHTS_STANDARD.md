@@ -24,3 +24,9 @@ A verificação executa `python3 tools/f3_rec07_editorial_rights_gate.py --check
 ## Próximos controles
 
 F3-REC-07 no SQL de CI: cruzar **status de direitos**, versão do item, fonte/URL, digest de conteúdo, dois revisores diferentes, escopo e prazo antes de emitir qualquer questão. A promoção editorial de F4 e a autenticação real de F8 ficam para gates independentes.
+
+## F3-REC-07 — prova no PostgreSQL de CI
+
+O SQL `tests/sql/f3_rec07_rights_guard_ephemeral.sql` cria a tabela **temporária por ambiente** `rights_release_ci` contendo `content_item_id`, versão vigente, fonte, `TEST_ONLY/HOLD_RIGHTS/REJECTED`, escopo, impressão digital do conteúdo (enunciado + todas alternativas), evidência sintética, revisores distintos e validade. A nova função segura de teste `exam_questions` verifica a tabela **antes** de entregar questões pelo gateway. Sua predecessora F3-REC-06 é renomeada e perde `EXECUTE` de `service_role`.
+
+O CI testa o veto de toda a prova quando **um único item** entra em `HOLD_RIGHTS`, sofre alteração de digest ou expira. Após restaurar a fixture, a aplicação continua realizando a prova normalmente. `TEST_ONLY` permanece um marcador **exclusivamente sintético**; nenhum desses registros representa aprovação de direitos de terceiros. `NO_GO`.

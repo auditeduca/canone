@@ -20,6 +20,14 @@ db "INSERT INTO canone_commerce.entitlement(user_id,feature_key,source,expires_a
 docker exec -i "$CANONE_CI_PG17_CONTAINER" psql -X -q -U postgres -d canone_alpha7_ci -v ON_ERROR_STOP=1 < tests/sql/f3_rec05_private_reads_ephemeral.sql
 # Exercise editorial/rights gate exclusively on the disposable PG17 service.
 docker exec -i "$CANONE_CI_PG17_CONTAINER" psql -X -q -U postgres -d canone_alpha7_ci -v ON_ERROR_STOP=1 < tests/sql/f3_rec06_question_delivery_ephemeral.sql
+# F3-REC07: rights decision overlay is TEST ONLY and runs after F3-REC06 SQL in disposable PG17.
+docker exec -i "$CANONE_CI_PG17_CONTAINER" psql -X -q -U postgres -d canone_alpha7_ci -v ON_ERROR_STOP=1 < tests/sql/f3_rec07_rights_guard_ephemeral.sql
+# Browser cannot bypass current rights wrapper or call its unguarded CI predecessor.
+if db "SET ROLE authenticated; SELECT canone_ops.exam_questions_rec06_ci('00000000-0000-4000-8000-000000000004');" >/tmp/canone-f3-rec07-old 2>&1; then
+  echo UNGUARDED_BACKEND_FUNCTION_EXPOSED; exit 1
+fi
+grep -q 'permission denied' /tmp/canone-f3-rec07-old || { cat /tmp/canone-f3-rec07-old; exit 1; }
+rm -f /tmp/canone-f3-rec07-old
 # Browser roles cannot call the question delivery SECURITY DEFINER function directly.
 if db "SET ROLE authenticated; SELECT canone_ops.exam_questions('00000000-0000-4000-8000-000000000004');" >/tmp/canone-f3-question-denial 2>&1; then
   echo EXPOSED_QUESTION_FN_TO_BROWSER; exit 1
@@ -65,6 +73,62 @@ done
 new_token_hash="$(sha256sum "$CANONE_CI_P0_TOKEN_FILE" | cut -d' ' -f1)"
 [[ "$old_token_hash" != "$new_token_hash" ]] || { echo UNROTATED_TEST_TOKEN;exit 1; }
 /tmp/canone-f3-py/bin/python tests/f3_rec06_browser_restart.py normal
+# The two separate rights gates MUST remain fail-closed after reload and gateway restart.
+rights_attempt() {
+  db "BEGIN; SET LOCAL ROLE service_role;
+      SELECT pg_catalog.set_config('request.jwt.claim.sub','33333333-3333-4333-8333-333333333333',true);
+      SELECT jsonb_array_length(canone_ops.exam_questions('00000000-0000-4000-8000-000000000004')->'questions'); COMMIT;"
+}
+[[ "$(rights_attempt | grep -E '^[0-9]+
+db "UPDATE canone_editorial.verification SET valid_until=now()-interval '1 minute'
+ WHERE notes='CI_LICENSE_SYNTHETIC_ONLY';" >/dev/null
+/tmp/canone-f3-py/bin/python tests/f3_rec06_browser_restart.py revoked
+[[ "$(db "SELECT count(*) FROM canone_learning.exam_attempt WHERE user_id='33333333-3333-4333-8333-333333333333' AND finished_at IS NOT NULL;")" -ge 1 ]]
+[[ "$(db "SELECT count(*) FROM canone_learning.exam_review_receipt r JOIN canone_learning.exam_attempt a ON a.id=r.attempt_id WHERE a.user_id='33333333-3333-4333-8333-333333333333';")" -ge 1 ]]
+echo PASS_F3_REAL_BROWSER_PG17
+ | tail -1)" == 2 ]] || { echo FAIL_RIGHTS_VALID_BASELINE; exit 1; }
+expect_hold() {
+  if rights_attempt >/tmp/canone-f3-rec07-hold 2>&1; then
+    echo RIGHTS_RELEASED_WITHOUT_CLEARANCE; exit 1
+  fi
+  grep -q 'CONTENT_RIGHTS_RELEASE_HOLD' /tmp/canone-f3-rec07-hold || {
+    cat /tmp/canone-f3-rec07-hold; exit 1;
+  }
+  rm -f /tmp/canone-f3-rec07-hold
+}
+# Temporarily put only ONE of two questions on HOLD. The entire form must be denied.
+db "UPDATE canone_editorial.rights_release_ci SET decision='HOLD_RIGHTS',permitted_scope='NONE'
+ WHERE content_item_id='00000000-0000-4000-8000-000000000009';" >/dev/null
+expect_hold
+db "UPDATE canone_editorial.rights_release_ci SET decision='TEST_ONLY',permitted_scope='EPHEMERAL_CI'
+ WHERE content_item_id='00000000-0000-4000-8000-000000000009';" >/dev/null
+# A signed release does NOT apply to a tampered payload fingerprint.
+saved_digest="$(db "SELECT content_sha256 FROM canone_editorial.rights_release_ci
+ WHERE content_item_id='00000000-0000-4000-8000-000000000009';" | head -1)"
+[[ "$saved_digest" =~ ^[a-f0-9]{64}$ ]] || { echo INVALID_RIGHTS_DIGEST; exit 1; }
+db "UPDATE canone_editorial.rights_release_ci SET content_sha256=repeat('0',64)
+ WHERE content_item_id='00000000-0000-4000-8000-000000000009';" >/dev/null
+expect_hold
+db "UPDATE canone_editorial.rights_release_ci SET content_sha256='$saved_digest'
+ WHERE content_item_id='00000000-0000-4000-8000-000000000009';" >/dev/null
+# Expired rights decision must fail even when ordinary source verification is current.
+db "UPDATE canone_editorial.rights_release_ci SET valid_until=now()-interval '1 minute'
+ WHERE content_item_id='00000000-0000-4000-8000-000000000009';" >/dev/null
+expect_hold
+db "UPDATE canone_editorial.rights_release_ci SET valid_until=now()+interval '1 hour'
+ WHERE content_item_id='00000000-0000-4000-8000-000000000009';" >/dev/null
+[[ "$(rights_attempt | grep -E '^[0-9]+
+db "UPDATE canone_editorial.verification SET valid_until=now()-interval '1 minute'
+ WHERE notes='CI_LICENSE_SYNTHETIC_ONLY';" >/dev/null
+/tmp/canone-f3-py/bin/python tests/f3_rec06_browser_restart.py revoked
+[[ "$(db "SELECT count(*) FROM canone_learning.exam_attempt WHERE user_id='33333333-3333-4333-8333-333333333333' AND finished_at IS NOT NULL;")" -ge 1 ]]
+[[ "$(db "SELECT count(*) FROM canone_learning.exam_review_receipt r JOIN canone_learning.exam_attempt a ON a.id=r.attempt_id WHERE a.user_id='33333333-3333-4333-8333-333333333333';")" -ge 1 ]]
+echo PASS_F3_REAL_BROWSER_PG17
+ | tail -1)" == 2 ]] || {
+  echo FAIL_RIGHTS_GRANT_NOT_RESTORED; exit 1;
+}
+echo PASS_F3_REC07_RIGHTS_TEST_ONLY_ONE_ITEM_HOLD_TAMPER_EXPIRE
+
 # Expire both authorizations, proving the entire form is blocked without rights.
 db "UPDATE canone_editorial.verification SET valid_until=now()-interval '1 minute'
  WHERE notes='CI_LICENSE_SYNTHETIC_ONLY';" >/dev/null
