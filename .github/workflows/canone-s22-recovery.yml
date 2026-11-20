@@ -66,6 +66,8 @@ jobs:
         run: |
           python3 tools/convert_canone_schema.py --root . --check
           python3 -m unittest discover -s tests -p 'test_canone_domain_conversion.py' -v
+          python3 tools/convert_canone_constraints.py --root . --check
+          python3 -m unittest discover -s tests -p 'test_canone_indexes_constraints.py' -v
       - name: Recreate a synthetic fixture for omitted editorial sample IDs
         shell: bash
         run: |
