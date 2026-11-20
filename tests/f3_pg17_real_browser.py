@@ -34,7 +34,7 @@ try:
  with sync_playwright() as pw:
   browser=pw.chromium.launch(headless=True,args=["--no-sandbox"])
   page=browser.new_page(viewport={"width":1440,"height":900})
-  init="window.__CANONE_P0_TEST_ONLY__={getToken:async()=>"+json.dumps(jwt["owner"])+",getForm:async()=>("+json.dumps(DATA,ensure_ascii=False)+")};"
+  init="window.__CANONE_P0_TEST_ONLY__={getToken:async()=>"+json.dumps(jwt["owner"])+"};"
   page.add_init_script(init)
   observed=[]
   page.on("response",lambda r:observed.append(r.url.split("/api/v1/exam/")[-1]) if "/api/v1/exam/" in r.url else None)
@@ -42,7 +42,7 @@ try:
   page.get_by_role("button",name="Carregar formulário de teste").click()
   page.get_by_role("button",name="Iniciar tentativa no gateway").click()
   expect(page.get_by_text("Questão fictícia contábil um")).to_be_visible()
-  assert observed==["catalog","start"],observed
+  assert observed==["catalog","questions","start"],observed
   # Additional test attempt allows IDOR and early-key negative without exposing main UI ID.
   negatives=page.evaluate("""async({peer,unlicensed})=>{
     const post=async (route,token,body)=>{
@@ -59,6 +59,7 @@ try:
       other:await post('answer',peer,{attemptId:attempt,ordinal:1,option:'A'}),
       otherResume:await post('resume',peer,{attemptId:attempt}),
       missingPlanRead:await post('history',unlicensed,{}),
+      missingPlanQuestions:await post('questions',unlicensed,{formId:'00000000-0000-4000-8000-000000000004'}),
       denied:await post('start',unlicensed,{formId:'00000000-0000-4000-8000-000000000004'})
     };
   }""",{"peer":jwt["peer"],"unlicensed":jwt["unlicensed"]})
@@ -68,6 +69,7 @@ try:
   assert negatives["other"]["status"]==403,negatives
   assert negatives["otherResume"]["status"]==404,negatives
   assert negatives["missingPlanRead"]["status"]==403,negatives
+  assert negatives["missingPlanQuestions"]["status"]==403,negatives
   assert negatives["denied"]["status"]==403,negatives
   page.get_by_role("button",name="A Opção A sintética").click()
   page.get_by_role("button",name="Registrar resposta").click()
@@ -92,7 +94,7 @@ try:
   page.get_by_role("button",name="Registrar revisão SRS").first.click()
   expect(page.get_by_role("button",name="Revisão registrada")).to_be_visible()
   assert page.evaluate("localStorage.length+sessionStorage.length")==0
-  assert all(x in observed for x in ("catalog","history","resume","start","answer","finish","reveal","review")),observed
+  assert all(x in observed for x in ("catalog","questions","history","resume","start","answer","finish","reveal","review")),observed
   browser.close()
   print("PASS F3-REC05: reload->history->owner resume->answer->finish->reveal->SRS real PG17; no early key")
 finally:

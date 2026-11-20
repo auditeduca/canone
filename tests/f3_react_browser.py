@@ -20,10 +20,7 @@ FORM_DATA={"id":FORM,"questions":[
     {"ordinal":2,"stem":"Pergunta fictícia número dois para integração?",
      "options":[{"code":"A","text":"Alternativa A"},{"code":"B","text":"Alternativa B"}]}
 ]}
-RUNTIME=f"""window.__CANONE_P0_TEST_ONLY__={{
-  getToken:async()=> 'a.b.c',
-  getForm:async()=>({json.dumps(FORM_DATA,ensure_ascii=False)})
-}};"""
+RUNTIME="window.__CANONE_P0_TEST_ONLY__={getToken:async()=> 'a.b.c'};"
 
 def wait_server(process):
     for _ in range(80):
@@ -43,7 +40,10 @@ def stub_api(page,denied=False):
         assert "userId" not in body and "correct_option" not in json.dumps(body)
         state["calls"].append(path)
         code=200
-        if path=="catalog":
+        if path=="questions":
+            assert body=={"formId":FORM}
+            payload={"ok":True,"data":FORM_DATA}
+        elif path=="catalog":
             payload={"ok":True,"data":{"rows":[{"form_id":FORM,"form_label":"Formulário de teste",
               "question_count":2}]}}
         elif path=="history":
@@ -96,7 +96,7 @@ try:
         expect(page.get_by_role("heading",name="Simulado com autoridade no servidor")).to_be_visible()
         expect(page.get_by_role("button",name="Carregar formulário de teste")).to_be_visible()
         assert "Gabarito retornado pelo servidor:" not in page.locator("main").inner_text()
-        assert state["calls"] == []  # No network calls before explicit start
+        assert state["calls"] == []  # No network calls before explicit load
         page.get_by_role("button",name="Carregar formulário de teste").click()
         expect(page.get_by_role("button",name="Iniciar tentativa no gateway")).to_be_visible()
         page.get_by_role("button",name="Iniciar tentativa no gateway").click()
@@ -109,7 +109,7 @@ try:
         page.get_by_role("button",name="B Alternativa B").click()
         page.get_by_role("button",name="Registrar resposta").click()
         expect(page.get_by_role("button",name="Concluir tentativa")).to_be_visible()
-        assert state["calls"]==["catalog","start","answer","answer"]
+        assert state["calls"]==["catalog","questions","start","answer","answer"]
         page.get_by_role("button",name="Concluir tentativa").click()
         expect(page.get_by_role("button",name="Consultar gabarito posterior")).to_be_visible()
         assert "reveal" not in state["calls"]
@@ -117,7 +117,7 @@ try:
         expect(page.get_by_role("heading",name="Correção posterior · 2/2")).to_be_visible()
         page.get_by_role("button",name="Registrar revisão SRS").first.click()
         expect(page.get_by_role("button",name="Revisão registrada")).to_be_visible()
-        assert state["calls"]==["catalog","start","answer","answer","finish","reveal","review"]
+        assert state["calls"]==["catalog","questions","start","answer","answer","finish","reveal","review"]
         assert len(state["reviews"])==1
         assert page.evaluate("localStorage.length+sessionStorage.length")==0
         page.reload(wait_until="networkidle")
@@ -135,7 +135,7 @@ try:
         denied.get_by_role("button",name="Carregar formulário de teste").click()
         denied.get_by_role("button",name="Iniciar tentativa no gateway").click()
         expect(denied.get_by_role("alert")).to_contain_text("autorização")
-        assert refused["calls"]==["catalog","start"]
+        assert refused["calls"]==["catalog","questions","start"]
         assert not denied.get_by_role("button",name="Registrar resposta").count()
         mobile=browser.new_page(viewport={"width":390,"height":844},is_mobile=True,has_touch=True)
         mobile.add_init_script(RUNTIME)

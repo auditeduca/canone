@@ -1,7 +1,7 @@
 /** F3 real HTTP+PG17 test server. Synthetic Auth key stays in process. */
 import {writeFileSync,unlinkSync} from 'node:fs';
 import {createRequire} from 'node:module';
-import {createGateway,makePgExecutor,makeSupabaseAuthVerifier} from '../gateway/alpha10-core.mjs';
+import {createGateway,makePgExecutor,makeSupabaseAuthVerifier} from '../gateway/alpha11-core.mjs';
 import {makeServer} from '../gateway/alpha9-server.mjs';
 import {syntheticAuthFetch,syntheticToken} from './fixtures/ns02-local-auth.mjs';
 const port=Number(process.env.CANONE_CI_PG17_PORT);

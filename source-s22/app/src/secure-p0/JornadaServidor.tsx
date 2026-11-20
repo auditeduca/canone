@@ -45,8 +45,9 @@ export function JornadaServidor(){
   async function load(){
     if(!runtime)return;
     await run(async()=>{
-      const result=parsePublicForm(await runtime.getForm());
       const catalog=parseCatalog(await postGateway('catalog',{},runtime));
+      if(!catalog.length)throw Object.assign(new Error('FORM_NOT_IN_CATALOG'),{code:'FORM_NOT_IN_CATALOG'});
+      const result=parsePublicForm(await postGateway('questions',{formId:catalog[0].form_id},runtime));
       if(!catalog.some(r=>r.form_id===result.id&&r.question_count===result.questions.length))
         throw Object.assign(new Error('FORM_NOT_IN_CATALOG'),{code:'FORM_NOT_IN_CATALOG'});
       setForm(result);setStage('ready');setMessage('Formulário sintético disponibilizado em memória.');setSelected(null);
@@ -107,7 +108,7 @@ export function JornadaServidor(){
   }else if(stage==='locked'){
     panel=<div className="card" style={{padding:24}}>
       <h2 className="display-md">Preparar formulário local</h2>
-      <p className="body" style={{marginTop:12}}>O provedor de CI informa as questões sem gabarito. Não há conteúdo normativo nem credencial de produção.</p>
+      <p className="body" style={{marginTop:12}}>O gateway local entrega enunciados e alternativas somente após validar o acesso e os direitos sintéticos. Não há conteúdo normativo nem credencial de produção.</p>
       <button type="button" className="btn btn-brass" disabled={busy} onClick={load} style={{marginTop:22}}>Carregar formulário de teste</button>
     </div>;
   }else if(stage==='ready'){
@@ -157,7 +158,7 @@ export function JornadaServidor(){
     <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
     <Nav path="/jornada-servidor"/>
     <div role="status" style={{padding:12,textAlign:'center',background:'var(--ink-150)',color:'var(--brass-200)'}}>
-      F3-REC-03 · Prova de integração local · Auth sintético somente CI · Sem conteúdo oficial · NO_GO produção
+      F3-REC-06 · Conteúdo sintético entregue pelo gateway · Auth sintético somente CI · Sem conteúdo oficial · NO_GO produção
     </div>
     <main id="conteudo" className="shell page" style={{maxWidth:900}}>
       <a className="btn btn-ghost btn-sm" href="./index.html#/jornada">← Jornada histórica S22</a>

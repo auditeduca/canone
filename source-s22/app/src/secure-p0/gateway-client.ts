@@ -6,10 +6,10 @@
 export type PublicOption={code:string;text:string};
 export type PublicQuestion={ordinal:number;stem:string;options:PublicOption[]};
 export type PublicForm={id:string;questions:PublicQuestion[]};
-export type LocalRuntime={getToken:()=>Promise<string>;getForm:()=>Promise<unknown>};
-type Route='start'|'answer'|'finish'|'reveal'|'review'|'catalog'|'history'|'resume';
+export type LocalRuntime={getToken:()=>Promise<string>};
+type Route='start'|'answer'|'finish'|'reveal'|'review'|'catalog'|'history'|'resume'|'questions';
 const ROUTES:Record<Route,string>={
-  catalog:'/api/v1/exam/catalog',history:'/api/v1/exam/history',resume:'/api/v1/exam/resume',
+  questions:'/api/v1/exam/questions',catalog:'/api/v1/exam/catalog',history:'/api/v1/exam/history',resume:'/api/v1/exam/resume',
   start:'/api/v1/exam/start',answer:'/api/v1/exam/answer',
   finish:'/api/v1/exam/finish',reveal:'/api/v1/exam/reveal',review:'/api/v1/exam/review'
 };
@@ -51,7 +51,7 @@ export function parsePublicForm(value:unknown):PublicForm {
 export function localTestRuntime(win:Window&{__CANONE_P0_TEST_ONLY__?:unknown}):LocalRuntime|null{
   if(!['127.0.0.1','localhost','::1'].includes(win.location.hostname))return null;
   const r=win.__CANONE_P0_TEST_ONLY__;
-  if(!record(r)||typeof r.getToken!=='function'||typeof r.getForm!=='function')return null;
+  if(!record(r)||typeof r.getToken!=='function')return null;
   return r as unknown as LocalRuntime;
 }
 export async function postGateway(
