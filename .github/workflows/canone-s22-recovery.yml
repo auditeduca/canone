@@ -149,3 +149,32 @@ jobs:
             exit 1
           fi
           echo "PASS: production remains NO-GO (41)"
+
+  pg17-alpha7-concurrency:
+    name: PostgreSQL 17 — concurrent audit and sealing (ephemeral)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    permissions:
+      contents: read
+    services:
+      pg17:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: synthetic_ci_only_not_real
+          POSTGRES_DB: canone_alpha7_ci
+        options: >-
+          --health-cmd "pg_isready -U postgres -d canone_alpha7_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 15
+    steps:
+      - name: Checkout without persisted credentials
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Real PG17 multi-session audit/seal tests, no remote DB
+        shell: bash
+        env:
+          CANONE_CI_PG17_ONLY: "yes"
+          CANONE_CI_PG17_CONTAINER: ${{ job.services.pg17.id }}
+        run: bash tests/pg17_alpha7_concurrency.sh
