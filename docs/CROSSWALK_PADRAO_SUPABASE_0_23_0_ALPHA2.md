@@ -91,6 +91,103 @@ Este é um crosswalk de engenharia **executável como validador, não como SQL d
 | 029 | `029_papel_de_acesso.sql` | `supabase_auth_bridge` | Replace canone_auth role and auth_full policy with Supabase Auth-managed OTP/session flow. |
 | 030 | `030_porta_da_prova.sql` | `exam_entry_gate` | Use server-validated subscriber entitlement and user JWT before exam delivery. |
 
+## Crosswalk físico de tabelas — 90/90
+
+Das 90 tabelas físicas definidas pelo S22, **87** são candidatas a tabelas próprias em schemas `canone_*` e **3** tabelas de autenticação são substituídas pelo serviço Supabase Auth, nunca recriadas. Existem **43 referências a `identity.account`** que precisam apontar para a identidade gerenciada `auth.users` via FK validada.
+
+| Tabela S22 | Destino padrão | Tratamento |
+|---|---|---|
+| `identity.account` | `auth.users` | `managed_supabase_auth` |
+| `identity.user_profile` | `canone_identity.user_profile` | `app_owned_schema_projection` |
+| `identity.role` | `canone_identity.role` | `app_owned_schema_projection` |
+| `identity.user_role` | `canone_identity.user_role` | `app_owned_schema_projection` |
+| `identity.consent_purpose` | `canone_identity.consent_purpose` | `app_owned_schema_projection` |
+| `identity.consent` | `canone_identity.consent` | `app_owned_schema_projection` |
+| `identity.data_request` | `canone_identity.data_request` | `app_owned_schema_projection` |
+| `identity.data_request_event` | `canone_identity.data_request_event` | `app_owned_schema_projection` |
+| `identity.session` | `Supabase Auth sessions API` | `managed_supabase_auth` |
+| `identity.magic_link` | `Supabase Auth OTP API` | `managed_supabase_auth` |
+| `editorial.content_type` | `canone_editorial.content_type` | `app_owned_schema_projection` |
+| `editorial.content_type_version` | `canone_editorial.content_type_version` | `app_owned_schema_projection` |
+| `editorial.field_definition` | `canone_editorial.field_definition` | `app_owned_schema_projection` |
+| `editorial.enumeration` | `canone_editorial.enumeration` | `app_owned_schema_projection` |
+| `editorial.enumeration_value` | `canone_editorial.enumeration_value` | `app_owned_schema_projection` |
+| `editorial.state_definition` | `canone_editorial.state_definition` | `app_owned_schema_projection` |
+| `editorial.state_transition` | `canone_editorial.state_transition` | `app_owned_schema_projection` |
+| `editorial.content_item` | `canone_editorial.content_item` | `app_owned_schema_projection` |
+| `editorial.content_item_version` | `canone_editorial.content_item_version` | `app_owned_schema_projection` |
+| `editorial.content_relation_type` | `canone_editorial.content_relation_type` | `app_owned_schema_projection` |
+| `editorial.content_relation` | `canone_editorial.content_relation` | `app_owned_schema_projection` |
+| `editorial.content_revision` | `canone_editorial.content_revision` | `app_owned_schema_projection` |
+| `editorial.source` | `canone_editorial.source` | `app_owned_schema_projection` |
+| `editorial.verification` | `canone_editorial.verification` | `app_owned_schema_projection` |
+| `taxonomy.knowledge_area` | `canone_taxonomy.knowledge_area` | `app_owned_schema_projection` |
+| `taxonomy.subject` | `canone_taxonomy.subject` | `app_owned_schema_projection` |
+| `taxonomy.subtopic` | `canone_taxonomy.subtopic` | `app_owned_schema_projection` |
+| `taxonomy.exam_edition` | `canone_taxonomy.exam_edition` | `app_owned_schema_projection` |
+| `taxonomy.blueprint` | `canone_taxonomy.blueprint` | `app_owned_schema_projection` |
+| `taxonomy.item_placement` | `canone_taxonomy.item_placement` | `app_owned_schema_projection` |
+| `taxonomy.module` | `canone_taxonomy.module` | `app_owned_schema_projection` |
+| `taxonomy.module_subject` | `canone_taxonomy.module_subject` | `app_owned_schema_projection` |
+| `norms.issuer` | `canone_norms.issuer` | `app_owned_schema_projection` |
+| `norms.norm` | `canone_norms.norm` | `app_owned_schema_projection` |
+| `norms.norm_version` | `canone_norms.norm_version` | `app_owned_schema_projection` |
+| `norms.norm_item` | `canone_norms.norm_item` | `app_owned_schema_projection` |
+| `editorial.content_norm_citation` | `canone_editorial.content_norm_citation` | `app_owned_schema_projection` |
+| `learning.item` | `canone_learning.item` | `app_owned_schema_projection` |
+| `learning.item_option` | `canone_learning.item_option` | `app_owned_schema_projection` |
+| `learning.explanation` | `canone_learning.explanation` | `app_owned_schema_projection` |
+| `learning.item_subject` | `canone_learning.item_subject` | `app_owned_schema_projection` |
+| `learning.study_block` | `canone_learning.study_block` | `app_owned_schema_projection` |
+| `learning.mock_exam` | `canone_learning.mock_exam` | `app_owned_schema_projection` |
+| `learning.mock_exam_item` | `canone_learning.mock_exam_item` | `app_owned_schema_projection` |
+| `learning.mind_map` | `canone_learning.mind_map` | `app_owned_schema_projection` |
+| `learning.mind_map_node` | `canone_learning.mind_map_node` | `app_owned_schema_projection` |
+| `learning.pocket_entry` | `canone_learning.pocket_entry` | `app_owned_schema_projection` |
+| `learning.case_step` | `canone_learning.case_step` | `app_owned_schema_projection` |
+| `learning.session` | `canone_learning.session` | `app_owned_schema_projection` |
+| `learning.review_event` | `canone_learning.review_event` | `app_owned_schema_projection` |
+| `learning.user_item_state` | `canone_learning.user_item_state` | `app_owned_schema_projection` |
+| `learning.mastery` | `canone_learning.mastery` | `app_owned_schema_projection` |
+| `learning.favorite` | `canone_learning.favorite` | `app_owned_schema_projection` |
+| `learning.note` | `canone_learning.note` | `app_owned_schema_projection` |
+| `learning.offline_pack` | `canone_learning.offline_pack` | `app_owned_schema_projection` |
+| `learning.study_plan` | `canone_learning.study_plan` | `app_owned_schema_projection` |
+| `learning.duel` | `canone_learning.duel` | `app_owned_schema_projection` |
+| `commerce.plan` | `canone_commerce.plan` | `app_owned_schema_projection` |
+| `commerce.plan_feature` | `canone_commerce.plan_feature` | `app_owned_schema_projection` |
+| `commerce.subscription` | `canone_commerce.subscription` | `app_owned_schema_projection` |
+| `commerce.payment` | `canone_commerce.payment` | `app_owned_schema_projection` |
+| `commerce.invoice` | `canone_commerce.invoice` | `app_owned_schema_projection` |
+| `commerce.entitlement` | `canone_commerce.entitlement` | `app_owned_schema_projection` |
+| `commerce.coupon` | `canone_commerce.coupon` | `app_owned_schema_projection` |
+| `audit.audit_log` | `canone_audit.audit_log` | `app_owned_schema_projection` |
+| `admin.support_access_grant` | `canone_admin.support_access_grant` | `app_owned_schema_projection` |
+| `admin.support_access_log` | `canone_admin.support_access_log` | `app_owned_schema_projection` |
+| `admin.moderation_queue` | `canone_admin.moderation_queue` | `app_owned_schema_projection` |
+| `admin.content_report` | `canone_admin.content_report` | `app_owned_schema_projection` |
+| `admin.user_note` | `canone_admin.user_note` | `app_owned_schema_projection` |
+| `admin.feature_flag` | `canone_admin.feature_flag` | `app_owned_schema_projection` |
+| `ops.setting` | `canone_ops.setting` | `app_owned_schema_projection` |
+| `ops.integration` | `canone_ops.integration` | `app_owned_schema_projection` |
+| `ops.api_key` | `canone_ops.api_key` | `app_owned_schema_projection` |
+| `ops.webhook` | `canone_ops.webhook` | `app_owned_schema_projection` |
+| `ops.webhook_delivery` | `canone_ops.webhook_delivery` | `app_owned_schema_projection` |
+| `ops.job_run` | `canone_ops.job_run` | `app_owned_schema_projection` |
+| `ops.notification_template` | `canone_ops.notification_template` | `app_owned_schema_projection` |
+| `ops.notification` | `canone_ops.notification` | `app_owned_schema_projection` |
+| `ops.notification_delivery` | `canone_ops.notification_delivery` | `app_owned_schema_projection` |
+| `ops.error_event` | `canone_ops.error_event` | `app_owned_schema_projection` |
+| `ops.metric_daily` | `canone_ops.metric_daily` | `app_owned_schema_projection` |
+| `ops.migration_log` | `canone_ops.migration_log` | `app_owned_schema_projection` |
+| `taxonomy.exam_track` | `canone_taxonomy.exam_track` | `app_owned_schema_projection` |
+| `learning.exam_form` | `canone_learning.exam_form` | `app_owned_schema_projection` |
+| `learning.exam_form_item` | `canone_learning.exam_form_item` | `app_owned_schema_projection` |
+| `learning.answer_key` | `canone_learning.answer_key` | `app_owned_schema_projection` |
+| `learning.answer_key_entry` | `canone_learning.answer_key_entry` | `app_owned_schema_projection` |
+| `learning.exam_attempt` | `canone_learning.exam_attempt` | `app_owned_schema_projection` |
+| `learning.exam_attempt_answer` | `canone_learning.exam_attempt_answer` | `app_owned_schema_projection` |
+
 ## Dependências com estruturas compartilhadas (não copiar integralmente)
 
 | Origem | FK anterior | Estratégia canônica |
