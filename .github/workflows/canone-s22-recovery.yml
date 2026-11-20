@@ -186,3 +186,9 @@ jobs:
           CANONE_CI_PG17_ONLY: "yes"
           CANONE_CI_PG17_CONTAINER: ${{ job.services.pg17.id }}
         run: bash tests/pg17_alpha7_concurrency.sh
+      - name: PG17 alpha8 — response/finish race and duplicate SRS
+        shell: bash
+        env:
+          CANONE_CI_PG17_ONLY: "yes"
+          CANONE_CI_PG17_CONTAINER: ${{ job.services.pg17.id }}
+        run: bash tests/pg17_alpha8_attempt_srs.sh
