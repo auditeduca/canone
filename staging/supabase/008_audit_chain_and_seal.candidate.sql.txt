@@ -82,12 +82,13 @@ CREATE OR REPLACE FUNCTION canone_audit.verify_chain(p_from bigint DEFAULT NULL)
 RETURNS TABLE(seq bigint, ok boolean, expected char(64), found char(64))
 LANGUAGE sql STABLE SECURITY INVOKER SET search_path = pg_catalog AS $fn$
   WITH ordered AS (
-    SELECT a.*, lag(a.row_hash) OVER (ORDER BY a.seq) AS prev_in_chain
+    SELECT a AS audit_row, a.seq, a.prev_hash, a.row_hash,
+           lag(a.row_hash) OVER (ORDER BY a.seq) AS prev_in_chain
     FROM canone_audit.audit_log a
   ), recomputed AS (
     SELECT o.seq, o.prev_hash, o.row_hash, o.prev_in_chain,
            canone_audit.compute_row_hash(
-             o.prev_hash, canone_audit.audit_payload(o)) AS hash_expected
+             o.prev_hash, canone_audit.audit_payload(o.audit_row)) AS hash_expected
     FROM ordered o
   )
   SELECT r.seq,

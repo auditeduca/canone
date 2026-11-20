@@ -54,9 +54,9 @@
       "sha256": "574ab76731ecc12e3a52570a47a4f515b9b46a9d9453dd924932ce783a292123"
     }
   ],
-  "sql_sha256": "cf909a891d6d7a25e58da2785edee43a2fc74b949074589d8b18fb3a039f7ea0",
+  "sql_sha256": "265e9e26196b8d0a6949db52f5db8a62a21c3325c271355a7d0d7b0cabb32eba",
   "status": "AUDIT_CHAIN_AND_SEAL_CANDIDATE_NO_GO",
-  "template_sha256": "2862d22339a1e390c2bf026203be6f610a7f77f56dd4936176c1ac957e61a86f",
+  "template_sha256": "e21c8daf8c757ad9673581acc54aae3ff4173e549518fb85c16524ebd1b763d5",
   "transaction_order": "read_committed_advisory_xact_lock_and_server_assigned_seq",
   "triggers_new": [
     "trg_audit_chain_insert",
