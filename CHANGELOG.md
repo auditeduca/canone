@@ -9,6 +9,21 @@ Formato de versão: **MAJOR.MINOR.PATCH[-PRERELEASE]**, em que:
 - `-rc.N`: candidata a aprovação, sujeita a revisão independente;
 - estável: somente quando todos os gates forem `GO`.
 
+## [0.23.0-alpha.4] — 2026-11-20
+
+**Estado:** `S22_PHYSICAL_DDL_82_TABLES_67_INDEXES_12_ALTER_CI_PASS / RELEASE_NO_GO`.
+
+### Conversão automatizada Python/JavaScript
+- Gerador Python `tools/convert_canone_schema.py` verificou a integridade dos **30/30 SQL originais** e extraiu **82 definições físicas de tabela**, somadas a **5 tabelas adaptadas pelo piloto** e **3 tabelas de autenticação substituídas pelo Supabase Auth** (90/90 origens).
+- **3 tipos ENUM** de aprendizagem convertidos e criados antes do DDL que os utiliza.
+- Gerador Python `tools/convert_canone_constraints.py` converteu **67 índices** e **12 ALTER TABLE** estruturais, deixando 4 índices devidamente classificados (1 Auth, 2 duplicados do piloto, 1 `pg_trgm`) e 16 alterações de RLS não duplicadas.
+- **38 FKs inline** remapeadas para `auth.users` no novo lote; outras referências de identidade já tratadas pelo piloto. O catálogo preserva a origem de todos os objetos e os hashes.
+- Testes Python **12/12 + 7/7**, e execução isolada PGlite com **89 tabelas**, **89 RLS+FORCE**, **67 índices**, **12 ALTER** e **158 verificações**. Regressão S22: **277/277 PASS**.
+- Evidência [GitHub Actions 44671597384](https://github.com/auditeduca/canone/actions/runs/44671597384), commit testado `a33fa0949b19901f24db097a51b36344c03edc40`.
+
+### Limites de homologação
+A conversão **não inclui ainda** funções/triggers/SECURITY DEFINER, views, políticas de autorização finais e seeds com fontes/licenças. Arquivos gerados usam `.candidate.sql.txt`, não são migrations automaticamente aplicáveis. PGlite em memória não substitui PostgreSQL 17 gerenciado nem teste com JWT real. Não houve alteração de banco compartilhado, Vercel ou implantação de produção. Gate **NO_GO**.
+
 ## [0.23.0-alpha.3] — 2026-11-20
 
 **Estado:** `IDENTITY_PILOT_STAGING_CANDIDATE / NO_REMOTE_WRITES / RELEASE_NO_GO`.

@@ -1,0 +1,50 @@
+{
+  "version": "0.23.0-alpha.4",
+  "date": "2026-11-20",
+  "repository": "auditeduca/canone",
+  "branch": "main",
+  "tested_commit": "a33fa0949b19901f24db097a51b36344c03edc40",
+  "ci_run_id": 44671597384,
+  "ci_url": "https://github.com/auditeduca/canone/actions/runs/44671597384",
+  "ci_conclusion": "success",
+  "source_migrations_verified": 30,
+  "legacy_physical_tables": 90,
+  "source_tables_accounted": 90,
+  "generated_tables": 82,
+  "existing_pilot_tables": 5,
+  "managed_auth_replacements": 3,
+  "additional_pilot_tables": 2,
+  "resulting_pglite_tables": 89,
+  "enum_types": 3,
+  "generated_indexes": 67,
+  "generated_structural_alter": 12,
+  "intentionally_excluded_indexes": 4,
+  "already_implemented_rls_alter": 16,
+  "generated_auth_user_fk": 38,
+  "pglite_rls_force": 89,
+  "pglite_checks": 158,
+  "conversion_python_tests": {
+    "tables": 12,
+    "indexes": 7
+  },
+  "legacy_regression": {
+    "passed": 277,
+    "total": 277
+  },
+  "note": "In-memory PGlite smoke only, synthetic Auth, not managed Supabase PG17 homologation.",
+  "production_gate": "NO_GO",
+  "shared_supabase_mutations": 0,
+  "vercel_deploys": 0,
+  "source_paths": [
+    "tools/convert_canone_schema.py",
+    "tools/convert_canone_constraints.py",
+    "staging/supabase/002_domain_tables_82.candidate.sql.txt",
+    "staging/supabase/003_indexes_constraints.candidate.sql.txt",
+    "docs/CONVERSAO_FISICA_S22_ALPHA4.md"
+  ],
+  "next": [
+    "Port 30 migrations' functions, triggers, views and policies safely",
+    "Test entire stack in disposable PostgreSQL 17 with real Supabase Auth behavior",
+    "Only then stage candidate migrations on a dedicated independent Supabase project"
+  ]
+}
