@@ -1,0 +1,31 @@
+{
+  "id": "F3-REC-02",
+  "date": "2026-11-20",
+  "repo": "auditeduca/canone",
+  "run_id": 44697112319,
+  "run_url": "https://github.com/auditeduca/canone/actions/runs/44697112319",
+  "validated_commit": "a706dcc14a55987f9f74eef57988f35f8d940656",
+  "result": "PASS_BASELINE_ONLY",
+  "jobs": {
+    "offline_crosswalk": "success",
+    "react_s22_build_tests": "success",
+    "chromium_ns04": "success",
+    "pg17_ns03": "success"
+  },
+  "react_tests": {
+    "passed": 195,
+    "total": 195,
+    "failed": 0
+  },
+  "s23_crosswalk": {
+    "matched": 26,
+    "total": 26,
+    "unmounted_component_candidates": 19
+  },
+  "limitations": [
+    "9 missing woff2 asset reference warnings; do not distribute font assets without license",
+    "no React browser-to-real-gateway-to-PG17 linkage",
+    "no production release; no Supabase access"
+  ],
+  "gate": "NO_GO"
+}
