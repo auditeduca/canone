@@ -9,3 +9,19 @@
     touch-action: manipulation;
   }
 }
+
+/* Historical marketing navigation and five-column footer are desktop compositions.
+   Explicit test-only P0 compact layout also covers mobile UA's 980px fallback viewport. */
+@media (max-device-width: 720px), (max-width: 720px) {
+  body:has(#conteudo) { max-width: 100%; overflow-x: hidden; }
+  body:has(#conteudo) .nav { position: relative; height: 64px; }
+  body:has(#conteudo) .nav .shell { width: 100%; max-width: 100%; padding-inline: 16px; }
+  body:has(#conteudo) .nav .shell > .row { display: none; }
+  body:has(#conteudo) footer .shell > div:first-child {
+    display: grid !important;
+    grid-template-columns: minmax(0,1fr) !important;
+    gap: 22px !important;
+  }
+  body:has(#conteudo) footer .shell .row { flex-wrap: wrap; }
+  body:has(#conteudo) footer input { min-width: 0; max-width: 100%; }
+}

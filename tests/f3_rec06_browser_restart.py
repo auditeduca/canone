@@ -48,7 +48,9 @@ try:
      const hit=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);
      const position=(selector)=>{const x=document.querySelector(selector); const q=x?.getBoundingClientRect();
        return q?{top:q.top,bottom:q.bottom,height:q.height}:null};
-     return {scrollY,innerWidth,innerHeight,documentHeight:document.body.scrollHeight,
+     return {scrollY,innerWidth,innerHeight,screenWidth:screen.width,
+       viewportMeta:document.querySelector('meta[name="viewport"]')?.content,
+       documentHeight:document.body.scrollHeight,
        rect:{left:r.left,top:r.top,right:r.right,bottom:r.bottom},
        atPoint:hit?.outerHTML.slice(0,200),nav:position('.nav'),
        main:position('main#conteudo'),hero:position('main#conteudo header'),
