@@ -1,0 +1,59 @@
+{
+  "version": "0.23.0-alpha.3",
+  "date_utc": "2026-11-20",
+  "run_id": 44667050918,
+  "run_url": "https://github.com/auditeduca/canone/actions/runs/44667050918",
+  "validated_commit": "b46c047fd8ff6a42e14699ef17215def6e8042b6",
+  "status": "CI_PASS_ISOLATED_ONLY",
+  "release_gate": "NO_GO",
+  "validations": {
+    "prior_source_manifest_sha256": "389/389 PASS",
+    "crosswalk": {
+      "migrations": 30,
+      "schemas": 14,
+      "source_tables": 90,
+      "target_domain_tables": 87,
+      "auth_fk_rewrites": 43,
+      "status": "PASS"
+    },
+    "pilot_static": {
+      "tests_pass": 11,
+      "tests_total": 11,
+      "source_migrations_integrity": 30,
+      "status": "PASS"
+    },
+    "pglite_in_memory": {
+      "created_tables": 7,
+      "force_rls_tables": 7,
+      "policies": 3,
+      "checks_pass": 14,
+      "status": "PASS",
+      "auth_fixture": "synthetic_only",
+      "managed_pg17_equivalence": "NOT_ATTESTED"
+    },
+    "legacy_regression": {
+      "tests_pass": 277,
+      "tests_total": 277,
+      "status": "PASS"
+    },
+    "production_gate": {
+      "exit_expected": 41,
+      "observed": "41",
+      "status": "PASS_NO_GO"
+    }
+  },
+  "scope": "staging candidate only. No remote database operations or deployment.",
+  "exclusions": [
+    "No PG17 managed Supabase test",
+    "No live Auth JWT test",
+    "No 87-table conversion",
+    "No official exam content or commercial release"
+  ],
+  "related_paths": [
+    "staging/supabase/001_identity_and_source_bridge.candidate.sql.txt",
+    "staging/supabase/CANONE_IDENTITY_BRIDGE_PILOT_MANIFEST.json",
+    "tools/verify_supabase_stage_pilot.py",
+    "tests/test_supabase_stage_pilot.py",
+    "tests/supabase_stage_pilot_pglite.mjs"
+  ]
+}
