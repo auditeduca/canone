@@ -1,0 +1,1354 @@
+{
+  "assumptions": [
+    "auth.users managed by separate Supabase project",
+    "001 pilot must run first",
+    "This is DDL only: out-of-line FKs and indexes are NOT yet converted",
+    "No unrestricted access, no copied content or foreign DB data",
+    "Function and trigger migrations, RLS policies and grants require dedicated conversion and testing"
+  ],
+  "auth_fk_in_generated_statements": 38,
+  "canonical_domain_tables_accounted": 87,
+  "changes_to_remote_supabase": false,
+  "crosswalk_version": "0.23.0-alpha.2",
+  "generated": [
+    {
+      "line": 1,
+      "migration": "002_identity_lgpd.sql",
+      "source": "identity.account",
+      "strategy": "managed_auth",
+      "target": "Supabase Auth (managed)"
+    },
+    {
+      "line": 31,
+      "migration": "002_identity_lgpd.sql",
+      "source": "identity.user_profile",
+      "strategy": "existing_identity_pilot",
+      "target": "canone_identity.user_profile"
+    },
+    {
+      "line": 54,
+      "migration": "002_identity_lgpd.sql",
+      "source": "identity.role",
+      "strategy": "existing_identity_pilot",
+      "target": "canone_identity.role"
+    },
+    {
+      "line": 66,
+      "migration": "002_identity_lgpd.sql",
+      "source": "identity.user_role",
+      "strategy": "existing_identity_pilot",
+      "target": "canone_identity.user_role"
+    },
+    {
+      "line": 79,
+      "migration": "002_identity_lgpd.sql",
+      "source": "identity.consent_purpose",
+      "strategy": "existing_identity_pilot",
+      "target": "canone_identity.consent_purpose"
+    },
+    {
+      "line": 94,
+      "migration": "002_identity_lgpd.sql",
+      "source": "identity.consent",
+      "strategy": "existing_identity_pilot",
+      "target": "canone_identity.consent"
+    },
+    {
+      "ddl_sha256": "4437c5d81022793277b07807dc8afffad41fb7225b2e6566c7d0e7413a7ae740",
+      "line": 113,
+      "migration": "002_identity_lgpd.sql",
+      "source": "identity.data_request",
+      "strategy": "generated_candidate",
+      "target": "canone_identity.data_request"
+    },
+    {
+      "ddl_sha256": "14360533cada03db47df5e5baeb647a0a5f7f004f5e78b886a5075bda7d46b76",
+      "line": 132,
+      "migration": "002_identity_lgpd.sql",
+      "source": "identity.data_request_event",
+      "strategy": "generated_candidate",
+      "target": "canone_identity.data_request_event"
+    },
+    {
+      "line": 142,
+      "migration": "002_identity_lgpd.sql",
+      "source": "identity.session",
+      "strategy": "managed_auth",
+      "target": "Supabase Auth (managed)"
+    },
+    {
+      "line": 157,
+      "migration": "002_identity_lgpd.sql",
+      "source": "identity.magic_link",
+      "strategy": "managed_auth",
+      "target": "Supabase Auth (managed)"
+    },
+    {
+      "ddl_sha256": "37bc6d20084eed064d68187df94e266fc63cec8ff6427d4a5249ca1d0f312dcb",
+      "line": 1,
+      "migration": "003_metamodel.sql",
+      "source": "editorial.content_type",
+      "strategy": "generated_candidate",
+      "target": "canone_editorial.content_type"
+    },
+    {
+      "ddl_sha256": "67f1cfca2b3cbb8e12ef1b340fb67c0e4eca37f8a135c7c28325a4fd416b7a47",
+      "line": 48,
+      "migration": "003_metamodel.sql",
+      "source": "editorial.content_type_version",
+      "strategy": "generated_candidate",
+      "target": "canone_editorial.content_type_version"
+    },
+    {
+      "ddl_sha256": "b7fef73099a0939feda215dfa873b9f6c513797521bd1ffff7294a1039e3ca15",
+      "line": 58,
+      "migration": "003_metamodel.sql",
+      "source": "editorial.field_definition",
+      "strategy": "generated_candidate",
+      "target": "canone_editorial.field_definition"
+    },
+    {
+      "ddl_sha256": "ce3fdcb98ae0150b18b24131a7f1cffe11eba79c5caa33a58cfb5b84e537eb7c",
+      "line": 83,
+      "migration": "003_metamodel.sql",
+      "source": "editorial.enumeration",
+      "strategy": "generated_candidate",
+      "target": "canone_editorial.enumeration"
+    },
+    {
+      "ddl_sha256": "81dc24efdbc8c44d3af913b9a9371859498c4af5eb61c890b42fa11b70a229ec",
+      "line": 103,
+      "migration": "003_metamodel.sql",
+      "source": "editorial.enumeration_value",
+      "strategy": "generated_candidate",
+      "target": "canone_editorial.enumeration_value"
+    },
+    {
+      "ddl_sha256": "b20ab506294e58e40afc02efd037b0f54a7020dc8b1cf09eee677a065fb9abba",
+      "line": 115,
+      "migration": "003_metamodel.sql",
+      "source": "editorial.state_definition",
+      "strategy": "generated_candidate",
+      "target": "canone_editorial.state_definition"
+    },
+    {
+      "ddl_sha256": "55f0af795312dbb8088b04bcb2771491cb35846a436348260db05d6a14fdb031",
+      "line": 139,
+      "migration": "003_metamodel.sql",
+      "source": "editorial.state_transition",
+      "strategy": "generated_candidate",
+      "target": "canone_editorial.state_transition"
+    },
+    {
+      "ddl_sha256": "cbb3161cd296e7b525e02df7ebbbd69b09dc19cabc397c6eb8e4eaeb10f0de76",
+      "line": 161,
+      "migration": "003_metamodel.sql",
+      "source": "editorial.content_item",
+      "strategy": "generated_candidate",
+      "target": "canone_editorial.content_item"
+    },
+    {
+      "ddl_sha256": "99e4008d4551a343546a4e822512acf699c211c6b8cf6b15bcd67da6f55debe9",
+      "line": 199,
+      "migration": "003_metamodel.sql",
+      "source": "editorial.content_item_version",
+      "strategy": "generated_candidate",
+      "target": "canone_editorial.content_item_version"
+    },
+    {
+      "ddl_sha256": "9849731550c4a298dd0d9d7e546ed0e39dfa3a0a04733841af04bfaa08d6f7b4",
+      "line": 220,
+      "migration": "003_metamodel.sql",
+      "source": "editorial.content_relation_type",
+      "strategy": "generated_candidate",
+      "target": "canone_editorial.content_relation_type"
+    },
+    {
+      "ddl_sha256": "afacfe6236ee0b77549b36702fa095f38898c36973f03e559802c3f5fa03ca65",
+      "line": 233,
+      "migration": "003_metamodel.sql",
+      "source": "editorial.content_relation",
+      "strategy": "generated_candidate",
+      "target": "canone_editorial.content_relation"
+    },
+    {
+      "ddl_sha256": "f961824b175cd115c143903b3e0bd2f71fdf3e4cffe5a8c53f033eafa9033483",
+      "line": 248,
+      "migration": "003_metamodel.sql",
+      "source": "editorial.content_revision",
+      "strategy": "generated_candidate",
+      "target": "canone_editorial.content_revision"
+    },
+    {
+      "ddl_sha256": "d114c893250594a5a0389c016894c2a754d3e16e0314a2a5ffe2967b1f379388",
+      "line": 265,
+      "migration": "003_metamodel.sql",
+      "source": "editorial.source",
+      "strategy": "generated_candidate",
+      "target": "canone_editorial.source"
+    },
+    {
+      "ddl_sha256": "f108b3a72c251870fd50b384692571263e471844a3ad8adfb4b0d63679a7e861",
+      "line": 298,
+      "migration": "003_metamodel.sql",
+      "source": "editorial.verification",
+      "strategy": "generated_candidate",
+      "target": "canone_editorial.verification"
+    },
+    {
+      "ddl_sha256": "229c702c58c55c84678c9beba09f0cb2c9a99c638d1504ceabbc7a4f96b8835d",
+      "line": 1,
+      "migration": "004_taxonomy_blueprint.sql",
+      "source": "taxonomy.knowledge_area",
+      "strategy": "generated_candidate",
+      "target": "canone_taxonomy.knowledge_area"
+    },
+    {
+      "ddl_sha256": "2ba23f9968aed3b3e465ae93c3c40e9e8a92626bc7fd344a30785739766c8c9a",
+      "line": 25,
+      "migration": "004_taxonomy_blueprint.sql",
+      "source": "taxonomy.subject",
+      "strategy": "generated_candidate",
+      "target": "canone_taxonomy.subject"
+    },
+    {
+      "ddl_sha256": "c65ad50d5fe5d315e0461e9318d142da47a242760ec84d4dd91b7fd88fe8fbdf",
+      "line": 41,
+      "migration": "004_taxonomy_blueprint.sql",
+      "source": "taxonomy.subtopic",
+      "strategy": "generated_candidate",
+      "target": "canone_taxonomy.subtopic"
+    },
+    {
+      "ddl_sha256": "e86cf38967766371faa7400fe957438c96e61427296cc78f03b99574ecc5c8d7",
+      "line": 53,
+      "migration": "004_taxonomy_blueprint.sql",
+      "source": "taxonomy.exam_edition",
+      "strategy": "generated_candidate",
+      "target": "canone_taxonomy.exam_edition"
+    },
+    {
+      "ddl_sha256": "9b68c3b18e1171e0af9503b431a267a6cc665b99dffb60fba59502871d831837",
+      "line": 81,
+      "migration": "004_taxonomy_blueprint.sql",
+      "source": "taxonomy.blueprint",
+      "strategy": "generated_candidate",
+      "target": "canone_taxonomy.blueprint"
+    },
+    {
+      "ddl_sha256": "22804b889a9a087f751d9eae9f67a5298b2f18a359d4c8a31499f35312851218",
+      "line": 91,
+      "migration": "004_taxonomy_blueprint.sql",
+      "source": "taxonomy.item_placement",
+      "strategy": "generated_candidate",
+      "target": "canone_taxonomy.item_placement"
+    },
+    {
+      "ddl_sha256": "e6d135136dc288494875eb7a39230a0ac26f1c878fcc64f5c5ef212363099ab5",
+      "line": 103,
+      "migration": "004_taxonomy_blueprint.sql",
+      "source": "taxonomy.module",
+      "strategy": "generated_candidate",
+      "target": "canone_taxonomy.module"
+    },
+    {
+      "ddl_sha256": "e7ea7ce7cd2c36fa2fbad1b8de3c6cea8a66c44779243315d5daa8b99bcbf7ca",
+      "line": 120,
+      "migration": "004_taxonomy_blueprint.sql",
+      "source": "taxonomy.module_subject",
+      "strategy": "generated_candidate",
+      "target": "canone_taxonomy.module_subject"
+    },
+    {
+      "ddl_sha256": "62eb11a1b2f903c953bcbeefb967cdae1f23eca875e324b48186a63bef87b500",
+      "line": 1,
+      "migration": "005_norms.sql",
+      "source": "norms.issuer",
+      "strategy": "generated_candidate",
+      "target": "canone_norms.issuer"
+    },
+    {
+      "ddl_sha256": "a8dc2daaa9ca0b8bc2a9c74d87479b71b2fe1a4ac9e59fd105a374f1f4313f13",
+      "line": 28,
+      "migration": "005_norms.sql",
+      "source": "norms.norm",
+      "strategy": "generated_candidate",
+      "target": "canone_norms.norm"
+    },
+    {
+      "ddl_sha256": "93de922e65a2de1271b385de4510d2cd9f3fb7d78c2bdcd143ea2dbc83d3127a",
+      "line": 44,
+      "migration": "005_norms.sql",
+      "source": "norms.norm_version",
+      "strategy": "generated_candidate",
+      "target": "canone_norms.norm_version"
+    },
+    {
+      "ddl_sha256": "24ca3ee5a5beeb2e75f1d65a1d98aef0f357df1d7c321c3437c84d93abff33eb",
+      "line": 69,
+      "migration": "005_norms.sql",
+      "source": "norms.norm_item",
+      "strategy": "generated_candidate",
+      "target": "canone_norms.norm_item"
+    },
+    {
+      "ddl_sha256": "192a1e13a81d6c837ad34b6d5e87e69483d86f193cf4b70895207795148f0b18",
+      "line": 90,
+      "migration": "005_norms.sql",
+      "source": "editorial.content_norm_citation",
+      "strategy": "generated_candidate",
+      "target": "canone_editorial.content_norm_citation"
+    },
+    {
+      "ddl_sha256": "40d29b0c31d04e6dc754fc49b124585b768b332bb31ecfc3e9240155ff3ea152",
+      "line": 1,
+      "migration": "006_learning_items.sql",
+      "source": "learning.item",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.item"
+    },
+    {
+      "ddl_sha256": "e799b3f63c67915cf13901ea5e6e2f1b8abbab2f1891a719ec7fd9d13cb1e041",
+      "line": 51,
+      "migration": "006_learning_items.sql",
+      "source": "learning.item_option",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.item_option"
+    },
+    {
+      "ddl_sha256": "c783615ec7587b289da3132b90785b39094bbed55d9caa1e145d91427b8ab0a3",
+      "line": 91,
+      "migration": "006_learning_items.sql",
+      "source": "learning.explanation",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.explanation"
+    },
+    {
+      "ddl_sha256": "15bdf298a2af44dec440b1bf9f66eb1a644813ad12960fc3eb7195b3c19dcbca",
+      "line": 111,
+      "migration": "006_learning_items.sql",
+      "source": "learning.item_subject",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.item_subject"
+    },
+    {
+      "ddl_sha256": "a96af0d57ae95ad7dbf687b8f82f4c11c78309708a24443427642540b746906c",
+      "line": 121,
+      "migration": "006_learning_items.sql",
+      "source": "learning.study_block",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.study_block"
+    },
+    {
+      "ddl_sha256": "0d1c9174218d97e478124668cfddb96f673a401b9e3770f51171c29bf3421bab",
+      "line": 137,
+      "migration": "006_learning_items.sql",
+      "source": "learning.mock_exam",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.mock_exam"
+    },
+    {
+      "ddl_sha256": "b1cf40238f51e992bbc431410ee656a7159a0a36085b8c5623b570f0b4dc5137",
+      "line": 153,
+      "migration": "006_learning_items.sql",
+      "source": "learning.mock_exam_item",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.mock_exam_item"
+    },
+    {
+      "ddl_sha256": "38265ced065f606fd7eb017fce9bbb1bdcc2815625d00659a42ba4b92cbcba96",
+      "line": 161,
+      "migration": "006_learning_items.sql",
+      "source": "learning.mind_map",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.mind_map"
+    },
+    {
+      "ddl_sha256": "ffdca953b9219eb4649c2d60e51cd76e84b40231fc16aedb58ef749e6ffe0427",
+      "line": 172,
+      "migration": "006_learning_items.sql",
+      "source": "learning.mind_map_node",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.mind_map_node"
+    },
+    {
+      "ddl_sha256": "d5bae277dd79facab20988f62758567c67f4341b295b082112e1dada43f07386",
+      "line": 184,
+      "migration": "006_learning_items.sql",
+      "source": "learning.pocket_entry",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.pocket_entry"
+    },
+    {
+      "ddl_sha256": "4d76d1603ed9c391e6d9ce9ea4dce77a5828da7ad715d6f270ad10cbe25b30fb",
+      "line": 197,
+      "migration": "006_learning_items.sql",
+      "source": "learning.case_step",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.case_step"
+    },
+    {
+      "ddl_sha256": "b529edc4c0957ef069d0969a239168293ef7d73e6b8719cc9b0b9953fa43f71e",
+      "line": 31,
+      "migration": "007_learning_srs.sql",
+      "source": "learning.session",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.session"
+    },
+    {
+      "ddl_sha256": "fc95873a44680ee5420f05ca360347955e86f259bc2baa4fdafcb15b42e91a7b",
+      "line": 55,
+      "migration": "007_learning_srs.sql",
+      "source": "learning.review_event",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.review_event"
+    },
+    {
+      "ddl_sha256": "1b89bb21aecbe04cd010932026ca4ba969536c84489baa7019375fdc46ff231e",
+      "line": 103,
+      "migration": "007_learning_srs.sql",
+      "source": "learning.user_item_state",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.user_item_state"
+    },
+    {
+      "ddl_sha256": "4da436f4825eb79bf13246c8ab1a615c2cfb1f38a96bd73da34af99831674d9a",
+      "line": 138,
+      "migration": "007_learning_srs.sql",
+      "source": "learning.mastery",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.mastery"
+    },
+    {
+      "ddl_sha256": "ef45f6c7fd50988f78c7988f6dc3f06cdd92550d3e76c124f238fcd1c8ca1612",
+      "line": 164,
+      "migration": "007_learning_srs.sql",
+      "source": "learning.favorite",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.favorite"
+    },
+    {
+      "ddl_sha256": "ab25ed8820aa329c1fba88d0e8860d011457c370fc2a19ab905534175ca144c6",
+      "line": 175,
+      "migration": "007_learning_srs.sql",
+      "source": "learning.note",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.note"
+    },
+    {
+      "ddl_sha256": "c4ebf5decb61c481a6f2bd3e6b7133aea6d092409cf96c5b75909a50340e491a",
+      "line": 188,
+      "migration": "007_learning_srs.sql",
+      "source": "learning.offline_pack",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.offline_pack"
+    },
+    {
+      "ddl_sha256": "c0da43a30317951f2393671466209d83793b92603f028a625a6f192644288709",
+      "line": 203,
+      "migration": "007_learning_srs.sql",
+      "source": "learning.study_plan",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.study_plan"
+    },
+    {
+      "ddl_sha256": "428cf661e293827e05c16dc1669759aa2586d4ed5e6642c52ff71dd660c95420",
+      "line": 224,
+      "migration": "007_learning_srs.sql",
+      "source": "learning.duel",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.duel"
+    },
+    {
+      "ddl_sha256": "473bc1b532abadf774f1dccb30dbbad8f67f9443ee987180606718236d2f6054",
+      "line": 1,
+      "migration": "008_commerce.sql",
+      "source": "commerce.plan",
+      "strategy": "generated_candidate",
+      "target": "canone_commerce.plan"
+    },
+    {
+      "ddl_sha256": "2639d263ed62a50302c9075a7b49554d3875a57f3f4abbd96464a3c9c589415d",
+      "line": 31,
+      "migration": "008_commerce.sql",
+      "source": "commerce.plan_feature",
+      "strategy": "generated_candidate",
+      "target": "canone_commerce.plan_feature"
+    },
+    {
+      "ddl_sha256": "7ef5f3ae297749026c708955773a18618002849f7979f4ea2b1a6eab79764e63",
+      "line": 40,
+      "migration": "008_commerce.sql",
+      "source": "commerce.subscription",
+      "strategy": "generated_candidate",
+      "target": "canone_commerce.subscription"
+    },
+    {
+      "ddl_sha256": "368d065343dd89d99a95b94eddb7870f535733dceadadae39a5c899e79978d6a",
+      "line": 67,
+      "migration": "008_commerce.sql",
+      "source": "commerce.payment",
+      "strategy": "generated_candidate",
+      "target": "canone_commerce.payment"
+    },
+    {
+      "ddl_sha256": "bfa701c183161c04c72bf28e71af926285aecd69ec1c3eebcce0d4f9bbc5d1cc",
+      "line": 87,
+      "migration": "008_commerce.sql",
+      "source": "commerce.invoice",
+      "strategy": "generated_candidate",
+      "target": "canone_commerce.invoice"
+    },
+    {
+      "ddl_sha256": "4008737c8757882d9da7b72373aad0230e681cbf71d43e63b505f2ffe9bfaf20",
+      "line": 106,
+      "migration": "008_commerce.sql",
+      "source": "commerce.entitlement",
+      "strategy": "generated_candidate",
+      "target": "canone_commerce.entitlement"
+    },
+    {
+      "ddl_sha256": "26919630b54ca06002918325780b883a398b0fbe0ed9b01582386184032ab6bd",
+      "line": 123,
+      "migration": "008_commerce.sql",
+      "source": "commerce.coupon",
+      "strategy": "generated_candidate",
+      "target": "canone_commerce.coupon"
+    },
+    {
+      "ddl_sha256": "e465f9c193468684fce43bab6c05c30a6dd5b016c79bbe0448b3712dce6ec921",
+      "line": 1,
+      "migration": "009_admin_governance.sql",
+      "source": "audit.audit_log",
+      "strategy": "generated_candidate",
+      "target": "canone_audit.audit_log"
+    },
+    {
+      "ddl_sha256": "97c5704ec2fc385e02da1851065dd7cd9f7297e29c3849cf6aeb0ec1d533a209",
+      "line": 146,
+      "migration": "009_admin_governance.sql",
+      "source": "admin.support_access_grant",
+      "strategy": "generated_candidate",
+      "target": "canone_admin.support_access_grant"
+    },
+    {
+      "ddl_sha256": "3bef7f98b502bcdb8aef10688fff685f1bbd055cd41fc350b78aa24bdefac168",
+      "line": 178,
+      "migration": "009_admin_governance.sql",
+      "source": "admin.support_access_log",
+      "strategy": "generated_candidate",
+      "target": "canone_admin.support_access_log"
+    },
+    {
+      "ddl_sha256": "4a0a51c81fe8c294770a93c16b2f7b5001278cd14e58b9bcff067e76df3ca811",
+      "line": 193,
+      "migration": "009_admin_governance.sql",
+      "source": "admin.moderation_queue",
+      "strategy": "generated_candidate",
+      "target": "canone_admin.moderation_queue"
+    },
+    {
+      "ddl_sha256": "322fdf186a956ca259fa49d91105cd5a74b8999205a5cdbb4e49831b4448fdc0",
+      "line": 213,
+      "migration": "009_admin_governance.sql",
+      "source": "admin.content_report",
+      "strategy": "generated_candidate",
+      "target": "canone_admin.content_report"
+    },
+    {
+      "ddl_sha256": "97c459ec737b59b2996028ed38f8afacbd0395a5ff1bb5048a8d03fa91e3f066",
+      "line": 224,
+      "migration": "009_admin_governance.sql",
+      "source": "admin.user_note",
+      "strategy": "generated_candidate",
+      "target": "canone_admin.user_note"
+    },
+    {
+      "ddl_sha256": "f80b8fde1ea52a91d23cd6247fbcc9921294885fe46cd1847c6335936237c0d3",
+      "line": 235,
+      "migration": "009_admin_governance.sql",
+      "source": "admin.feature_flag",
+      "strategy": "generated_candidate",
+      "target": "canone_admin.feature_flag"
+    },
+    {
+      "ddl_sha256": "50353477477afc021ea5958864b576a0af7c77a17885455f361f183dee22008c",
+      "line": 1,
+      "migration": "010_ops_platform.sql",
+      "source": "ops.setting",
+      "strategy": "generated_candidate",
+      "target": "canone_ops.setting"
+    },
+    {
+      "ddl_sha256": "d56ab41ad306de5a26d1ea2c0d6ab8150bc50b22c837aa4a4ba40aa567c46524",
+      "line": 31,
+      "migration": "010_ops_platform.sql",
+      "source": "ops.integration",
+      "strategy": "generated_candidate",
+      "target": "canone_ops.integration"
+    },
+    {
+      "ddl_sha256": "94783e6d9b3deffcd94c60602a391c6b7d48fe31697954964d4aba5b0d5d74bd",
+      "line": 54,
+      "migration": "010_ops_platform.sql",
+      "source": "ops.api_key",
+      "strategy": "generated_candidate",
+      "target": "canone_ops.api_key"
+    },
+    {
+      "ddl_sha256": "692f05cb9c15c388d172ef8f5c0ed56313985cea0b65923e151f2733887b3c69",
+      "line": 73,
+      "migration": "010_ops_platform.sql",
+      "source": "ops.webhook",
+      "strategy": "generated_candidate",
+      "target": "canone_ops.webhook"
+    },
+    {
+      "ddl_sha256": "bf434506b0b82158aa70145b09255ac56bf80055842b2c1d3e6b1f8dbc960579",
+      "line": 87,
+      "migration": "010_ops_platform.sql",
+      "source": "ops.webhook_delivery",
+      "strategy": "generated_candidate",
+      "target": "canone_ops.webhook_delivery"
+    },
+    {
+      "ddl_sha256": "70a4d1d9bf318b41664497bda6e2e2260d81b8a52c5b653ecf90092947d7a16d",
+      "line": 104,
+      "migration": "010_ops_platform.sql",
+      "source": "ops.job_run",
+      "strategy": "generated_candidate",
+      "target": "canone_ops.job_run"
+    },
+    {
+      "ddl_sha256": "146df09c80e098f4273a547c9312169e1414f83188be5ffff075fd3ec4bf1356",
+      "line": 128,
+      "migration": "010_ops_platform.sql",
+      "source": "ops.notification_template",
+      "strategy": "generated_candidate",
+      "target": "canone_ops.notification_template"
+    },
+    {
+      "ddl_sha256": "3cbc3741e302e2c9615867de11c1a30ab88677da176cc65daf06159f6b486bb4",
+      "line": 145,
+      "migration": "010_ops_platform.sql",
+      "source": "ops.notification",
+      "strategy": "generated_candidate",
+      "target": "canone_ops.notification"
+    },
+    {
+      "ddl_sha256": "ab9014283384610bd0e2af002e4be4b8651ad6f78196c5e6b523058dc247ebaa",
+      "line": 159,
+      "migration": "010_ops_platform.sql",
+      "source": "ops.notification_delivery",
+      "strategy": "generated_candidate",
+      "target": "canone_ops.notification_delivery"
+    },
+    {
+      "ddl_sha256": "c81ff4193b11fa677388f7f757dd73f7458276aea4913962124dd33c6913bfc1",
+      "line": 171,
+      "migration": "010_ops_platform.sql",
+      "source": "ops.error_event",
+      "strategy": "generated_candidate",
+      "target": "canone_ops.error_event"
+    },
+    {
+      "ddl_sha256": "8f7c31a9b68885add458c01d5d165ea1982c1cdc8f476104a823e854a59e54b8",
+      "line": 190,
+      "migration": "010_ops_platform.sql",
+      "source": "ops.metric_daily",
+      "strategy": "generated_candidate",
+      "target": "canone_ops.metric_daily"
+    },
+    {
+      "ddl_sha256": "dc43b8f72bb5938edbdbbf6b8e29151087c756b3781045864630971f60c1c751",
+      "line": 199,
+      "migration": "010_ops_platform.sql",
+      "source": "ops.migration_log",
+      "strategy": "generated_candidate",
+      "target": "canone_ops.migration_log"
+    },
+    {
+      "ddl_sha256": "f69593212bc0ff2eda15ef78dff3217ea2edb214299d268ddc604321c65bd1af",
+      "line": 74,
+      "migration": "018_provas_gabarito.sql",
+      "source": "taxonomy.exam_track",
+      "strategy": "generated_candidate",
+      "target": "canone_taxonomy.exam_track"
+    },
+    {
+      "ddl_sha256": "a82e8d831080f8798af02e17a27ce8d3b01c96ea100c02be6dd9aadbae1bec6e",
+      "line": 112,
+      "migration": "018_provas_gabarito.sql",
+      "source": "learning.exam_form",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.exam_form"
+    },
+    {
+      "ddl_sha256": "c0bc888a28f2bb0e6536c524e7e5e359d308d32f4b26e4541d1071c96f5024bb",
+      "line": 134,
+      "migration": "018_provas_gabarito.sql",
+      "source": "learning.exam_form_item",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.exam_form_item"
+    },
+    {
+      "ddl_sha256": "0333cee98d2aae490fcaf371ae958e9f60ffb2825f7335fd8986f456a32d3294",
+      "line": 147,
+      "migration": "018_provas_gabarito.sql",
+      "source": "learning.answer_key",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.answer_key"
+    },
+    {
+      "ddl_sha256": "97aeaca63c110bdbafc0486123593fb2565ea5bbe9152eb00162963e8b8a38b6",
+      "line": 179,
+      "migration": "018_provas_gabarito.sql",
+      "source": "learning.answer_key_entry",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.answer_key_entry"
+    },
+    {
+      "ddl_sha256": "3785b2098ada4f798de62763c72c2ceab4e3133ad995825a4372c9a3601f3bc1",
+      "line": 36,
+      "migration": "019_tentativa_ingestao.sql",
+      "source": "learning.exam_attempt",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.exam_attempt"
+    },
+    {
+      "ddl_sha256": "11a9dbf78c64b9be054f048fcdd15110f2dd54ed209092d7a9fd61187f0410eb",
+      "line": 64,
+      "migration": "019_tentativa_ingestao.sql",
+      "source": "learning.exam_attempt_answer",
+      "strategy": "generated_candidate",
+      "target": "canone_learning.exam_attempt_answer"
+    }
+  ],
+  "generated_sql_sha256": "004283fae182f9a1541d4af8d2fe30a99ce256bd5bbe1da2ea2933454f23ab33",
+  "generated_table_count": 82,
+  "managed_auth_tables": 3,
+  "not_converted": [
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "001_schemas_roles.sql",
+      "other_statement_count": 23,
+      "other_statements_by_prefix": {
+        "COMMENT ON FUNCTION": 1,
+        "COMMENT ON SCHEMA": 3,
+        "CREATE EXTENSION IF": 3,
+        "CREATE OR REPLACE": 4,
+        "CREATE SCHEMA IF": 11,
+        "DO DECLARE R": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "002_identity_lgpd.sql",
+      "other_statement_count": 10,
+      "other_statements_by_prefix": {
+        "COMMENT ON COLUMN": 3,
+        "COMMENT ON TABLE": 2,
+        "CREATE INDEX IX_CONSENT_USER": 1,
+        "CREATE INDEX IX_DATA_REQUEST_OPEN": 1,
+        "CREATE INDEX IX_SESSION_USER": 1,
+        "CREATE INDEX IX_USER_ROLE_ACTIVE": 1,
+        "INSERT INTO IDENTITY": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "003_metamodel.sql",
+      "other_statement_count": 23,
+      "other_statements_by_prefix": {
+        "ALTER TABLE EDITORIAL": 2,
+        "COMMENT ON COLUMN": 5,
+        "COMMENT ON CONSTRAINT": 1,
+        "COMMENT ON TABLE": 2,
+        "CREATE INDEX IX_CONTENT_ITEM_SEARCH": 1,
+        "CREATE INDEX IX_CONTENT_ITEM_STATE": 1,
+        "CREATE INDEX IX_CONTENT_ITEM_SUBJECT": 1,
+        "CREATE INDEX IX_CONTENT_RELATION_FROM": 1,
+        "CREATE INDEX IX_CONTENT_RELATION_TO": 1,
+        "CREATE INDEX IX_CONTENT_REVISION_ITEM": 1,
+        "CREATE UNIQUE INDEX": 1,
+        "INSERT INTO EDITORIAL": 6
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "004_taxonomy_blueprint.sql",
+      "other_statement_count": 5,
+      "other_statements_by_prefix": {
+        "COMMENT ON TABLE": 4,
+        "CREATE INDEX IX_ITEM_PLACEMENT_EDITION": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "005_norms.sql",
+      "other_statement_count": 11,
+      "other_statements_by_prefix": {
+        "COMMENT ON INDEX": 1,
+        "COMMENT ON TABLE": 3,
+        "CREATE INDEX IX_NORM_CITATION_ITEM": 1,
+        "CREATE INDEX IX_NORM_CITATION_NORM": 1,
+        "CREATE INDEX IX_NORM_ITEM_PARENT": 1,
+        "CREATE INDEX IX_NORM_ITEM_SEARCH": 1,
+        "CREATE UNIQUE INDEX": 2,
+        "INSERT INTO EDITORIAL": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "006_learning_items.sql",
+      "other_statement_count": 8,
+      "other_statements_by_prefix": {
+        "COMMENT ON FUNCTION": 1,
+        "COMMENT ON TABLE": 1,
+        "CREATE INDEX IX_ITEM_OPTION_CORRECT": 1,
+        "CREATE INDEX IX_ITEM_SUBJECT_SUBJECT": 1,
+        "CREATE INDEX IX_LEARNING_ITEM_KIND": 1,
+        "CREATE INDEX IX_LEARNING_ITEM_RATE": 1,
+        "CREATE INDEX IX_MIND_MAP_NODE_PARENT": 1,
+        "CREATE OR REPLACE": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "007_learning_srs.sql",
+      "other_statement_count": 16,
+      "other_statements_by_prefix": {
+        "CREATE INDEX IX_NOTE_USER": 1,
+        "CREATE INDEX IX_OFFLINE_PACK_USER": 1,
+        "CREATE INDEX IX_REVIEW_EVENT_SESSION": 1,
+        "CREATE INDEX IX_REVIEW_EVENT_USER_ITEM": 1,
+        "CREATE INDEX IX_REVIEW_EVENT_USER_TIME": 1,
+        "CREATE INDEX IX_SESSION_OPEN": 1,
+        "CREATE INDEX IX_SESSION_USER_STARTED": 1,
+        "CREATE INDEX IX_STUDY_PLAN_USER": 1,
+        "CREATE INDEX IX_USER_ITEM_DUE": 1,
+        "CREATE INDEX IX_USER_ITEM_FRAGILE": 1,
+        "CREATE INDEX IX_USER_ITEM_NEW": 1,
+        "CREATE OR REPLACE": 1,
+        "CREATE TRIGGER TRG_REVIEW_EVENT_IMMUTABLE": 1,
+        "CREATE TYPE LEARNING": 3
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "008_commerce.sql",
+      "other_statement_count": 7,
+      "other_statements_by_prefix": {
+        "COMMENT ON COLUMN": 1,
+        "CREATE INDEX IX_ENTITLEMENT_USER_FEATURE": 1,
+        "CREATE INDEX IX_INVOICE_USER": 1,
+        "CREATE INDEX IX_PAYMENT_USER": 1,
+        "CREATE INDEX IX_SUBSCRIPTION_PROVIDER_REF": 1,
+        "CREATE INDEX IX_SUBSCRIPTION_USER": 1,
+        "CREATE UNIQUE INDEX": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "009_admin_governance.sql",
+      "other_statement_count": 17,
+      "other_statements_by_prefix": {
+        "COMMENT ON CONSTRAINT": 1,
+        "COMMENT ON TABLE": 1,
+        "CREATE INDEX IX_AUDIT_LOG_ACTION": 1,
+        "CREATE INDEX IX_AUDIT_LOG_ACTOR": 1,
+        "CREATE INDEX IX_AUDIT_LOG_ENTITY": 1,
+        "CREATE INDEX IX_AUDIT_LOG_SUBJECT": 1,
+        "CREATE INDEX IX_GRANT_ACTIVE": 1,
+        "CREATE INDEX IX_GRANT_SUBJECT": 1,
+        "CREATE INDEX IX_MODERATION_OPEN": 1,
+        "CREATE INDEX IX_SUPPORT_ACCESS_LOG_GRANT": 1,
+        "CREATE OR REPLACE": 4,
+        "CREATE TRIGGER TRG_AUDIT_HASH": 1,
+        "CREATE TRIGGER TRG_AUDIT_NO_UPDATE": 1,
+        "CREATE UNIQUE INDEX": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "010_ops_platform.sql",
+      "other_statement_count": 7,
+      "other_statements_by_prefix": {
+        "COMMENT ON COLUMN": 1,
+        "COMMENT ON TABLE": 2,
+        "CREATE INDEX IX_API_KEY_PREFIX": 1,
+        "CREATE INDEX IX_JOB_RUN_PENDING": 1,
+        "CREATE INDEX IX_NOTIFICATION_USER": 1,
+        "CREATE INDEX IX_WEBHOOK_DELIVERY_RETRY": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "011_triggers_integridade.sql",
+      "other_statement_count": 17,
+      "other_statements_by_prefix": {
+        "CREATE OR REPLACE": 9,
+        "CREATE TRIGGER TRG_EXPIRE_SUPPORT_GRANTS": 1,
+        "CREATE TRIGGER TRG_NEW_NORM_VERSION_EXPIRES": 1,
+        "CREATE TRIGGER TRG_PUBLISH_REQUIRES_VERIFICATION": 1,
+        "CREATE TRIGGER TRG_REQUIRE_CORRECT_OPTION": 1,
+        "CREATE TRIGGER TRG_SINGLE_CORRECT_OPTION": 1,
+        "CREATE TRIGGER TRG_STATE_TRANSITION": 1,
+        "CREATE TRIGGER TRG_SYNC_LEARNING_PROJECTION": 1,
+        "DO DECLARE T": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "012_srs_engine.sql",
+      "other_statement_count": 6,
+      "other_statements_by_prefix": {
+        "CREATE OR REPLACE": 6
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "013_views.sql",
+      "other_statement_count": 21,
+      "other_statements_by_prefix": {
+        "COMMENT ON VIEW": 6,
+        "CREATE OR REPLACE": 15
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "014_rls.sql",
+      "other_statement_count": 56,
+      "other_statements_by_prefix": {
+        "ALTER TABLE IDENTITY": 2,
+        "COMMENT ON FUNCTION": 1,
+        "CREATE OR REPLACE": 1,
+        "CREATE POLICY ADMIN_ALL_GRANT": 1,
+        "CREATE POLICY ADMIN_ALL_INTEGRATION": 1,
+        "CREATE POLICY ADMIN_ALL_LEARNING": 1,
+        "CREATE POLICY ADMIN_ALL_MASTERY": 1,
+        "CREATE POLICY ADMIN_ALL_OPS": 1,
+        "CREATE POLICY ADMIN_ALL_SUBSCRIPTION": 1,
+        "CREATE POLICY ADMIN_READ_ALL_ACCOUNT": 1,
+        "CREATE POLICY ADMIN_READ_ALL_PROFILE": 1,
+        "CREATE POLICY PUB_READ_CONTENT": 1,
+        "CREATE POLICY PUB_READ_CONTENT_VERSION": 1,
+        "CREATE POLICY PUB_READ_LEARNING_ITEM": 1,
+        "CREATE POLICY PUB_READ_MODULE": 1,
+        "CREATE POLICY PUB_READ_NORM": 1,
+        "CREATE POLICY PUB_READ_NORM_ITEM": 1,
+        "CREATE POLICY PUB_READ_NORM_VERSION": 1,
+        "CREATE POLICY PUB_READ_PLAN": 1,
+        "CREATE POLICY PUB_READ_RELATION": 1,
+        "CREATE POLICY PUB_READ_SOURCE": 1,
+        "CREATE POLICY PUB_READ_SUBJECT": 1,
+        "CREATE POLICY PUB_READ_SUBTOPIC": 1,
+        "CREATE POLICY STAFF_INSERT_AUDIT": 1,
+        "CREATE POLICY STAFF_INSERT_GRANT": 1,
+        "CREATE POLICY STAFF_READ_ACCOUNT": 1,
+        "CREATE POLICY STAFF_READ_AUDIT": 1,
+        "CREATE POLICY STAFF_READ_CONTENT": 1,
+        "CREATE POLICY STAFF_READ_GRANT": 1,
+        "CREATE POLICY STAFF_READ_MODERATION": 1,
+        "CREATE POLICY STAFF_READ_OPS": 1,
+        "CREATE POLICY STAFF_READ_PROFILE": 1,
+        "CREATE POLICY STAFF_READ_VERIFICATION": 1,
+        "CREATE POLICY STAFF_READ_VERSION": 1,
+        "CREATE POLICY STAFF_WRITE_CONTENT": 1,
+        "CREATE POLICY STAFF_WRITE_VERIFICATION": 1,
+        "CREATE POLICY STAFF_WRITE_VERSION": 1,
+        "CREATE POLICY SUB_INSERT_CONSENT": 1,
+        "CREATE POLICY SUB_INSERT_REQUEST": 1,
+        "CREATE POLICY SUB_OWN_CONSENT": 1,
+        "CREATE POLICY SUB_OWN_ENTITLEMENT": 1,
+        "CREATE POLICY SUB_OWN_EVENT": 1,
+        "CREATE POLICY SUB_OWN_FAVORITE": 1,
+        "CREATE POLICY SUB_OWN_MASTERY": 1,
+        "CREATE POLICY SUB_OWN_NOTE": 1,
+        "CREATE POLICY SUB_OWN_OFFLINE": 1,
+        "CREATE POLICY SUB_OWN_PAYMENT": 1,
+        "CREATE POLICY SUB_OWN_PLAN": 1,
+        "CREATE POLICY SUB_OWN_PROFILE": 1,
+        "CREATE POLICY SUB_OWN_PROFILE_WRITE": 1,
+        "CREATE POLICY SUB_OWN_REQUEST": 1,
+        "CREATE POLICY SUB_OWN_SESSION": 1,
+        "CREATE POLICY SUB_OWN_STATE": 1,
+        "CREATE POLICY SUB_OWN_SUBSCRIPTION": 1,
+        "DO DECLARE T": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "015_indexes.sql",
+      "other_statement_count": 13,
+      "other_statements_by_prefix": {
+        "CREATE INDEX IX_AUDIT_HASH": 1,
+        "CREATE INDEX IX_AUDIT_TIME": 1,
+        "CREATE INDEX IX_CONSENT_CURRENT": 1,
+        "CREATE INDEX IX_CONTENT_ITEM_PUBLIC_LISTING": 1,
+        "CREATE INDEX IX_CONTENT_ITEM_SEARCH_TRGM": 1,
+        "CREATE INDEX IX_ENTITLEMENT_LOOKUP": 1,
+        "CREATE INDEX IX_ERROR_OPEN": 1,
+        "CREATE INDEX IX_EVENT_ITEM_TIME": 1,
+        "CREATE INDEX IX_JOBS_POLL": 1,
+        "CREATE INDEX IX_MODERATION_PRIORITY": 1,
+        "CREATE INDEX IX_RELATION_CITA_NORMA": 1,
+        "CREATE INDEX IX_STATE_DUE_COVERING": 1,
+        "CREATE INDEX IX_WEBHOOK_RETRY": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "016_seed_reference.sql",
+      "other_statement_count": 14,
+      "other_statements_by_prefix": {
+        "INSERT INTO ADMIN": 1,
+        "INSERT INTO COMMERCE": 2,
+        "INSERT INTO EDITORIAL": 2,
+        "INSERT INTO IDENTITY": 1,
+        "INSERT INTO NORMS": 1,
+        "INSERT INTO OPS": 2,
+        "INSERT INTO TAXONOMY": 5
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "017_privileges.sql",
+      "other_statement_count": 24,
+      "other_statements_by_prefix": {
+        "GRANT CANONE_PUBLIC CANONE_SUBSCRIBER": 1,
+        "GRANT EXECUTE ON": 4,
+        "GRANT INSERT ON": 3,
+        "GRANT INSERT UPDATE": 1,
+        "GRANT SELECT INSERT": 2,
+        "GRANT SELECT ON": 10,
+        "GRANT UPDATE ON": 1,
+        "GRANT USAGE ON": 1,
+        "REVOKE ALL ON": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "018_provas_gabarito.sql",
+      "other_statement_count": 83,
+      "other_statements_by_prefix": {
+        "ALTER TABLE LEARNING": 8,
+        "ALTER TABLE TAXONOMY": 5,
+        "COMMENT ON COLUMN": 3,
+        "COMMENT ON FUNCTION": 2,
+        "COMMENT ON TABLE": 5,
+        "COMMENT ON VIEW": 1,
+        "CREATE CONSTRAINT TRIGGER": 2,
+        "CREATE INDEX IX_EXAM_TRACK_EDITION": 1,
+        "CREATE OR REPLACE": 14,
+        "CREATE POLICY ADMIN_READ_ANSWER_KEY": 1,
+        "CREATE POLICY ADMIN_READ_ANSWER_KEY_ENTRY": 1,
+        "CREATE POLICY ADMIN_READ_EXAM_FORM": 1,
+        "CREATE POLICY ADMIN_READ_EXAM_FORM_ITEM": 1,
+        "CREATE POLICY ADMIN_READ_EXAM_TRACK": 1,
+        "CREATE POLICY ADMIN_WRITE_ANSWER_KEY": 1,
+        "CREATE POLICY ADMIN_WRITE_ANSWER_KEY_ENTRY": 1,
+        "CREATE POLICY ADMIN_WRITE_EXAM_FORM": 1,
+        "CREATE POLICY ADMIN_WRITE_EXAM_FORM_ITEM": 1,
+        "CREATE POLICY ADMIN_WRITE_EXAM_TRACK": 1,
+        "CREATE POLICY PUB_READ_EXAM_FORM": 1,
+        "CREATE POLICY PUB_READ_EXAM_TRACK": 1,
+        "CREATE POLICY STAFF_READ_ANSWER_KEY": 1,
+        "CREATE POLICY STAFF_READ_ANSWER_KEY_ENTRY": 1,
+        "CREATE POLICY STAFF_READ_EXAM_FORM": 1,
+        "CREATE POLICY STAFF_READ_EXAM_FORM_ITEM": 1,
+        "CREATE POLICY STAFF_READ_EXAM_TRACK": 1,
+        "CREATE POLICY STAFF_WRITE_ANSWER_KEY": 1,
+        "CREATE POLICY STAFF_WRITE_ANSWER_KEY_ENTRY": 1,
+        "CREATE POLICY STAFF_WRITE_EXAM_FORM": 1,
+        "CREATE POLICY STAFF_WRITE_EXAM_FORM_ITEM": 1,
+        "CREATE POLICY STAFF_WRITE_EXAM_TRACK": 1,
+        "CREATE POLICY SUB_READ_EXAM_FORM": 1,
+        "CREATE POLICY SUB_READ_EXAM_FORM_ITEM": 1,
+        "CREATE POLICY SUB_READ_EXAM_TRACK": 1,
+        "CREATE TRIGGER TRG_ANSWER_KEY_LINEAGE": 1,
+        "CREATE TRIGGER TRG_CHECK_ANSWER_KEY_ENTRY": 1,
+        "CREATE TRIGGER TRG_EXAM_TRACK_NUMBERS": 1,
+        "CREATE TRIGGER TRG_PROJECT_ANSWER_KEY_ENTRY": 1,
+        "CREATE UNIQUE INDEX": 3,
+        "DROP FUNCTION IF": 1,
+        "GRANT EXECUTE ON": 2,
+        "GRANT INSERT UPDATE": 1,
+        "GRANT SELECT ON": 5,
+        "UPDATE TAXONOMY EXAM_EDITION": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "019_tentativa_ingestao.sql",
+      "other_statement_count": 21,
+      "other_statements_by_prefix": {
+        "ALTER TABLE LEARNING": 4,
+        "ALTER TABLE TAXONOMY": 2,
+        "COMMENT ON COLUMN": 1,
+        "COMMENT ON FUNCTION": 2,
+        "COMMENT ON TABLE": 1,
+        "CREATE INDEX IX_EXAM_ATTEMPT_USER": 1,
+        "CREATE OR REPLACE": 5,
+        "CREATE POLICY SUB_OWN_ATTEMPT": 1,
+        "CREATE POLICY SUB_OWN_ATTEMPT_ANSWER": 1,
+        "GRANT EXECUTE ON": 2,
+        "GRANT SELECT INSERT": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "020_tipo_conteudo_versao.sql",
+      "other_statement_count": 2,
+      "other_statements_by_prefix": {
+        "COMMENT ON TABLE": 1,
+        "INSERT INTO EDITORIAL": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "021_letra_derivada.sql",
+      "other_statement_count": 3,
+      "other_statements_by_prefix": {
+        "COMMENT ON FUNCTION": 1,
+        "CREATE OR REPLACE": 1,
+        "CREATE TRIGGER TRG_RECONCILE_ITEM_CORRECT": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "022_prova_selada_letra_inteira.sql",
+      "other_statement_count": 7,
+      "other_statements_by_prefix": {
+        "COMMENT ON FUNCTION": 2,
+        "CREATE CONSTRAINT TRIGGER": 1,
+        "CREATE OR REPLACE": 2,
+        "CREATE TRIGGER TRG_PROVA_SELADA_NAO_MUDA": 1,
+        "DROP TRIGGER IF": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "023_tres_fechos_do_qa.sql",
+      "other_statement_count": 12,
+      "other_statements_by_prefix": {
+        "COMMENT ON FUNCTION": 4,
+        "CREATE CONSTRAINT TRIGGER": 1,
+        "CREATE OR REPLACE": 4,
+        "CREATE TRIGGER TRG_SINGLE_CORRECT_OPTION": 1,
+        "DROP TRIGGER IF": 2
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "024_gabarito_imutavel_regua_fixa.sql",
+      "other_statement_count": 11,
+      "other_statements_by_prefix": {
+        "COMMENT ON FUNCTION": 3,
+        "CREATE OR REPLACE": 3,
+        "CREATE TRIGGER TRG_ANSWER_KEY_DEFINITIVO_IMUTAVEL": 1,
+        "CREATE TRIGGER TRG_ANSWER_KEY_ENTRY_DEFINITIVO_IMUTAVEL": 1,
+        "CREATE TRIGGER TRG_ANSWER_KEY_STATUS_IMUTAVEL": 1,
+        "CREATE TRIGGER TRG_EXAM_EDITION_COUNT_IMUTAVEL": 1,
+        "CREATE TRIGGER TRG_EXAM_TRACK_COUNT_IMUTAVEL": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "025_identity_usage.sql",
+      "other_statement_count": 4,
+      "other_statements_by_prefix": {
+        "COMMENT ON FUNCTION": 1,
+        "COMMENT ON SCHEMA": 1,
+        "CREATE OR REPLACE": 1,
+        "GRANT USAGE ON": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "026_staff_le_gabarito_default_zero.sql",
+      "other_statement_count": 11,
+      "other_statements_by_prefix": {
+        "ALTER TABLE TAXONOMY": 2,
+        "COMMENT ON COLUMN": 2,
+        "COMMENT ON POLICY": 1,
+        "CREATE OR REPLACE": 2,
+        "CREATE POLICY ADMIN_READ_ITEM_OPTION": 1,
+        "CREATE POLICY STAFF_READ_ITEM_OPTION": 1,
+        "DROP POLICY IF": 2
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "027_papel_de_sistema.sql",
+      "other_statement_count": 5,
+      "other_statements_by_prefix": {
+        "COMMENT ON FUNCTION": 1,
+        "COMMENT ON ROLE": 1,
+        "CREATE OR REPLACE": 1,
+        "DO DECLARE F": 1,
+        "DO DECLARE V_ATUAL": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "028_preco_comercial.sql",
+      "other_statement_count": 7,
+      "other_statements_by_prefix": {
+        "ALTER TABLE COMMERCE": 3,
+        "COMMENT ON COLUMN": 1,
+        "COMMENT ON CONSTRAINT": 1,
+        "UPDATE COMMERCE PLAN": 2
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "029_papel_de_acesso.sql",
+      "other_statement_count": 2,
+      "other_statements_by_prefix": {
+        "COMMENT ON ROLE": 1,
+        "DO DECLARE R": 1
+      }
+    },
+    {
+      "conversion_scope": "table_definitions_only; see sequel phases",
+      "migration": "030_porta_da_prova.sql",
+      "other_statement_count": 8,
+      "other_statements_by_prefix": {
+        "COMMENT ON VIEW": 2,
+        "CREATE OR REPLACE": 2,
+        "DO BEGIN EXECUTE": 1,
+        "GRANT SELECT ON": 2,
+        "GRANT USAGE ON": 1
+      }
+    }
+  ],
+  "pilot_additional_tables": 2,
+  "pilot_owned_existing_tables": 5,
+  "release_gate": "NO_GO",
+  "source_migrations": [
+    {
+      "file": "001_schemas_roles.sql",
+      "sha256": "7fc94c1549725619578b8d1599c4556b28195287f85f69dc1339876bcea66380"
+    },
+    {
+      "file": "002_identity_lgpd.sql",
+      "sha256": "fd1f0491a7e697d14ba80265825ca360069016e9d3e1437de110c2328c263623"
+    },
+    {
+      "file": "003_metamodel.sql",
+      "sha256": "9f8c972db65d8f59646fb5b4643c929047cd04e7a73dd5c788b68a6a535dc953"
+    },
+    {
+      "file": "004_taxonomy_blueprint.sql",
+      "sha256": "ceeb6cc129d5fe7c2ee6d8e7a126c349fa0d0a50f82732d8d5e32ad3d0dd0473"
+    },
+    {
+      "file": "005_norms.sql",
+      "sha256": "a1926ea47776e642e9d10cd0cf9c8a8102d88c4d3d49af0f5580e95a4e75f75c"
+    },
+    {
+      "file": "006_learning_items.sql",
+      "sha256": "55417f64192b8b4e5081416c2b874f207bedaf011fd2670e38e1f37bc5c75031"
+    },
+    {
+      "file": "007_learning_srs.sql",
+      "sha256": "d9bb2e97b45b050b24304d89973b4ac284b62f6dff4952a94dd9f4d108e3c545"
+    },
+    {
+      "file": "008_commerce.sql",
+      "sha256": "b5abc75dde4e6183b2ff77232cd87686b37538e632a84b8ff885d117e7c80d60"
+    },
+    {
+      "file": "009_admin_governance.sql",
+      "sha256": "08b1e347fef09fba4b2a76ed8f86b5e330b942607e599cdef3952b74422825e8"
+    },
+    {
+      "file": "010_ops_platform.sql",
+      "sha256": "3d8c5eee7c68f9b6379742bd997071ea114c8e249805fa2869ecf2cfdbfbc336"
+    },
+    {
+      "file": "011_triggers_integridade.sql",
+      "sha256": "5a054634c6255348d5a17942845cab44a6ed494e105af726e14b3c2f0f1040ec"
+    },
+    {
+      "file": "012_srs_engine.sql",
+      "sha256": "aa5152379aecb2184b6976aa24231676770afe80bb38e6bb5bdba4769f066a55"
+    },
+    {
+      "file": "013_views.sql",
+      "sha256": "2ff3c3099a1ed84b7b5f323e2e14658e33934387b3bcd56e4f1c01d344815af9"
+    },
+    {
+      "file": "014_rls.sql",
+      "sha256": "0c573777de58467dca107992f4138e944142c977669854fa35636d035a4c255e"
+    },
+    {
+      "file": "015_indexes.sql",
+      "sha256": "ad0f15f76752463541b84897cc35b758588c208676db2ae8f67bbaab91ad8bca"
+    },
+    {
+      "file": "016_seed_reference.sql",
+      "sha256": "d9424b0f09ab43ead5645c351ec5352123795e4e07a41ec7ca36047b607d5236"
+    },
+    {
+      "file": "017_privileges.sql",
+      "sha256": "fd65e114c8dfdcfb929e5591f628dd8dfba6a3e06ffca6cd5d806cc71a1a7d30"
+    },
+    {
+      "file": "018_provas_gabarito.sql",
+      "sha256": "a1088083d3f0c8aa5d534c1e272ec85fc0c8a151832e4964e5ab939c6799f6a8"
+    },
+    {
+      "file": "019_tentativa_ingestao.sql",
+      "sha256": "c01f383f23b2189e889e4a8bf919cd5d3bcc252c6828349764775de38fb44989"
+    },
+    {
+      "file": "020_tipo_conteudo_versao.sql",
+      "sha256": "bf7f90337133fefe7e4767e24eaaf5fcbc86dbf68ae1bef1de0d938459268223"
+    },
+    {
+      "file": "021_letra_derivada.sql",
+      "sha256": "f54fc8737efd8ad5d3a1010a7f87a2110a664e4cb932f026d76cca26323a7457"
+    },
+    {
+      "file": "022_prova_selada_letra_inteira.sql",
+      "sha256": "574ab76731ecc12e3a52570a47a4f515b9b46a9d9453dd924932ce783a292123"
+    },
+    {
+      "file": "023_tres_fechos_do_qa.sql",
+      "sha256": "6c980bc5f350f3732539c8df562a071d1c25c34e1a353bad22c5300a229ab5c4"
+    },
+    {
+      "file": "024_gabarito_imutavel_regua_fixa.sql",
+      "sha256": "f22d52a205deaf04b05a0c039ef9de2061143f05d958723455935c8007d23f44"
+    },
+    {
+      "file": "025_identity_usage.sql",
+      "sha256": "7adf620c6a8f034fef6f3fbbdc0f46ad4b74dbf5791656feebb8a688269e9287"
+    },
+    {
+      "file": "026_staff_le_gabarito_default_zero.sql",
+      "sha256": "bd0dbdc91f73ab5d2c483168a09c5905105cc2e121ce02c3f8f9f5bd3202cc9f"
+    },
+    {
+      "file": "027_papel_de_sistema.sql",
+      "sha256": "e41567d42c136528918c1c3c45662e666697c93c5518f4793aae2e0bb772d6ff"
+    },
+    {
+      "file": "028_preco_comercial.sql",
+      "sha256": "ad022430bcec9e54a31441dfe790da92766e546a6b1600dcb10d0a2a6888222f"
+    },
+    {
+      "file": "029_papel_de_acesso.sql",
+      "sha256": "004fa9caa52b13e85eb53949f9c419e9aeaabc098157eadd24a4e080062355a4"
+    },
+    {
+      "file": "030_porta_da_prova.sql",
+      "sha256": "144e11ea0c873bfa7f8f7b460a49f51fada2b5cd4d1f1d4424b51938fcaf2c0b"
+    }
+  ],
+  "status": "CANDIDATE_TABLE_DDL_NOT_FULL_MIGRATION",
+  "table_total": 90,
+  "version": "0.23.0-alpha.4"
+}

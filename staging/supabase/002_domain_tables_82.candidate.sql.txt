@@ -1,0 +1,1582 @@
+-- CÂNONE S22 to Supabase: 82 domain table CREATE statements, v0.23.0-alpha.4
+-- GENERATED CANDIDATE ONLY. NOT A DEPLOYABLE MIGRATION. NO SEEDS, NO GRANTS.
+-- Requires separate dedicated Supabase database, existing managed auth.users,
+-- and 001_identity_and_source_bridge pilot. Original S22 files unchanged.
+-- Only inline CREATE TABLE constraints preserved; out-of-line ALTER,
+-- indexes, triggers, functions, policies and seed SQL REQUIRE separate conversion.
+BEGIN;
+SET LOCAL search_path = pg_catalog;
+DO $canone_conversion_guard$ BEGIN IF to_regclass('canone_control.migration_catalog') IS NOT NULL THEN RAISE EXCEPTION 'REFUSE_SHARED_CANONE_SOURCE'; END IF; IF to_regclass('auth.users') IS NULL OR to_regclass('canone_identity.user_profile') IS NULL THEN RAISE EXCEPTION 'REQUIRE_CANONE_AUTH_PILOT'; END IF; END $canone_conversion_guard$;
+CREATE SCHEMA IF NOT EXISTS canone_identity;
+REVOKE ALL ON SCHEMA canone_identity FROM PUBLIC;
+CREATE SCHEMA IF NOT EXISTS canone_editorial;
+REVOKE ALL ON SCHEMA canone_editorial FROM PUBLIC;
+CREATE SCHEMA IF NOT EXISTS canone_taxonomy;
+REVOKE ALL ON SCHEMA canone_taxonomy FROM PUBLIC;
+CREATE SCHEMA IF NOT EXISTS canone_norms;
+REVOKE ALL ON SCHEMA canone_norms FROM PUBLIC;
+CREATE SCHEMA IF NOT EXISTS canone_learning;
+REVOKE ALL ON SCHEMA canone_learning FROM PUBLIC;
+CREATE SCHEMA IF NOT EXISTS canone_commerce;
+REVOKE ALL ON SCHEMA canone_commerce FROM PUBLIC;
+CREATE SCHEMA IF NOT EXISTS canone_admin;
+REVOKE ALL ON SCHEMA canone_admin FROM PUBLIC;
+CREATE SCHEMA IF NOT EXISTS canone_ops;
+REVOKE ALL ON SCHEMA canone_ops FROM PUBLIC;
+CREATE SCHEMA IF NOT EXISTS canone_audit;
+REVOKE ALL ON SCHEMA canone_audit FROM PUBLIC;
+CREATE SCHEMA IF NOT EXISTS canone_public;
+REVOKE ALL ON SCHEMA canone_public FROM PUBLIC;
+CREATE SCHEMA IF NOT EXISTS canone_subscriber;
+REVOKE ALL ON SCHEMA canone_subscriber FROM PUBLIC;
+CREATE SCHEMA IF NOT EXISTS canone_evidence;
+REVOKE ALL ON SCHEMA canone_evidence FROM PUBLIC;
+CREATE SCHEMA IF NOT EXISTS canone_bridge;
+REVOKE ALL ON SCHEMA canone_bridge FROM PUBLIC;
+CREATE SCHEMA IF NOT EXISTS canone_control;
+REVOKE ALL ON SCHEMA canone_control FROM PUBLIC;
+
+-- Source: 002_identity_lgpd.sql:113 identity.data_request => canone_identity.data_request
+CREATE TABLE canone_identity.data_request (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id       uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  kind          text NOT NULL CHECK (kind IN ('acesso','portabilidade','correcao','anonimizacao','eliminacao','revogacao_consentimento')),
+  status        text NOT NULL DEFAULT 'aberto'
+                CHECK (status IN ('aberto','em_analise','executado','parcial','recusado','cancelado')),
+  requested_at  timestamptz NOT NULL DEFAULT now(),
+  deadline_at   timestamptz NOT NULL,
+  completed_at  timestamptz,
+  requested_via text NOT NULL DEFAULT 'app',
+  ip_address    inet,
+  notes         text,
+  -- Prazo legal: 15 dias (art. 19 §). Calculado no INSERT.
+  CHECK (deadline_at > requested_at)
+);
+
+-- Source: 002_identity_lgpd.sql:132 identity.data_request_event => canone_identity.data_request_event
+CREATE TABLE canone_identity.data_request_event (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  request_id   uuid NOT NULL REFERENCES canone_identity.data_request(id) ON DELETE CASCADE,
+  from_status  text,
+  to_status    text NOT NULL,
+  actor_id     uuid REFERENCES auth.users(id),
+  detail       jsonb NOT NULL DEFAULT '{}'::jsonb,
+  created_at   timestamptz NOT NULL DEFAULT now()
+);
+
+-- Source: 003_metamodel.sql:1 editorial.content_type => canone_editorial.content_type
+CREATE TABLE canone_editorial.content_type (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  key         text NOT NULL UNIQUE,
+  label       text NOT NULL,
+  -- Família agrupa tipos com o mesmo workflow (itens de avaliação, material
+  -- de estudo, referências normativas). O workflow é herdado da família.
+  family      text NOT NULL CHECK (family IN ('avaliacao','estudo','referencia','editorial')),
+  description text,
+  -- Tipos que descrevem relações (ex.: "citação de norma") não têm instâncias
+  -- próprias: usam content_relation.
+  is_relation_type boolean NOT NULL DEFAULT false,
+  -- Se true, o tipo exige verificação vigente para ser publicado.
+  requires_verification boolean NOT NULL DEFAULT true,
+  created_at  timestamptz NOT NULL DEFAULT now(),
+  retired_at  timestamptz,
+  UNIQUE (key, retired_at)
+);
+
+-- Source: 003_metamodel.sql:48 editorial.content_type_version => canone_editorial.content_type_version
+CREATE TABLE canone_editorial.content_type_version (
+  id               uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_type_id  uuid NOT NULL REFERENCES canone_editorial.content_type(id) ON DELETE CASCADE,
+  version          int  NOT NULL,
+  definition       jsonb NOT NULL DEFAULT '{}'::jsonb,
+  created_by       uuid REFERENCES auth.users(id),
+  created_at       timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (content_type_id, version)
+);
+
+-- Source: 003_metamodel.sql:58 editorial.field_definition => canone_editorial.field_definition
+CREATE TABLE canone_editorial.field_definition (
+  id                     uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_type_version_id uuid NOT NULL REFERENCES canone_editorial.content_type_version(id) ON DELETE CASCADE,
+  key                    text NOT NULL,
+  label                  text NOT NULL,
+  data_kind              text NOT NULL CHECK (data_kind IN
+                         ('texto','texto_longo','inteiro','decimal','booleano','data','data_hora',
+                          'enumeracao','referencia','json','slug')),
+  required               boolean NOT NULL DEFAULT false,
+  -- Referência a qual content_type quando data_kind='referencia'.
+  ref_content_type_key   text REFERENCES canone_editorial.content_type(key),
+  enumeration_key        text,
+  validations            jsonb NOT NULL DEFAULT '{}'::jsonb,
+  help_text              text,
+  ordinal                int NOT NULL DEFAULT 0,
+  -- Campo de busca/ordenação: entra em índice.
+  is_indexed             boolean NOT NULL DEFAULT false,
+  UNIQUE (content_type_version_id, key)
+);
+
+-- Source: 003_metamodel.sql:83 editorial.enumeration => canone_editorial.enumeration
+CREATE TABLE canone_editorial.enumeration (
+  key         text PRIMARY KEY,
+  label       text NOT NULL,
+  description text,
+  is_multi    boolean NOT NULL DEFAULT false,
+  created_at  timestamptz NOT NULL DEFAULT now()
+);
+
+-- Source: 003_metamodel.sql:103 editorial.enumeration_value => canone_editorial.enumeration_value
+CREATE TABLE canone_editorial.enumeration_value (
+  id             uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  enumeration_key text NOT NULL REFERENCES canone_editorial.enumeration(key) ON DELETE CASCADE,
+  key            text NOT NULL,
+  label          text NOT NULL,
+  -- Payload livre para a semântica do valor (ex.: cor, ordem, algoritmo).
+  meta           jsonb NOT NULL DEFAULT '{}'::jsonb,
+  ordinal        int NOT NULL DEFAULT 0,
+  is_active      boolean NOT NULL DEFAULT true,
+  UNIQUE (enumeration_key, key)
+);
+
+-- Source: 003_metamodel.sql:115 editorial.state_definition => canone_editorial.state_definition
+CREATE TABLE canone_editorial.state_definition (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  family      text NOT NULL,
+  key         text NOT NULL,
+  label       text NOT NULL,
+  is_initial  boolean NOT NULL DEFAULT false,
+  is_terminal boolean NOT NULL DEFAULT false,
+  -- Publicar exige verificação vigente.
+  requires_verification boolean NOT NULL DEFAULT false,
+  -- Estado visível ao público (site, catálogo).
+  is_public   boolean NOT NULL DEFAULT false,
+  -- Estado que significa "rejeitado/recusado" — entra no relatório de
+  -- alegações recusadas, que é parte do produto.
+  is_refusal  boolean NOT NULL DEFAULT false,
+  color_token text,
+  ordinal     int NOT NULL DEFAULT 0,
+  UNIQUE (family, key)
+);
+
+-- Source: 003_metamodel.sql:139 editorial.state_transition => canone_editorial.state_transition
+CREATE TABLE canone_editorial.state_transition (
+  family     text NOT NULL,
+  from_state text NOT NULL,
+  to_state   text NOT NULL,
+  -- Condição exigida para a transição. 'verificacao_vigente' = só passa
+  -- se o item tem verificação de fonte em dia na data.
+  requires   text NOT NULL DEFAULT ''
+             CHECK (requires IN ('','verificacao_vigente')),
+  label      text,
+  PRIMARY KEY (family, from_state, to_state),
+  FOREIGN KEY (family, from_state) REFERENCES canone_editorial.state_definition(family, key) ON DELETE CASCADE,
+  FOREIGN KEY (family, to_state)   REFERENCES canone_editorial.state_definition(family, key) ON DELETE CASCADE
+);
+
+-- Source: 003_metamodel.sql:161 editorial.content_item => canone_editorial.content_item
+CREATE TABLE canone_editorial.content_item (
+  id                   uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_type_id      uuid NOT NULL REFERENCES canone_editorial.content_type(id),
+  content_type_version_id uuid NOT NULL REFERENCES canone_editorial.content_type_version(id),
+  -- Slug estável, legível, único por tipo. É o que o cliente cita.
+  key                  text NOT NULL,
+  state                text NOT NULL,
+  -- Aponta para a versão corrente (criado depois; FK adicionada via ALTER).
+  current_version_id   uuid,
+  -- Rótulo curto para listagens. Desnormalizado de propósito: listar 10 mil
+  -- itens não deve ler o payload inteiro.
+  title                text NOT NULL,
+  summary              text,
+  -- Recortes do edital: o item aponta para assunto e subtópico.
+  subject_id           uuid,
+  subtopic_id          uuid,
+  -- Peso na trilha e ordem de exibição dentro do módulo.
+  ordinal              int NOT NULL DEFAULT 0,
+  estimated_seconds    int,
+  difficulty_band      text,
+  created_by           uuid REFERENCES auth.users(id),
+  created_at           timestamptz NOT NULL DEFAULT now(),
+  updated_at           timestamptz NOT NULL DEFAULT now(),
+  retired_at           timestamptz,
+  published_at         timestamptz,
+  search_tsv           tsvector GENERATED ALWAYS AS (
+                        setweight(to_tsvector('portuguese', coalesce(title,'')), 'A') ||
+                        setweight(to_tsvector('portuguese', coalesce(summary,'')), 'B')
+                      ) STORED,
+  UNIQUE (content_type_id, key)
+);
+
+-- Source: 003_metamodel.sql:199 editorial.content_item_version => canone_editorial.content_item_version
+CREATE TABLE canone_editorial.content_item_version (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id uuid NOT NULL REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  version       int NOT NULL,
+  -- O documento estruturado. Blocos tipados, ordem preservada.
+  payload       jsonb NOT NULL DEFAULT '{}'::jsonb,
+  -- Diff contra a versão anterior, para revisão e para "o que mudou".
+  diff          jsonb,
+  author_id     uuid REFERENCES auth.users(id),
+  created_at    timestamptz NOT NULL DEFAULT now(),
+  published_at  timestamptz,
+  UNIQUE (content_item_id, version)
+);
+
+-- Source: 003_metamodel.sql:220 editorial.content_relation_type => canone_editorial.content_relation_type
+CREATE TABLE canone_editorial.content_relation_type (
+  key         text PRIMARY KEY,
+  label       text NOT NULL,
+  -- 'directed' = A→B; 'symmetric' = A↔B
+  cardinality text NOT NULL DEFAULT 'directed' CHECK (cardinality IN ('directed','symmetric')),
+  -- A relação herda o requisito de verificação do item de origem?
+  requires_verification boolean NOT NULL DEFAULT false,
+  description text
+);
+
+-- Source: 003_metamodel.sql:233 editorial.content_relation => canone_editorial.content_relation
+CREATE TABLE canone_editorial.content_relation (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  relation_type text NOT NULL REFERENCES canone_editorial.content_relation_type(key),
+  from_item_id  uuid NOT NULL REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  to_item_id    uuid NOT NULL REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  -- O dado que sustenta a relação (ex.: o texto citado da norma).
+  attributes    jsonb NOT NULL DEFAULT '{}'::jsonb,
+  created_by    uuid REFERENCES auth.users(id),
+  created_at    timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (relation_type, from_item_id, to_item_id),
+  CHECK (from_item_id <> to_item_id)
+);
+
+-- Source: 003_metamodel.sql:248 editorial.content_revision => canone_editorial.content_revision
+CREATE TABLE canone_editorial.content_revision (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id uuid NOT NULL REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  version_id    uuid REFERENCES canone_editorial.content_item_version(id),
+  from_state    text,
+  to_state      text NOT NULL,
+  actor_id      uuid REFERENCES auth.users(id),
+  actor_role    text,
+  reason        text,
+  diff          jsonb,
+  created_at    timestamptz NOT NULL DEFAULT now()
+);
+
+-- Source: 003_metamodel.sql:265 editorial.source => canone_editorial.source
+CREATE TABLE canone_editorial.source (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  key           text NOT NULL UNIQUE,
+  -- 'legislacao' ≠ 'norma': lei/decreto de âmbito nacional vs. norma técnica
+  -- emitida pelo CFC. Confundir os dois é o que faz a citação parecer certa
+  -- e estar errada.
+  kind          text NOT NULL CHECK (kind IN ('url','norma','legislacao','edital','livro','jurisprudencia','interno','arquivo')),
+  title         text NOT NULL,
+  publisher     text,
+  url           text,
+  -- Versão/identificador do documento (ex.: "Edital FGV 2026.3, 05/10/2026").
+  version_label text,
+  published_at  date,
+  -- SHA-256 do arquivo baixado. Se o conteúdo mudar, o hash muda, e a
+  -- verificação que dependia dele precisa ser revista.
+  content_sha256 char(64),
+  -- TRECHO LITERAL da fonte que sustenta os dados derivados dela.
+  -- Um número sem o trecho ao lado é opinião bem formatada.
+  source_quote   text,
+  archived_path text,
+  consulted_at  timestamptz,
+  consulted_by  uuid REFERENCES auth.users(id),
+  notes         text,
+  created_at    timestamptz NOT NULL DEFAULT now()
+);
+
+-- Source: 003_metamodel.sql:298 editorial.verification => canone_editorial.verification
+CREATE TABLE canone_editorial.verification (
+  id             uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id uuid NOT NULL REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  state          text NOT NULL CHECK (state IN ('nao_verificada','em_revisao','verificada','expirada','necessita_atualizacao','rejeitada')),
+  method         text NOT NULL CHECK (method IN ('manual','automatizada','importacao','conferencia_dupla')),
+  source_id      uuid REFERENCES canone_editorial.source(id),
+  -- Trecho EXATO da fonte que justifica a verificação. É o que permite a
+  -- um terceiro auditar sem refazer o trabalho.
+  source_quote   text,
+  verified_by    uuid REFERENCES auth.users(id),
+  verified_at    timestamptz,
+  -- Validade: norma técnica expira. Sem esta coluna, uma verificação de 2019
+  -- continua parecendo atual.
+  valid_until    timestamptz,
+  -- Motivo da recusa — aparece no relatório de alegações recusadas.
+  refusal_reason text,
+  notes          text,
+  created_at     timestamptz NOT NULL DEFAULT now(),
+  updated_at     timestamptz NOT NULL DEFAULT now(),
+  CONSTRAINT ck_verification_quote CHECK (state <> 'verificada' OR source_quote IS NOT NULL)
+);
+
+-- Source: 004_taxonomy_blueprint.sql:1 taxonomy.knowledge_area => canone_taxonomy.knowledge_area
+CREATE TABLE canone_taxonomy.knowledge_area (
+  key         text PRIMARY KEY,
+  label       text NOT NULL,
+  description text,
+  -- Ordem no edital. É a ordem que o aluno espera ver.
+  ordinal     int NOT NULL DEFAULT 0,
+  active      boolean NOT NULL DEFAULT true
+);
+
+-- Source: 004_taxonomy_blueprint.sql:25 taxonomy.subject => canone_taxonomy.subject
+CREATE TABLE canone_taxonomy.subject (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  key         text NOT NULL UNIQUE,
+  label       text NOT NULL,
+  -- Área de conhecimento do edital (13 assuntos).
+  area_key    text NOT NULL REFERENCES canone_taxonomy.knowledge_area(key)
+              DEFERRABLE INITIALLY DEFERRED,
+  -- Chave do tipo de conteúdo que materializa este assunto.
+  content_type_key text REFERENCES canone_editorial.content_type(key),
+  description text,
+  ordinal     int NOT NULL DEFAULT 0,
+  active      boolean NOT NULL DEFAULT true
+);
+
+-- Source: 004_taxonomy_blueprint.sql:41 taxonomy.subtopic => canone_taxonomy.subtopic
+CREATE TABLE canone_taxonomy.subtopic (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  subject_id  uuid NOT NULL REFERENCES canone_taxonomy.subject(id) ON DELETE CASCADE,
+  key         text NOT NULL,
+  label       text NOT NULL,
+  description text,
+  ordinal     int NOT NULL DEFAULT 0,
+  UNIQUE (subject_id, key)
+);
+
+-- Source: 004_taxonomy_blueprint.sql:53 taxonomy.exam_edition => canone_taxonomy.exam_edition
+CREATE TABLE canone_taxonomy.exam_edition (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  code            text NOT NULL UNIQUE,          -- '2026.1'
+  label           text NOT NULL,
+  edition_number  int NOT NULL,
+  year            int NOT NULL,
+  -- Datas conferidas na fonte oficial (CFC/FGV).
+  registration_opens_at  timestamptz,
+  registration_closes_at timestamptz,
+  -- Prazo máximo de pagamento do boleto (posterior ao encerramento das
+  -- inscrições). É o que o candidato realmente precisa saber.
+  payment_deadline      date,
+  application_date date NOT NULL,
+  application_start_time time NOT NULL DEFAULT '10:00',
+  application_end_time   time NOT NULL DEFAULT '14:00',
+  modality        text NOT NULL DEFAULT 'presencial' CHECK (modality IN ('presencial','remota')),
+  question_count  int NOT NULL DEFAULT 50,
+  options_per_question int NOT NULL DEFAULT 4,
+  passing_score   int NOT NULL DEFAULT 25,
+  passing_percent numeric(5,2) NOT NULL DEFAULT 50.00,
+  registration_fee_cents int,
+  source_id       uuid REFERENCES canone_editorial.source(id),
+  notes           text,
+  created_at      timestamptz NOT NULL DEFAULT now()
+);
+
+-- Source: 004_taxonomy_blueprint.sql:81 taxonomy.blueprint => canone_taxonomy.blueprint
+CREATE TABLE canone_taxonomy.blueprint (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  exam_edition_id uuid NOT NULL REFERENCES canone_taxonomy.exam_edition(id) ON DELETE CASCADE,
+  subject_id      uuid NOT NULL REFERENCES canone_taxonomy.subject(id),
+  -- Peso relativo na prova (soma 100 por edição).
+  weight          numeric(5,2) NOT NULL DEFAULT 0,
+  expected_questions int,
+  UNIQUE (exam_edition_id, subject_id)
+);
+
+-- Source: 004_taxonomy_blueprint.sql:91 taxonomy.item_placement => canone_taxonomy.item_placement
+CREATE TABLE canone_taxonomy.item_placement (
+  content_item_id uuid NOT NULL REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  exam_edition_id uuid NOT NULL REFERENCES canone_taxonomy.exam_edition(id) ON DELETE CASCADE,
+  subject_id      uuid NOT NULL REFERENCES canone_taxonomy.subject(id),
+  subtopic_id     uuid REFERENCES canone_taxonomy.subtopic(id),
+  -- Onde este item pode cair. Um item que serve a 2026.3 pode servir a 2027.1.
+  weight          numeric(5,2) NOT NULL DEFAULT 0,
+  is_forecast     boolean NOT NULL DEFAULT false,
+  PRIMARY KEY (content_item_id, exam_edition_id)
+);
+
+-- Source: 004_taxonomy_blueprint.sql:103 taxonomy.module => canone_taxonomy.module
+CREATE TABLE canone_taxonomy.module (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  key         text NOT NULL UNIQUE,
+  name        text NOT NULL,
+  short_name  text NOT NULL,
+  description text NOT NULL,
+  phase       text NOT NULL CHECK (phase IN ('Estudar','Praticar','Evoluir','Aprovar')),
+  ordinal     int NOT NULL,
+  content_type_key text REFERENCES canone_editorial.content_type(key),
+  icon_key    text,
+  active      boolean NOT NULL DEFAULT true,
+  created_at  timestamptz NOT NULL DEFAULT now()
+);
+
+-- Source: 004_taxonomy_blueprint.sql:120 taxonomy.module_subject => canone_taxonomy.module_subject
+CREATE TABLE canone_taxonomy.module_subject (
+  module_id uuid NOT NULL REFERENCES canone_taxonomy.module(id) ON DELETE CASCADE,
+  subject_id uuid NOT NULL REFERENCES canone_taxonomy.subject(id) ON DELETE CASCADE,
+  PRIMARY KEY (module_id, subject_id)
+);
+
+-- Source: 005_norms.sql:1 norms.issuer => canone_norms.issuer
+CREATE TABLE canone_norms.issuer (
+  id        uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  key       text NOT NULL UNIQUE,
+  name      text NOT NULL,
+  country   char(2) NOT NULL DEFAULT 'BR',
+  website   text,
+  -- Natureza do órgão: define se o texto é LEI, NORMA TÉCNICA ou REGULAMENTO.
+  kind      text NOT NULL CHECK (kind IN ('conselho','norma_tecnica','legislacao','banca'))
+);
+
+-- Source: 005_norms.sql:28 norms.norm => canone_norms.norm
+CREATE TABLE canone_norms.norm (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  issuer_id   uuid NOT NULL REFERENCES canone_norms.issuer(id),
+  -- Código estável: 'CPC 26', 'NBC TA 300', 'ITP 01'.
+  code        text NOT NULL,
+  title       text NOT NULL,
+  category    text,
+  -- Norma que esta altera (cadeia de vigência).
+  amends_norm_code text,
+  source_id   uuid REFERENCES canone_editorial.source(id),
+  created_at  timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (issuer_id, code)
+);
+
+-- Source: 005_norms.sql:44 norms.norm_version => canone_norms.norm_version
+CREATE TABLE canone_norms.norm_version (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  norm_id         uuid NOT NULL REFERENCES canone_norms.norm(id) ON DELETE CASCADE,
+  -- Rótulo da versão como o mercado escreve: 'CPC 26 (R2)'.
+  label           text NOT NULL,
+  revision_code   text,
+  effective_from  date NOT NULL,
+  effective_to    date,
+  -- Texto integral (quando digitalizado) e hash: a prova de que a versão
+  -- citada é a versão que existia.
+  content_sha256  char(64),
+  source_id       uuid REFERENCES canone_editorial.source(id),
+  notes           text,
+  created_at      timestamptz NOT NULL DEFAULT now(),
+  -- Só uma versão vigente por norma em cada instante.
+  CONSTRAINT ck_norm_version_vigencia CHECK (effective_to IS NULL OR effective_to > effective_from)
+);
+
+-- Source: 005_norms.sql:69 norms.norm_item => canone_norms.norm_item
+CREATE TABLE canone_norms.norm_item (
+  id               uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  norm_version_id  uuid NOT NULL REFERENCES canone_norms.norm_version(id) ON DELETE CASCADE,
+  -- 'item 6', 'art. 4º', 'Anexo II'
+  locator          text NOT NULL,
+  heading          text,
+  body             text NOT NULL,
+  -- Estrutura de subtópicos (quando a norma é hierárquica).
+  parent_id        uuid REFERENCES canone_norms.norm_item(id),
+  ordinal          int NOT NULL DEFAULT 0,
+  -- Item que este revoga ou substitui (vigência encadeada).
+  supersedes_id    uuid REFERENCES canone_norms.norm_item(id),
+  created_at       timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (norm_version_id, locator)
+);
+
+-- Source: 005_norms.sql:90 editorial.content_norm_citation => canone_editorial.content_norm_citation
+CREATE TABLE canone_editorial.content_norm_citation (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id uuid NOT NULL REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  norm_id         uuid NOT NULL REFERENCES canone_norms.norm(id) ON DELETE CASCADE,
+  norm_item_id    uuid REFERENCES canone_norms.norm_item(id) ON DELETE SET NULL,
+  -- Versão citada. É a que vale como prova no momento da citação.
+  norm_version_id uuid NOT NULL REFERENCES canone_norms.norm_version(id) ON DELETE CASCADE,
+  -- O trecho citado da norma (o mesmo que sustenta a verificação).
+  quote           text,
+  locator         text,
+  created_at      timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (content_item_id, norm_version_id, norm_item_id)
+);
+
+-- Source: 006_learning_items.sql:1 learning.item => canone_learning.item
+CREATE TABLE canone_learning.item (
+  id               uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id  uuid NOT NULL UNIQUE REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  content_type_key text NOT NULL REFERENCES canone_editorial.content_type(key),
+  -- Tipo concreto de item de avaliação.
+  kind             text NOT NULL CHECK (kind IN ('questao','flashcard','caso','simulado_item','calculo')),
+  -- Nível de dificuldade (1-4) usado pelo simulado adaptativo.
+  difficulty       numeric(3,2) NOT NULL DEFAULT 2.00
+                   CHECK (difficulty >= 1 AND difficulty <= 4),
+  -- Segundos estimados de resolução.
+  estimated_seconds int,
+  -- Discriminação: questão que ninguém distingue não vale ser item.
+  discrimination   numeric(4,3) NOT NULL DEFAULT 0.000,
+  -- Quantas vezes o item foi respondido (cache de estatística).
+  answer_count     int NOT NULL DEFAULT 0,
+  correct_count    int NOT NULL DEFAULT 0,
+  -- Percentual de acerto acumulado — NÃO é "taxa de aprovação da plataforma",
+  -- é estatística do item, e serve para revisar item ruim.
+  correct_rate     numeric(5,2) GENERATED ALWAYS AS (
+                     CASE WHEN answer_count = 0 THEN NULL
+                          ELSE round(correct_count::numeric * 100 / answer_count, 2) END
+                   ) STORED,
+  -- Sinalizado por QC quando o item tem defeito (distrator ambíguo etc).
+  flagged_for_review boolean NOT NULL DEFAULT false,
+  flag_reason      text,
+  created_at       timestamptz NOT NULL DEFAULT now(),
+  updated_at       timestamptz NOT NULL DEFAULT now()
+);
+
+-- Source: 006_learning_items.sql:51 learning.item_option => canone_learning.item_option
+CREATE TABLE canone_learning.item_option (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  item_id      uuid NOT NULL REFERENCES canone_learning.item(id) ON DELETE CASCADE,
+  ordinal      text NOT NULL CHECK (ordinal IN ('A','B','C','D','E')),
+  body         text NOT NULL,
+  is_correct   boolean NOT NULL DEFAULT false,
+  -- Por que a alternativa está errada. O erro do candidato é quase sempre
+  -- um distrator CONCEITUAL; explicar só a correta não ensina o distrator.
+  distractor_kind text,
+  ordinal_pos  int NOT NULL,
+  UNIQUE (item_id, ordinal)
+);
+
+-- Source: 006_learning_items.sql:91 learning.explanation => canone_learning.explanation
+CREATE TABLE canone_learning.explanation (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  item_id      uuid NOT NULL REFERENCES canone_learning.item(id) ON DELETE CASCADE,
+  kind         text NOT NULL CHECK (kind IN ('correta','distrator','metodologia','normativa')),
+  -- Para distrator, aponta para a alternativa que ele explica.
+  -- FK COMPOSTA: 'ordinal' só é único dentro do item, não globalmente.
+  option_ordinal text,
+  body         text NOT NULL,
+  -- Base normativa declarada (texto livre; a âncora relacional está em
+  -- content_relation 'cita_norma').
+  basis        text,
+  ordinal      int NOT NULL DEFAULT 0,
+  UNIQUE (item_id, kind, option_ordinal),
+  FOREIGN KEY (item_id, option_ordinal)
+    REFERENCES canone_learning.item_option(item_id, ordinal) ON DELETE CASCADE
+);
+
+-- Source: 006_learning_items.sql:111 learning.item_subject => canone_learning.item_subject
+CREATE TABLE canone_learning.item_subject (
+  item_id    uuid NOT NULL REFERENCES canone_learning.item(id) ON DELETE CASCADE,
+  subject_id uuid NOT NULL REFERENCES canone_taxonomy.subject(id) ON DELETE CASCADE,
+  PRIMARY KEY (item_id, subject_id)
+);
+
+-- Source: 006_learning_items.sql:121 learning.study_block => canone_learning.study_block
+CREATE TABLE canone_learning.study_block (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id uuid NOT NULL REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  ordinal     int NOT NULL,
+  block_type  text NOT NULL CHECK (block_type IN
+                ('texto','titulo','imagem','diagrama','formula','tabela','lista',
+                 'quiz_embutido','referencia_norma','galeria','video','audio','callout')),
+  data        jsonb NOT NULL DEFAULT '{}'::jsonb,
+  UNIQUE (content_item_id, ordinal)
+);
+
+-- Source: 006_learning_items.sql:137 learning.mock_exam => canone_learning.mock_exam
+CREATE TABLE canone_learning.mock_exam (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id uuid NOT NULL UNIQUE REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  exam_edition_id uuid REFERENCES canone_taxonomy.exam_edition(id),
+  -- Composição: [{subject_id, count}]
+  blueprint     jsonb NOT NULL DEFAULT '{}'::jsonb,
+  time_limit_seconds int,
+  total_items   int NOT NULL DEFAULT 50,
+  passing_score int NOT NULL DEFAULT 25,
+  is_adaptive   boolean NOT NULL DEFAULT false,
+  created_at    timestamptz NOT NULL DEFAULT now()
+);
+
+-- Source: 006_learning_items.sql:153 learning.mock_exam_item => canone_learning.mock_exam_item
+CREATE TABLE canone_learning.mock_exam_item (
+  mock_exam_id uuid NOT NULL REFERENCES canone_learning.mock_exam(id) ON DELETE CASCADE,
+  item_id      uuid NOT NULL REFERENCES canone_learning.item(id),
+  ordinal      int NOT NULL,
+  PRIMARY KEY (mock_exam_id, item_id),
+  UNIQUE (mock_exam_id, ordinal)
+);
+
+-- Source: 006_learning_items.sql:161 learning.mind_map => canone_learning.mind_map
+CREATE TABLE canone_learning.mind_map (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id uuid NOT NULL UNIQUE REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  root_label      text NOT NULL,
+  layout          text NOT NULL DEFAULT 'radial'
+                 CHECK (layout IN ('radial','fluxograma','linha_do_tempo','quadro','checklist'))
+);
+
+-- Source: 006_learning_items.sql:172 learning.mind_map_node => canone_learning.mind_map_node
+CREATE TABLE canone_learning.mind_map_node (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  mind_map_id uuid NOT NULL REFERENCES canone_learning.mind_map(id) ON DELETE CASCADE,
+  parent_id   uuid REFERENCES canone_learning.mind_map_node(id),
+  label       text NOT NULL,
+  content_item_id uuid REFERENCES canone_editorial.content_item(id),
+  ordinal     int NOT NULL DEFAULT 0,
+  x_num       numeric(10,4),
+  y_num       numeric(10,4)
+);
+
+-- Source: 006_learning_items.sql:184 learning.pocket_entry => canone_learning.pocket_entry
+CREATE TABLE canone_learning.pocket_entry (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id uuid NOT NULL UNIQUE REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  format          text NOT NULL,
+  summary         text NOT NULL,
+  key_points      jsonb NOT NULL DEFAULT '[]'::jsonb,
+  common_errors   jsonb NOT NULL DEFAULT '[]'::jsonb,
+  formulas        jsonb NOT NULL DEFAULT '[]'::jsonb
+);
+
+-- Source: 006_learning_items.sql:197 learning.case_step => canone_learning.case_step
+CREATE TABLE canone_learning.case_step (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id uuid NOT NULL REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  ordinal         int NOT NULL,
+  title           text NOT NULL,
+  body            text NOT NULL,
+  -- Etapa que exige decisão do aluno (interativa) ou é apenas informativa.
+  kind            text NOT NULL DEFAULT 'informativa' CHECK (kind IN ('informativa','decisao','conclusao'))
+);
+
+-- Source: 007_learning_srs.sql:31 learning.session => canone_learning.session
+CREATE TABLE canone_learning.session (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id       uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  kind          canone_learning.session_kind NOT NULL,
+  -- Onde a sessão foi iniciada (deep link, módulo, dashboard).
+  origin        text,
+  subject_id    uuid REFERENCES canone_taxonomy.subject(id),
+  module_id     uuid REFERENCES canone_taxonomy.module(id),
+  planned_count int,
+  answered_count int NOT NULL DEFAULT 0,
+  correct_count int NOT NULL DEFAULT 0,
+  started_at    timestamptz NOT NULL DEFAULT now(),
+  last_event_at timestamptz,
+  ended_at      timestamptz,
+  duration_ms   int,
+  -- Contexto de dispositivo/canal, para diagnóstico.
+  client        jsonb NOT NULL DEFAULT '{}'::jsonb
+);
+
+-- Source: 007_learning_srs.sql:55 learning.review_event => canone_learning.review_event
+CREATE TABLE canone_learning.review_event (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id       uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  item_id       uuid NOT NULL REFERENCES canone_learning.item(id) ON DELETE CASCADE,
+  session_id    uuid REFERENCES canone_learning.session(id) ON DELETE SET NULL,
+  grade         canone_learning.review_grade NOT NULL,
+  basis         canone_learning.review_basis NOT NULL,
+  -- Só quando basis='sistema'. NULL quando o aluno declarou.
+  correct       boolean,
+  -- O que o aluno respondeu (alternativa escolhida, texto digitado).
+  response      jsonb,
+  -- Quanto tempo levou. Serve para o simulado adaptativo.
+  duration_ms   int,
+  -- Repetição: 1 = primeira vez, 2+ = revisões.
+  repetition    int NOT NULL DEFAULT 1,
+  -- Item do simulado, se houver.
+  mock_exam_id  uuid REFERENCES canone_learning.mock_exam(id) ON DELETE SET NULL,
+  -- CRÍTICO: versão do algoritmo que processou este evento. Sem ela, mudar o
+  -- algoritmo torna o histórico irreconstruível.
+  algorithm_version text NOT NULL DEFAULT 'srs-v1',
+  reviewed_at   timestamptz NOT NULL DEFAULT now(),
+  CONSTRAINT ck_event_correct_basis CHECK (
+    (basis = 'sistema' AND correct IS NOT NULL) OR
+    (basis = 'autodeclarado' AND correct IS NULL)
+  )
+);
+
+-- Source: 007_learning_srs.sql:103 learning.user_item_state => canone_learning.user_item_state
+CREATE TABLE canone_learning.user_item_state (
+  user_id         uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  item_id         uuid NOT NULL REFERENCES canone_learning.item(id) ON DELETE CASCADE,
+  state           text NOT NULL DEFAULT 'nova'
+                 CHECK (state IN ('nova','aprendendo','revisao','reaprendendo','suspensa')),
+  -- Estabilidade: dias até a probabilidade de acerto cair a 90%.
+  stability_days  numeric(8,3) NOT NULL DEFAULT 0,
+  difficulty      numeric(5,2) NOT NULL DEFAULT 5.00,
+  -- Data em que o item volta para revisão.
+  due_at          timestamptz,
+  last_review_at  timestamptz,
+  last_grade      canone_learning.review_grade,
+  -- Ultimo intervalo aplicado, para exibir "você viu isso há N dias".
+  last_interval_days int,
+  repetitions     int NOT NULL DEFAULT 0,
+  lapses          int NOT NULL DEFAULT 0,
+  -- Fragmentação: o aluno acertou "com esforço" N vezes seguidas.
+  fragile_streak  int NOT NULL DEFAULT 0,
+  -- Sinaliza conteúdo frágil ao dashboard (≠ "errou").
+  is_fragile      boolean GENERATED ALWAYS AS (fragile_streak >= 2) STORED,
+  algorithm_version text NOT NULL DEFAULT 'srs-v1',
+  created_at      timestamptz NOT NULL DEFAULT now(),
+  updated_at      timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (user_id, item_id)
+);
+
+-- Source: 007_learning_srs.sql:138 learning.mastery => canone_learning.mastery
+CREATE TABLE canone_learning.mastery (
+  user_id      uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  subject_id   uuid NOT NULL REFERENCES canone_taxonomy.subject(id) ON DELETE CASCADE,
+  -- Itens do assunto que o aluno já tocou.
+  items_seen   int NOT NULL DEFAULT 0,
+  items_mastered int NOT NULL DEFAULT 0,
+  -- Itens frágil (acerto com esforço) — o que o dashboard destaca.
+  items_fragile int NOT NULL DEFAULT 0,
+  -- Itens "não sabia": nunca vistos. Não contam como erro.
+  items_unseen int NOT NULL DEFAULT 0,
+  -- Desempenho em base='sistema' (gabarito conhecido).
+  correct_answers int NOT NULL DEFAULT 0,
+  total_answers   int NOT NULL DEFAULT 0,
+  accuracy        numeric(5,2) GENERATED ALWAYS AS (
+                    CASE WHEN total_answers = 0 THEN NULL
+                         ELSE round(correct_answers::numeric * 100 / total_answers, 2) END
+                  ) STORED,
+  -- Confiança no recorte: 0 a 1, cresce com mais evidência.
+  confidence     numeric(4,3) NOT NULL DEFAULT 0,
+  updated_at    timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (user_id, subject_id)
+);
+
+-- Source: 007_learning_srs.sql:164 learning.favorite => canone_learning.favorite
+CREATE TABLE canone_learning.favorite (
+  user_id        uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  content_item_id uuid NOT NULL REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  note           text,
+  created_at     timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (user_id, content_item_id)
+);
+
+-- Source: 007_learning_srs.sql:175 learning.note => canone_learning.note
+CREATE TABLE canone_learning.note (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id         uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  content_item_id uuid REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  subject_id      uuid REFERENCES canone_taxonomy.subject(id),
+  body            text NOT NULL,
+  -- Ancora dentro do item (bloco), para nota contextual.
+  anchor          jsonb,
+  created_at      timestamptz NOT NULL DEFAULT now(),
+  updated_at      timestamptz NOT NULL DEFAULT now()
+);
+
+-- Source: 007_learning_srs.sql:188 learning.offline_pack => canone_learning.offline_pack
+CREATE TABLE canone_learning.offline_pack (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id       uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  label         text NOT NULL,
+  subject_id    uuid REFERENCES canone_taxonomy.subject(id),
+  -- Itens incluídos (materialized para o client).
+  item_ids      uuid[] NOT NULL DEFAULT '{}',
+  bytes_estimate bigint,
+  downloaded_at timestamptz,
+  expires_at    timestamptz,
+  revoked_at    timestamptz,
+  created_at    timestamptz NOT NULL DEFAULT now()
+);
+
+-- Source: 007_learning_srs.sql:203 learning.study_plan => canone_learning.study_plan
+CREATE TABLE canone_learning.study_plan (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id      uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  exam_edition_id uuid REFERENCES canone_taxonomy.exam_edition(id),
+  -- Objetivo declarado: horas/dia, data-alvo, prioridades.
+  target_date  date,
+  daily_minutes int NOT NULL DEFAULT 45,
+  -- Recorte: quais assuntos ele quer cobrir.
+  focus        jsonb NOT NULL DEFAULT '{}'::jsonb,
+  -- Plano pode se reescrever sozinho quando o desempenho muda.
+  is_adaptive  boolean NOT NULL DEFAULT true,
+  generated_at timestamptz NOT NULL DEFAULT now(),
+  valid_until  timestamptz,
+  -- Versão do gerador: para reprocessar.
+  generator_version text NOT NULL DEFAULT 'plan-v1'
+);
+
+-- Source: 007_learning_srs.sql:224 learning.duel => canone_learning.duel
+CREATE TABLE canone_learning.duel (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  -- Dois participantes; pode ser contra a máquina.
+  host_user_id  uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  guest_user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE,
+  subject_id    uuid REFERENCES canone_taxonomy.subject(id),
+  status        text NOT NULL DEFAULT 'aberto' CHECK (status IN ('aberto','em_andamento','finalizado','abandonado')),
+  started_at    timestamptz NOT NULL DEFAULT now(),
+  ended_at      timestamptz
+);
+
+-- Source: 008_commerce.sql:1 commerce.plan => canone_commerce.plan
+CREATE TABLE canone_commerce.plan (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  key          text NOT NULL UNIQUE,
+  name         text NOT NULL,
+  description  text,
+  billing_period text NOT NULL CHECK (billing_period IN ('mensal','anual','semestral','vitalicio')),
+  -- NULL = preço ainda não definido pelo comercial.
+  price_cents  int CHECK (price_cents IS NULL OR price_cents >= 0),
+  currency     char(3) NOT NULL DEFAULT 'BRL',
+  trial_days   int NOT NULL DEFAULT 0,
+  is_public    boolean NOT NULL DEFAULT true,
+  is_active    boolean NOT NULL DEFAULT true,
+  sort_order   int NOT NULL DEFAULT 0,
+  created_at   timestamptz NOT NULL DEFAULT now(),
+  updated_at   timestamptz NOT NULL DEFAULT now()
+);
+
+-- Source: 008_commerce.sql:31 commerce.plan_feature => canone_commerce.plan_feature
+CREATE TABLE canone_commerce.plan_feature (
+  plan_id     uuid NOT NULL REFERENCES canone_commerce.plan(id) ON DELETE CASCADE,
+  feature_key text NOT NULL,
+  -- Limite (ex.: max_simulados_mes = 20). NULL = sem limite.
+  limit_value int,
+  enabled     boolean NOT NULL DEFAULT true,
+  PRIMARY KEY (plan_id, feature_key)
+);
+
+-- Source: 008_commerce.sql:40 commerce.subscription => canone_commerce.subscription
+CREATE TABLE canone_commerce.subscription (
+  id                uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id           uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  plan_id           uuid NOT NULL REFERENCES canone_commerce.plan(id),
+  provider          text NOT NULL DEFAULT 'interno'
+                    CHECK (provider IN ('interno','stripe','pagarme','boleto','manual')),
+  provider_ref      text,
+  status            text NOT NULL DEFAULT 'pendente'
+                    CHECK (status IN ('pendente','ativa','past_due','cancelada','expirada','reembolsada','inadimplente')),
+  -- Período COBRADO (não o período de serviço).
+  current_period_start timestamptz,
+  current_period_end   timestamptz,
+  cancel_at_period_end boolean NOT NULL DEFAULT false,
+  cancelled_at       timestamptz,
+  -- Trial termina aqui; antes disso a assinatura ainda não dá acesso.
+  trial_ends_at      timestamptz,
+  created_at         timestamptz NOT NULL DEFAULT now(),
+  updated_at         timestamptz NOT NULL DEFAULT now()
+);
+
+-- Source: 008_commerce.sql:67 commerce.payment => canone_commerce.payment
+CREATE TABLE canone_commerce.payment (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  subscription_id uuid REFERENCES canone_commerce.subscription(id) ON DELETE SET NULL,
+  user_id         uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  provider        text NOT NULL,
+  provider_ref    text NOT NULL,
+  amount_cents    int NOT NULL CHECK (amount_cents >= 0),
+  currency        char(3) NOT NULL DEFAULT 'BRL',
+  status          text NOT NULL CHECK (status IN ('pendente','pago','falhou','estornado','cancelado')),
+  method          text,
+  installments    int NOT NULL DEFAULT 1,
+  paid_at         timestamptz,
+  failure_code    text,
+  failure_message text,
+  raw_payload     jsonb NOT NULL DEFAULT '{}'::jsonb,
+  created_at      timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (provider, provider_ref)
+);
+
+-- Source: 008_commerce.sql:87 commerce.invoice => canone_commerce.invoice
+CREATE TABLE canone_commerce.invoice (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  subscription_id uuid REFERENCES canone_commerce.subscription(id) ON DELETE SET NULL,
+  user_id         uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  payment_id      uuid REFERENCES canone_commerce.payment(id) ON DELETE SET NULL,
+  number          text,
+  amount_cents    int NOT NULL,
+  tax_cents       int NOT NULL DEFAULT 0,
+  total_cents     int NOT NULL,
+  currency        char(3) NOT NULL DEFAULT 'BRL',
+  status          text NOT NULL DEFAULT 'emitida'
+                  CHECK (status IN ('emitida','paga','vencida','cancelada')),
+  issued_at       timestamptz NOT NULL DEFAULT now(),
+  due_at          timestamptz,
+  paid_at         timestamptz,
+  lines           jsonb NOT NULL DEFAULT '[]'::jsonb
+);
+
+-- Source: 008_commerce.sql:106 commerce.entitlement => canone_commerce.entitlement
+CREATE TABLE canone_commerce.entitlement (
+  id         uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id    uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  feature_key text NOT NULL,
+  source     text NOT NULL DEFAULT 'assinatura'
+             CHECK (source IN ('assinatura','promocao','parceria','compensacao','admin')),
+  source_ref text,
+  granted_at timestamptz NOT NULL DEFAULT now(),
+  expires_at timestamptz,
+  revoked_at timestamptz,
+  metadata   jsonb NOT NULL DEFAULT '{}'::jsonb
+);
+
+-- Source: 008_commerce.sql:123 commerce.coupon => canone_commerce.coupon
+CREATE TABLE canone_commerce.coupon (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  code        text NOT NULL UNIQUE,
+  description text,
+  percent_off int CHECK (percent_off BETWEEN 0 AND 100),
+  amount_off_cents int,
+  max_redemptions int,
+  redemptions int NOT NULL DEFAULT 0,
+  valid_from  timestamptz,
+  valid_until timestamptz,
+  plan_ids    uuid[],
+  active      boolean NOT NULL DEFAULT true
+);
+
+-- Source: 009_admin_governance.sql:1 audit.audit_log => canone_audit.audit_log
+CREATE TABLE canone_audit.audit_log (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  -- Numeração monotônica: duas requisições simultâneas não colidem na ordem.
+  seq          bigserial,
+  occurred_at  timestamptz NOT NULL DEFAULT now(),
+  -- Quem agiu. NULL = sistema.
+  actor_id     uuid,
+  actor_role   text,
+  -- Se a ação foi feita SOBRE outro usuário (visão de usuário), o alvo.
+  subject_user_id uuid,
+  action       text NOT NULL,
+  entity_type  text NOT NULL,
+  entity_id    text,
+  before       jsonb,
+  after        jsonb,
+  -- Contexto da requisição.
+  request_id   text,
+  ip_address   inet,
+  user_agent   text,
+  -- Hash da linha anterior e hash desta linha. A cadeia é verificável.
+  prev_hash    char(64),
+  row_hash     char(64) NOT NULL,
+  metadata     jsonb NOT NULL DEFAULT '{}'::jsonb
+);
+
+-- Source: 009_admin_governance.sql:146 admin.support_access_grant => canone_admin.support_access_grant
+CREATE TABLE canone_admin.support_access_grant (
+  id             uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  staff_user_id  uuid NOT NULL REFERENCES auth.users(id),
+  subject_user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  -- Escopo: 'progresso' | 'conta' | 'assinatura' | 'completo'
+  scope          text NOT NULL DEFAULT 'progresso'
+                 CHECK (scope IN ('progresso','conta','assinatura','completo')),
+  -- Motivo é obrigatório. Sem motivo, não há concessão — e sem concessão,
+  -- ninguém vê dado de terceiro.
+  reason         text NOT NULL CHECK (length(btrim(reason)) >= 10),
+  ticket_ref     text,
+  granted_at     timestamptz NOT NULL DEFAULT now(),
+  expires_at     timestamptz NOT NULL,
+  revoked_at     timestamptz,
+  revoked_by     uuid REFERENCES auth.users(id),
+  revoke_reason  text,
+  created_at     timestamptz NOT NULL DEFAULT now(),
+  CONSTRAINT ck_grant_expiry CHECK (expires_at > granted_at),
+  CONSTRAINT ck_grant_max_duration CHECK (expires_at <= granted_at + interval '72 hours')
+);
+
+-- Source: 009_admin_governance.sql:178 admin.support_access_log => canone_admin.support_access_log
+CREATE TABLE canone_admin.support_access_log (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  grant_id      uuid NOT NULL REFERENCES canone_admin.support_access_grant(id) ON DELETE CASCADE,
+  staff_user_id uuid NOT NULL REFERENCES auth.users(id),
+  subject_user_id uuid NOT NULL REFERENCES auth.users(id),
+  -- Qual recurso foi lido (ex.: 'learning.review_event').
+  resource      text NOT NULL,
+  action        text NOT NULL DEFAULT 'leitura',
+  filter        jsonb NOT NULL DEFAULT '{}'::jsonb,
+  row_count     int,
+  occurred_at   timestamptz NOT NULL DEFAULT now()
+);
+
+-- Source: 009_admin_governance.sql:193 admin.moderation_queue => canone_admin.moderation_queue
+CREATE TABLE canone_admin.moderation_queue (
+  id             uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id uuid REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  -- Tipo de fila: 'revisao' | 'expirada' | 'reportada' | 'reclamacao'
+  queue          text NOT NULL CHECK (queue IN ('revisao','expirada','reportada','reclamacao')),
+  priority       int NOT NULL DEFAULT 0,
+  reason         text NOT NULL,
+  detail         jsonb NOT NULL DEFAULT '{}'::jsonb,
+  assigned_to    uuid REFERENCES auth.users(id),
+  opened_at      timestamptz NOT NULL DEFAULT now(),
+  due_at         timestamptz,
+  resolved_at    timestamptz,
+  resolution     text
+);
+
+-- Source: 009_admin_governance.sql:213 admin.content_report => canone_admin.content_report
+CREATE TABLE canone_admin.content_report (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_item_id uuid NOT NULL REFERENCES canone_editorial.content_item(id) ON DELETE CASCADE,
+  reporter_id     uuid REFERENCES auth.users(id),
+  reason          text NOT NULL CHECK (reason IN
+                    ('gabarito','redacao','norma','duplicidade','outro')),
+  detail          text,
+  created_at      timestamptz NOT NULL DEFAULT now()
+);
+
+-- Source: 009_admin_governance.sql:224 admin.user_note => canone_admin.user_note
+CREATE TABLE canone_admin.user_note (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id     uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  author_id   uuid NOT NULL REFERENCES auth.users(id),
+  body        text NOT NULL,
+  category    text,
+  created_at  timestamptz NOT NULL DEFAULT now(),
+  deleted_at  timestamptz
+);
+
+-- Source: 009_admin_governance.sql:235 admin.feature_flag => canone_admin.feature_flag
+CREATE TABLE canone_admin.feature_flag (
+  key         text PRIMARY KEY,
+  description text,
+  enabled     boolean NOT NULL DEFAULT false,
+  -- Rollout por papel, plano ou coorte. Vazio = 100%.
+  rollout     jsonb NOT NULL DEFAULT '{}'::jsonb,
+  updated_by  uuid REFERENCES auth.users(id),
+  updated_at  timestamptz NOT NULL DEFAULT now()
+);
+
+-- Source: 010_ops_platform.sql:1 ops.setting => canone_ops.setting
+CREATE TABLE canone_ops.setting (
+  key         text NOT NULL,
+  scope       text NOT NULL DEFAULT 'global' CHECK (scope IN ('global','staff','public')),
+  value       jsonb NOT NULL,
+  description text,
+  -- Chave sensível: o valor não sai em API de leitura de config.
+  is_secret   boolean NOT NULL DEFAULT false,
+  updated_by  uuid REFERENCES auth.users(id),
+  updated_at  timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (key, scope)
+);
+
+-- Source: 010_ops_platform.sql:31 ops.integration => canone_ops.integration
+CREATE TABLE canone_ops.integration (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  key         text NOT NULL UNIQUE,
+  kind        text NOT NULL CHECK (kind IN
+                ('email','analytics','pagamento','storage','ia','webhook','crm','sms','push')),
+  label       text NOT NULL,
+  -- Config NÃO sensible (endpoint público, remetente, flags).
+  config      jsonb NOT NULL DEFAULT '{}'::jsonb,
+  -- Referência ao segredo no cofre. NUNCA o valor.
+  secret_ref  text,
+  status      text NOT NULL DEFAULT 'inativo' CHECK (status IN ('inativo','ativo','degradado','suspenso')),
+  is_default  boolean NOT NULL DEFAULT false,
+  -- Última verificação de saúde.
+  health      jsonb NOT NULL DEFAULT '{}'::jsonb,
+  last_checked_at timestamptz,
+  created_at  timestamptz NOT NULL DEFAULT now(),
+  updated_at  timestamptz NOT NULL DEFAULT now()
+);
+
+-- Source: 010_ops_platform.sql:54 ops.api_key => canone_ops.api_key
+CREATE TABLE canone_ops.api_key (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  -- Prefixo público para identificação: "ck_live_a1b2c3".
+  prefix      text NOT NULL UNIQUE,
+  -- Hash do segredo. O segredo é exibido UMA vez na criação.
+  secret_hash text NOT NULL,
+  label       text NOT NULL,
+  scopes      text[] NOT NULL DEFAULT '{}',
+  -- Vinculado a uma integração específica ou global.
+  integration_id uuid REFERENCES canone_ops.integration(id) ON DELETE SET NULL,
+  created_by  uuid REFERENCES auth.users(id),
+  created_at  timestamptz NOT NULL DEFAULT now(),
+  expires_at  timestamptz,
+  last_used_at timestamptz,
+  revoked_at  timestamptz,
+  revoked_by  uuid REFERENCES auth.users(id)
+);
+
+-- Source: 010_ops_platform.sql:73 ops.webhook => canone_ops.webhook
+CREATE TABLE canone_ops.webhook (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  integration_id uuid REFERENCES canone_ops.integration(id) ON DELETE CASCADE,
+  endpoint    text NOT NULL,
+  events      text[] NOT NULL DEFAULT '{}',
+  secret_ref  text,
+  active      boolean NOT NULL DEFAULT true,
+  -- Proteções contra replay e floods.
+  max_attempts int NOT NULL DEFAULT 5,
+  timeout_ms  int NOT NULL DEFAULT 5000,
+  created_at  timestamptz NOT NULL DEFAULT now(),
+  updated_at  timestamptz NOT NULL DEFAULT now()
+);
+
+-- Source: 010_ops_platform.sql:87 ops.webhook_delivery => canone_ops.webhook_delivery
+CREATE TABLE canone_ops.webhook_delivery (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  webhook_id   uuid NOT NULL REFERENCES canone_ops.webhook(id) ON DELETE CASCADE,
+  event        text NOT NULL,
+  payload      jsonb NOT NULL,
+  status       text NOT NULL DEFAULT 'pendente'
+               CHECK (status IN ('pendente','enviado','falhou','descartado')),
+  attempt      int NOT NULL DEFAULT 1,
+  response_status int,
+  response_body text,
+  next_attempt_at timestamptz,
+  delivered_at timestamptz,
+  created_at   timestamptz NOT NULL DEFAULT now()
+);
+
+-- Source: 010_ops_platform.sql:104 ops.job_run => canone_ops.job_run
+CREATE TABLE canone_ops.job_run (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  job_name     text NOT NULL,
+  -- Chave de idempotência: reprocessar o mesmo dia não duplica.
+  idempotency_key text UNIQUE,
+  payload      jsonb NOT NULL DEFAULT '{}'::jsonb,
+  status       text NOT NULL DEFAULT 'pendente'
+               CHECK (status IN ('pendente','executando','concluido','falhou','cancelado')),
+  attempts     int NOT NULL DEFAULT 0,
+  max_attempts int NOT NULL DEFAULT 3,
+  error        text,
+  error_detail jsonb,
+  scheduled_at timestamptz NOT NULL DEFAULT now(),
+  started_at   timestamptz,
+  finished_at  timestamptz,
+  duration_ms  int,
+  triggered_by text NOT NULL DEFAULT 'scheduler'
+);
+
+-- Source: 010_ops_platform.sql:128 ops.notification_template => canone_ops.notification_template
+CREATE TABLE canone_ops.notification_template (
+  key         text NOT NULL,
+  channel     text NOT NULL CHECK (channel IN ('email','push','inapp','sms')),
+  locale      text NOT NULL DEFAULT 'pt-BR',
+  subject     text,
+  body        text NOT NULL,
+  -- Variáveis aceitas no template.
+  variables   jsonb NOT NULL DEFAULT '{}'::jsonb,
+  version     int NOT NULL DEFAULT 1,
+  active      boolean NOT NULL DEFAULT true,
+  updated_at  timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (key, channel, locale, version)
+);
+
+-- Source: 010_ops_platform.sql:145 ops.notification => canone_ops.notification
+CREATE TABLE canone_ops.notification (
+  id         uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id    uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  template_key text NOT NULL,
+  channel    text NOT NULL,
+  payload    jsonb NOT NULL DEFAULT '{}'::jsonb,
+  status     text NOT NULL DEFAULT 'pendente'
+             CHECK (status IN ('pendente','enviado','falhou','lido','cancelado')),
+  read_at    timestamptz,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  sent_at    timestamptz
+);
+
+-- Source: 010_ops_platform.sql:159 ops.notification_delivery => canone_ops.notification_delivery
+CREATE TABLE canone_ops.notification_delivery (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  notification_id uuid NOT NULL REFERENCES canone_ops.notification(id) ON DELETE CASCADE,
+  provider        text,
+  provider_ref    text,
+  status          text NOT NULL DEFAULT 'pendente',
+  attempt         int NOT NULL DEFAULT 1,
+  error           text,
+  created_at      timestamptz NOT NULL DEFAULT now(),
+  delivered_at    timestamptz
+);
+
+-- Source: 010_ops_platform.sql:171 ops.error_event => canone_ops.error_event
+CREATE TABLE canone_ops.error_event (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  fingerprint  text NOT NULL,
+  message      text NOT NULL,
+  stack        text,
+  context      jsonb NOT NULL DEFAULT '{}'::jsonb,
+  request_id   text,
+  user_id      uuid,
+  environment  text NOT NULL DEFAULT 'production',
+  occurrence_count int NOT NULL DEFAULT 1,
+  first_seen_at timestamptz NOT NULL DEFAULT now(),
+  last_seen_at  timestamptz NOT NULL DEFAULT now(),
+  resolved_at  timestamptz,
+  UNIQUE (fingerprint, environment)
+);
+
+-- Source: 010_ops_platform.sql:190 ops.metric_daily => canone_ops.metric_daily
+CREATE TABLE canone_ops.metric_daily (
+  metric_date  date NOT NULL,
+  metric_key   text NOT NULL,
+  dimensions   jsonb NOT NULL DEFAULT '{}'::jsonb,
+  value        numeric(18,4) NOT NULL DEFAULT 0,
+  updated_at   timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (metric_date, metric_key, dimensions)
+);
+
+-- Source: 010_ops_platform.sql:199 ops.migration_log => canone_ops.migration_log
+CREATE TABLE canone_ops.migration_log (
+  version      text PRIMARY KEY,
+  checksum     char(64) NOT NULL,
+  applied_at   timestamptz NOT NULL DEFAULT now(),
+  applied_by   text NOT NULL DEFAULT 'runner',
+  duration_ms  int,
+  -- Se true, a migration foi aplicada em ambiente de desenvolvimento.
+  is_dev       boolean NOT NULL DEFAULT false
+);
+
+-- Source: 018_provas_gabarito.sql:74 taxonomy.exam_track => canone_taxonomy.exam_track
+CREATE TABLE canone_taxonomy.exam_track (
+  id                uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  exam_edition_id   uuid NOT NULL REFERENCES canone_taxonomy.exam_edition(id) ON DELETE CASCADE,
+  -- 'suficiencia' | 'eqt'
+  track_code        text NOT NULL CHECK (track_code IN ('suficiencia','eqt')),
+  -- Especialidade da EQT: BCB | CVM | SUSEP | PREVIC | QTG | PERITO.
+  -- NULL na Suficiência (que não tem especialidade).
+  specialty_code    text,
+  label             text NOT NULL,
+  -- O número de questões da trilha. É AQUI que 50 e 25 vivem.
+  question_count        int NOT NULL CHECK (question_count > 0),
+  options_per_question  int NOT NULL DEFAULT 4 CHECK (options_per_question BETWEEN 2 AND 5),
+  -- Critério de aprovação. NULL = ainda não apurado na fonte (não se
+  -- inventa nota de corte).
+  passing_score         int CHECK (passing_score IS NULL OR passing_score >= 0),
+  passing_percent       numeric(5,2),
+  created_at         timestamptz NOT NULL DEFAULT now(),
+  CONSTRAINT ck_exam_track_especialidade
+    CHECK ((track_code = 'eqt') = (specialty_code IS NOT NULL))
+);
+
+-- Source: 018_provas_gabarito.sql:112 learning.exam_form => canone_learning.exam_form
+CREATE TABLE canone_learning.exam_form (
+  id             uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  exam_track_id  uuid NOT NULL REFERENCES canone_taxonomy.exam_track(id) ON DELETE CASCADE,
+  -- 'T01'..'T99'
+  form_code      text NOT NULL CHECK (form_code ~ '^T[0-9]{2}$'),
+  form_label     text NOT NULL,
+  -- PDF da prova aplicada (fonte primária). NULL enquanto não houver o
+  -- arquivo conferido.
+  source_id      uuid REFERENCES canone_editorial.source(id),
+  applied_at     date,
+  created_at     timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (exam_track_id, form_code)
+);
+
+-- Source: 018_provas_gabarito.sql:134 learning.exam_form_item => canone_learning.exam_form_item
+CREATE TABLE canone_learning.exam_form_item (
+  exam_form_id uuid NOT NULL REFERENCES canone_learning.exam_form(id) ON DELETE CASCADE,
+  ordinal      int NOT NULL CHECK (ordinal > 0),
+  item_id      uuid NOT NULL REFERENCES canone_learning.item(id),
+  PRIMARY KEY (exam_form_id, ordinal),
+  UNIQUE (exam_form_id, item_id)
+);
+
+-- Source: 018_provas_gabarito.sql:147 learning.answer_key => canone_learning.answer_key
+CREATE TABLE canone_learning.answer_key (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  exam_form_id  uuid NOT NULL REFERENCES canone_learning.exam_form(id) ON DELETE CASCADE,
+  -- 'preliminar' = o que saiu primeiro; 'definitivo' = o oficial.
+  status        text NOT NULL CHECK (status IN ('preliminar','definitivo')),
+  -- A fonte é OBRIGATÓRIA: gabarito sem PDF de origem é opinião.
+  source_id     uuid NOT NULL REFERENCES canone_editorial.source(id),
+  -- Trecho literal do gabarito que sustenta a extração.
+  source_quote  text,
+  published_at  date,
+  -- O definitivo substitui o preliminar.
+  supersedes_id uuid REFERENCES canone_learning.answer_key(id),
+  -- Procedência da extração: versão do parser, método, hash do arquivo.
+  extraction    jsonb NOT NULL DEFAULT '{}'::jsonb,
+  created_at    timestamptz NOT NULL DEFAULT now()
+);
+
+-- Source: 018_provas_gabarito.sql:179 learning.answer_key_entry => canone_learning.answer_key_entry
+CREATE TABLE canone_learning.answer_key_entry (
+  answer_key_id  uuid NOT NULL REFERENCES canone_learning.answer_key(id) ON DELETE CASCADE,
+  ordinal        int NOT NULL CHECK (ordinal > 0),
+  correct_option text CHECK (correct_option IN ('A','B','C','D','E')),
+  is_annulled    boolean NOT NULL DEFAULT false,
+  PRIMARY KEY (answer_key_id, ordinal),
+  CONSTRAINT ck_answer_key_entry_ou_ou
+    CHECK ((is_annulled AND correct_option IS NULL)
+        OR (NOT is_annulled AND correct_option IS NOT NULL))
+);
+
+-- Source: 019_tentativa_ingestao.sql:36 learning.exam_attempt => canone_learning.exam_attempt
+CREATE TABLE canone_learning.exam_attempt (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id       uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  -- Prova REAL (variante aplicada) ou SIMULADO. Exatamente uma das duas.
+  exam_form_id  uuid REFERENCES canone_learning.exam_form(id) ON DELETE CASCADE,
+  mock_exam_id  uuid REFERENCES canone_learning.mock_exam(id) ON DELETE CASCADE,
+  status        text NOT NULL DEFAULT 'em_andamento'
+                CHECK (status IN ('em_andamento','concluida','abandonada')),
+  started_at    timestamptz NOT NULL DEFAULT now(),
+  finished_at   timestamptz,
+  -- Contagens de FATO sobre as respostas (não são nota de aprovação).
+  answered_count int NOT NULL DEFAULT 0,
+  correct_count  int NOT NULL DEFAULT 0,
+  wrong_count    int NOT NULL DEFAULT 0,
+  annulled_count int NOT NULL DEFAULT 0,
+  CONSTRAINT ck_exam_attempt_alvo CHECK (
+    (exam_form_id IS NOT NULL)::int + (mock_exam_id IS NOT NULL)::int = 1
+  ),
+  CONSTRAINT ck_exam_attempt_fim CHECK (
+    status = 'em_andamento' OR finished_at IS NOT NULL
+  )
+);
+
+-- Source: 019_tentativa_ingestao.sql:64 learning.exam_attempt_answer => canone_learning.exam_attempt_answer
+CREATE TABLE canone_learning.exam_attempt_answer (
+  attempt_id    uuid NOT NULL REFERENCES canone_learning.exam_attempt(id) ON DELETE CASCADE,
+  ordinal       int NOT NULL CHECK (ordinal > 0),
+  item_id       uuid NOT NULL REFERENCES canone_learning.item(id),
+  chosen_option text CHECK (chosen_option IN ('A','B','C','D','E')),
+  -- O VEREDITO do servidor, guardado. 'anulada' é um estado de primeira
+  -- classe: a questão foi anulada pelo CFC.
+  verdict       text NOT NULL CHECK (verdict IN ('correta','errada','anulada')),
+  answered_at   timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (attempt_id, ordinal),
+  UNIQUE (attempt_id, item_id)
+);
+
+-- Deny-by-default. Future policies require authorization tests.
+REVOKE ALL ON TABLE canone_identity.data_request FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_identity.data_request ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_identity.data_request FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_identity.data_request_event FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_identity.data_request_event ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_identity.data_request_event FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_editorial.content_type FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_editorial.content_type ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_editorial.content_type FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_editorial.content_type_version FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_editorial.content_type_version ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_editorial.content_type_version FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_editorial.field_definition FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_editorial.field_definition ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_editorial.field_definition FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_editorial.enumeration FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_editorial.enumeration ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_editorial.enumeration FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_editorial.enumeration_value FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_editorial.enumeration_value ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_editorial.enumeration_value FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_editorial.state_definition FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_editorial.state_definition ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_editorial.state_definition FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_editorial.state_transition FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_editorial.state_transition ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_editorial.state_transition FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_editorial.content_item FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_editorial.content_item ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_editorial.content_item FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_editorial.content_item_version FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_editorial.content_item_version ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_editorial.content_item_version FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_editorial.content_relation_type FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_editorial.content_relation_type ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_editorial.content_relation_type FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_editorial.content_relation FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_editorial.content_relation ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_editorial.content_relation FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_editorial.content_revision FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_editorial.content_revision ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_editorial.content_revision FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_editorial.source FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_editorial.source ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_editorial.source FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_editorial.verification FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_editorial.verification ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_editorial.verification FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_taxonomy.knowledge_area FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_taxonomy.knowledge_area ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_taxonomy.knowledge_area FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_taxonomy.subject FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_taxonomy.subject ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_taxonomy.subject FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_taxonomy.subtopic FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_taxonomy.subtopic ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_taxonomy.subtopic FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_taxonomy.exam_edition FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_taxonomy.exam_edition ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_taxonomy.exam_edition FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_taxonomy.blueprint FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_taxonomy.blueprint ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_taxonomy.blueprint FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_taxonomy.item_placement FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_taxonomy.item_placement ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_taxonomy.item_placement FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_taxonomy.module FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_taxonomy.module ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_taxonomy.module FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_taxonomy.module_subject FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_taxonomy.module_subject ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_taxonomy.module_subject FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_norms.issuer FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_norms.issuer ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_norms.issuer FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_norms.norm FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_norms.norm ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_norms.norm FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_norms.norm_version FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_norms.norm_version ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_norms.norm_version FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_norms.norm_item FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_norms.norm_item ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_norms.norm_item FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_editorial.content_norm_citation FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_editorial.content_norm_citation ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_editorial.content_norm_citation FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.item FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.item ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.item FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.item_option FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.item_option ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.item_option FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.explanation FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.explanation ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.explanation FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.item_subject FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.item_subject ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.item_subject FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.study_block FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.study_block ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.study_block FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.mock_exam FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.mock_exam ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.mock_exam FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.mock_exam_item FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.mock_exam_item ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.mock_exam_item FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.mind_map FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.mind_map ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.mind_map FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.mind_map_node FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.mind_map_node ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.mind_map_node FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.pocket_entry FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.pocket_entry ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.pocket_entry FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.case_step FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.case_step ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.case_step FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.session FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.session ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.session FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.review_event FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.review_event ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.review_event FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.user_item_state FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.user_item_state ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.user_item_state FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.mastery FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.mastery ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.mastery FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.favorite FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.favorite ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.favorite FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.note FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.note ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.note FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.offline_pack FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.offline_pack ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.offline_pack FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.study_plan FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.study_plan ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.study_plan FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.duel FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.duel ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.duel FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_commerce.plan FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_commerce.plan ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_commerce.plan FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_commerce.plan_feature FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_commerce.plan_feature ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_commerce.plan_feature FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_commerce.subscription FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_commerce.subscription ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_commerce.subscription FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_commerce.payment FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_commerce.payment ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_commerce.payment FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_commerce.invoice FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_commerce.invoice ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_commerce.invoice FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_commerce.entitlement FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_commerce.entitlement ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_commerce.entitlement FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_commerce.coupon FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_commerce.coupon ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_commerce.coupon FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_audit.audit_log FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_audit.audit_log ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_audit.audit_log FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_admin.support_access_grant FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_admin.support_access_grant ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_admin.support_access_grant FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_admin.support_access_log FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_admin.support_access_log ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_admin.support_access_log FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_admin.moderation_queue FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_admin.moderation_queue ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_admin.moderation_queue FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_admin.content_report FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_admin.content_report ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_admin.content_report FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_admin.user_note FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_admin.user_note ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_admin.user_note FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_admin.feature_flag FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_admin.feature_flag ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_admin.feature_flag FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_ops.setting FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_ops.setting ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_ops.setting FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_ops.integration FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_ops.integration ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_ops.integration FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_ops.api_key FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_ops.api_key ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_ops.api_key FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_ops.webhook FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_ops.webhook ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_ops.webhook FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_ops.webhook_delivery FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_ops.webhook_delivery ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_ops.webhook_delivery FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_ops.job_run FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_ops.job_run ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_ops.job_run FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_ops.notification_template FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_ops.notification_template ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_ops.notification_template FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_ops.notification FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_ops.notification ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_ops.notification FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_ops.notification_delivery FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_ops.notification_delivery ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_ops.notification_delivery FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_ops.error_event FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_ops.error_event ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_ops.error_event FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_ops.metric_daily FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_ops.metric_daily ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_ops.metric_daily FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_ops.migration_log FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_ops.migration_log ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_ops.migration_log FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_taxonomy.exam_track FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_taxonomy.exam_track ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_taxonomy.exam_track FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.exam_form FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.exam_form ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.exam_form FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.exam_form_item FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.exam_form_item ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.exam_form_item FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.answer_key FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.answer_key ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.answer_key FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.answer_key_entry FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.answer_key_entry ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.answer_key_entry FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.exam_attempt FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.exam_attempt ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.exam_attempt FORCE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE canone_learning.exam_attempt_answer FROM PUBLIC, anon, authenticated;
+ALTER TABLE canone_learning.exam_attempt_answer ENABLE ROW LEVEL SECURITY;
+ALTER TABLE canone_learning.exam_attempt_answer FORCE ROW LEVEL SECURITY;
+COMMIT;
