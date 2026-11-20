@@ -1,0 +1,140 @@
+-- CÂNONE 007 integrity guards, candidate only; non-deployable; DO NOT RUN on shared DB
+-- 7 reviewed trigger functions + 8 structural integrity triggers + 12 explicit timestamp triggers.
+-- SECURITY INVOKER, revoke execute from browser roles; no service-role bypass.
+-- Legal/editorial gates and full concurrency review are separate from SQL structural tests.
+BEGIN;
+SET LOCAL search_path = pg_catalog;
+DO $guard$ BEGIN IF to_regclass('canone_control.migration_catalog') IS NOT NULL THEN RAISE EXCEPTION 'REFUSE_SHARED_CANONE_SOURCE'; END IF; IF to_regclass('canone_learning.answer_key_entry') IS NULL OR to_regclass('auth.users') IS NULL THEN RAISE EXCEPTION 'REQUIRE_ISOLATED_CANONE_PILOT'; END IF; END $guard$;
+-- source 007_learning_srs.sql:88 learning.review_event_is_immutable SHA256 5aeeac8299f6c115f40f786ae37c350f74d29993d5dbf929f1cae4792fb58405 (reviewed replacement)
+CREATE OR REPLACE FUNCTION canone_learning.review_event_is_immutable() RETURNS trigger
+LANGUAGE plpgsql VOLATILE SECURITY INVOKER SET search_path = pg_catalog AS $fn$
+BEGIN
+  RAISE EXCEPTION 'review_event append-only: % not permitted', TG_OP USING ERRCODE='23514';
+END;
+$fn$;
+REVOKE ALL ON FUNCTION canone_learning.review_event_is_immutable() FROM PUBLIC, anon, authenticated;
+-- source 009_admin_governance.sql:96 audit.forbid_mutation SHA256 d711a2c084f96cd843ad6f560bec461c8b79409841d983f74fc3a76867097c3e (reviewed replacement)
+CREATE OR REPLACE FUNCTION canone_audit.forbid_mutation() RETURNS trigger
+LANGUAGE plpgsql VOLATILE SECURITY INVOKER SET search_path = pg_catalog AS $fn$
+BEGIN
+  RAISE EXCEPTION 'audit_log append-only: % not permitted', TG_OP USING ERRCODE='23514';
+END;
+$fn$;
+REVOKE ALL ON FUNCTION canone_audit.forbid_mutation() FROM PUBLIC, anon, authenticated;
+-- source 024_gabarito_imutavel_regua_fixa.sql:1 learning.answer_key_definitivo_imutavel SHA256 4f7da9dc30dd298926b46da90fdba6c6abc8f7ce5ae5076a0af5d215c0a78639 (reviewed replacement)
+CREATE OR REPLACE FUNCTION canone_learning.answer_key_definitivo_imutavel() RETURNS trigger
+LANGUAGE plpgsql VOLATILE SECURITY INVOKER SET search_path = pg_catalog AS $fn$
+DECLARE v_status text;
+BEGIN
+  IF TG_OP IN ('UPDATE','DELETE') THEN
+    SELECT status INTO v_status FROM canone_learning.answer_key WHERE id=OLD.answer_key_id FOR SHARE;
+    IF v_status='definitivo' AND (TG_OP='DELETE' OR NEW IS DISTINCT FROM OLD) THEN
+      RAISE EXCEPTION 'definitive answer key entry cannot be modified or removed' USING ERRCODE='23514';
+    END IF;
+  END IF;
+  IF TG_OP IN ('INSERT','UPDATE') THEN
+    SELECT status INTO v_status FROM canone_learning.answer_key WHERE id=NEW.answer_key_id FOR SHARE;
+    IF v_status='definitivo' AND (TG_OP='INSERT' OR NEW IS DISTINCT FROM OLD) THEN
+      RAISE EXCEPTION 'definitive answer key entry cannot be inserted or reassigned' USING ERRCODE='23514';
+    END IF;
+  END IF;
+  IF TG_OP='DELETE' THEN RETURN OLD; END IF;
+  RETURN NEW;
+END;
+$fn$;
+REVOKE ALL ON FUNCTION canone_learning.answer_key_definitivo_imutavel() FROM PUBLIC, anon, authenticated;
+-- source 024_gabarito_imutavel_regua_fixa.sql:82 learning.answer_key_status_imutavel SHA256 10f0c2fd883e9652094c48d922ea6194508664678b236d268a8e18a188f69413 (reviewed replacement)
+CREATE OR REPLACE FUNCTION canone_learning.answer_key_status_imutavel() RETURNS trigger
+LANGUAGE plpgsql VOLATILE SECURITY INVOKER SET search_path = pg_catalog AS $fn$
+BEGIN
+  IF TG_OP='DELETE' THEN
+    IF OLD.status='definitivo' THEN
+      RAISE EXCEPTION 'definitive answer key cannot be deleted' USING ERRCODE='23514';
+    END IF;
+    RETURN OLD;
+  END IF;
+  IF TG_OP='UPDATE' AND OLD.status='definitivo' AND NEW IS DISTINCT FROM OLD THEN
+    RAISE EXCEPTION 'definitive answer key cannot be downgraded or edited' USING ERRCODE='23514';
+  END IF;
+  RETURN NEW;
+END;
+$fn$;
+REVOKE ALL ON FUNCTION canone_learning.answer_key_status_imutavel() FROM PUBLIC, anon, authenticated;
+-- source 022_prova_selada_letra_inteira.sql:128 learning.prova_selada_nao_muda SHA256 a2e502a5c3a7dec22924775fb651b3199549e8392216e701eb97b9d3970728a1 (reviewed replacement)
+CREATE OR REPLACE FUNCTION canone_learning.prova_selada_nao_muda() RETURNS trigger
+LANGUAGE plpgsql VOLATILE SECURITY INVOKER SET search_path = pg_catalog AS $fn$
+DECLARE v_sealed boolean;
+BEGIN
+  IF TG_OP='UPDATE' AND NEW IS NOT DISTINCT FROM OLD THEN RETURN NEW; END IF;
+  IF TG_OP IN ('UPDATE','DELETE') THEN
+    SELECT EXISTS(SELECT 1 FROM canone_learning.answer_key
+       WHERE exam_form_id=OLD.exam_form_id AND status='definitivo') INTO v_sealed;
+    IF v_sealed THEN
+      RAISE EXCEPTION 'sealed exam form entries cannot be changed' USING ERRCODE='23514';
+    END IF;
+  END IF;
+  IF TG_OP IN ('INSERT','UPDATE') THEN
+    SELECT EXISTS(SELECT 1 FROM canone_learning.answer_key
+       WHERE exam_form_id=NEW.exam_form_id AND status='definitivo') INTO v_sealed;
+    IF v_sealed THEN
+      RAISE EXCEPTION 'sealed exam form entries cannot be inserted or reassigned' USING ERRCODE='23514';
+    END IF;
+  END IF;
+  IF TG_OP='DELETE' THEN RETURN OLD; END IF;
+  RETURN NEW;
+END;
+$fn$;
+REVOKE ALL ON FUNCTION canone_learning.prova_selada_nao_muda() FROM PUBLIC, anon, authenticated;
+-- source 024_gabarito_imutavel_regua_fixa.sql:116 learning.exam_count_imutavel_apos_selo SHA256 786b363db77adcd555e6f174d1ad5ff17c8f903cd8f20358288666ddff35e08b (reviewed replacement)
+CREATE OR REPLACE FUNCTION canone_learning.exam_count_imutavel_apos_selo() RETURNS trigger
+LANGUAGE plpgsql VOLATILE SECURITY INVOKER SET search_path = pg_catalog AS $fn$
+DECLARE v_sealed boolean;
+BEGIN
+  IF NEW.question_count IS NOT DISTINCT FROM OLD.question_count THEN RETURN NEW; END IF;
+  IF TG_TABLE_SCHEMA='canone_taxonomy' AND TG_TABLE_NAME='exam_track' THEN
+    SELECT EXISTS(SELECT 1 FROM canone_learning.exam_form f
+      JOIN canone_learning.answer_key k ON k.exam_form_id=f.id AND k.status='definitivo'
+      WHERE f.exam_track_id=OLD.id) INTO v_sealed;
+  ELSIF TG_TABLE_SCHEMA='canone_taxonomy' AND TG_TABLE_NAME='exam_edition' THEN
+    SELECT EXISTS(SELECT 1 FROM canone_taxonomy.exam_track t
+      JOIN canone_learning.exam_form f ON f.exam_track_id=t.id
+      JOIN canone_learning.answer_key k ON k.exam_form_id=f.id AND k.status='definitivo'
+      WHERE t.exam_edition_id=OLD.id AND t.track_code='suficiencia') INTO v_sealed;
+  ELSE
+    RAISE EXCEPTION 'unexpected table for sealed exam count guard' USING ERRCODE='23514';
+  END IF;
+  IF v_sealed THEN RAISE EXCEPTION 'cannot change question count after definitive seal' USING ERRCODE='23514'; END IF;
+  RETURN NEW;
+END;
+$fn$;
+REVOKE ALL ON FUNCTION canone_learning.exam_count_imutavel_apos_selo() FROM PUBLIC, anon, authenticated;
+-- source 011_triggers_integridade.sql:381 ops.touch_updated_at SHA256 6c032dbc5dca7f8ebc375011f83c45c3c7706196c235ea1a47af553b8f65d9c9 (reviewed replacement)
+CREATE OR REPLACE FUNCTION canone_ops.touch_updated_at() RETURNS trigger
+LANGUAGE plpgsql VOLATILE SECURITY INVOKER SET search_path = pg_catalog AS $fn$
+BEGIN
+  NEW.updated_at := CURRENT_TIMESTAMP;
+  RETURN NEW;
+END;
+$fn$;
+REVOKE ALL ON FUNCTION canone_ops.touch_updated_at() FROM PUBLIC, anon, authenticated;
+CREATE TRIGGER trg_review_event_immutable BEFORE UPDATE OR DELETE ON canone_learning.review_event FOR EACH ROW EXECUTE FUNCTION canone_learning.review_event_is_immutable();
+CREATE TRIGGER trg_audit_no_update BEFORE UPDATE OR DELETE ON canone_audit.audit_log FOR EACH ROW EXECUTE FUNCTION canone_audit.forbid_mutation();
+CREATE TRIGGER trg_answer_key_entry_definitivo_imutavel BEFORE INSERT OR UPDATE OR DELETE ON canone_learning.answer_key_entry FOR EACH ROW EXECUTE FUNCTION canone_learning.answer_key_definitivo_imutavel();
+CREATE TRIGGER trg_answer_key_status_imutavel BEFORE UPDATE ON canone_learning.answer_key FOR EACH ROW EXECUTE FUNCTION canone_learning.answer_key_status_imutavel();
+CREATE TRIGGER trg_answer_key_definitivo_imutavel BEFORE DELETE ON canone_learning.answer_key FOR EACH ROW EXECUTE FUNCTION canone_learning.answer_key_status_imutavel();
+CREATE TRIGGER trg_prova_selada_nao_muda BEFORE INSERT OR UPDATE OR DELETE ON canone_learning.exam_form_item FOR EACH ROW EXECUTE FUNCTION canone_learning.prova_selada_nao_muda();
+CREATE TRIGGER trg_exam_track_count_imutavel BEFORE UPDATE OF question_count ON canone_taxonomy.exam_track FOR EACH ROW EXECUTE FUNCTION canone_learning.exam_count_imutavel_apos_selo();
+CREATE TRIGGER trg_exam_edition_count_imutavel BEFORE UPDATE OF question_count ON canone_taxonomy.exam_edition FOR EACH ROW EXECUTE FUNCTION canone_learning.exam_count_imutavel_apos_selo();
+CREATE TRIGGER trg_touch_canone_identity_user_profile BEFORE UPDATE ON canone_identity.user_profile FOR EACH ROW EXECUTE FUNCTION canone_ops.touch_updated_at();
+CREATE TRIGGER trg_touch_canone_editorial_content_item BEFORE UPDATE ON canone_editorial.content_item FOR EACH ROW EXECUTE FUNCTION canone_ops.touch_updated_at();
+CREATE TRIGGER trg_touch_canone_editorial_verification BEFORE UPDATE ON canone_editorial.verification FOR EACH ROW EXECUTE FUNCTION canone_ops.touch_updated_at();
+CREATE TRIGGER trg_touch_canone_learning_item BEFORE UPDATE ON canone_learning.item FOR EACH ROW EXECUTE FUNCTION canone_ops.touch_updated_at();
+CREATE TRIGGER trg_touch_canone_learning_user_item_state BEFORE UPDATE ON canone_learning.user_item_state FOR EACH ROW EXECUTE FUNCTION canone_ops.touch_updated_at();
+CREATE TRIGGER trg_touch_canone_learning_mastery BEFORE UPDATE ON canone_learning.mastery FOR EACH ROW EXECUTE FUNCTION canone_ops.touch_updated_at();
+CREATE TRIGGER trg_touch_canone_learning_note BEFORE UPDATE ON canone_learning.note FOR EACH ROW EXECUTE FUNCTION canone_ops.touch_updated_at();
+CREATE TRIGGER trg_touch_canone_commerce_plan BEFORE UPDATE ON canone_commerce.plan FOR EACH ROW EXECUTE FUNCTION canone_ops.touch_updated_at();
+CREATE TRIGGER trg_touch_canone_commerce_subscription BEFORE UPDATE ON canone_commerce.subscription FOR EACH ROW EXECUTE FUNCTION canone_ops.touch_updated_at();
+CREATE TRIGGER trg_touch_canone_ops_setting BEFORE UPDATE ON canone_ops.setting FOR EACH ROW EXECUTE FUNCTION canone_ops.touch_updated_at();
+CREATE TRIGGER trg_touch_canone_ops_integration BEFORE UPDATE ON canone_ops.integration FOR EACH ROW EXECUTE FUNCTION canone_ops.touch_updated_at();
+CREATE TRIGGER trg_touch_canone_ops_webhook BEFORE UPDATE ON canone_ops.webhook FOR EACH ROW EXECUTE FUNCTION canone_ops.touch_updated_at();
+COMMIT;

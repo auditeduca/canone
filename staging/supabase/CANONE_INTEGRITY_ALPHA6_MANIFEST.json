@@ -1,0 +1,229 @@
+{
+  "functions": [
+    {
+      "canonical": "canone_learning.review_event_is_immutable",
+      "legacy": "learning.review_event_is_immutable",
+      "security": "SECURITY_INVOKER_REVOKED_PUBLIC",
+      "source_file": "007_learning_srs.sql",
+      "source_line": 88,
+      "source_sha256": "5aeeac8299f6c115f40f786ae37c350f74d29993d5dbf929f1cae4792fb58405"
+    },
+    {
+      "canonical": "canone_audit.forbid_mutation",
+      "legacy": "audit.forbid_mutation",
+      "security": "SECURITY_INVOKER_REVOKED_PUBLIC",
+      "source_file": "009_admin_governance.sql",
+      "source_line": 96,
+      "source_sha256": "d711a2c084f96cd843ad6f560bec461c8b79409841d983f74fc3a76867097c3e"
+    },
+    {
+      "canonical": "canone_learning.answer_key_definitivo_imutavel",
+      "legacy": "learning.answer_key_definitivo_imutavel",
+      "security": "SECURITY_INVOKER_REVOKED_PUBLIC",
+      "source_file": "024_gabarito_imutavel_regua_fixa.sql",
+      "source_line": 1,
+      "source_sha256": "4f7da9dc30dd298926b46da90fdba6c6abc8f7ce5ae5076a0af5d215c0a78639"
+    },
+    {
+      "canonical": "canone_learning.answer_key_status_imutavel",
+      "legacy": "learning.answer_key_status_imutavel",
+      "security": "SECURITY_INVOKER_REVOKED_PUBLIC",
+      "source_file": "024_gabarito_imutavel_regua_fixa.sql",
+      "source_line": 82,
+      "source_sha256": "10f0c2fd883e9652094c48d922ea6194508664678b236d268a8e18a188f69413"
+    },
+    {
+      "canonical": "canone_learning.prova_selada_nao_muda",
+      "legacy": "learning.prova_selada_nao_muda",
+      "security": "SECURITY_INVOKER_REVOKED_PUBLIC",
+      "source_file": "022_prova_selada_letra_inteira.sql",
+      "source_line": 128,
+      "source_sha256": "a2e502a5c3a7dec22924775fb651b3199549e8392216e701eb97b9d3970728a1"
+    },
+    {
+      "canonical": "canone_learning.exam_count_imutavel_apos_selo",
+      "legacy": "learning.exam_count_imutavel_apos_selo",
+      "security": "SECURITY_INVOKER_REVOKED_PUBLIC",
+      "source_file": "024_gabarito_imutavel_regua_fixa.sql",
+      "source_line": 116,
+      "source_sha256": "786b363db77adcd555e6f174d1ad5ff17c8f903cd8f20358288666ddff35e08b"
+    },
+    {
+      "canonical": "canone_ops.touch_updated_at",
+      "legacy": "ops.touch_updated_at",
+      "security": "SECURITY_INVOKER_REVOKED_PUBLIC",
+      "source_file": "011_triggers_integridade.sql",
+      "source_line": 381,
+      "source_sha256": "6c032dbc5dca7f8ebc375011f83c45c3c7706196c235ea1a47af553b8f65d9c9"
+    }
+  ],
+  "functions_ported_this_batch": 7,
+  "historical_create_trigger_statements": 26,
+  "historical_functions": 58,
+  "historical_functions_not_yet_ported": 50,
+  "input_candidate_sha256": {
+    "001_identity_and_source_bridge.candidate.sql.txt": "344bd98ca06c79328a9051fecb083d0c5b94052fadb59c2a6620b029ed01528d",
+    "002_domain_tables_82.candidate.sql.txt": "4c684e4733bacb79dd4bcb12e8c9ca85cbf78cccf5cc2939f6ec69ebac682974",
+    "003_indexes_constraints.candidate.sql.txt": "f000b2a5022e64f22a1e373ff467073b72241067fb7f2c328c5d5b69debd5013",
+    "004_invoker_views.candidate.sql.txt": "edf0abfacd6a4a156d37b1a23f602899b80a79b1cecbcf85116d010b010169e9",
+    "005_owner_policies.candidate.sql.txt": "2b2c6c8a720eeb1cfa3b9aaf8d484b7148368424d1eca50fcea352a472df55af",
+    "006_auth_user_id_compat.candidate.sql.txt": "1552e5fb4be35ad65cf4f445bf278c9a6f534091cb7e11bf17b5899cbc8aa975"
+  },
+  "limitations": [
+    "No PG17 / managed Supabase Auth equivalence",
+    "No direct grants or production deployment",
+    "No automatic migration of privileged functions",
+    "Sealed exam concurrency and grading completeness require further E2E review",
+    "Audit insert hash-chaining function still unported; audit_log ingestion not operational"
+  ],
+  "prior_auth_compat_function": 1,
+  "release_gate": "NO_GO",
+  "source_migrations_sha256_verified": 30,
+  "sql_sha256": "0d14f3871aca814d1bc978938d39ce7b552a9809391bd222015db4bdb4fd93e7",
+  "status": "REVIEW_ONLY_NON_DEPLOYABLE",
+  "timestamp_trigger_definitions": 12,
+  "trigger_definitions_this_batch": 20,
+  "triggers": [
+    {
+      "event": "BEFORE UPDATE OR DELETE",
+      "handler": "canone_learning.review_event_is_immutable",
+      "name": "trg_review_event_immutable",
+      "source": "007",
+      "table": "canone_learning.review_event"
+    },
+    {
+      "event": "BEFORE UPDATE OR DELETE",
+      "handler": "canone_audit.forbid_mutation",
+      "name": "trg_audit_no_update",
+      "source": "009",
+      "table": "canone_audit.audit_log"
+    },
+    {
+      "event": "BEFORE INSERT OR UPDATE OR DELETE",
+      "handler": "canone_learning.answer_key_definitivo_imutavel",
+      "name": "trg_answer_key_entry_definitivo_imutavel",
+      "source": "024",
+      "table": "canone_learning.answer_key_entry"
+    },
+    {
+      "event": "BEFORE UPDATE",
+      "handler": "canone_learning.answer_key_status_imutavel",
+      "name": "trg_answer_key_status_imutavel",
+      "source": "024",
+      "table": "canone_learning.answer_key"
+    },
+    {
+      "event": "BEFORE DELETE",
+      "handler": "canone_learning.answer_key_status_imutavel",
+      "name": "trg_answer_key_definitivo_imutavel",
+      "source": "024",
+      "table": "canone_learning.answer_key"
+    },
+    {
+      "event": "BEFORE INSERT OR UPDATE OR DELETE",
+      "handler": "canone_learning.prova_selada_nao_muda",
+      "name": "trg_prova_selada_nao_muda",
+      "source": "022",
+      "table": "canone_learning.exam_form_item"
+    },
+    {
+      "event": "BEFORE UPDATE OF question_count",
+      "handler": "canone_learning.exam_count_imutavel_apos_selo",
+      "name": "trg_exam_track_count_imutavel",
+      "source": "024",
+      "table": "canone_taxonomy.exam_track"
+    },
+    {
+      "event": "BEFORE UPDATE OF question_count",
+      "handler": "canone_learning.exam_count_imutavel_apos_selo",
+      "name": "trg_exam_edition_count_imutavel",
+      "source": "024",
+      "table": "canone_taxonomy.exam_edition"
+    },
+    {
+      "event": "BEFORE UPDATE",
+      "handler": "canone_ops.touch_updated_at",
+      "name": "trg_touch_canone_identity_user_profile",
+      "source": "011_DYNAMIC_DO_REPLACEMENT",
+      "table": "canone_identity.user_profile"
+    },
+    {
+      "event": "BEFORE UPDATE",
+      "handler": "canone_ops.touch_updated_at",
+      "name": "trg_touch_canone_editorial_content_item",
+      "source": "011_DYNAMIC_DO_REPLACEMENT",
+      "table": "canone_editorial.content_item"
+    },
+    {
+      "event": "BEFORE UPDATE",
+      "handler": "canone_ops.touch_updated_at",
+      "name": "trg_touch_canone_editorial_verification",
+      "source": "011_DYNAMIC_DO_REPLACEMENT",
+      "table": "canone_editorial.verification"
+    },
+    {
+      "event": "BEFORE UPDATE",
+      "handler": "canone_ops.touch_updated_at",
+      "name": "trg_touch_canone_learning_item",
+      "source": "011_DYNAMIC_DO_REPLACEMENT",
+      "table": "canone_learning.item"
+    },
+    {
+      "event": "BEFORE UPDATE",
+      "handler": "canone_ops.touch_updated_at",
+      "name": "trg_touch_canone_learning_user_item_state",
+      "source": "011_DYNAMIC_DO_REPLACEMENT",
+      "table": "canone_learning.user_item_state"
+    },
+    {
+      "event": "BEFORE UPDATE",
+      "handler": "canone_ops.touch_updated_at",
+      "name": "trg_touch_canone_learning_mastery",
+      "source": "011_DYNAMIC_DO_REPLACEMENT",
+      "table": "canone_learning.mastery"
+    },
+    {
+      "event": "BEFORE UPDATE",
+      "handler": "canone_ops.touch_updated_at",
+      "name": "trg_touch_canone_learning_note",
+      "source": "011_DYNAMIC_DO_REPLACEMENT",
+      "table": "canone_learning.note"
+    },
+    {
+      "event": "BEFORE UPDATE",
+      "handler": "canone_ops.touch_updated_at",
+      "name": "trg_touch_canone_commerce_plan",
+      "source": "011_DYNAMIC_DO_REPLACEMENT",
+      "table": "canone_commerce.plan"
+    },
+    {
+      "event": "BEFORE UPDATE",
+      "handler": "canone_ops.touch_updated_at",
+      "name": "trg_touch_canone_commerce_subscription",
+      "source": "011_DYNAMIC_DO_REPLACEMENT",
+      "table": "canone_commerce.subscription"
+    },
+    {
+      "event": "BEFORE UPDATE",
+      "handler": "canone_ops.touch_updated_at",
+      "name": "trg_touch_canone_ops_setting",
+      "source": "011_DYNAMIC_DO_REPLACEMENT",
+      "table": "canone_ops.setting"
+    },
+    {
+      "event": "BEFORE UPDATE",
+      "handler": "canone_ops.touch_updated_at",
+      "name": "trg_touch_canone_ops_integration",
+      "source": "011_DYNAMIC_DO_REPLACEMENT",
+      "table": "canone_ops.integration"
+    },
+    {
+      "event": "BEFORE UPDATE",
+      "handler": "canone_ops.touch_updated_at",
+      "name": "trg_touch_canone_ops_webhook",
+      "source": "011_DYNAMIC_DO_REPLACEMENT",
+      "table": "canone_ops.webhook"
+    }
+  ],
+  "version": "0.23.0-alpha.6"
+}
