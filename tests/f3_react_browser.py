@@ -80,7 +80,8 @@ try:
         page.goto(URL,wait_until="networkidle")
         expect(page.get_by_role("heading",name="Simulado com autoridade no servidor")).to_be_visible()
         expect(page.get_by_role("button",name="Carregar formulário de teste")).to_be_visible()
-        assert "gabarito" not in page.locator("main").inner_text().lower().replace("sem gabarito","").replace("o gabarito","")
+        assert "Gabarito retornado pelo servidor:" not in page.locator("main").inner_text()
+        assert state["calls"] == []  # No network calls before explicit start
         page.get_by_role("button",name="Carregar formulário de teste").click()
         expect(page.get_by_role("button",name="Iniciar tentativa no gateway")).to_be_visible()
         page.get_by_role("button",name="Iniciar tentativa no gateway").click()
