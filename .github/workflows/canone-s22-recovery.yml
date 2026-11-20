@@ -255,6 +255,16 @@ jobs:
           python3 -m venv /tmp/canone-ns04-py
           /tmp/canone-ns04-py/bin/python -m pip install --disable-pip-version-check playwright==1.57.0
           /tmp/canone-ns04-py/bin/python -m playwright install --with-deps chromium
+      - name: Node 22 for React browser test
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Install historical React app dependencies (isolated)
+        working-directory: source-s22/app
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: F3 React S22 gateway journey in real Chromium with local mock
+        run: /tmp/canone-ns04-py/bin/python tests/f3_react_browser.py
       - name: Browser P0 flow, early-key negative, mobile 390px and keyboard
         shell: bash
         run: /tmp/canone-ns04-py/bin/python tests/ns04_student_browser.py
