@@ -1,0 +1,579 @@
+{
+  "method": "Drive search 'canone' + bounded folder S11 listing; exact ID dedupe only, not byte hashes",
+  "folder_url": "https://drive.google.com/drive/folders/13dgJr_SSZGbrna-9xDVEbppSYhEUsaS8",
+  "counts": {
+    "drive_search": 65,
+    "s11_folder": 13,
+    "union": 71
+  },
+  "items": [
+    {
+      "id": "1Tv45HKNmduSrcTNNjgGeDF3r01gY5ExWw-s3bX4QOoM",
+      "title": "CANONE_S4_VERIFIED_LOCKFILE_TEMP_20261114",
+      "url": "https://docs.google.com/document/d/1Tv45HKNmduSrcTNNjgGeDF3r01gY5ExWw-s3bX4QOoM/edit?usp=drivesdk",
+      "mime_type": "application/vnd.google-apps.document",
+      "size": "29192",
+      "source": "search_canone"
+    },
+    {
+      "id": "1ax3qIeZLi7BK52Ub5ZMnhH_XexnPrIljCt35wunTcl4",
+      "title": "CANONE_S4_LOCKFILE_EXPORT_TEMP_20261114",
+      "url": "https://docs.google.com/document/d/1ax3qIeZLi7BK52Ub5ZMnhH_XexnPrIljCt35wunTcl4/edit?usp=drivesdk",
+      "mime_type": "application/vnd.google-apps.document",
+      "size": "29194",
+      "source": "search_canone"
+    },
+    {
+      "id": "1I3_aD32QWsfNAAyQnq1a4SZmrZId_u5M",
+      "title": "CANONE_V9_COMO_APLICAR_2026-11-14.md",
+      "url": "https://docs.google.com/document/d/1I3_aD32QWsfNAAyQnq1a4SZmrZId_u5M/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "1736",
+      "source": "search_canone"
+    },
+    {
+      "id": "1e1euBcUeRwEsMzd4THUOlWhWQ7PhVu10",
+      "title": "CANONE_S4_ARTEFATOS_SHA256.txt",
+      "url": "https://drive.google.com/file/d/1e1euBcUeRwEsMzd4THUOlWhWQ7PhVu10/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "630",
+      "source": "search_canone"
+    },
+    {
+      "id": "1kyiDeP2f7ypEE0m-xiW1aBY3g_nxJKJP",
+      "title": "CANONE_S11_SHA256_2026-11-14.txt",
+      "url": "https://drive.google.com/file/d/1kyiDeP2f7ypEE0m-xiW1aBY3g_nxJKJP/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "335",
+      "source": "search_canone"
+    },
+    {
+      "id": "1C7o3NUtDx-UmhYxLabyjjefAHmME2kbt",
+      "title": "CANONE_S10_ARTEFATOS_SHA256.txt",
+      "url": "https://drive.google.com/file/d/1C7o3NUtDx-UmhYxLabyjjefAHmME2kbt/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "335",
+      "source": "search_canone"
+    },
+    {
+      "id": "1e8T3aPJVr-ahf35lkJQLUASK--CcBC1H",
+      "title": "CANONE_S5_SHA256.txt",
+      "url": "https://drive.google.com/file/d/1e8T3aPJVr-ahf35lkJQLUASK--CcBC1H/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "331",
+      "source": "search_canone"
+    },
+    {
+      "id": "1Gvs5dB3XtU4y18JRbSUrT3i_fXi6k6Bl",
+      "title": "CANONE_S9_ARTEFATOS_SHA256.txt",
+      "url": "https://drive.google.com/file/d/1Gvs5dB3XtU4y18JRbSUrT3i_fXi6k6Bl/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "218",
+      "source": "search_canone"
+    },
+    {
+      "id": "1th631cU4HrwRHNtK9OERT_kzlpQiUZNQ",
+      "title": "CANONE_S8_ARTEFATOS_SHA256.txt",
+      "url": "https://drive.google.com/file/d/1th631cU4HrwRHNtK9OERT_kzlpQiUZNQ/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "218",
+      "source": "search_canone"
+    },
+    {
+      "id": "1SGbopTgLwsDOFhEjWYEU7J932MIFVNOQ",
+      "title": "CANONE_S7_SHA256.txt",
+      "url": "https://drive.google.com/file/d/1SGbopTgLwsDOFhEjWYEU7J932MIFVNOQ/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "222",
+      "source": "search_canone"
+    },
+    {
+      "id": "1C-HjETAimjJ32b7yh3tEWkAcWxRToEaR",
+      "title": "CANONE_S6_ARTEFATOS_SHA256_2026-11-14.txt",
+      "url": "https://drive.google.com/file/d/1C-HjETAimjJ32b7yh3tEWkAcWxRToEaR/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "222",
+      "source": "search_canone"
+    },
+    {
+      "id": "18nrNXgnQcJqvjlRyMzqJYJeqU3JTcy5C",
+      "title": "CANONE_S4_GIT_BUNDLE_VERIFY.txt",
+      "url": "https://drive.google.com/file/d/18nrNXgnQcJqvjlRyMzqJYJeqU3JTcy5C/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "260",
+      "source": "search_canone"
+    },
+    {
+      "id": "18erAQ9VJFZOfUH3YfXjVaR4YVEZEV-HO",
+      "title": "CANONE_S3_ARTEFATOS_SHA256.txt",
+      "url": "https://drive.google.com/file/d/18erAQ9VJFZOfUH3YfXjVaR4YVEZEV-HO/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "247",
+      "source": "search_canone"
+    },
+    {
+      "id": "1mUPi1q5-lPCoc_7fQ9dh9chetaGzACi2",
+      "title": "CANONE_S11_RELEASE_GATE_NO_GO.txt",
+      "url": "https://drive.google.com/file/d/1mUPi1q5-lPCoc_7fQ9dh9chetaGzACi2/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "3323",
+      "source": "search_canone"
+    },
+    {
+      "id": "1BODnEjur8wiuifOT9HZDiPTApjsX4Cf_",
+      "title": "CANONE_S10_VERIFICACAO_CLONE.txt",
+      "url": "https://drive.google.com/file/d/1BODnEjur8wiuifOT9HZDiPTApjsX4Cf_/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "413",
+      "source": "search_canone"
+    },
+    {
+      "id": "1vimob4on6q4i1nSpndXWwt-9x35hIlkm",
+      "title": "CANONE_S4_RELEASE_PREFLIGHT_BLOQUEADO.txt",
+      "url": "https://drive.google.com/file/d/1vimob4on6q4i1nSpndXWwt-9x35hIlkm/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "3323",
+      "source": "search_canone"
+    },
+    {
+      "id": "1eZ7iVC64xwgutSMYubKJEl7CdoECjpDN",
+      "title": "CANONE_S11_TESTES_CLONE_190.txt",
+      "url": "https://drive.google.com/file/d/1eZ7iVC64xwgutSMYubKJEl7CdoECjpDN/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "37141",
+      "source": "search_canone"
+    },
+    {
+      "id": "1kkur4YA6jmECZIXqLQ7vJuUftBA4GhvO",
+      "title": "CANONE_S11_TESTES_OFFLINE_190.txt",
+      "url": "https://drive.google.com/file/d/1kkur4YA6jmECZIXqLQ7vJuUftBA4GhvO/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "37147",
+      "source": "search_canone"
+    },
+    {
+      "id": "1Nwm00BA6mXVbApWA2xiSlYSEtScijB_c",
+      "title": "CANONE_S10_CHECKS_OFFLINE.txt",
+      "url": "https://drive.google.com/file/d/1Nwm00BA6mXVbApWA2xiSlYSEtScijB_c/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "5745",
+      "source": "search_canone"
+    },
+    {
+      "id": "1smqQyy521TjQc6QBbQikcr2RCXTAULOI",
+      "title": "CANONE_S6_CLONE_VERIFY.txt",
+      "url": "https://drive.google.com/file/d/1smqQyy521TjQc6QBbQikcr2RCXTAULOI/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "31294",
+      "source": "search_canone"
+    },
+    {
+      "id": "1gi6xT-iBn5rHvZPZ_vTNRF6KfsNWAltG",
+      "title": "CANONE_S6_159_TESTES.txt",
+      "url": "https://drive.google.com/file/d/1gi6xT-iBn5rHvZPZ_vTNRF6KfsNWAltG/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "31188",
+      "source": "search_canone"
+    },
+    {
+      "id": "1GvxlSuyZz1Xgpw1Ajmu6yJEdPLzaxJBJ",
+      "title": "CANONE_S4_PREVIEW_SECURITY_TESTS.txt",
+      "url": "https://drive.google.com/file/d/1GvxlSuyZz1Xgpw1Ajmu6yJEdPLzaxJBJ/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "1608",
+      "source": "search_canone"
+    },
+    {
+      "id": "1BI3IDMOa1L-O7pIgRdsCh8SxByFNO2tz",
+      "title": "CANONE_S4_INTEGRATION_TESTS.txt",
+      "url": "https://drive.google.com/file/d/1BI3IDMOa1L-O7pIgRdsCh8SxByFNO2tz/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "27052",
+      "source": "search_canone"
+    },
+    {
+      "id": "1At_iSR2we0Ov0TD-4hfQoy_TWyoLRxMS",
+      "title": "CANONE_S3_CLEAN_CLONE_TESTS.txt",
+      "url": "https://drive.google.com/file/d/1At_iSR2we0Ov0TD-4hfQoy_TWyoLRxMS/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "27048",
+      "source": "search_canone"
+    },
+    {
+      "id": "1ihM0kgh6AfDR3fJMtDvowTOu0V1x8QPl",
+      "title": "CANONE_S3_BUNDLE_CLONE_VERIFY.txt",
+      "url": "https://drive.google.com/file/d/1ihM0kgh6AfDR3fJMtDvowTOu0V1x8QPl/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "256",
+      "source": "search_canone"
+    },
+    {
+      "id": "1YbSD0UqamluYOk7Iky0Vhf-TwUZnyxlw",
+      "title": "CANONE_RECONCILIACAO_UNIT_TESTS_2026-11-14.txt",
+      "url": "https://drive.google.com/file/d/1YbSD0UqamluYOk7Iky0Vhf-TwUZnyxlw/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "850",
+      "source": "search_canone"
+    },
+    {
+      "id": "1-JDBGqBpvQf9XTQgyEiF1XTTIakOX_NS",
+      "title": "CANONE_V9_RELEASE_GATE_2026-11-14.txt",
+      "url": "https://drive.google.com/file/d/1-JDBGqBpvQf9XTQgyEiF1XTTIakOX_NS/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "35",
+      "source": "search_canone"
+    },
+    {
+      "id": "1VjFzAEALOFQA-ENtJ5dsBxbNP-ZfW4Tg",
+      "title": "CANONE_V9_PATCH_REPLAY_2026-11-14.txt",
+      "url": "https://drive.google.com/file/d/1VjFzAEALOFQA-ENtJ5dsBxbNP-ZfW4Tg/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "2495",
+      "source": "search_canone"
+    },
+    {
+      "id": "1SUza8m0XW-Zk5c05gFbx32YiYPYaH8e8",
+      "title": "CANONE_V9_SUITE_2026-11-14.txt",
+      "url": "https://drive.google.com/file/d/1SUza8m0XW-Zk5c05gFbx32YiYPYaH8e8/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "27052",
+      "source": "search_canone"
+    },
+    {
+      "id": "1Gt84MCMhhxHA2nVJLFMfl5v_eYEuq9IU",
+      "title": "CANONE_MARCO_V8_SENADO_API_REAL_2026-11-14.txt",
+      "url": "https://drive.google.com/file/d/1Gt84MCMhhxHA2nVJLFMfl5v_eYEuq9IU/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "74",
+      "source": "search_canone"
+    },
+    {
+      "id": "1ule3zw9yEoz-2yUVqy67ct58MMviPe2J",
+      "title": "CANONE_MARCO_V8_RELEASE_GATE_2026-11-14.txt",
+      "url": "https://drive.google.com/file/d/1ule3zw9yEoz-2yUVqy67ct58MMviPe2J/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "35",
+      "source": "search_canone"
+    },
+    {
+      "id": "1InBBfdzU3Rh3QxM7XbdHZ-jaak3W_xhS",
+      "title": "CANONE_MARCO_V8_METADADOS_CHECK_2026-11-14.txt",
+      "url": "https://drive.google.com/file/d/1InBBfdzU3Rh3QxM7XbdHZ-jaak3W_xhS/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "271",
+      "source": "search_canone"
+    },
+    {
+      "id": "1_Ik3Y2xAgdXXoowmfl6Bc_U9uI4fV1Ae",
+      "title": "CANONE_MARCO_V8_TESTES_INTEGRADOS_2026-11-14.txt",
+      "url": "https://drive.google.com/file/d/1_Ik3Y2xAgdXXoowmfl6Bc_U9uI4fV1Ae/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "24851",
+      "source": "search_canone"
+    },
+    {
+      "id": "1iJET3e7XW7J0o5b9E6iSzTs3xs5Xblur",
+      "title": "CANONE_MARCO_V7_TESTES_2026-11-14.txt",
+      "url": "https://drive.google.com/file/d/1iJET3e7XW7J0o5b9E6iSzTs3xs5Xblur/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "22759",
+      "source": "search_canone"
+    },
+    {
+      "id": "1mQjLer2RNyJFzogj1bGEYN-Q-4MDqX6q",
+      "title": "CANONE_MARCO_V6_RELEASE_GATE_2026-11-14.txt",
+      "url": "https://drive.google.com/file/d/1mQjLer2RNyJFzogj1bGEYN-Q-4MDqX6q/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "35",
+      "source": "search_canone"
+    },
+    {
+      "id": "1NTLZ4FMJDee0mfgCpwNZElenChK85zaw",
+      "title": "CANONE_MARCO_V6_TESTES_2026-11-14.txt",
+      "url": "https://drive.google.com/file/d/1NTLZ4FMJDee0mfgCpwNZElenChK85zaw/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "20214",
+      "source": "search_canone"
+    },
+    {
+      "id": "19f8J-dTrz3Vkpfz4Uoo8Z3mqicW55J5c",
+      "title": "CANONE_MARCO_V5_TESTES_2026-11-14.txt",
+      "url": "https://drive.google.com/file/d/19f8J-dTrz3Vkpfz4Uoo8Z3mqicW55J5c/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "17911",
+      "source": "search_canone"
+    },
+    {
+      "id": "1hrejoggpBAgPZ2edbXxzMMGyRw-ivln4",
+      "title": "MARCO_S5_SUPABASE_COMPARTILHADO_2026-11-14.md",
+      "url": "https://docs.google.com/document/d/1hrejoggpBAgPZ2edbXxzMMGyRw-ivln4/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "6965",
+      "source": "search_canone"
+    },
+    {
+      "id": "1zd1C4ntxIKt2je8hsCKmIF3W13cza_9M",
+      "title": "COMO_PUBLICAR_GITHUB_VERCEL_S2.md",
+      "url": "https://docs.google.com/document/d/1zd1C4ntxIKt2je8hsCKmIF3W13cza_9M/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "3111",
+      "source": "search_canone"
+    },
+    {
+      "id": "1irlbghLWsmw0IBEzFla36eOrZw0JC3J8",
+      "title": "MARCO_S9_BACKEND_ENTITLEMENT_SEGURANCA_2026-11-14.md",
+      "url": "https://docs.google.com/document/d/1irlbghLWsmw0IBEzFla36eOrZw0JC3J8/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "4615",
+      "source": "search_canone"
+    },
+    {
+      "id": "1lp7ivDdRAL-iiEaIdDpaHlwFYCps5v29",
+      "title": "S9_INICIE_AQUI.md",
+      "url": "https://docs.google.com/document/d/1lp7ivDdRAL-iiEaIdDpaHlwFYCps5v29/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "3057",
+      "source": "search_canone"
+    },
+    {
+      "id": "1LhYhyUeVtJI6kvCrsM98PH2B05T5BYll",
+      "title": "MARCO_S3_HTTP_SEGURANCA_GIT_2026-11-14.md",
+      "url": "https://docs.google.com/document/d/1LhYhyUeVtJI6kvCrsM98PH2B05T5BYll/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "4242",
+      "source": "search_canone"
+    },
+    {
+      "id": "1HExmJQqb6QJHBXyALcDIvf2b7vv0QSzZ",
+      "title": "MARCO_S2_IMPLANTACAO_RECONCILIADA_2026-11-14.md",
+      "url": "https://docs.google.com/document/d/1HExmJQqb6QJHBXyALcDIvf2b7vv0QSzZ/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "3056",
+      "source": "search_canone"
+    },
+    {
+      "id": "1melMxP2C9N5GQ55FvaDPpEBFqaEWyvga",
+      "title": "MARCO_V6_PILOTO_E_GATES_2026-11-14.md",
+      "url": "https://docs.google.com/document/d/1melMxP2C9N5GQ55FvaDPpEBFqaEWyvga/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "6389",
+      "source": "search_canone"
+    },
+    {
+      "id": "1tbIjneZ60dEy5cutD0JcIpjppnO_dPLP",
+      "title": "MARCO_S6_FABRICA_CANONICA_2026-11-14.md",
+      "url": "https://docs.google.com/document/d/1tbIjneZ60dEy5cutD0JcIpjppnO_dPLP/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "11406",
+      "source": "search_canone"
+    },
+    {
+      "id": "1quod2MvskEQ4uKt37gHbPNxBzW6ZGSpE",
+      "title": "MARCO_S7_PORTABILIDADE_JORNADA_CANONICA_2026-11-14.md",
+      "url": "https://docs.google.com/document/d/1quod2MvskEQ4uKt37gHbPNxBzW6ZGSpE/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "5872",
+      "source": "search_canone"
+    },
+    {
+      "id": "179w855HAdaoCzCyW5hP7HQtUu3v0WSzq",
+      "title": "MARCO_S10_CADERNO_ERROS_VERSIONAMENTO_2026-11-14.md",
+      "url": "https://docs.google.com/document/d/179w855HAdaoCzCyW5hP7HQtUu3v0WSzq/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "3584",
+      "source": "search_canone"
+    },
+    {
+      "id": "1RAVcBScsQJw4V2j4D7ofdtvqsppgmR76",
+      "title": "MARCO_V5_RECUPERACAO_E_TRIAGEM_2026-11-14.md",
+      "url": "https://docs.google.com/document/d/1RAVcBScsQJw4V2j4D7ofdtvqsppgmR76/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "6294",
+      "source": "search_canone"
+    },
+    {
+      "id": "1PvP-1iGhdypD4uCeItcCYOU4r5qqKoQl",
+      "title": "MARCO_S4_VITE6_AUDITORIA_LOCKFILE_2026-11-14.md",
+      "url": "https://docs.google.com/document/d/1PvP-1iGhdypD4uCeItcCYOU4r5qqKoQl/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "5893",
+      "source": "search_canone"
+    },
+    {
+      "id": "1-1KP4d0d8PwTUoPEtlHG2LSUrExBUmR_",
+      "title": "S11_COMMIT_LOG.txt",
+      "url": "https://drive.google.com/file/d/1-1KP4d0d8PwTUoPEtlHG2LSUrExBUmR_/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "3918",
+      "source": "search_canone"
+    },
+    {
+      "id": "1wc9NpBsSY75P4eaJe5v1TIwWnr5DFCYv",
+      "title": "ADR_0010_S11_PORTABILIDADE.md",
+      "url": "https://docs.google.com/document/d/1wc9NpBsSY75P4eaJe5v1TIwWnr5DFCYv/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "2060",
+      "source": "search_canone"
+    },
+    {
+      "id": "1MhrtXN5-dmz7OOks9HQ5E1goRZphZBXB",
+      "title": "ADR_0009_CADERNO_ERROS_DERIVADO.md",
+      "url": "https://docs.google.com/document/d/1MhrtXN5-dmz7OOks9HQ5E1goRZphZBXB/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "1385",
+      "source": "search_canone"
+    },
+    {
+      "id": "1r_kWtL3WZ4nLnDnXTBOqCHlJr4BXN4QH",
+      "title": "S9_BUNDLE_VERIFY.txt",
+      "url": "https://drive.google.com/file/d/1r_kWtL3WZ4nLnDnXTBOqCHlJr4BXN4QH/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "255",
+      "source": "search_canone"
+    },
+    {
+      "id": "1IzjMW7Rc--LhhOM99rVuIxmOjtPkT5Nc",
+      "title": "S8_SUPABASE_READONLY_2026-11-14.txt",
+      "url": "https://drive.google.com/file/d/1IzjMW7Rc--LhhOM99rVuIxmOjtPkT5Nc/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "352",
+      "source": "search_canone"
+    },
+    {
+      "id": "1g6cUwYdobnolI_-rGn2oblUOJkAZjaPD",
+      "title": "S7_BUNDLE_VERIFY.txt",
+      "url": "https://drive.google.com/file/d/1g6cUwYdobnolI_-rGn2oblUOJkAZjaPD/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "264",
+      "source": "search_canone"
+    },
+    {
+      "id": "1Ba7kSzLPGVIO-LyHOzJrocj_SOgZe5Eq",
+      "title": "ADR_0008_FABRICA_CANONICA.md",
+      "url": "https://docs.google.com/document/d/1Ba7kSzLPGVIO-LyHOzJrocj_SOgZe5Eq/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "5493",
+      "source": "search_canone"
+    },
+    {
+      "id": "17Q4Wix87tRfPrcNv5NY8Y9_jeb7ZKvug",
+      "title": "S5_GIT_BUNDLE_VERIFY.txt",
+      "url": "https://drive.google.com/file/d/17Q4Wix87tRfPrcNv5NY8Y9_jeb7ZKvug/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "266",
+      "source": "search_canone"
+    },
+    {
+      "id": "1Km17BQlgZsikwdNzhwXkCvm1JEhQIKU4",
+      "title": "MARCO_S1_PROVISIONAMENTO_VERCEL_2026-11-14.md",
+      "url": "https://docs.google.com/document/d/1Km17BQlgZsikwdNzhwXkCvm1JEhQIKU4/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "3498",
+      "source": "search_canone"
+    },
+    {
+      "id": "14yXod-dU48NC6_PzQF6PNM5nhm89NbXK",
+      "title": "MARCO_V9_RECONCILIACAO_SENADO_2026-11-14.md",
+      "url": "https://docs.google.com/document/d/14yXod-dU48NC6_PzQF6PNM5nhm89NbXK/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "4422",
+      "source": "search_canone"
+    },
+    {
+      "id": "17KJUI7rL_M2jN3lSJrcBRdr-T3H1bjV0",
+      "title": "MARCO_S11_PORTABILIDADE_30_MIGRATIONS_2026-11-14.md",
+      "url": "https://docs.google.com/document/d/17KJUI7rL_M2jN3lSJrcBRdr-T3H1bjV0/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "2802",
+      "source": "search_canone"
+    },
+    {
+      "id": "174sGOFqiLQWwm4zQVwILZh1Gqw68WaT9",
+      "title": "S9_CLONE_GIT_VERIFY.txt",
+      "url": "https://drive.google.com/file/d/174sGOFqiLQWwm4zQVwILZh1Gqw68WaT9/view?usp=drivesdk",
+      "mime_type": "text/plain",
+      "size": "143",
+      "source": "search_canone"
+    },
+    {
+      "id": "1hwTvb3JyJ0iIjiTUJgG9hsnSEA_baJoP",
+      "title": "MARCO_S8_JORNADA_INTERATIVA_2026-11-14.md",
+      "url": "https://docs.google.com/document/d/1hwTvb3JyJ0iIjiTUJgG9hsnSEA_baJoP/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "4429",
+      "source": "search_canone"
+    },
+    {
+      "id": "1Q8EM358WD4_DgapAPcahPm6vJX0URSPP",
+      "title": "RECONCILIACAO_IMPLANTACAO_V9_2026-11-14.md",
+      "url": "https://docs.google.com/document/d/1Q8EM358WD4_DgapAPcahPm6vJX0URSPP/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "9248",
+      "source": "search_canone"
+    },
+    {
+      "id": "1eJNByIc05onA-2FhG93lAlPyq2IEhYHK",
+      "title": "MARCO_V8_SENADO_PROVENIENCIA_2026-11-14.md",
+      "url": "https://docs.google.com/document/d/1eJNByIc05onA-2FhG93lAlPyq2IEhYHK/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "3986",
+      "source": "search_canone"
+    },
+    {
+      "id": "15eJ__ByAxKKJ7woZFI7-R4zSWLD0dcy7",
+      "title": "PENDENCIAS_CONSOLIDADAS_V9_2026-11-14.md",
+      "url": "https://docs.google.com/document/d/15eJ__ByAxKKJ7woZFI7-R4zSWLD0dcy7/edit?usp=drivesdk&ouid=105558538840528747927&rtpof=true&sd=true",
+      "mime_type": "text/markdown",
+      "size": "6716",
+      "source": "search_canone"
+    },
+    {
+      "id": "1NvAFJWrmYrnmr-dfus_OrqdlEF-GzWY3",
+      "title": "S11_FULL_PORTABILITY_AUDIT.json",
+      "url": "https://drive.google.com/file/d/1NvAFJWrmYrnmr-dfus_OrqdlEF-GzWY3/view?usp=drivesdk",
+      "mime_type": "application/json",
+      "size": "21727",
+      "source": "folder_S11"
+    },
+    {
+      "id": "1MiAwiy04ZkTIhnfnFTceWWCLy97ztaMB",
+      "title": "CANONE_S11_EVIDENCIAS_VERCEL_SUPABASE_2026-11-14.json",
+      "url": "https://drive.google.com/file/d/1MiAwiy04ZkTIhnfnFTceWWCLy97ztaMB/view?usp=drivesdk",
+      "mime_type": "application/json",
+      "size": "1422",
+      "source": "folder_S11"
+    },
+    {
+      "id": "1VY02jXDllS42EwpyppTR_ll5q-wSbsUZ",
+      "title": "CANONE_S11_MANIFESTO_INTEGRIDADE_2026-11-14.json",
+      "url": "https://drive.google.com/file/d/1VY02jXDllS42EwpyppTR_ll5q-wSbsUZ/view?usp=drivesdk",
+      "mime_type": "application/json",
+      "size": "68439",
+      "source": "folder_S11"
+    },
+    {
+      "id": "1hQHrVs1Nr0W7tAGbqdf2uFihCx7ydlNb",
+      "title": "CANONE_V9_S11_HISTORICO_GIT_2026-11-14.bundle",
+      "url": "https://drive.google.com/file/d/1hQHrVs1Nr0W7tAGbqdf2uFihCx7ydlNb/view?usp=drivesdk",
+      "mime_type": "application/octet-stream",
+      "size": "869952",
+      "source": "folder_S11"
+    },
+    {
+      "id": "1sRombS4w-usR3NOZvlcYVelY_s16f6RL",
+      "title": "CANONE_V9_S11_APP_INTEGRAL_2026-11-14.zip",
+      "url": "https://drive.google.com/file/d/1sRombS4w-usR3NOZvlcYVelY_s16f6RL/view?usp=drivesdk",
+      "mime_type": "application/zip",
+      "size": "943051",
+      "source": "folder_S11"
+    },
+    {
+      "id": "1n7je5SZEP16FGIWERslysfBVLK0CW8IU",
+      "title": "CANONE_S11_VERCEL_QA_PAYLOAD.json",
+      "url": "https://drive.google.com/file/d/1n7je5SZEP16FGIWERslysfBVLK0CW8IU/view?usp=drivesdk",
+      "mime_type": "application/json",
+      "size": "720676",
+      "source": "folder_S11"
+    }
+  ]
+}
