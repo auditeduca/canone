@@ -27,6 +27,12 @@ class DomainConversionTest(unittest.TestCase):
         self.assertEqual(json.loads((ROOT/mod.OUT_MANIFEST).read_text()),self.manifest)
         self.assertEqual(mod.sha(self.sql.encode()),self.manifest['generated_sql_sha256'])
 
+    def test_enum_dependencies_generated_before_tables(self):
+        self.assertEqual(self.manifest['generated_enum_type_count'],3)
+        expected={'canone_learning.review_grade','canone_learning.review_basis','canone_learning.session_kind'}
+        self.assertEqual({x['target'] for x in self.manifest['generated_enum_types']},expected)
+        self.assertLess(self.sql.index('CREATE TYPE canone_learning.session_kind'),self.sql.index('CREATE TABLE canone_learning.session'))
+
     def test_no_custom_auth_credential_tables(self):
         self.assertNotRegex(self.sql,r'(?i)\bCREATE\s+TABLE\s+(?:canone_)?identity\.(?:account|session|magic_link)\b')
         self.assertEqual(len(re.findall(r'(?im)^CREATE TABLE canone_\w+\.\w+',self.sql)),82)

@@ -18,10 +18,11 @@ O piloto de identidade também adiciona duas tabelas novas (`private_profile`, `
 ## Transformação concreta
 
 1. Projeta cada referência qualificada `identity.*`, `learning.*`, etc. no respectivo schema `canone_*` definido no manifesto. O parser separa sentenças em Python, respeitando strings, comentários e corpos `$tag$ ... $tag$` — não faz substituição global em texto normativo.
-2. Transforma as FKs inline `REFERENCES identity.account(id)` em `REFERENCES auth.users(id)`, preservando tipo UUID e cascatas do S22. Foram identificadas **38 referências a Auth dentro das 82 tabelas geradas**; as restantes do total de 43 do inventário S22 encontram-se em tabelas substituídas pelo piloto gerenciado.
-3. Não reintroduz armazenamento de senha, token de login ou sessão de autenticação.
-4. Cria namespaces Cânone próprios e inclui verificações contra execução no Supabase compartilhado (`canone_control.migration_catalog`) e pré-requisitos `auth.users`/piloto.
-5. Aplica **RLS habilitada e forçada** e revoga `PUBLIC`, `anon` e `authenticated` para as 82 tabelas. **Não cria políticas, grants, funções de privilégio ou interfaces públicas.** Esta estratégia é deliberadamente *deny by default* para prevenir exposição de gabaritos e dados de alunos.
+2. Converte também **3 tipos ENUM** usados pelo modelo de aprendizagem (`review_grade`, `review_basis` e `session_kind`), criando-os antes das tabelas que os referenciam.
+3. Transforma as FKs inline `REFERENCES identity.account(id)` em `REFERENCES auth.users(id)`, preservando tipo UUID e cascatas do S22. Foram identificadas **38 referências a Auth dentro das 82 tabelas geradas**; as restantes do total de 43 do inventário S22 encontram-se em tabelas substituídas pelo piloto gerenciado.
+4. Não reintroduz armazenamento de senha, token de login ou sessão de autenticação.
+5. Cria namespaces Cânone próprios e inclui verificações contra execução no Supabase compartilhado (`canone_control.migration_catalog`) e pré-requisitos `auth.users`/piloto.
+6. Aplica **RLS habilitada e forçada** e revoga `PUBLIC`, `anon` e `authenticated` para as 82 tabelas. **Não cria políticas, grants, funções de privilégio ou interfaces públicas.** Esta estratégia é deliberadamente *deny by default* para prevenir exposição de gabaritos e dados de alunos.
 
 ## Verificação e reprodutibilidade
 

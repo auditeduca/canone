@@ -36,6 +36,15 @@ REVOKE ALL ON SCHEMA canone_bridge FROM PUBLIC;
 CREATE SCHEMA IF NOT EXISTS canone_control;
 REVOKE ALL ON SCHEMA canone_control FROM PUBLIC;
 
+-- Source: 007_learning_srs.sql learning.review_grade => canone_learning.review_grade
+CREATE TYPE canone_learning.review_grade AS ENUM ('facil','esforco','errei','naosei');
+
+-- Source: 007_learning_srs.sql learning.review_basis => canone_learning.review_basis
+CREATE TYPE canone_learning.review_basis AS ENUM ('sistema','autodeclarado');
+
+-- Source: 007_learning_srs.sql learning.session_kind => canone_learning.session_kind
+CREATE TYPE canone_learning.session_kind AS ENUM ('flashcard','simulado','pratica','duelo','revisao');
+
 -- Source: 002_identity_lgpd.sql:113 identity.data_request => canone_identity.data_request
 CREATE TABLE canone_identity.data_request (
   id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),

@@ -29,6 +29,7 @@ PILOT_OWNED = {
     'identity.consent_purpose', 'identity.consent',
 }
 TABLE_START = re.compile(r'^\s*CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?([a-z_][\w]*)\.([a-z_][\w]*)\s*\(', re.I | re.S)
+TYPE_START = re.compile(r'^\s*CREATE\s+TYPE\s+([a-z_][\w]*)\.([a-z_][\w]*)\s+AS\s+ENUM\s*\(', re.I | re.S)
 SCHEMA_REF = re.compile(r'(?<![\w"])(identity|editorial|taxonomy|norms|learning|commerce|admin|ops|audit|public|subscriber|evidence|bridge|control)(\s*)\.', re.I)
 LEGACY_AUTH_FK = re.compile(r'(?i)\bREFERENCES\s+identity\s*\.\s*account\s*\(\s*id\s*\)')
 
@@ -139,7 +140,7 @@ def build(root:Path)->tuple[str,dict]:
     pilot=(root/PILOT).read_bytes()
     if 'CREATE TABLE canone_identity.user_profile' not in pilot.decode('utf8'):
         raise ValueError('pilot identity not present')
-    candidates=[]; originals=[]; ordered=[]; ignored=[]; source_references=0
+    candidates=[]; originals=[]; ordered=[]; ignored=[]; enum_types=[]; source_references=0
     for i,file in enumerate(src_manifest['original_migrations'],1):
         filename=file['file'];raw=(root/SOURCE/filename).read_bytes()
         if sha(raw)!=file['sha256'] or not filename.startswith(f'{i:03d}_'):
@@ -174,6 +175,13 @@ def build(root:Path)->tuple[str,dict]:
                 candidates.append((legacy,dest,filename,line,remapped))
                 source_references+=len(re.findall(r'(?i)REFERENCES\s+auth\.users\s*\(',remapped))
                 ordered.append({'source':legacy,'target':dest,'strategy':'generated_candidate','migration':filename,'line':line,'ddl_sha256':sha(remapped.encode())})
+            elif (type_match:=TYPE_START.match(sql)):
+                schema,enum=type_match.group(1),type_match.group(2)
+                if schema not in names:raise ValueError('unknown enum schema '+schema)
+                if not sql.rstrip().endswith(';'):raise ValueError('Incomplete type statement '+enum)
+                rendered=rewrite_identifiers(sql,names)
+                enum_types.append({'source':schema+'.'+enum,'target':names[schema]+'.'+enum,
+                    'migration':filename,'line':line,'sql':rendered})
             else:
                 # Preserve a review inventory per non-table SQL command: none silently disappear.
                 if re.match(r'(?is)^\s*(CREATE|ALTER|DROP|GRANT|REVOKE|INSERT|UPDATE|DELETE|COMMENT|DO|SET)\b',sql):
@@ -182,6 +190,8 @@ def build(root:Path)->tuple[str,dict]:
         ignored.append({'migration':filename,'other_statements_by_prefix':other_types,
                         'other_statement_count':sum(other_types.values()),
                         'conversion_scope':'table_definitions_only; see sequel phases'})
+    if len(enum_types)!=3 or len({x['target'] for x in enum_types})!=3:
+        raise ValueError('PostgreSQL enum inventory drift; expected 3')
     if len(ordered)!=90 or len(candidates)!=82:
         raise ValueError(f'Table accounting drift: counted {len(ordered)}, generated {len(candidates)} (expected 90/82)')
     if len(set(x[0] for x in candidates))!=82:raise ValueError('Duplicate generated table')
@@ -201,6 +211,11 @@ def build(root:Path)->tuple[str,dict]:
     ]
     for schema in names.values():
         header.extend([f'CREATE SCHEMA IF NOT EXISTS {schema};',f'REVOKE ALL ON SCHEMA {schema} FROM PUBLIC;'])
+    # Type dependencies must exist before dependent tables. Only audited ENUM
+    # definitions are emitted, never arbitrary procedural SQL or extensions.
+    enum_blocks=[]
+    for obj in enum_types:
+        enum_blocks.append('-- Source: '+obj['migration']+' '+obj['source']+' => '+obj['target']+'\n'+obj['sql'].strip()+'\n')
     blocks=[]
     for old,dest,filename,line,sql in candidates:
         blocks.append(f'-- Source: {filename}:{line} {old} => {dest}\n'+sql.strip()+'\n')
@@ -210,10 +225,12 @@ def build(root:Path)->tuple[str,dict]:
                       f'ALTER TABLE {dest} ENABLE ROW LEVEL SECURITY;',
                       f'ALTER TABLE {dest} FORCE ROW LEVEL SECURITY;'])
     footer+=['COMMIT;','']
-    code='\n'.join(header)+'\n\n'+'\n'.join(blocks)+'\n'+'\n'.join(footer)
+    code='\n'.join(header)+'\n\n'+'\n'.join(enum_blocks)+'\n'+'\n'.join(blocks)+'\n'+'\n'.join(footer)
     manifest={'version':VERSION,'status':'CANDIDATE_TABLE_DDL_NOT_FULL_MIGRATION','source_migrations':originals,
         'crosswalk_version':crosswalk['version'],'table_total':90,'managed_auth_tables':3,
         'pilot_owned_existing_tables':5,'generated_table_count':len(candidates),
+        'generated_enum_type_count':len(enum_types),
+        'generated_enum_types':[{k:v for k,v in obj.items() if k!='sql'} for obj in enum_types],
         'canonical_domain_tables_accounted':87,'pilot_additional_tables':2,
         'auth_fk_in_generated_statements':source_references,
         'generated_sql_sha256':sha(code.encode()),
@@ -237,7 +254,7 @@ def main(argv=None):
             if args.write:
                 path.parent.mkdir(parents=True,exist_ok=True);path.write_text(content,encoding='utf-8')
             elif not path.exists() or path.read_text(encoding='utf-8')!=content:raise ValueError('Generated drift '+str(relative))
-        print(json.dumps({'status':'PASS_CANONE_CONVERSION_DDL','source_tables':90,'generated_tables':82,'pilot_owned':5,'auth_managed':3,'auth_fk_in_generated':manifest['auth_fk_in_generated_statements'],'mode':'WRITE' if args.write else 'CHECK','remote_db_unchanged':True},ensure_ascii=False))
+        print(json.dumps({'status':'PASS_CANONE_CONVERSION_DDL','source_tables':90,'generated_tables':82,'pilot_owned':5,'auth_managed':3,'auth_fk_in_generated':manifest['auth_fk_in_generated_statements'],'enum_types':manifest['generated_enum_type_count'],'mode':'WRITE' if args.write else 'CHECK','remote_db_unchanged':True},ensure_ascii=False))
         return 0
     except Exception as e:
         print('CANONE_CONVERSION_FAIL:',str(e),file=sys.stderr);return 6

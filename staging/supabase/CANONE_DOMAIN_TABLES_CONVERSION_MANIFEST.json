@@ -724,7 +724,28 @@
       "target": "canone_learning.exam_attempt_answer"
     }
   ],
-  "generated_sql_sha256": "004283fae182f9a1541d4af8d2fe30a99ce256bd5bbe1da2ea2933454f23ab33",
+  "generated_enum_type_count": 3,
+  "generated_enum_types": [
+    {
+      "line": 1,
+      "migration": "007_learning_srs.sql",
+      "source": "learning.review_grade",
+      "target": "canone_learning.review_grade"
+    },
+    {
+      "line": 29,
+      "migration": "007_learning_srs.sql",
+      "source": "learning.review_basis",
+      "target": "canone_learning.review_basis"
+    },
+    {
+      "line": 30,
+      "migration": "007_learning_srs.sql",
+      "source": "learning.session_kind",
+      "target": "canone_learning.session_kind"
+    }
+  ],
+  "generated_sql_sha256": "4c684e4733bacb79dd4bcb12e8c9ca85cbf78cccf5cc2939f6ec69ebac682974",
   "generated_table_count": 82,
   "managed_auth_tables": 3,
   "not_converted": [
@@ -816,7 +837,7 @@
     {
       "conversion_scope": "table_definitions_only; see sequel phases",
       "migration": "007_learning_srs.sql",
-      "other_statement_count": 16,
+      "other_statement_count": 13,
       "other_statements_by_prefix": {
         "CREATE INDEX IX_NOTE_USER": 1,
         "CREATE INDEX IX_OFFLINE_PACK_USER": 1,
@@ -830,8 +851,7 @@
         "CREATE INDEX IX_USER_ITEM_FRAGILE": 1,
         "CREATE INDEX IX_USER_ITEM_NEW": 1,
         "CREATE OR REPLACE": 1,
-        "CREATE TRIGGER TRG_REVIEW_EVENT_IMMUTABLE": 1,
-        "CREATE TYPE LEARNING": 3
+        "CREATE TRIGGER TRG_REVIEW_EVENT_IMMUTABLE": 1
       }
     },
     {
