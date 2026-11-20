@@ -12,3 +12,7 @@ A origem S22 já possui tabelas `exam_form`, `exam_form_item`, `exam_attempt`, `
 A próxima etapa React deve comparar `formId` com catálogo permitido, reconstruir estado após reload e exibir histórico. O texto/alternativas continuam como fixture local para o CI; catalogação editorial autorizada é um gate independente. `NO_GO` para publicação.
 
 Fontes: `source-s22/backend/src/areas/public/catalogo.ts`, `source-s22/backend/src/areas/subscriber/progresso.ts`, migrations 006, 018 e 019, alpha.8 e alpha.9.
+
+## Testes de ponta a ponta
+
+O job PG17 após alpha9 aplicará a candidata 011 apenas no contêiner efêmero, vetará EXECUTE de `authenticated` e realizará a jornada React real com recarregamento, listagem de tentativas do próprio aluno, recuperação do ID em sessão autenticada, respostas restantes e finalização. Negativas para B/usuário não autorizado e proteção do gabarito permanecem. Resultados só serão declarados após CI.

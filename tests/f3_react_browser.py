@@ -43,7 +43,22 @@ def stub_api(page,denied=False):
         assert "userId" not in body and "correct_option" not in json.dumps(body)
         state["calls"].append(path)
         code=200
-        if denied and path=="start":code,payload=403,{"ok":False,"error":"FEATURE_NOT_AUTHORIZED"}
+        if path=="catalog":
+            payload={"ok":True,"data":{"rows":[{"form_id":FORM,"form_label":"Formulário de teste",
+              "question_count":2}]}}
+        elif path=="history":
+            payload={"ok":True,"data":{"rows":[{
+              "attempt_id":ATTEMPT,"form_id":FORM,"status":"concluida" if state["finished"] else "em_andamento",
+              "started_at":"2026-11-20T08:00:00Z","finished_at":"2026-11-20T08:04:00Z" if state["finished"] else None,
+              "answered_count":len(state["answers"]),
+              "correct_count":2 if state["finished"] else None,"question_count":2}] if state["calls"].count("start") else []}}
+        elif path=="resume":
+            payload={"ok":True,"data":{"attempt_id":ATTEMPT,"form_id":FORM,
+              "status":"concluida" if state["finished"] else "em_andamento",
+              "started_at":"2026-11-20T08:00:00Z","finished_at":None,
+              "answered_count":len(state["answers"]),"question_count":2,
+              "answers":[{"ordinal":k,"option":v} for k,v in sorted(state["answers"].items())]}}
+        elif denied and path=="start":code,payload=403,{"ok":False,"error":"FEATURE_NOT_AUTHORIZED"}
         elif path=="start":payload={"ok":True,"data":{"id":ATTEMPT}}
         elif path=="answer":
             assert not state["finished"]
@@ -94,7 +109,7 @@ try:
         page.get_by_role("button",name="B Alternativa B").click()
         page.get_by_role("button",name="Registrar resposta").click()
         expect(page.get_by_role("button",name="Concluir tentativa")).to_be_visible()
-        assert state["calls"]==["start","answer","answer"]
+        assert state["calls"]==["catalog","start","answer","answer"]
         page.get_by_role("button",name="Concluir tentativa").click()
         expect(page.get_by_role("button",name="Consultar gabarito posterior")).to_be_visible()
         assert "reveal" not in state["calls"]
@@ -102,11 +117,16 @@ try:
         expect(page.get_by_role("heading",name="Correção posterior · 2/2")).to_be_visible()
         page.get_by_role("button",name="Registrar revisão SRS").first.click()
         expect(page.get_by_role("button",name="Revisão registrada")).to_be_visible()
-        assert state["calls"]==["start","answer","answer","finish","reveal","review"]
+        assert state["calls"]==["catalog","start","answer","answer","finish","reveal","review"]
         assert len(state["reviews"])==1
         assert page.evaluate("localStorage.length+sessionStorage.length")==0
         page.reload(wait_until="networkidle")
         expect(page.get_by_role("button",name="Carregar formulário de teste")).to_be_visible()
+        page.get_by_role("button",name="Carregar formulário de teste").click()
+        page.get_by_role("button",name="Consultar histórico").click()
+        expect(page.get_by_role("button",name="Consultar tentativa")).to_be_visible()
+        page.get_by_role("button",name="Consultar tentativa").click()
+        expect(page.get_by_role("button",name="Consultar gabarito posterior")).to_be_visible()
         # Refuse an invalid subscription without changing UI to active.
         denied=browser.new_page(viewport={"width":1200,"height":800})
         denied.add_init_script(RUNTIME)
@@ -115,7 +135,7 @@ try:
         denied.get_by_role("button",name="Carregar formulário de teste").click()
         denied.get_by_role("button",name="Iniciar tentativa no gateway").click()
         expect(denied.get_by_role("alert")).to_contain_text("autorização")
-        assert refused["calls"]==["start"]
+        assert refused["calls"]==["catalog","start"]
         assert not denied.get_by_role("button",name="Registrar resposta").count()
         mobile=browser.new_page(viewport={"width":390,"height":844},is_mobile=True,has_touch=True)
         mobile.add_init_script(RUNTIME)

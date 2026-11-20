@@ -42,7 +42,7 @@ try:
   page.get_by_role("button",name="Carregar formulário de teste").click()
   page.get_by_role("button",name="Iniciar tentativa no gateway").click()
   expect(page.get_by_text("Questão fictícia contábil um")).to_be_visible()
-  assert observed==["start"],observed
+  assert observed==["catalog","start"],observed
   # Additional test attempt allows IDOR and early-key negative without exposing main UI ID.
   negatives=page.evaluate("""async({peer,unlicensed})=>{
     const post=async (route,token,body)=>{
@@ -68,6 +68,14 @@ try:
   page.get_by_role("button",name="A Opção A sintética").click()
   page.get_by_role("button",name="Registrar resposta").click()
   expect(page.get_by_text("Questão fictícia contábil dois")).to_be_visible()
+  # Full browser reload, no localStorage or stored token/attempt ID. PG17 must restore response.
+  page.reload(wait_until="networkidle")
+  page.get_by_role("button",name="Carregar formulário de teste").click()
+  page.get_by_role("button",name="Consultar histórico").click()
+  expect(page.get_by_role("button",name="Retomar tentativa")).to_be_visible()
+  page.get_by_role("button",name="Retomar tentativa").click()
+  expect(page.get_by_text("Questão fictícia contábil dois")).to_be_visible()
+  assert "Gabarito retornado pelo servidor:" not in page.locator("main").inner_text()
   page.get_by_role("button",name="B Opção B sintética").click()
   page.get_by_role("button",name="Registrar resposta").click()
   expect(page.get_by_role("button",name="Concluir tentativa")).to_be_visible()
@@ -78,9 +86,9 @@ try:
   page.get_by_role("button",name="Registrar revisão SRS").first.click()
   expect(page.get_by_role("button",name="Revisão registrada")).to_be_visible()
   assert page.evaluate("localStorage.length+sessionStorage.length")==0
-  assert all(x in observed for x in ("start","answer","finish","reveal","review")),observed
+  assert all(x in observed for x in ("catalog","history","resume","start","answer","finish","reveal","review")),observed
   browser.close()
-  print("PASS F3: Chromium -> React S22 -> real gateway -> ephemeral PG17; IDOR denied; early key denied; real SRS")
+  print("PASS F3-REC05: reload->history->owner resume->answer->finish->reveal->SRS real PG17; no early key")
 finally:
  proc.terminate()
  try:proc.wait(timeout=8)

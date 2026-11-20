@@ -106,6 +106,8 @@ jobs:
       - name: NS-04 student controller — synthetic UI state and same-origin gateway contract
         shell: bash
         run: node --test tests/ns04_student_frontend.test.mjs
+      - name: F3-REC05 owner-only reading and no-key gateway contracts
+        run: node --test tests/f3_student_read_gateway.test.mjs
       - name: F3 React API contract security tests (no network database)
         run: node --experimental-strip-types --test tests/f3_react_gateway_contract.test.mjs
       - name: F3 validate historical frontend crosswalk and source integrity
