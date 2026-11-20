@@ -3,7 +3,7 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from functools import partial
 from pathlib import Path
 import threading
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, expect
 
 ROOT = Path(__file__).resolve().parents[1]
 class QuietHandler(SimpleHTTPRequestHandler):
@@ -27,20 +27,20 @@ try:
         assert not desktop.locator('#reveal-button').is_visible()
         desktop.locator('input[name="choice"][value="B"]').check()
         desktop.get_by_role('button',name='Salvar resposta').click()
-        assert desktop.locator('#exam-count').inner_text()=='1 de 2'
+        expect(desktop.locator('#exam-count')).to_have_text('1 de 2')
         desktop.locator('input[name="choice"][value="C"]').check()
         desktop.get_by_role('button',name='Salvar resposta').click()
-        assert desktop.locator('#exam-count').inner_text()=='2 de 2'
+        expect(desktop.locator('#exam-count')).to_have_text('2 de 2')
         assert not desktop.locator('#reveal-button').is_visible()
         desktop.get_by_role('button',name='Concluir tentativa').click()
-        assert desktop.get_by_role('button',name='Ver correção').is_visible()
+        expect(desktop.get_by_role('button',name='Ver correção')).to_be_visible()
         assert desktop.locator('#metric-score').inner_text()=='—'
         desktop.get_by_role('button',name='Ver correção').click()
-        assert desktop.locator('#metric-score').inner_text()=='2/2'
+        expect(desktop.locator('#metric-score')).to_have_text('2/2')
         desktop.locator('[data-nav="review"]').click()
         assert desktop.locator('.review-card').count()==2
         desktop.locator('.review-card').first.get_by_role('button',name='Registrar revisão SRS').click()
-        assert desktop.locator('#metric-reviews').inner_text()=='1'
+        expect(desktop.locator('#metric-reviews')).to_have_text('1')
         assert desktop.locator('.review-card').first.get_by_role('button',name='Revisão registrada').is_disabled()
         # No token in address/local storage; 100% synthetic local fixture.
         assert desktop.evaluate("Object.keys(localStorage).length")==0

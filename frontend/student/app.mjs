@@ -39,7 +39,7 @@ function renderQuestion() {
     if(unanswered===-1) {
       $('exam-step').textContent='Respostas registradas';
       area.append(el('h2',null,'Você respondeu às duas questões.'),el('p',null,'Conclua a tentativa para habilitar a correção.'));
-      $('finish-button').hidden=false;return;
+      $('finish-button').hidden=false;progress();return;
     }
     const q=QUESTIONS[current];$('exam-step').textContent='Questão '+(current+1);
     area.append(el('p','question-subject',q.subject),el('h2','question-title',q.title),el('p','question-prompt',q.prompt));
