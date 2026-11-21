@@ -25,6 +25,6 @@ A suíte `tests/f1_ns01_srs_gateway.test.mjs` cobre contrato de entrada/saída, 
 - `PASS_F1_NS01_SRS_DUE_CANDIDATE`: dois usuários isolados, navegador sem `EXECUTE`, benefício revogado e limite validado;
 - `PASS_F1_NS01_SRS_REAL_HTTP`: token verificado no gateway sintético, campos estritos, nenhum `userId` recebido no corpo, ausência de gabarito e bloqueio de usuário não licenciado.
 
-Os testes executaram `alpha12` apenas no servidor local de CI. O código `alpha11` e as candidatas SQL 001–010 permanecem preservados. Evidência estruturada: [F1 NS01 SRS CI](../evidences/CANONE_F1_NS01_SRS_PG17_HTTP_20261120.json).
+Os testes executaram `alpha12` apenas no servidor local de CI. O código `alpha11` e as candidatas SQL 001–010 permanecem preservados. Evidência estruturada: [F1 NS01 SRS CI](evidences/CANONE_F1_NS01_SRS_PG17_HTTP_20261120.json).
 
 **Sem fechamento formal:** a paridade de `learning.due_items` e `subscriber.v_my_due` não está comprovada em todas as semânticas e dependências; o contador NS01 permanece **0/182 fechado**. O protótipo não está pronto para produção.
