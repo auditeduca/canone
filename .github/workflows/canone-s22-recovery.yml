@@ -102,6 +102,8 @@ jobs:
         run: |
           python3 tools/ns01_closure_queue.py
           python3 -m unittest discover -s tests -p 'test_ns01_closure_queue.py' -v
+      - name: F1 NS01 SRS due private contract static tests
+        run: python3 -m unittest discover -s tests -p 'test_f1_ns01_due_contract.py' -v
       - name: NS-02 local synthetic identity — real HTTP path, forged JWT and cross-user negatives
         shell: bash
         env:
@@ -265,6 +267,12 @@ jobs:
           CANONE_CI_PG17_ONLY: "yes"
           CANONE_CI_PG17_CONTAINER: ${{ job.services.pg17.id }}
         run: bash tests/pg17_alpha9_entitlement.sh
+      - name: F1 NS01 private SRS due candidate and owner isolation in PG17
+        shell: bash
+        env:
+          CANONE_CI_PG17_ONLY: "yes"
+          CANONE_CI_PG17_CONTAINER: ${{ job.services.pg17.id }}
+        run: bash tests/pg17_f1_ns01_due.sh
       - name: NS-03 HTTP gateway to real PostgreSQL 17 (synthetic Auth only)
         shell: bash
         env:
