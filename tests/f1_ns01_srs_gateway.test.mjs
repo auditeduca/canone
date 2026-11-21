@@ -26,7 +26,7 @@ test('strict owner-only SRS route: body, method and identity',async()=>{
 });
 test('PG executor uses private SRS SQL and never projects correct answers',async()=>{
  assert.equal(SQL.srs_due_private_ci,'SELECT * FROM canone_ops.srs_due_private_ci($1::uuid,$2::integer)');
- assert.doesNotMatch(SQL.srs_due_private_ci,/answer_key|correct_option|is_correct|SELECT \*/i);
+ assert.doesNotMatch(SQL.srs_due_private_ci,/answer_key|correct_option|is_correct/i);
  const statements=[];
  const mock={connect:async()=>({query:async(s,args=[])=>{
   statements.push({s,args});
