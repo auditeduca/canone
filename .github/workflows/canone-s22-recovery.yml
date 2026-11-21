@@ -102,6 +102,8 @@ jobs:
         run: |
           python3 tools/ns01_closure_queue.py
           python3 -m unittest discover -s tests -p 'test_ns01_closure_queue.py' -v
+      - name: F1 NS01 private SRS due HTTP gateway contract and field validation
+        run: node --test tests/f1_ns01_srs_gateway.test.mjs
       - name: F1 NS01 SRS due private contract static tests
         run: python3 -m unittest discover -s tests -p 'test_f1_ns01_due_contract.py' -v
       - name: NS-02 local synthetic identity — real HTTP path, forged JWT and cross-user negatives

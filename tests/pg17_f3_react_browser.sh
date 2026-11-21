@@ -55,6 +55,7 @@ for i in $(seq 1 60); do
   sleep .2
 done
 [[ -s "$CANONE_CI_P0_TOKEN_FILE" ]] || { echo FAIL_SERVER_NOT_READY;exit 1; }
+node tests/f1_ns01_srs_http_pg17.mjs
 /tmp/canone-f3-py/bin/python tests/f3_pg17_real_browser.py
 # Kill and recreate the gateway process (in-memory HMAC keys rotate), retaining PG17.
 old_token_hash="$(sha256sum "$CANONE_CI_P0_TOKEN_FILE" | cut -d' ' -f1)"
