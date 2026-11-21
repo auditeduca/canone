@@ -17,3 +17,14 @@ F8 Supabase por último; nenhum banco remoto alterado.
 A versão isolada `gateway/alpha12-core.mjs` preserva `alpha11` e adiciona `POST /api/v1/srs/due`, com payload **exato** `{subjectId: uuid|null, limit: 1..100}`. A verificação do Bearer ocorre no servidor, com usuário autenticado por componente de Auth do teste; `makePgExecutor` define o sujeito numa transação local, comprova benefício e chama a função privada. Não recebe `userId` do navegador nem retorna chaves de respostas.
 
 A suíte `tests/f1_ns01_srs_gateway.test.mjs` cobre contrato de entrada/saída, formato, campos extras, limites, método e autorização. O teste integrado `tests/f1_ns01_srs_http_pg17.mjs` envia requisições HTTP ao gateway alpha12 somente no PG17 efêmero, incluindo usuário licenciado, usuário sem licença e ausência de Bearer. São **Auth e direitos sintéticos**, não homologação produtiva. `subscriber.v_my_due` e sua semântica continuam pendentes de revisão independente; código não foi colocado no app produtivo.
+
+## Resultado final do lote — CI PASS
+
+[GitHub Actions #44851592111](https://github.com/auditeduca/canone/actions/runs/44851592111) concluiu **4/4 jobs PASS** sobre o commit `bb0249664283`. O job PostgreSQL 17 registrou:
+
+- `PASS_F1_NS01_SRS_DUE_CANDIDATE`: dois usuários isolados, navegador sem `EXECUTE`, benefício revogado e limite validado;
+- `PASS_F1_NS01_SRS_REAL_HTTP`: token verificado no gateway sintético, campos estritos, nenhum `userId` recebido no corpo, ausência de gabarito e bloqueio de usuário não licenciado.
+
+Os testes executaram `alpha12` apenas no servidor local de CI. O código `alpha11` e as candidatas SQL 001–010 permanecem preservados. Evidência estruturada: [F1 NS01 SRS CI](../evidences/CANONE_F1_NS01_SRS_PG17_HTTP_20261120.json).
+
+**Sem fechamento formal:** a paridade de `learning.due_items` e `subscriber.v_my_due` não está comprovada em todas as semânticas e dependências; o contador NS01 permanece **0/182 fechado**. O protótipo não está pronto para produção.

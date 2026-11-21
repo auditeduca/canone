@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "project": "Canone",
+  "date_local": "2026-11-20",
+  "milestone": "F1_NS01_SRS_DUE_CONTRACT_TESTED_ONLY",
+  "status": "CI_PASS_NO_GO",
+  "validated_commit": "bb024966428373e6058bedf534f61941e97d9680",
+  "ci_run": 44851592111,
+  "url": "https://github.com/auditeduca/canone/actions/runs/44851592111",
+  "job_id": 136684040118,
+  "ci_jobs": {
+    "source_hashes_offline": "success",
+    "react_historical": "success",
+    "chromium_local": "success",
+    "pg17_real_e2e": "success"
+  },
+  "runtime_proofs": [
+    "PASS_F1_NS01_SRS_DUE_CANDIDATE two_users=isolated browser=denied entitlement=revoked limit=bounded",
+    "PASS_F1_NS01_SRS_REAL_HTTP no_userid_in_request=1 no_answers=1 unlicensed_denied=1"
+  ],
+  "objects_impacted": [
+    {
+      "source": "learning.due_items",
+      "source_migration": "012_srs_engine.sql",
+      "status": "CANDIDATE_BEHAVIOR_TESTED_CI_ONLY",
+      "closure": "OPEN_EVIDENCE_REQUIRED"
+    },
+    {
+      "source": "subscriber.v_my_due",
+      "source_migration": "013_views.sql",
+      "status": "DEFERRED_DEPENDENCY_PRIVATE_REPLACEMENT_CANDIDATE_TESTED",
+      "closure": "OPEN_EVIDENCE_REQUIRED"
+    },
+    {
+      "source": "admin.v_user_overview",
+      "source_migration": "013_views.sql",
+      "status": "DEFERRED_AUTH_DEPENDENCY_UNCHANGED",
+      "closure": "OPEN_EVIDENCE_REQUIRED"
+    }
+  ],
+  "implementation": {
+    "sql_fixture": "tests/sql/f1_ns01_due_private_ephemeral.sql",
+    "runtime_sql_tests": "tests/sql/f1_ns01_due_owner_tests_ephemeral.sql",
+    "service_gateway": "gateway/alpha12-core.mjs",
+    "http_test": "tests/f1_ns01_srs_http_pg17.mjs",
+    "unit_test": "tests/f1_ns01_srs_gateway.test.mjs",
+    "production_migration_created": false,
+    "production_frontend_enabled": false
+  },
+  "inventory_state": {
+    "declarations": 182,
+    "tracked": 182,
+    "formally_closed": 0,
+    "priority_P0": 118,
+    "priority_P1": 34,
+    "priority_P2": 30
+  },
+  "safety": {
+    "auth": "SYNTHETIC_ONLY",
+    "managed_supabase_writes": 0,
+    "no_answer_key": true,
+    "client_db_execute_denied": true,
+    "rights_released": false,
+    "production": "NO_GO"
+  },
+  "blockers": [
+    "Legacy due_items accepts explicit arbitrary user; new contract uses verified actor and entitlement",
+    "Independent security and semantic review absent",
+    "No production Auth and application API rollout",
+    "Only two-user synthetic PG17 coverage; load, accessibility and real JWT remain untested"
+  ]
+}
